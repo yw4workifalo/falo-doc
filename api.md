@@ -47,6 +47,8 @@
         * 新增Hash驗證
         * 新增Json回傳格式
     * 修改[設定玩家是否啟用遊戲](#set-activation) Hash組合
+12. 2016-09-26
+    * 修改[JP核銷](#jp-vertification) Hash組合
 
 ## 登入流程
 1. 玩家透過平台登入
@@ -75,6 +77,7 @@
 | 10        | service not available   | 無法使用遊戲服務       |
 | 11        | user chips not enough   | 玩家籌碼不足       |
 | 12        | \{parameter\} is invalid   | 參數不合法       |
+| 13        | log not found   | 無法查詢到紀錄       |
 
 ## API
 1. ### <span id="register">註冊帳號 </span>
@@ -774,7 +777,7 @@
     |verified_at| 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-       **hash = md5(account + start_at + end_at + secret)**
+       **hash = md5(account + jp_id + verified_at + secret)**
 
     ##### 回傳結果
     

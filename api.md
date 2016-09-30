@@ -42,13 +42,15 @@
     * 新增[JP核銷](#jp-vertification)
 11. 2016-08-29
     * 修改[登入](#login) 增加source, redirect_url參數
-    * 修改[玩家離線通知](#offline_notification) 
+    * 修改[玩家離線通知](#offline_notification)
         * 修改參數說明
         * 新增Hash驗證
         * 新增Json回傳格式
     * 修改[設定玩家是否啟用遊戲](#set-activation) Hash組合
 12. 2016-09-26
     * 修改[JP核銷](#jp-vertification) Hash組合
+
+
 
 ## 登入流程
 1. 玩家透過平台登入
@@ -78,6 +80,7 @@
 | 11        | user chips not enough   | 玩家籌碼不足       |
 | 12        | \{parameter\} is invalid   | 參數不合法       |
 | 13        | log not found   | 無法查詢到紀錄       |
+| 14        | nicknames should mapping accounts   | 參數 nickname 與 accounts 需相對應    |
 
 ## API
 1. ### <span id="register">註冊帳號 </span>
@@ -86,11 +89,11 @@
     POST /api/user/register?
         key=<key>&
         account=<account>&
-        name=<nane>&
+        name=<name>&
         agent_name=<agent_name>&
         hash=<hash>
     ```
-    
+
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -100,7 +103,7 @@
     |   name   | 玩家暱稱 |  string  |     必填    |
     |agent_name| 代理名稱 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + name + secret)**
 
     ##### 回傳結果
@@ -122,7 +125,7 @@
         account=<account>&
         hash=<hash>
     ```
-    
+
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -191,7 +194,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + secret)**
 
     ##### 回傳結果
@@ -243,7 +246,7 @@
     ```
 
 6. ### <spin id="offline_notification">玩家離線通知</spin>
-    
+
     玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
     ```
     id=<id>&                            //紀錄id (int)
@@ -289,7 +292,7 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  chips   | 增加的籌碼 |  int  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + chips + secret)**
 
     ##### 回傳結果
@@ -305,7 +308,7 @@
     ```
 
 8. ### <spin id="kick">踢玩家</spin>
-    
+
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
     ```
     DELETE /api/slot/user/kick?
@@ -323,7 +326,7 @@
     |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   |
     |  reason  | 剔除原因 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + reason + secret)**
 
     ##### 回傳結果
@@ -340,7 +343,7 @@
     ```
 
 9. ### <span id="lose-limit">限輸</span>
-    
+
     設定玩家限輸
 
     ```
@@ -359,7 +362,7 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  limit   | 限制金額 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account+limit+secret)**
 
     ##### 回傳結果
@@ -375,7 +378,7 @@
     ```
 
 10. ### <span id="win-limit">限贏</span>
-    
+
     設定玩家限贏
 
     ```
@@ -394,7 +397,7 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  limit   | 限制金額 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account+limit+secret)**
 
     ##### 回傳結果
@@ -427,7 +430,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account+secret)**
 
     ##### 回傳結果
@@ -462,7 +465,7 @@
     |  accounts| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
     |   status | 封鎖模式 |  enum    |     必填(normal,banned,locked, no_permission) <ul><li>`normal` 是無封鎖</li><li>`banned` 是停用</li><li>`locked`是鎖單</li><li>`no_permission`是無權限</li></ul>
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(accounts+status+secret)**
 
     ##### 回傳結果
@@ -493,7 +496,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(secret)**
 
     ##### 回傳結果
@@ -526,7 +529,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + secret)**
 
     ##### 回傳結果
@@ -559,7 +562,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  accounts| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(accounts + secret)**
 
     ##### 回傳結果
@@ -592,7 +595,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  accounts| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(accounts + secret)**
 
     ##### 回傳結果
@@ -601,7 +604,7 @@
     ```javascript
       {"status":"success","data":[{"account":"test-api01","activation":1}]}
     ```
-    
+
     失敗
 
     ```javascript
@@ -628,7 +631,7 @@
     |  accounts| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
     |activation| 驗證參數 |  int  	|     必填，0或1 |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(accounts + activation + secret )**
 
     ##### 回傳結果
@@ -637,7 +640,7 @@
     ```javascript
       {"status":"success","data":[{"account":"test-api01","activation":1}]}
     ```
-    
+
     失敗
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
@@ -666,7 +669,7 @@
     |start_at  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |end_at    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |   hash   | 驗證參數 |  string  |     必填    |
-    
+
     **hash = md5(account + start_at + end_at + secret)**
 
     ##### 回傳結果
@@ -674,7 +677,7 @@
     ```javascript
       "status":"success","data":[{"id":61,"machine_no":25,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:42:38"},{"id":62,"machine_no":35,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:45:19"},{"id":63,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:48:34"},{"id":64,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":1,"created_at":"2016-05-03 13:49:22"},{"id":65,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":40,"scatter":1,"created_at":"2016-05-03 13:49:26"},{"id":66,"machine_no":46,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:52:27"}]}
     ```
-    
+
     失敗
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
@@ -711,7 +714,7 @@
     ```javascript
       {"status":"success","data":{"total_bet":"540","win_chips":"40"}}
     ```
-    
+
     失敗
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
@@ -743,12 +746,12 @@
        **hash = md5(account + start_at + end_at + secret)**
 
     ##### 回傳結果
-    
+
     成功
     ```javascript
       {"status":"success","data":[{"id":6,"jackpot":8622,"created_at":"2016-05-30 15:06:13","paid_at":"2016-05-30 15:21:08","rate":0.15}]}
     ```
-    
+
     失敗
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
@@ -780,14 +783,13 @@
        **hash = md5(account + jp_id + verified_at + secret)**
 
     ##### 回傳結果
-    
+
     成功
     ```javascript
       {"status":"success","data":{"id":6,"jackpot":8622,"created_at":"2016-05-30 15:06:13","paid_at":"2016-06-01 11:34:18","rate":0.15}}
     ```
-    
+
     失敗
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
-    

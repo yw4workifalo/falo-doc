@@ -164,7 +164,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  account | 玩家帳號 |  string  |     必填    |
-    |  passowd | 玩家帳號 |  string  |     必填    |
+    |  passoword | 玩家帳號 |  string  |     必填    |
     |  source  | 登入識別 |  string  |     必填    |
     |  redirect_url | 登出或斷線重導向 | string | 選填 |
 

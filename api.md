@@ -1,54 +1,7 @@
 #　API 說明文件
 ## Change Log
-1. 2016-04-13
-    * 新增API
-        * [註冊帳號](#register)
-        * [取得玩家帳密](#auth)
-        * [查詢玩家](#user)
-        * [取得玩家遊戲紀錄](#logs)
-        * [玩家離線通知](#offline_notification)
-2. 2016-04-14
-    * 修復BUG
-        *  查詢玩家，查無玩家時會發生錯誤。
-        *  測試面板，API使用錯誤的 HTTP method 顯示的訊息讓人誤解。
-3. 2016-04-15
-    * 新增API
-        * [玩家加錢](#add_chips)
-        * [踢人](#kick)
-    * 修改
-        *  修改[踢人](#kick)API支援踢多人
-4. 2016-04-19
-    * 查詢玩家新增參數`status`
-5. 2016-04-22
-    * 新增[限輸](#lose-limit)
-    * 新增[限贏](#win-limit)
-    * 新增[限注回復](#limit-recover)
-    * 新增[玩家封鎖模式](#ban-mode)
-    * 新增[注單回補](#recover-logs)
-6. 2016-04-25
-    * 新增[限注查詢](#limit-query)
-7. 2016-04-29
-    * [玩家封鎖模式](#ban-mode) 新增 `no_permission`
-8. 2016-05-09
-	* 新增[查詢玩家封鎖模式](#get-ban-mode)
-	* 新增[查詢玩家是否啟用遊戲](#get-activation)
-	* 新增[設定玩家是否啟用遊戲](#set-activation)
-	* 新增`agent_name`到[註冊帳號](#register)
-9. 2016-05-25
-    * 新增[log查詢](#query-logs)
-    * 新增[玩家下注簡報查詢](#summary-logs)
-10. 2016-05-31
-    * 新增[JP紀錄查詢](#jp-logs)
-    * 新增[JP核銷](#jp-vertification)
-11. 2016-08-29
-    * 修改[登入](#login) 增加source, redirect_url參數
-    * 修改[玩家離線通知](#offline_notification)
-        * 修改參數說明
-        * 新增Hash驗證
-        * 新增Json回傳格式
-    * 修改[設定玩家是否啟用遊戲](#set-activation) Hash組合
-12. 2016-09-26
-    * 修改[JP核銷](#jp-vertification) Hash組合
+1. 2017-02-14
+    * 初版
 
 
 
@@ -120,7 +73,7 @@
 2. ### <span id="auth">取得玩家帳號密碼</span>
 
     ```
-    POST /api/slot/user/auth?
+    POST /api/poker/user/auth?
         key=<key>&
         account=<account>&
         hash=<hash>
@@ -140,7 +93,7 @@
     成功
 
     ```javascript
-     {"status":"success","data":{"id":7,"account":"test","name":"test","password":"570de762d3c35","loginUrl":"http://syte.app//api/slot/user/login"}}
+     {"status":"success","data":{"id":7,"account":"test","name":"test","password":"570de762d3c35","loginUrl":"http://syte.app//api/poker/user/login"}}
     ```
     失敗
 
@@ -152,7 +105,7 @@
     參數請使用經由[取得玩家帳密](#auth)取得的加密資料
 
     ```
-    GET /api/slot/user/login?
+    GET /api/poker/user/login?
         account=<account>&
         password=<password>＆
         source=<source>
@@ -181,7 +134,7 @@
 4. ### <span id="user">查詢玩家</span>
 
     ```
-    GET /api/slot/user?
+    GET /api/poker/user?
         key=<key>&
         account=<account>&
         hash=<hash>
@@ -213,7 +166,7 @@
 5. ### <span id="logs">取得玩家遊戲紀錄</span>
 
     ```
-    GET /api/slot/user/logs?
+    GET /api/poker/user/logs?
         key=<key>&
         account=<account>&
         start_at=<start_at>&
@@ -277,7 +230,7 @@
 7. ### <spin id="add_chips">玩家加錢</spin>
 
     ```
-    PUT /api/slot/user/chips/add?
+    PUT /api/poker/user/chips/add?
         key=<key>&
         account=<account>&
         chips=<chips>&
@@ -311,7 +264,7 @@
 
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
     ```
-    DELETE /api/slot/user/kick?
+    DELETE /api/poker/user/kick?
         key=<key>&
         accounts=<accounts>&
         reason=<reason>&
@@ -347,7 +300,7 @@
     設定玩家限輸
 
     ```
-    PUT /api/slot/user/limit/lose?
+    PUT /api/poker/user/limit/lose?
         key=<key>&
         account=<account>&
         limit=<limit>&
@@ -382,7 +335,7 @@
     設定玩家限贏
 
     ```
-    PUT /api/slot/user/limit/win?
+    PUT /api/poker/user/limit/win?
         key=<key>&
         account=<account>&
         limit=<limit>&
@@ -417,7 +370,7 @@
     限注回復
 
     ```
-    PUT /api/slot/user/limit/recover?
+    PUT /api/poker/user/limit/recover?
         key=<key>&
         account=<account>&
         hash=<hash>
@@ -450,7 +403,7 @@
     玩家封鎖模式
 
     ```
-    PUT /api/slot/user/mode?
+    PUT /api/poker/user/mode?
         key=<key>&
         accounts=<accounts>&
         status=<status>&        
@@ -485,7 +438,7 @@
     注單回補，注單有可能太多，造成執行過久，所以是利用queue的方式，因此response之後注單不會立刻回補。
 
     ```
-    GET /api/slot/user/logs/recover?
+    GET /api/poker/user/logs/recover?
         key=<key>&
         hash=<hash>
     ```
@@ -516,7 +469,7 @@
     查詢玩家限注狀態
 
     ```
-    GET /api/slot/user/limit?
+    GET /api/poker/user/limit?
         key=<key>&
         account=<account>&
         hash=<hash>
@@ -549,7 +502,7 @@
     查詢玩家鎖單/停用狀態
 
     ```
-    GET /api/slot/user/mode?
+    GET /api/poker/user/mode?
         key=<key>&
         accounts=<accounts>&
         hash=<hash>
@@ -582,7 +535,7 @@
     查詢玩家是否啟用遊戲
 
     ```
-    GET /api/slot/user/active?
+    GET /api/poker/user/active?
         key=<key>&
         accounts=<accounts>&
         hash=<hash>
@@ -616,7 +569,7 @@
     設定玩家是否啟用遊戲
 
     ```
-    PUT /api/slot/user/active?
+    PUT /api/poker/user/active?
         key=<key>&
         accounts=<accounts>&
         activation=<0|1>&
@@ -652,7 +605,7 @@
     查詢玩家下注LOG
 
     ```
-    GET /api/slot/user/logs/detail?
+    GET /api/poker/user/logs/detail?
         key=<key>&
         account=<account>&
         start_at=<start_at>&
@@ -688,7 +641,7 @@
 
     玩家下注簡報查詢
     ```
-    GET /api/slot/user/log/summary?
+    GET /api/poker/user/log/summary?
         key=<key>&
         account=<account>&
         start_at=<start_at>&
@@ -713,80 +666,6 @@
     成功
     ```javascript
       {"status":"success","data":{"total_bet":"540","win_chips":"40"}}
-    ```
-
-    失敗
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-
-
-20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
-
-    玩家JP紀錄查詢
-    ```
-    GET /api/slot/user/jp/logs?
-        key=<key>&
-        account=<account>&
-        start_at=<start_at>&
-        end_at=<end_at>&
-        hash=<hash>
-    ```
-
-    ##### 參數說明
-
-     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |start_at  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |end_at    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
-
-       **hash = md5(account + start_at + end_at + secret)**
-
-    ##### 回傳結果
-
-    成功
-    ```javascript
-      {"status":"success","data":[{"id":6,"jackpot":8622,"created_at":"2016-05-30 15:06:13","paid_at":"2016-05-30 15:21:08","rate":0.15}]}
-    ```
-
-    失敗
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-
-
-21. ### <span id="jp-vertification">玩家JP核銷</span>
-
-    玩家JP核銷
-    ```
-    PUT /api/slot/user/jp/vertify?
-        key=<key>&
-        account=<account>&
-        jp_id=<jp_id>&
-        verified_at=<verified_at>&
-        hash=<hash>
-    ```
-
-    ##### 參數說明
-
-     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |jp_id  | jp紀錄的id |  int  |     jp紀錄的id，離線通知會提供 |
-    |verified_at| 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
-
-       **hash = md5(account + jp_id + verified_at + secret)**
-
-    ##### 回傳結果
-
-    成功
-    ```javascript
-      {"status":"success","data":{"id":6,"jackpot":8622,"created_at":"2016-05-30 15:06:13","paid_at":"2016-06-01 11:34:18","rate":0.15}}
     ```
 
     失敗

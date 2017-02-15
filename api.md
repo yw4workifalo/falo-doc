@@ -2,6 +2,8 @@
 ## Change Log
 1. 2017-02-14
     * 初版
+2. 2017-02-15
+    * 新增[在線用戶](#online)
 
 
 
@@ -672,3 +674,12 @@
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+21. ### <span id="online">在線用戶</span>    
+    ```
+    GET /api/poker/user/online
+    ```    
+    ##### 回傳結果
+
+    成功
+    ```javascript
+{"status":"success","data":[{"user_id":25,"account":"wei01","name":"wei01","chips":5280674,"carry_in_chips":0,"machine_no":0,"machine_url":null,"user_url":"http:\/\/feature_api.dev\/admin\/poker\/user\/25","zone":"\u91d1\u9322\u8c93"}]}```

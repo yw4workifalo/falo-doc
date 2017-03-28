@@ -1,9 +1,49 @@
 #　API 說明文件
 ## Change Log
-1. 2017-02-14
-    * 初版
-2. 2017-02-15
-    * 新增[在線用戶](#online)
+1. 2016-04-13
+    * 新增API
+        * [註冊帳號](#register)
+        * [取得玩家帳密](#auth)
+        * [查詢玩家](#user)
+        * [取得玩家遊戲紀錄](#logs)
+        * [玩家離線通知](#offline_notification)
+2. 2016-04-14
+    * 修復BUG
+        *  查詢玩家，查無玩家時會發生錯誤。
+        *  測試面板，API使用錯誤的 HTTP method 顯示的訊息讓人誤解。
+3. 2016-04-15
+    * 新增API
+        * [玩家加錢](#add_chips)
+        * [踢人](#kick)
+    * 修改
+        *  修改[踢人](#kick)API支援踢多人
+4. 2016-04-19
+    * 查詢玩家新增參數`status`
+5. 2016-04-22
+    * 新增[限輸](#lose-limit)
+    * 新增[限贏](#win-limit)
+    * 新增[限注回復](#limit-recover)
+    * 新增[玩家封鎖模式](#ban-mode)
+    * 新增[注單回補](#recover-logs)
+6. 2016-04-25
+    * 新增[限注查詢](#limit-query)
+7. 2016-04-29
+    * [玩家封鎖模式](#ban-mode) 新增 `no_permission`
+8. 2016-05-09
+	* 新增[查詢玩家封鎖模式](#get-ban-mode)
+	* 新增[查詢玩家是否啟用遊戲](#get-activation)
+	* 新增[設定玩家是否啟用遊戲](#set-activation)
+	* 新增`agent_name`到[註冊帳號](#register)
+9. 2016-05-25
+    * 新增[log查詢](#query-logs)
+    * 新增[玩家下注簡報查詢](#summary-logs)
+11. 2016-08-29
+    * 修改[登入](#login) 增加source, redirect_url參數
+    * 修改[玩家離線通知](#offline_notification)
+        * 修改參數說明
+        * 新增Hash驗證
+        * 新增Json回傳格式
+    * 修改[設定玩家是否啟用遊戲](#set-activation) Hash組合
 
 
 

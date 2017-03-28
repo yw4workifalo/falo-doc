@@ -1,4 +1,4 @@
-#　API 說明文件
+#　SytePoker API 說明文件
 ## Change Log
 1. 2016-04-13
     * 新增API
@@ -103,11 +103,11 @@
 
     ##### 回傳結果
     成功
-    ```javascript
+    ```
     {"status":"success","data":{"account":"test","name":"test","id":7}}
     ```
     失敗
-    ```javascript
+    ```
     {"status":"error","error":{"code":1,"message":"account is required"}}
     ```
 
@@ -134,12 +134,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
      {"status":"success","data":{"id":7,"account":"test","name":"test","password":"570de762d3c35","loginUrl":"http://syte.app//api/poker/user/login"}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":1,"message":"account is required"}}
     ```
 
@@ -195,13 +195,13 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
      {"status":"success","data":{"status":"user_offline","id":3,"account":"haha0738","name":"\u6e2c\u8a66","chips":5000000}}
      //status 有user_online, user_offline, service_not_available 三種狀態。
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":1,"message":"account is required"}}
     ```
 
@@ -231,18 +231,19 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
      [{"id":30,"user_id":1,"initial_chips":100720,"sum_of_bet":0,"sum_of_win_chips":0,"final_chips":100720,"ip":"192.168.10.1","login_at":"2016-04-12 18:29:49","logout_at":"2016-04-12 18:32:23","created_at":"2016-04-12 18:29:49","updated_at":"2016-04-12 18:32:23"}]}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":1,"message":"end_at is required"}}
     ```
 
 6. ### <spin id="offline_notification">玩家離線通知</spin>
 
     玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
+    
     ```
     id=<id>&                            //紀錄id (int)
     ip=<ip>&                            //玩家ip (string)
@@ -261,11 +262,14 @@
 
     另外請您回傳一組 Json，格式如下：
     成功
-     ```javascript
+
+    ```
     {"status":"success","message":"<自訂訊息>"}
-    ```           
+    ```
+        
     失敗
-     ```javascript
+
+    ```
     {"status":"error","message":"<自訂訊息>"}
     ```   
 
@@ -293,12 +297,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
        {"status":"success","data":{"original_chips":135475,"added_chips":"10","final_chips":135485,"account":"haha0738@ifalo.com.tw"}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -327,13 +331,13 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
         {"status":"success","data":[{"account":"kk","status":"user_not_found"},{"account":"aa","status":"user_not_found"},{"status":"user_offline","account":"haha0738@ifalo.com.tw"}]}
         // user 的 status 有 user_offline, kicked, user_not_found三種
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -363,12 +367,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
        {"status":"success","data":{"account":"haha0738@ifalo.com.tw","win_limit":500,"lose_limit":"5000"}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -398,12 +402,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
        {"status":"success","data":{"account":"haha0738@ifalo.com.tw","win_limit":500,"lose_limit":"5000"}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -431,12 +435,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
        {"status":"success","data":{"account":"haha0738@ifalo.com.tw","win_chips":0}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -466,12 +470,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":[{"account":"aa","mode":"user_not_found"},{"account":"haha0738@ifalo.com.tw","mode":"banned"}]}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -497,12 +501,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":{"success":true}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -530,12 +534,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":{"account":"haha0738@ifalo.com.tw","win_chips":-30,"win_limit":500,"lose_limit":5000,"updated_at":"2016-04-22 14:14:08"}}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -563,12 +567,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":[{"account":"test-api01","status":"normal"}]}
     ```
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -596,13 +600,13 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":[{"account":"test-api01","activation":1}]}
     ```
 
     失敗
 
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -632,12 +636,12 @@
     ##### 回傳結果
     成功
 
-    ```javascript
+    ```
       {"status":"success","data":[{"account":"test-api01","activation":1}]}
     ```
 
     失敗
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -669,12 +673,12 @@
 
     ##### 回傳結果
     成功
-    ```javascript
+    ```
       "status":"success","data":[{"id":61,"machine_no":25,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:42:38"},{"id":62,"machine_no":35,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:45:19"},{"id":63,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:48:34"},{"id":64,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":1,"created_at":"2016-05-03 13:49:22"},{"id":65,"machine_no":36,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":40,"scatter":1,"created_at":"2016-05-03 13:49:26"},{"id":66,"machine_no":46,"bet":10,"bet_lines":9,"total_bet":90,"win_chips":0,"scatter":0,"created_at":"2016-05-03 13:52:27"}]}
     ```
 
     失敗
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
@@ -706,12 +710,12 @@
     ##### 回傳結果
 
     成功
-    ```javascript
+    ```
       {"status":"success","data":{"total_bet":"540","win_chips":"40"}}
     ```
 
     失敗
-    ```javascript
+    ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 21. ### <span id="online">在線用戶</span>    
@@ -721,7 +725,7 @@
     ##### 回傳結果
 
     成功
-    ```javascript
+    ```
 {"status":"success","data":[{"user_id":25,"account":"wei01","name":"wei01","chips":5280674,"carry_in_chips":0,"machine_no":0,"machine_url":null,"user_url":"http:\/\/feature_api.dev\/admin\/poker\/user\/25","zone":"\u91d1\u9322\u8c93"}]}```
 
 ## 平台方需實作 api

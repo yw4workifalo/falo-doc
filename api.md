@@ -1,4 +1,4 @@
-#　SytePoker API 說明文件
+#　法老王德州撲克API 說明文件
 ## Change Log
 1. 2016-04-13
     * 新增API
@@ -718,15 +718,7 @@
     ```
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
-21. ### <span id="online">在線用戶</span>    
-    ```
-    GET /api/poker/user/online
-    ```    
-    ##### 回傳結果
 
-    成功
-    ```
-{"status":"success","data":[{"user_id":25,"account":"wei01","name":"wei01","chips":5280674,"carry_in_chips":0,"machine_no":0,"machine_url":null,"user_url":"http:\/\/feature_api.dev\/admin\/poker\/user\/25","zone":"\u91d1\u9322\u8c93"}]}```
 
 ## 平台方需實作 api
 平台方需要實作 api 讓 mobile app 呼叫 並且透過api [取得遊戲方玩家帳號密碼](#auth)，回傳遊戲方帳號讓mobile app 登入。

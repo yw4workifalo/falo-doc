@@ -328,7 +328,7 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">　API 說明文件</h1>
+<h1 id="toc_0">　SytePoker API 說明文件</h1>
 
 <h2 id="toc_1">Change Log</h2>
 
@@ -586,11 +586,11 @@ kbd {
 <h5 id="toc_7">回傳結果</h5>
 
 <p>成功
-<code>javascript
+<code>
 {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;test&quot;,&quot;name&quot;:&quot;test&quot;,&quot;id&quot;:7}}
 </code>
 失敗
-<code>javascript
+<code>
 {&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;account is required&quot;}}
 </code></p></li>
 <li><h3 id="toc_8"><span id="auth">取得玩家帳號密碼</span></h3>
@@ -640,11 +640,11 @@ kbd {
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript"> {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;id&quot;:7,&quot;account&quot;:&quot;test&quot;,&quot;name&quot;:&quot;test&quot;,&quot;password&quot;:&quot;570de762d3c35&quot;,&quot;loginUrl&quot;:&quot;http://syte.app//api/poker/user/login&quot;}}</code></pre></div>
+<div><pre><code class="language-none"> {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;id&quot;:7,&quot;account&quot;:&quot;test&quot;,&quot;name&quot;:&quot;test&quot;,&quot;password&quot;:&quot;570de762d3c35&quot;,&quot;loginUrl&quot;:&quot;http://syte.app//api/poker/user/login&quot;}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;account is required&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;account is required&quot;}}</code></pre></div></li>
 <li><h3 id="toc_11"><span id="login">登入</span></h3>
 
 <p>參數請使用經由<a href="#auth">取得玩家帳密</a>取得的加密資料</p>
@@ -751,12 +751,12 @@ kbd {
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript"> {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;status&quot;:&quot;user_offline&quot;,&quot;id&quot;:3,&quot;account&quot;:&quot;haha0738&quot;,&quot;name&quot;:&quot;\u6e2c\u8a66&quot;,&quot;chips&quot;:5000000}}
+<div><pre><code class="language-none"> {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;status&quot;:&quot;user_offline&quot;,&quot;id&quot;:3,&quot;account&quot;:&quot;haha0738&quot;,&quot;name&quot;:&quot;\u6e2c\u8a66&quot;,&quot;chips&quot;:5000000}}
  //status 有user_online, user_offline, service_not_available 三種狀態。</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;account is required&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;account is required&quot;}}</code></pre></div></li>
 <li><h3 id="toc_17"><span id="logs">取得玩家遊戲紀錄</span></h3>
 
 <div><pre><code class="language-none">GET /api/poker/user/logs?
@@ -818,16 +818,16 @@ kbd {
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript"> [{&quot;id&quot;:30,&quot;user_id&quot;:1,&quot;initial_chips&quot;:100720,&quot;sum_of_bet&quot;:0,&quot;sum_of_win_chips&quot;:0,&quot;final_chips&quot;:100720,&quot;ip&quot;:&quot;192.168.10.1&quot;,&quot;login_at&quot;:&quot;2016-04-12 18:29:49&quot;,&quot;logout_at&quot;:&quot;2016-04-12 18:32:23&quot;,&quot;created_at&quot;:&quot;2016-04-12 18:29:49&quot;,&quot;updated_at&quot;:&quot;2016-04-12 18:32:23&quot;}]}</code></pre></div>
+<div><pre><code class="language-none"> [{&quot;id&quot;:30,&quot;user_id&quot;:1,&quot;initial_chips&quot;:100720,&quot;sum_of_bet&quot;:0,&quot;sum_of_win_chips&quot;:0,&quot;final_chips&quot;:100720,&quot;ip&quot;:&quot;192.168.10.1&quot;,&quot;login_at&quot;:&quot;2016-04-12 18:29:49&quot;,&quot;logout_at&quot;:&quot;2016-04-12 18:32:23&quot;,&quot;created_at&quot;:&quot;2016-04-12 18:29:49&quot;,&quot;updated_at&quot;:&quot;2016-04-12 18:32:23&quot;}]}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;end_at is required&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:1,&quot;message&quot;:&quot;end_at is required&quot;}}</code></pre></div></li>
 <li><h3 id="toc_20"><spin id="offline_notification">玩家離線通知</spin></h3>
 
-<p>玩家離線通知需要在後台設定callback url，離線通知會透過<code>POST</code>的方式傳送資料，目前會附帶以下資料。
-<code>
-id=&lt;id&gt;&amp;                            //紀錄id (int)
+<p>玩家離線通知需要在後台設定callback url，離線通知會透過<code>POST</code>的方式傳送資料，目前會附帶以下資料。</p>
+
+<div><pre><code class="language-none">id=&lt;id&gt;&amp;                            //紀錄id (int)
 ip=&lt;ip&gt;&amp;                            //玩家ip (string)
 loginAt=&lt;loginAt&gt;&amp;                 //玩家登入時間 (string)
 logoutAt=&lt;logoutAt&gt;&amp;               //玩家登出時間 (string)
@@ -837,20 +837,19 @@ account=&lt;account&gt;&amp;                  //玩家帳號(string)
 token=&lt;token&gt;&amp;                      //Session Token(string)
 paid=&lt;paid&gt;&amp;                        //玩家淨賠(int)
 result=&lt;result&gt;&amp;                    //玩家損益(int)
-hash=&lt;hash&gt;                         //驗證參數(string)
-</code>
-您可以驗證callback參數，獲得更好的安全性。
+hash=&lt;hash&gt;                         //驗證參數(string)</code></pre></div>
+
+<p>您可以驗證callback參數，獲得更好的安全性。
 <strong>hash = md5(account + token + id + paid + result + secret)</strong></p>
 
 <p>另外請您回傳一組 Json，格式如下：
-成功
- <code>javascript
-{&quot;status&quot;:&quot;success&quot;,&quot;message&quot;:&quot;&lt;自訂訊息&gt;&quot;}
-</code><br>
-失敗
- <code>javascript
-{&quot;status&quot;:&quot;error&quot;,&quot;message&quot;:&quot;&lt;自訂訊息&gt;&quot;}
-</code>   </p></li>
+成功</p>
+
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;success&quot;,&quot;message&quot;:&quot;&lt;自訂訊息&gt;&quot;}</code></pre></div>
+
+<p>失敗</p>
+
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;message&quot;:&quot;&lt;自訂訊息&gt;&quot;}</code></pre></div></li>
 <li><h3 id="toc_21"><spin id="add_chips">玩家加錢</spin></h3>
 
 <div><pre><code class="language-none">PUT /api/poker/user/chips/add?
@@ -905,11 +904,11 @@ hash=&lt;hash&gt;                         //驗證參數(string)
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;original_chips&quot;:135475,&quot;added_chips&quot;:&quot;10&quot;,&quot;final_chips&quot;:135485,&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;}}</code></pre></div>
+<div><pre><code class="language-none">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;original_chips&quot;:135475,&quot;added_chips&quot;:&quot;10&quot;,&quot;final_chips&quot;:135485,&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_24"><spin id="kick">踢玩家</spin></h3>
 
 <p>呼叫之後會在10秒之後將在線的玩家踢出遊戲
@@ -967,12 +966,12 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">    {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;kk&quot;,&quot;status&quot;:&quot;user_not_found&quot;},{&quot;account&quot;:&quot;aa&quot;,&quot;status&quot;:&quot;user_not_found&quot;},{&quot;status&quot;:&quot;user_offline&quot;,&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;}]}
+<div><pre><code class="language-none">    {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;kk&quot;,&quot;status&quot;:&quot;user_not_found&quot;},{&quot;account&quot;:&quot;aa&quot;,&quot;status&quot;:&quot;user_not_found&quot;},{&quot;status&quot;:&quot;user_offline&quot;,&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;}]}
     // user 的 status 有 user_offline, kicked, user_not_found三種</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_27"><span id="lose-limit">限輸</span></h3>
 
 <p>設定玩家限輸</p>
@@ -1029,11 +1028,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:&quot;5000&quot;}}</code></pre></div>
+<div><pre><code class="language-none">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:&quot;5000&quot;}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_30"><span id="win-limit">限贏</span></h3>
 
 <p>設定玩家限贏</p>
@@ -1090,11 +1089,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:&quot;5000&quot;}}</code></pre></div>
+<div><pre><code class="language-none">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:&quot;5000&quot;}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_33"><span id="limit-recover">限注回復</span></h3>
 
 <p>限注回復</p>
@@ -1144,11 +1143,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_chips&quot;:0}}</code></pre></div>
+<div><pre><code class="language-none">   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_chips&quot;:0}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_36"><span id="ban-mode">玩家封鎖模式</span></h3>
 
 <p>玩家封鎖模式</p>
@@ -1205,11 +1204,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;aa&quot;,&quot;mode&quot;:&quot;user_not_found&quot;},{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;mode&quot;:&quot;banned&quot;}]}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;aa&quot;,&quot;mode&quot;:&quot;user_not_found&quot;},{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;mode&quot;:&quot;banned&quot;}]}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_39"><span id="recover-logs">注單回補</span></h3>
 
 <p>注單回補，注單有可能太多，造成執行過久，所以是利用queue的方式，因此response之後注單不會立刻回補。</p>
@@ -1252,11 +1251,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;success&quot;:true}}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;success&quot;:true}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_42"><span id="limit-query">限注查詢</span></h3>
 
 <p>查詢玩家限注狀態</p>
@@ -1306,11 +1305,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_chips&quot;:-30,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:5000,&quot;updated_at&quot;:&quot;2016-04-22 14:14:08&quot;}}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;account&quot;:&quot;haha0738@ifalo.com.tw&quot;,&quot;win_chips&quot;:-30,&quot;win_limit&quot;:500,&quot;lose_limit&quot;:5000,&quot;updated_at&quot;:&quot;2016-04-22 14:14:08&quot;}}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_45"><span id="get-ban-mode">查詢玩家封鎖模式</span></h3>
 
 <p>查詢玩家鎖單/停用狀態</p>
@@ -1360,11 +1359,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;status&quot;:&quot;normal&quot;}]}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;status&quot;:&quot;normal&quot;}]}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_48"><span id="get-activation">查詢玩家是否啟用遊戲</span></h3>
 
 <p>查詢玩家是否啟用遊戲</p>
@@ -1414,11 +1413,11 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;activation&quot;:1}]}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;activation&quot;:1}]}</code></pre></div>
 
 <p>失敗</p>
 
-<div><pre><code class="language-javascript">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
+<div><pre><code class="language-none">{&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}</code></pre></div></li>
 <li><h3 id="toc_51"><span id="set-activation">設定玩家是否啟用遊戲</span></h3>
 
 <p>設定玩家是否啟用遊戲</p>
@@ -1475,10 +1474,10 @@ DELETE /api/poker/user/kick?
 
 <p>成功</p>
 
-<div><pre><code class="language-javascript">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;activation&quot;:1}]}</code></pre></div>
+<div><pre><code class="language-none">  {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;account&quot;:&quot;test-api01&quot;,&quot;activation&quot;:1}]}</code></pre></div>
 
 <p>失敗
-<code>javascript
+<code>
 {&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}
 </code></p></li>
 <li><h3 id="toc_54"><span id="query-logs">LOG查詢</span></h3>
@@ -1543,12 +1542,12 @@ DELETE /api/poker/user/kick?
 <h5 id="toc_56">回傳結果</h5>
 
 <p>成功
-<code>javascript
+<code>
   &quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;id&quot;:61,&quot;machine_no&quot;:25,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:0,&quot;scatter&quot;:0,&quot;created_at&quot;:&quot;2016-05-03 13:42:38&quot;},{&quot;id&quot;:62,&quot;machine_no&quot;:35,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:0,&quot;scatter&quot;:0,&quot;created_at&quot;:&quot;2016-05-03 13:45:19&quot;},{&quot;id&quot;:63,&quot;machine_no&quot;:36,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:0,&quot;scatter&quot;:0,&quot;created_at&quot;:&quot;2016-05-03 13:48:34&quot;},{&quot;id&quot;:64,&quot;machine_no&quot;:36,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:0,&quot;scatter&quot;:1,&quot;created_at&quot;:&quot;2016-05-03 13:49:22&quot;},{&quot;id&quot;:65,&quot;machine_no&quot;:36,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:40,&quot;scatter&quot;:1,&quot;created_at&quot;:&quot;2016-05-03 13:49:26&quot;},{&quot;id&quot;:66,&quot;machine_no&quot;:46,&quot;bet&quot;:10,&quot;bet_lines&quot;:9,&quot;total_bet&quot;:90,&quot;win_chips&quot;:0,&quot;scatter&quot;:0,&quot;created_at&quot;:&quot;2016-05-03 13:52:27&quot;}]}
 </code></p>
 
 <p>失敗
-<code>javascript
+<code>
 {&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}
 </code></p></li>
 <li><h3 id="toc_57"><span id="summary-logs">玩家下注簡報查詢</span></h3>
@@ -1614,26 +1613,17 @@ GET /api/poker/user/log/summary?
 <h5 id="toc_59">回傳結果</h5>
 
 <p>成功
-<code>javascript
+<code>
   {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;total_bet&quot;:&quot;540&quot;,&quot;win_chips&quot;:&quot;40&quot;}}
 </code></p>
 
 <p>失敗
-<code>javascript
+<code>
 {&quot;status&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;code&quot;:4,&quot;message&quot;:&quot;user not found&quot;}}
 </code></p></li>
-<li><h3 id="toc_60"><span id="online">在線用戶</span></h3>
-
-<div><pre><code class="language-none">GET /api/poker/user/online</code></pre></div>
-
-<h5 id="toc_61">回傳結果</h5>
-
-<p>成功
-<code>javascript
-{&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:[{&quot;user_id&quot;:25,&quot;account&quot;:&quot;wei01&quot;,&quot;name&quot;:&quot;wei01&quot;,&quot;chips&quot;:5280674,&quot;carry_in_chips&quot;:0,&quot;machine_no&quot;:0,&quot;machine_url&quot;:null,&quot;user_url&quot;:&quot;http:\/\/feature_api.dev\/admin\/poker\/user\/25&quot;,&quot;zone&quot;:&quot;\u91d1\u9322\u8c93&quot;}]}</code></p></li>
 </ol>
 
-<h2 id="toc_62">平台方需實作 api</h2>
+<h2 id="toc_60">平台方需實作 api</h2>
 
 <p>平台方需要實作 api 讓 mobile app 呼叫 並且透過api <a href="#auth">取得遊戲方玩家帳號密碼</a>，回傳遊戲方帳號讓mobile app 登入。</p>
 

@@ -2,4 +2,4 @@
 
 * [Slot 文件](slot/api.md)
 * [黃金期權文件](golden-option/api.pdf)
-* [Casion 文件](casino/casino-api.md)
+* [Casion 文件](casino/casino-api.html)

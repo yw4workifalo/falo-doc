@@ -378,7 +378,7 @@
     
     ```bash
     CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
-    -G http://poker.app/api/v2/slot/player/bet/report/session
+    	-G http://poker.app/api/v2/slot/player/bet/report/session
     ```
     
     php
@@ -508,7 +508,7 @@
     
     ```bash
     CURL -X PUT -d account=test -d credit=1 -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=f28a85dd168db1089dc2ae2b1c033424 \
- -G http://poker.app/api/v2/slot/player/credit/transfer
+ 		-G http://poker.app/api/v2/slot/player/credit/transfer
     ```
     
     php
@@ -601,7 +601,7 @@
 	
 	```bash
 	CURL -X GET -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=eb5adf3a54d19488c9d1b641cd582333 \
- -G http://poker.app/api/v2/slot/player/credit/transfer-status
+ 		-G http://poker.app/api/v2/slot/player/credit/transfer-status
 	```
 	
 	php
@@ -692,7 +692,7 @@
     
     ```bash
     CURL -X DELETE -d account=test -d reason=test -d key=57d0bc61dffff -d hash=ca0ac30b539a6a55ecb5bc7c95b95c48 \
- -G http://poker.app/api/v2/slot/player/kick
+ 		-G http://poker.app/api/v2/slot/player/kick
     ```
     
     php
@@ -777,7 +777,7 @@
 	
 	```bash
 	CURL -X DELETE -d accounts=test,test01 -d reason=test -d key=57d0bc61dffff -d hash=22f0d24fa07d3e73c0c23c2626fe052e \
- -G http://poker.app/api/v2/slot/player/kick-multiple
+ 		-G http://poker.app/api/v2/slot/player/kick-multiple
 	```
 	
 	php
@@ -869,7 +869,7 @@
 	
 	```bash
 	CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
- -G http://poker.app/api/v2/slot/player/limit/lose
+ 		-G http://poker.app/api/v2/slot/player/limit/lose
 	```
 	
 	php
@@ -954,7 +954,7 @@
     
     ```bash
     CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
- -G http://poker.app/api/v2/slot/player/limit/win
+ 		-G http://poker.app/api/v2/slot/player/limit/win
 	 ```
 	 
 	 php
@@ -1039,7 +1039,7 @@
     
     ```bash
     CURL -X PUT -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- -G http://poker.app/api/v2/slot/player/limit/recover
+ 		-G http://poker.app/api/v2/slot/player/limit/recover
     ```
     
     php
@@ -1119,7 +1119,7 @@
     
     ```bash  
 	CURL -X PUT -d account=test -d mode=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
- -G http://poker.app/api/v2/slot/player/mode
+ 		-G http://poker.app/api/v2/slot/player/mode
     ```
     
     php
@@ -1197,7 +1197,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- -G http://poker.app/api/v2/slot/player/limit
+ 		-G http://poker.app/api/v2/slot/player/limit
 	```
 	
 	php
@@ -1282,7 +1282,7 @@
     
     ```bash
     CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- -G http://poker.app/api/v2/slot/player/mode
+	 	-G http://poker.app/api/v2/slot/player/mode
  	```
  	
  	php
@@ -1364,12 +1364,12 @@
     
     ```bash
     CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- -G http://poker.app/api/v2/slot/player/enable
+ 		-G http://poker.app/api/v2/slot/player/enable
     ```
     
     php
     
-    ```php
+	```php
 	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/player/enable';
@@ -1382,7 +1382,7 @@
 		$hash .= $v;
 	}
 	$hash .= $secret;
-	
+		
 	$hash = md5($hash);
 	$data['key'] = $key;
 	$data['hash'] = $hash;
@@ -1391,7 +1391,7 @@
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 	$response = curl_exec($ch);
 	echo $response;
-    ```
+	```
     
 
     ##### 參數說明
@@ -1449,13 +1449,13 @@
     
     ```bash
     CURL -X PUT -d account=test -d enable=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
- -G http://poker.app/api/v2/slot/player/enable
+ 		-G http://poker.app/api/v2/slot/player/enable
     ```
     
     php
-    
-    ```php
-    $key = '57d0bc61dffff';
+	    
+	```php
+	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/player/enable';
 	$data = [
@@ -1468,7 +1468,7 @@
 		$hash .= $v;
 	}
 	$hash .= $secret;
-	
+		
 	$hash = md5($hash);
 	$data['key'] = $key;
 	$data['hash'] = $hash;
@@ -1478,7 +1478,7 @@
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
 	$response = curl_exec($ch);
 	echo $response;
-    ```
+```
 
     ##### 參數說明
 
@@ -1536,7 +1536,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- -G http://poker.app/api/v2/slot/bet/report/detail
+ 		-G http://poker.app/api/v2/slot/bet/report/detail
 	```
 	
 	php
@@ -1633,7 +1633,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- -G http://poker.app/api/v2/slot/bet/report
+ 		-G http://poker.app/api/v2/slot/bet/report
 	```
 	
 	php
@@ -1711,7 +1711,7 @@
     
     ```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- -G http://poker.app/api/v2/slot/bet/report-multiple
+ 		-G http://poker.app/api/v2/slot/bet/report-multiple
  	```
  	
  	php
@@ -1799,7 +1799,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- -G http://poker.app/api/v2/slot/jackpot
+ 		-G http://poker.app/api/v2/slot/jackpot
 	```
 	
 	php
@@ -1889,7 +1889,7 @@
 	
 	```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- -G http://poker.app/api/v2/slot/jackpot/multiple
+ 		-G http://poker.app/api/v2/slot/jackpot/multiple
 	```
 	
 	php
@@ -1979,7 +1979,7 @@
     
     ```bash
     CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
- -G http://poker.app/api/v2/slot/jackpot-status
+ 		-G http://poker.app/api/v2/slot/jackpot-status
 	```
 	
 	php

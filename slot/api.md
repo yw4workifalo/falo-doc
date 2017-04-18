@@ -1,31 +1,31 @@
 # API 說明文件
 ## 目錄
-1. [註冊帳號](#register)
-1. [取得登入連結](#auth)
-1. [登入](#login)
-1. [查詢玩家](#player-info)   
-2. [取得玩家遊戲紀錄](#bet-report-session)
-3. [玩家離線通知](#offline_notification)
-4. [玩家額度轉出入](#credit_transfer)
-5. [玩家轉帳狀態查詢](#transfer-status)
-6. [踢玩家](#kick)
-7. [踢多玩家](#kick-multiple)
-8. [限輸](#lose-limit)
-9. [限贏](#win-limit)
-10. [限注回復](#limit-recover)
-11. [設定玩家帳號模式](#ban-mode)
-12. [注單回補](#recover-logs)
-13. [限注查詢](#limit-query)
-14. [查詢玩家帳號模式](#get-ban-mode)
-15. [查詢玩家是否啟用遊戲](#get-activation)
-16. [設定玩家是否啟用遊戲](#set-activation)
-17. [LOG查詢](#query-logs)
-18. [玩家下注簡報查詢](#bet-report)
-19. [玩家多人下注簡報區間總額查詢](#bet-report-multiple)
-20. [玩家JP紀錄查詢](#jp-logs)
-21. [玩家多人JP紀錄查詢](#jp-multiple)
-22. [JP中獎紀錄](#jp-status)
-23. [玩家JP核銷](#jp-vertification)
+1. [註冊帳號](#註冊帳號)
+1. [取得登入連結](#取得玩家登入網址)
+1. [登入](#登入)
+1. [查詢玩家](#查詢玩家)   
+2. [取得玩家遊戲紀錄](#取得玩家遊戲紀錄)
+3. [玩家離線通知](#玩家離線通知)
+4. [玩家額度轉出入](#玩家額度轉出入)
+5. [玩家轉帳狀態查詢](#玩家轉帳狀態查詢)
+6. [踢玩家](#踢玩家)
+7. [踢多玩家](#踢多玩家)
+8. [限輸](#限輸)
+9. [限贏](#限贏)
+10. [限注回復](#限注回復)
+11. [設定玩家帳號模式](#設定玩家帳號模式)
+12. [注單回補](#注單回補)
+13. [限注查詢](#限注查詢)
+14. [查詢玩家帳號模式](#查詢玩家帳號模式)
+15. [查詢玩家是否啟用遊戲](#查詢玩家是否啟用遊戲)
+16. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
+17. [LOG查詢](#LOG查詢)
+18. [玩家下注簡報查詢](#玩家下注簡報查詢)
+19. [玩家多人下注簡報區間總額查詢](#玩家多人下注簡報區間總額查詢)
+20. [玩家JP紀錄查詢](#玩家JP紀錄查詢)
+21. [玩家多人JP紀錄查詢](#玩家多人JP紀錄查詢)
+22. [JP中獎紀錄](#JP中獎紀錄)
+23. [玩家JP核銷](#玩家JP核銷)
 
 
 
@@ -68,7 +68,7 @@
 | 16        |transfer log not found| 轉帳 LOG不存在|
 
 ## API
-1. ### <span id="register">註冊帳號 </span>
+1. ### <span id="register">註冊帳號</span>
 
     ```
     POST player/register?
@@ -76,6 +76,46 @@
         account=<account>&
         nickname=<nickname>&
         hash=<hash>
+    ```
+
+    ##### Request 範例
+    
+	bash
+	
+    ```bash
+    CURL -X POST -d account=test -d nickname=測試 -d key=57d0bc61dffff -d hash=106c9b6891a82e9af6d404f4a9707341 \
+      -G http://poker.app/api/v2/slot/player/register
+    ```
+    
+    php
+    
+    ```php
+    <?php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/register';
+    $data = [
+        'account' => 'test',
+        'nickname' => '測試',
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+        $hash .= $v;
+    }
+    $hash .= $secret;
+
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+
+    $response = curl_exec($ch);
+
+    echo $response;
     ```
 
     ##### 參數說明
@@ -127,6 +167,43 @@
         hash=<hash>
     ```
 
+    ##### Request 範例
+
+	bash
+	
+    ```bash
+    CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+      -G http://poker.app/api/v2/slot/player/auth
+    ```
+    
+    php
+    
+    ```php
+    <?php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/auth';
+    $data = [
+        'account' => 'test',
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+        $hash .= $v;
+    }
+    $hash .= $secret;
+
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+    $response = curl_exec($ch);
+    echo $response;
+    ```
+
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -170,7 +247,7 @@
 
 
     ```
-    GET 由[取得玩家登入網址](#auth)回傳的loginUrl
+    GET 由[取得玩家登入網址](#取得玩家登入網址)回傳的loginUrl
     ```
 
     ##### 回傳結果
@@ -190,6 +267,43 @@
         key=<key>&
         account=<account>&
         hash=<hash>
+    ```
+    
+    ##### Request 範例
+	
+	bash
+	
+    ```bash
+    CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+      -G http://poker.app/api/v2/slot/player/info
+    ```
+    
+    php
+
+    ```php
+    <?php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/auth';
+    $data = [
+        'account' => 'test',
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+        $hash .= $v;
+    }
+    $hash .= $secret;
+
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+    $response = curl_exec($ch);
+    echo $response;
     ```
 
     ##### 參數說明
@@ -257,6 +371,43 @@
         endAt=<endAt>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+    -G http://poker.app/api/v2/slot/player/bet/report/session
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/bet/report/session';
+	$data = [
+		'account'=>'test',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
 
     ##### 參數說明
 
@@ -312,6 +463,7 @@
 6. ### <spin id="offline_notification">玩家離線通知</spin>
 
     玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
+    
     ```
     id=<id>&                            //紀錄id (int)
     ip=<ip>&                            //玩家ip (string)
@@ -326,6 +478,7 @@
     hash=<hash>                         //驗證參數(string)
     ```
     您可以驗證callback參數，獲得更好的安全性。
+    
     **hash = md5(account + token + id + paid + result + secret)**
 
     另外請您回傳一組 Json，格式如下：
@@ -347,6 +500,44 @@
         credit =<credit>&
         transfer_id = <transfer_id>&
         hash=<hash>
+    ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=test -d credit=1 -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=f28a85dd168db1089dc2ae2b1c033424 \
+ -G http://poker.app/api/v2/slot/player/credit/transfer
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit/transfer';
+	$data = [
+		'account'=>'test',
+		'credit'=>'1',
+		'transfer_id'=>'GC0001'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
     ```
 
     ##### 參數說明
@@ -403,6 +594,41 @@
         transferId =<transferId>&
         hash=<hash>
     ```
+	
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=eb5adf3a54d19488c9d1b641cd582333 \
+ -G http://poker.app/api/v2/slot/player/credit/transfer-status
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit/transfer-status';
+	$data = [
+		'transfer_id'=>'GC0001'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
 
     ##### 參數說明
 
@@ -459,6 +685,43 @@
         reason=<reason>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X DELETE -d account=test -d reason=test -d key=57d0bc61dffff -d hash=ca0ac30b539a6a55ecb5bc7c95b95c48 \
+ -G http://poker.app/api/v2/slot/player/kick
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/kick';
+	$data = [
+		'account'=>'test',
+		'reason'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+    ```
 
     ##### 參數說明
 
@@ -507,7 +770,43 @@
         reason=<reason>&
         hash=<hash>
     ```
-
+	
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X DELETE -d accounts=test,test01 -d reason=test -d key=57d0bc61dffff -d hash=22f0d24fa07d3e73c0c23c2626fe052e \
+ -G http://poker.app/api/v2/slot/player/kick-multiple
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/kick-multiple';
+	$data = [
+		'accounts'=>'test,test01',
+		'reason'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -564,7 +863,43 @@
         limit=<limit>&
         hash=<hash>
     ```
-
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
+ -G http://poker.app/api/v2/slot/player/limit/lose
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/limit/lose';
+	$data = [
+		'account'=>'test',
+		'limit'=>'10000'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -612,6 +947,43 @@
         limit=<limit>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
+ -G http://poker.app/api/v2/slot/player/limit/win
+	 ```
+	 
+	 php
+	 
+	 ```php
+	 $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/limit/win';
+	$data = [
+		'account'=>'test',
+		'limit'=>'10000'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	 ```
 
     ##### 參數說明
 
@@ -660,6 +1032,42 @@
         account=<account>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+ -G http://poker.app/api/v2/slot/player/limit/recover
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/limit/recover';
+	$data = [
+		'account'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+    ```
 
     ##### 參數說明
 
@@ -704,6 +1112,43 @@
         mode=<mode>&        
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash  
+	CURL -X PUT -d account=test -d mode=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
+ -G http://poker.app/api/v2/slot/player/mode
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/mode';
+	$data = [
+		'account'=>'test',
+		'mode'=>'1'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+    ```
 
     ##### 參數說明
 
@@ -736,42 +1181,6 @@
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
 
-13. ### <span id="recover-logs">注單回補</span>
-
-    注單回補，注單有可能太多，造成執行過久，所以是利用queue的方式，因此response之後注單不會立刻回補。
-
-    ```
-    GET player/logs/recover?
-        key=<key>&
-        hash=<hash>
-    ```
-
-    ##### 參數說明
-
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |   hash   | 驗證參數 |  string  |     必填    |
-
-    **hash = md5(secret)**
-
-    ##### 回傳結果
-    成功
-
-    ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "success":true
-       }
-    }
-    ```
-    失敗
-
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-
 14. ### <span id="limit-query">限注查詢</span>
 
     查詢玩家限注狀態
@@ -782,7 +1191,41 @@
         account=<account>&
         hash=<hash>
     ```
-
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+ -G http://poker.app/api/v2/slot/player/limit
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/limit';
+	$data = [
+		'account'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -832,6 +1275,41 @@
         account=<account>&
         hash=<hash>
     ```
+    
+    ##### Request  範例
+    
+    bash
+    
+    ```bash
+    CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+ -G http://poker.app/api/v2/slot/player/mode
+ 	```
+ 	
+ 	php
+ 	
+ 	```php
+ 	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/mode';
+	$data = [
+		'account'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
 
     ##### 參數說明
 
@@ -879,6 +1357,42 @@
         account=<account>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
+ -G http://poker.app/api/v2/slot/player/enable
+    ```
+    
+    php
+    
+    ```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/enable';
+	$data = [
+		'account'=>'test'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+    ```
+    
 
     ##### 參數說明
 
@@ -899,7 +1413,7 @@
        "data":[  
           {  
              "account":"test-api01",
-             "activation":1
+             "enable":1
           }
        ]
     }
@@ -927,6 +1441,43 @@
         account=<account>&
         enable=<0|1>&
         hash=<hash>
+    ```
+    
+    ##### Reqeust 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=test -d enable=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
+ -G http://poker.app/api/v2/slot/player/enable
+    ```
+    
+    php
+    
+    ```php
+    $key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/enable';
+	$data = [
+		'account'=>'test',
+		'enable'=>'1'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
     ```
 
     ##### 參數說明
@@ -964,7 +1515,7 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
-    | activation |int|是否啟動 1:是, 0:否| 
+    | enable |int|是否啟動 1:是, 0:否| 
 
 18. ### <span id="query-logs">玩家下注記錄查詢</span>
 
@@ -978,7 +1529,44 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-
+	
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+ -G http://poker.app/api/v2/slot/bet/report/detail
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/bet/report/detail';
+	$data = [
+		'account'=>'test',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1165,7 +1753,44 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-
+	
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+ -G http://poker.app/api/v2/slot/bet/report
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/bet/report';
+	$data = [
+		'account'=>'test',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1206,6 +1831,43 @@
         endAt=<endAt>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ -G http://poker.app/api/v2/slot/bet/report-multiple
+ 	```
+ 	
+ 	php
+ 	
+ 	```php
+ 	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/bet/report-multiple';
+	$data = [
+		'gameType'=>'samurai',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
 
     ##### 參數說明
 
@@ -1258,7 +1920,43 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+ -G http://poker.app/api/v2/slot/jackpot
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/jackpot';
+	$data = [
+		'account'=>'test',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1312,7 +2010,43 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ -G http://poker.app/api/v2/slot/jackpot/multiple
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/jackpot/multiple';
+	$data = [
+		'gameType'=>'samurai',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1365,6 +2099,41 @@
         status=<status>&
         hash=<hash>
     ```
+    
+    ##### Request  範例
+    
+    bash
+    
+    ```bash
+    CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
+ -G http://poker.app/api/v2/slot/jackpot-status
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/jackpot-status';
+	$data = [
+		'status'=>'1'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
 
     ##### 參數說明
 
@@ -1418,6 +2187,45 @@
         verified_at=<verified_at>&
         hash=<hash>
     ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
+ -G http://poker.app/api/v2/slot/jackpot/write-off
+ 	```
+ 	
+ 	php
+ 	
+ 	```php
+ 	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/jackpot/write-off';
+	$data = [
+		'account'=>'test',
+		'jp_id'=>'1',
+		'verified_at'=>'2017-04-10 23:23:23'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+ 	```
+    
 
     ##### 參數說明
 

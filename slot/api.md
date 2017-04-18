@@ -1478,7 +1478,7 @@
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
 	$response = curl_exec($ch);
 	echo $response;
-```
+	```
 
     ##### 參數說明
 
@@ -1507,9 +1507,11 @@
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+    
     回傳參數說明    
     
     |參數|型態|說明|

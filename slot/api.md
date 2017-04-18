@@ -2196,7 +2196,7 @@
     
     ```bash
     CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
- -G http://poker.app/api/v2/slot/jackpot/write-off
+ 		-G http://poker.app/api/v2/slot/jackpot/write-off
  	```
  	
  	php
@@ -2244,6 +2244,7 @@
     ##### 回傳結果
 
     成功
+    
     ```javascript
     {  
        "status":"success",
@@ -2259,9 +2260,11 @@
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+    
     回傳參數說明    
     
     |參數|型態|說明|

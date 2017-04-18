@@ -43,8 +43,8 @@
 ## <span id="GameType">Slot Game Type</span>
 | 遊戲名稱  | GameType                  | 
 |---------- |-------------------------  |
-| 武士道         | samurai   | 
-| 金錢貓         | cash_cat   | 
+| 武士道         | 1   | 
+| 金錢貓         | 2   | 
 
 ## 錯誤代碼
 
@@ -1517,7 +1517,7 @@
     |account|string|玩家帳號|
     | enable |int|是否啟動 1:是, 0:否| 
 
-18. ### <span id="query-logs">LOG查詢</span>
+18. ### <span id="query-logs">玩家下注記錄查詢</span>
 
     查詢玩家下注LOG
 
@@ -1573,6 +1573,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account| 玩家帳號 |  string  |     必填 |
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#GameType) |    
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |   hash   | 驗證參數 |  string  |     必填    |
@@ -1582,31 +1583,157 @@
     ##### 回傳結果
     成功
     ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "id":61,
-             "machine_no":25,
-             "bet":10,
-             "bet_lines":9,
-             "total_bet":90,
-             "win_chips":0,
-             "scatter":0,
-             "created_at":"2016-05-03 13:42:38"
-          },
-          {  
-             "id":66,
-             "machine_no":46,
-             "bet":10,
-             "bet_lines":9,
-             "total_bet":90,
-             "win_chips":0,
-             "scatter":0,
-             "created_at":"2016-05-03 13:52:27"
-          }
-       ]
-    }
+	{  
+	   "status":"success",
+	   "data":[  
+	      {  
+	         "id":423,
+	         "machine_no":1,
+	         "bet":50,
+	         "bet_lines":9,
+	         "total_bet":450,
+	         "win_chips":500,
+	         "scatter":0,
+	         "bonus":0,
+	         "created_at":"2017-04-17 10:04:12",
+	         "game_result":[  
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":10,
+	               "filled":true
+	            },
+	            {  
+	               "icon":2,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":11,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            },
+	            {  
+	               "icon":8,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":6,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            }
+	         ]
+	      },
+	      {  
+	         "id":434,
+	         "machine_no":1,
+	         "bet":50,
+	         "bet_lines":9,
+	         "total_bet":450,
+	         "win_chips":300,
+	         "scatter":0,
+	         "bonus":0,
+	         "created_at":"2017-04-17 10:53:22",
+	         "game_result":[  
+	            {  
+	               "icon":2,
+	               "filled":false
+	            },
+	            {  
+	               "icon":4,
+	               "filled":true
+	            },
+	            {  
+	               "icon":1,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            },
+	            {  
+	               "icon":11,
+	               "filled":false
+	            },
+	            {  
+	               "icon":7,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":2,
+	               "filled":true
+	            },
+	            {  
+	               "icon":4,
+	               "filled":true
+	            },
+	            {  
+	               "icon":8,
+	               "filled":false
+	            },
+	            {  
+	               "icon":8,
+	               "filled":false
+	            },
+	            {  
+	               "icon":10,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            }
+	         ]
+	      }
+	   ]
+	}
     ```
 
     失敗
@@ -1747,7 +1874,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  gameType | 遊戲代稱 |  string  |     必填 [GameType](#GameType) |
+    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) |
     | startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     | endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |   hash   | 驗證參數 |  string  |     必填    |
@@ -1925,7 +2052,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  gameType | 遊戲代稱 |  string  |     必填 [GameType](#GameType) |
+    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) |
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
     |   hash   | 驗證參數 |  string  |     必填    |

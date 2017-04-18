@@ -508,7 +508,7 @@
     
     ```bash
     CURL -X PUT -d account=test -d credit=1 -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=f28a85dd168db1089dc2ae2b1c033424 \
- 		-G http://poker.app/api/v2/slot/player/credit/transfer
+		-G http://poker.app/api/v2/slot/player/credit/transfer
     ```
     
     php

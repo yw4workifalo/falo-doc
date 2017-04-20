@@ -58,7 +58,6 @@
 
 | 錯誤代碼  | 錯誤訊息                  | 錯誤說明              |
 |---------- |-------------------------  |---------------------- |
-| 0			  | api server error	| api server 發生錯誤 |
 | 1         | \{parameter\} is required   | 缺少必填參數            |
 | 2         | key is invalid            | 提供的金鑰是不合法的    |
 | 3         | hash is invalid           | 驗證碼是錯誤的           |
@@ -84,6 +83,9 @@
 | 23 | [start_at or end_at] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
 | 24 | {transferId} is not exist | 此筆交易單不存在 | 
 | 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
+| 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
+| 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
+
 
 ## API
 1. ### <span id="register">註冊帳號</span>

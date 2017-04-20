@@ -1835,16 +1835,16 @@
 
 19. ### <span id="bet-report">玩家下注簡報查詢</span>
 
-    玩家下注簡報查詢
+    	玩家下注簡報查詢
     
-    ```
-    GET bet/report?
-        key=<key>&
-        account=<account>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
+	```
+	GET bet/report?
+		key=<key>&
+		account=<account>&
+		startAt=<startAt>&
+		endAt=<endAt>&
+		hash=<hash>
+	```
 	
 	##### Request 範例
 	
@@ -1883,63 +1883,63 @@
 	echo $response;
 	```
 	
-    ##### 參數說明
+   	##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  account| 玩家帳號 |  string(20)  |     必填 | Y |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string(20)  |     必填 | Y |
+	|startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       **hash = md5(account + startAt + endAt + secret)**
+	**hash = md5(account + startAt + endAt + secret)**
 
-    ##### 回傳結果
+    	##### 回傳結果
 
-    成功
+    	成功
     
-    ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "totalBet":"540",
-          "winCredit":"40"
-       }
-    }
-    ```
+	```javascript
+	{  
+		"status":"success",
+		"data":{  
+			  "totalBet":"540",
+			  "winCredit":"40"
+		}
+	}
+	```
 
-    失敗
+    	失敗
     
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
     
-    ##### 回傳參數說明
+    	##### 回傳參數說明
     
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|:---:
-    | winCredit | int | 贏得的金額 |
-    | totalBet | int | 下注金額 |
+	|參數名稱|參數型態|說明|
+	|:---:|:---:|:---:|:---:
+	| winCredit | int | 贏得的金額 |
+	| totalBet | int | 下注金額 |
     
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
 
-    玩家下注簡報查詢
+    	玩家下注簡報查詢
     
-    ```
-    GET bet/report-multiple?
-        key=<key>&
-        gameType =<gameType>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
+	```
+	GET bet/report-multiple?
+		key=<key>&
+		gameType =<gameType>&
+		startAt=<startAt>&
+		endAt=<endAt>&
+		hash=<hash>
+    	```
     
-    ##### Request 範例
+    	##### Request 範例
     
-    bash
+    	bash
     
-    ```bash
+    	```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
  		-G http://poker.app/api/v2/slot/bet/report-multiple
  	```
@@ -1972,74 +1972,76 @@
 	echo $response;
 	```
 
-    ##### 參數說明
+    	##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
-    | startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    | endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
+	| startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	| endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       **hash = md5(account + startAt + endAt + secret)**
+      	**hash = md5(account + startAt + endAt + secret)**
 
-    ##### 回傳結果
+    	##### 回傳結果
 
-    成功
+    	成功
     
-    ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "account":"leochen",
-             "winCredit":null,
-             "totalBet":40,
-             "createdAt":"2016-12-16 14:00:11"
-          },
-          {  
-             "account":"wei01",
-             "winCredit":"28935",
-             "totalBet":40,
-             "createdAtt":"2017-03-23 09:36:08"
-          }
-       ]
-    }
-    ```
+	```javascript
+	{  
+		"status":"success",
+		"data":[  
+		  {  
+		     "account":"leochen",
+		     "winCredit":null,
+		     "totalBet":40,
+		     "createdAt":"2016-12-16 14:00:11"
+		  },
+		  {  
+		     "account":"wei01",
+		     "winCredit":"28935",
+		     "totalBet":40,
+		     "createdAtt":"2017-03-23 09:36:08"
+		  }
+		]
+	}
+	```
 
-    失敗
+	失敗
     
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
     
-    ##### 回傳參數說明
+    	##### 回傳參數說明
     
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|:---:
-    | data | array\<object\> | server回送的資料陣列，請看下表 |
+	|參數名稱|參數型態|說明|
+	|:---:|:---:|:---:|:---:
+	| data | array\<object\> | server回送的資料陣列，請看下表 |
+
+    	data 內 object 說明
     
-    data 內 object 說明
-    
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|:---:
-    | account | string(20) | 玩家帳號 |
-    | winCredit | int | 贏得的金額 |
-    | totalBet | int | 下注金額 |
-    | createdAt | string | 建立時間 |
+	|參數名稱|參數型態|說明|
+	|:---:|:---:|:---:|:---:
+	| account | string(20) | 玩家帳號 |
+	| winCredit | int | 贏得的金額 |
+	| totalBet | int | 下注金額 |
+	| createdAt | string | 建立時間 |
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
 
-    玩家JP紀錄查詢
-    ```
-    GET jackpot?
-        key=<key>&
-        account=<account>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
+    	玩家JP紀錄查詢
+    
+	```
+	GET jackpot?
+		key=<key>&
+		account=<account>&
+		startAt=<startAt>&
+		endAt=<endAt>&
+		hash=<hash>
+	```
+	
 	##### Request 範例
 	
 	bash
@@ -2077,59 +2079,61 @@
 	echo $response;
 	```
 	
-    ##### 參數說明
+    	##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 | Y |
-    |  account| 玩家帳號 |  string  |     必填 | Y |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string  |     必填 | Y |
+	|startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       **hash = md5(account + startAt + endAt + secret)**
+       	**hash = md5(account + startAt + endAt + secret)**
 
-    ##### 回傳結果
+    	##### 回傳結果
 
-    成功
-    ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "id":6,
-             "jackpot":8622,
-             "created_at":"2016-05-30 15:06:13",
-             "paid_at":"2016-05-30 15:21:08",
-             "rate":0.15
-          }
-       ]
-    }
-    ```
+	成功
+	
+	```javascript
+	{  
+		"status":"success",
+		"data":[  
+		  {  
+		     "id":6,
+		     "jackpot":8622,
+		     "created_at":"2016-05-30 15:06:13",
+		     "paid_at":"2016-05-30 15:21:08",
+		     "rate":0.15
+		  }
+		]
+	}
+	```
 
-    失敗
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-    回傳參數說明    
+	失敗
+	
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
+    	回傳參數說明    
     
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    | jackpot |int|遊戲jackpot編號|
-    | createdAt |string|jackpot時間|
-    | paidAt |string|核銷時間|
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	| jackpot |int|遊戲jackpot編號|
+	| createdAt |string|jackpot時間|
+	| paidAt |string|核銷時間|
     
 20. ### <span id="jp-multiple">玩家多人JP紀錄查詢</span>
 
-    玩家JP紀錄查詢
-    ```
-    GET jackpot/multiple?
-        key=<key>&
-        gameType=<gameType>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
+    	玩家JP紀錄查詢
+	```
+	GET jackpot/multiple?
+		key=<key>&
+		gameType=<gameType>&
+		startAt=<startAt>&
+		endAt=<endAt>&
+		hash=<hash>
+	```
 	##### Request 範例
 	
 	bash
@@ -2167,66 +2171,67 @@
 	echo $response;
 	```
 	
-    ##### 參數說明
+    	##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
+	|startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(gameType + startAt + endAt + secret)**
 
-    ##### 回傳結果
+	##### 回傳結果
 
-    成功
-    ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "account":"ooo@gmail.com",
-             "jackpot":1,
-             "paid_at":"2017-04-14 11:36:54",
-             "rate":1,
-             "game_id":1,
-             "created_at":"2017-04-13 14:31:50"
-          }
-       ]
-    }
-    ```
+    	成功
+	```javascript
+	{  
+	"status":"success",
+	"data":[  
+	  {  
+	     "account":"ooo@gmail.com",
+	     "jackpot":1,
+	     "paid_at":"2017-04-14 11:36:54",
+	     "rate":1,
+	     "game_id":1,
+	     "created_at":"2017-04-13 14:31:50"
+	  }
+	]
+	}
+	```
 
-    失敗
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-    回傳參數說明    
+    	失敗
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
+	
+    	回傳參數說明    
     
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    | jackpot |int|遊戲jackpot編號|
-    | created_at |string|jackpot時間|
-    | paid_at |string|核銷時間|    
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	| jackpot |int|遊戲jackpot編號|
+	| created_at |string|jackpot時間|
+	| paid_at |string|核銷時間|    
 
 21. ### <span id="jp-status">JP中獎紀錄</span>
 
 
-    ```
-    GET jackpot-status?
-        key=<key>&
-        status=<status>&
-        hash=<hash>
-    ```
+	```
+	GET jackpot-status?
+		key=<key>&
+		status=<status>&
+		hash=<hash>
+	```
     
-    ##### Request  範例
+    	##### Request  範例
     
-    bash
+    	bash
     
-    ```bash
-    CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
- 		-G http://poker.app/api/v2/slot/jackpot-status
+	```bash
+	CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
+		-G http://poker.app/api/v2/slot/jackpot-status
 	```
 	
 	php
@@ -2255,75 +2260,76 @@
 	echo $response;
 	```
 
-    ##### 參數說明
+	##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  status| 狀態 |  int  |  必填 0:不限,1未核銷,2：已核銷 | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  status| 狀態 |  int  |  必填 0:不限,1未核銷,2：已核銷 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       **hash = md5(status + secret)**
+	**hash = md5(status + secret)**
 
-    ##### 回傳結果
+    	##### 回傳結果
 
-    成功
+    	成功
     
-    ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "account":"ooo@gmail.com",
-             "jackpot":1,
-             "paid_at":"2017-04-14 11:36:54",
-             "rate":1,
-             "game_id":1,
-             "created_at":"2017-04-13 14:31:50"
-          }
-       ]
-    }
-    ```
+	```javascript
+	{  
+	"status":"success",
+	"data":[  
+	  {  
+	     "account":"ooo@gmail.com",
+	     "jackpot":1,
+	     "paid_at":"2017-04-14 11:36:54",
+	     "rate":1,
+	     "game_id":1,
+	     "created_at":"2017-04-13 14:31:50"
+	  }
+	]
+	}
+	```
 
-    失敗
+    	失敗
     
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-    回傳參數說明    
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
+	
+    	回傳參數說明    
     
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    | jackpot |int|遊戲jackpot編號|
-    | created_at |string|jackpot時間|
-    | paid_at |string|核銷時間|
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	| jackpot |int|遊戲jackpot編號|
+	| created_at |string|jackpot時間|
+	| paid_at |string|核銷時間|
              
 21. ### <span id="jp-vertification">玩家JP核銷</span>
 
-    玩家JP核銷
+	玩家JP核銷
+
+	```
+	PUT jackpot/write-off?
+		key=<key>&
+		account=<account>&
+		jp_id=<jp_id>&
+		verified_at=<verified_at>&
+		hash=<hash>
+	```
     
-    ```
-    PUT jackpot/write-off?
-        key=<key>&
-        account=<account>&
-        jp_id=<jp_id>&
-        verified_at=<verified_at>&
-        hash=<hash>
-    ```
+    	##### Request 範例
     
-    ##### Request 範例
+    	bash
     
-    bash
-    
-    ```bash
-    CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
+    	```bash
+    	CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
  		-G http://poker.app/api/v2/slot/jackpot/write-off
  	```
  	
  	php
  	
  	```php
- 	$key = '57d0bc61dffff';
+	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/jackpot/write-off';
 	$data = [
@@ -2337,7 +2343,7 @@
 		$hash .= $v;
 	}
 	$hash .= $secret;
-	
+
 	$hash = md5($hash);
 	$data['key'] = $key;
 	$data['hash'] = $hash;
@@ -2348,23 +2354,22 @@
 	$response = curl_exec($ch);
 	echo $response;
  	```
-    
-
-   ##### 參數說明
+	
+   	##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
 	|  account| 玩家帳號 |  string(20)  |     必填 | Y |
 	| jpId  | jp紀錄的id |  int  |     jp紀錄的id，離線通知會提供 | Y |
-	|verifiedAt| 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	| verifiedAt | 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 	
-       **hash = md5(account + jp_id + verified_at + secret)**
+       	**hash = md5(account + jp_id + verified_at + secret)**
 
-   ##### 回傳結果
+   	##### 回傳結果
 
-   成功
+	成功
     
 	```javascript
 	{  
@@ -2380,13 +2385,13 @@
 	}
 	```
 
-   失敗
+   	失敗
     
 	```javascript
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
-    
-   回傳參數說明    
+	
+	回傳參數說明    
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|

@@ -1895,9 +1895,9 @@
 
 	**hash = md5(account + startAt + endAt + secret)**
 
-    	##### 回傳結果
+    ##### 回傳結果
 
-    	成功
+    成功
     
 	```javascript
 	{  
@@ -1909,13 +1909,13 @@
 	}
 	```
 
-    	失敗
+    失敗
     
 	```javascript
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
     
-    	##### 回傳參數說明
+    ##### 回傳參數說明
     
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|:---:
@@ -1924,7 +1924,7 @@
     
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
 
-    	玩家下注簡報查詢
+    玩家下注簡報查詢
     
 	```
 	GET bet/report-multiple?
@@ -1933,13 +1933,13 @@
 		startAt=<startAt>&
 		endAt=<endAt>&
 		hash=<hash>
-    	```
+    ```
     
-    	##### Request 範例
+    ##### Request 範例
     
-    	bash
+    bash
     
-    	```bash
+    ```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
  		-G http://poker.app/api/v2/slot/bet/report-multiple
  	```
@@ -1972,7 +1972,7 @@
 	echo $response;
 	```
 
-    	##### 參數說明
+    ##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
@@ -1982,11 +1982,11 @@
 	| endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-      	**hash = md5(account + startAt + endAt + secret)**
+    **hash = md5(account + startAt + endAt + secret)**
 
-    	##### 回傳結果
+    ##### 回傳結果
 
-    	成功
+    成功
     
 	```javascript
 	{  
@@ -2014,13 +2014,13 @@
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
     
-    	##### 回傳參數說明
+    ##### 回傳參數說明
     
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|:---:
 	| data | array\<object\> | server回送的資料陣列，請看下表 |
 
-    	data 內 object 說明
+    data 內 object 說明
     
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|:---:
@@ -2031,7 +2031,7 @@
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
 
-    	玩家JP紀錄查詢
+    玩家JP紀錄查詢
     
 	```
 	GET jackpot?
@@ -2079,7 +2079,7 @@
 	echo $response;
 	```
 	
-    	##### 參數說明
+    ##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
@@ -2089,9 +2089,9 @@
 	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       	**hash = md5(account + startAt + endAt + secret)**
+	**hash = md5(account + startAt + endAt + secret)**
 
-    	##### 回傳結果
+    ##### 回傳結果
 
 	成功
 	
@@ -2115,7 +2115,8 @@
 	```javascript
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
-    	回傳參數說明    
+    
+    回傳參數說明    
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
@@ -2125,7 +2126,8 @@
     
 20. ### <span id="jp-multiple">玩家多人JP紀錄查詢</span>
 
-    	玩家JP紀錄查詢
+    玩家JP紀錄查詢
+    
 	```
 	GET jackpot/multiple?
 		key=<key>&
@@ -2171,7 +2173,7 @@
 	echo $response;
 	```
 	
-    	##### 參數說明
+    ##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
@@ -2181,11 +2183,12 @@
 	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-       **hash = md5(gameType + startAt + endAt + secret)**
+	**hash = md5(gameType + startAt + endAt + secret)**
 
 	##### 回傳結果
 
-    	成功
+    成功
+    
 	```javascript
 	{  
 	"status":"success",
@@ -2225,9 +2228,9 @@
 		hash=<hash>
 	```
     
-    	##### Request  範例
+    ##### Request  範例
     
-    	bash
+    bash
     
 	```bash
 	CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
@@ -2270,23 +2273,23 @@
 
 	**hash = md5(status + secret)**
 
-    	##### 回傳結果
+    ##### 回傳結果
 
-    	成功
+    成功
     
 	```javascript
 	{  
-	"status":"success",
-	"data":[  
-	  {  
-	     "account":"ooo@gmail.com",
-	     "jackpot":1,
-	     "paid_at":"2017-04-14 11:36:54",
-	     "rate":1,
-	     "game_id":1,
-	     "created_at":"2017-04-13 14:31:50"
-	  }
-	]
+		"status":"success",
+		"data":[  
+		  {  
+		     "account":"ooo@gmail.com",
+		     "jackpot":1,
+		     "paid_at":"2017-04-14 11:36:54",
+		     "rate":1,
+		     "game_id":1,
+		     "created_at":"2017-04-13 14:31:50"
+		  }
+		]
 	}
 	```
 
@@ -2317,12 +2320,12 @@
 		hash=<hash>
 	```
     
-    	##### Request 範例
+    ##### Request 範例
     
-    	bash
+    bash
     
-    	```bash
-    	CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
+    ```bash
+    CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
  		-G http://poker.app/api/v2/slot/jackpot/write-off
  	```
  	

@@ -182,9 +182,16 @@
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    |錯誤代碼(code)|錯誤訊息(message)|
-    |:---:|:---:|
-    |1|{parameter} is required|
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 13 | account length between 4 - 20  |
+    | 14 | nickname length between 1- 20  |
 
 2. ### <span id="auth">取得玩家登入網址</span>
 
@@ -254,7 +261,9 @@
     }     
 
     ```
+    
     失敗
+    
     ```javascript
     {  
        "status":"error",
@@ -270,6 +279,17 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |loginUrl|string|玩家登入用網址|
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 3. ### <span id="login">登入</span>
 
@@ -391,6 +411,18 @@
     |limitLose|int|限輸 0為無限制|
     |isOnline|boolean|玩家是否在上線|
     
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
+    
 5. ### <span id="bet-report-session">取得玩家遊戲紀錄</span>
 
     ```
@@ -490,7 +522,19 @@
     | initialCredit |int|初始金額|
     | sumOfBet |int|下注金額|
     | sumOfWinCredit |int|贏取金額，損益為 sumOfWinCredit - sumOfBet|
-    | finalCredit |int|最後籌碼|            
+    | finalCredit |int|最後籌碼|    
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+        
 6. ### <spin id="offline_notification">玩家離線通知</spin>
 
     玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
@@ -521,7 +565,7 @@
      ```javascript
     {"status":"error","message":"<自訂訊息>"}
     ```   
-
+	
 7. ### <spin id="credit_transfer">玩家額度轉出入</spin>
 
     ```
@@ -622,6 +666,18 @@
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success, 1:餘額不足, 2:伺服器錯誤, 3:訂單交易中|  
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
       
 7. ### <spin id="transfer-status">玩家轉帳狀態查詢</spin>
 
@@ -717,6 +773,16 @@
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success, 1:餘額不足, 2:伺服器錯誤, 3:訂單交易中|
     
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 8. ### <spin id="kick">踢玩家</spin>
 
@@ -804,6 +870,18 @@
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
     |status|string|狀態user\_offline,kicked,user\_not\_found|
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
         
 8. ### <spin id="kick-multiple">踢多玩家</spin>
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
@@ -902,6 +980,18 @@
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     |status|string|狀態user\_offline,kicked,user\_not\_found|
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
 
 9. ### <span id="lose-limit">限輸</span>
 
@@ -987,6 +1077,19 @@
     |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額|    
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
+
 10. ### <span id="win-limit">限贏</span>
 
     設定玩家限贏
@@ -1071,13 +1174,26 @@
 	   }
 	}
     ```
+    
     回傳參數說明    
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
-    |limitWin|int|限贏金額|  
+    |limitWin|int|限贏金額| 
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+ 
 
 11. ### <span id="limit-recover">限注回復</span>
 
@@ -1153,10 +1269,25 @@
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
-    |參數|型態|說明|
+    
+    回傳參數說明
+    
+    | 參數 | 型態 | 說明 |
     |:---:|:---:|:---:|
-    |account|string(20)|玩家帳號|
-    | winCredit |int|回復後損益|
+    | account |string(20)| 玩家帳號 |
+    | winCredit |int| 回復後損益 |
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
     
 12. ### <span id="ban-mode">設定玩家帳號模式</span>
 
@@ -1243,6 +1374,26 @@
 	   }
 	}
     ```
+    
+    
+     回傳參數說明
+    
+    | 參數 | 型態 | 說明 |
+    |:---:|:---:|:---:|
+    | account |string(20)| 玩家帳號 |
+    | mode |int| 玩家模式([詳細說明](#玩家模式說明)) |
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
 
 14. ### <span id="limit-query">限注查詢</span>
 
@@ -1327,6 +1478,17 @@
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額|    
     | winCredit |int|損益|     
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 15. ### <span id="get-ban-mode">查詢玩家帳號模式</span>
 
@@ -1374,41 +1536,55 @@
 	echo $response;
 	```
 
-    ##### 參數說明
+   ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  account| 玩家帳號 |  string(20)  |     必填，支援多組帳號可用`,`分割   | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string(20)  |     必填，支援多組帳號可用`,`分割   | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-    **hash = md5(account + secret)**
+   	**hash = md5(account + secret)**
 
-    ##### 回傳結果
-    成功
-
-    ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "account":"test-api01",
-             "mode":0
-          }
-       ]
-    }
-    ```
-    失敗
-
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
-    回傳參數說明    
+  	##### 回傳結果
     
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    |account|string(20)|玩家帳號|
-    |status|int|模式([詳細說明](#玩家模式說明))|    
+  	成功
+
+	```javascript
+	{  
+	   "status":"success",
+	   "data":[  
+	      {  
+	         "account":"test-api01",
+	         "mode":0
+	      }
+	   ]
+	}
+	```
+    
+   失敗
+	
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
+    
+	回傳參數說明    
+    
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	|account|string(20)|玩家帳號|
+	|mode|int|模式([詳細說明](#玩家模式說明))|    
+    
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
 
 16. ### <span id="get-activation">查詢玩家是否啟用遊戲</span>
 
@@ -1493,6 +1669,17 @@
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
     |enable |int|是否啟動 1:是, 0:否|    
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 17. ### <span id="set-activation">設定玩家是否啟用遊戲</span>
 
@@ -1581,6 +1768,17 @@
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     | enable |int|是否啟動 1:是, 0:否| 
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 18. ### <span id="query-logs">玩家下注記錄查詢</span>
 
@@ -1830,7 +2028,18 @@
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|:---:
     | icon | int | 轉到的 icon id |
-
+	
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
     
 
 19. ### <span id="bet-report">玩家下注簡報查詢</span>
@@ -1915,12 +2124,24 @@
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
     
-    ##### 回傳參數說明
+	##### 回傳參數說明
     
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|:---:
 	| winCredit | int | 贏得的金額 |
 	| totalBet | int | 下注金額 |
+	
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
     
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
 
@@ -2028,6 +2249,17 @@
 	| winCredit | int | 贏得的金額 |
 	| totalBet | int | 下注金額 |
 	| createdAt | string | 建立時間 |
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
 
@@ -2123,6 +2355,17 @@
 	| jackpot |int|遊戲jackpot編號|
 	| createdAt |string|jackpot時間|
 	| paidAt |string|核銷時間|
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
     
 20. ### <span id="jp-multiple">玩家多人JP紀錄查詢</span>
 
@@ -2187,7 +2430,7 @@
 
 	##### 回傳結果
 
-    成功
+   成功
     
 	```javascript
 	{  
@@ -2205,18 +2448,31 @@
 	}
 	```
 
-    	失敗
+    失敗
+    
 	```javascript
 	{"status":"error","error":{"code":4,"message":"user not found"}}
 	```
 	
-    	回傳參數說明    
+    回傳參數說明    
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
 	| jackpot |int|遊戲jackpot編號|
 	| created_at |string|jackpot時間|
 	| paid_at |string|核銷時間|    
+	
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
 
 21. ### <span id="jp-status">JP中獎紀錄</span>
 
@@ -2306,6 +2562,17 @@
 	| jackpot |int|遊戲jackpot編號|
 	| created_at |string|jackpot時間|
 	| paid_at |string|核銷時間|
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
              
 21. ### <span id="jp-vertification">玩家JP核銷</span>
 
@@ -2401,3 +2668,14 @@
 	| jackpot |int|遊戲jackpot編號|
 	| createdAt |string|jackpot時間|
 	| paidAt |string|核銷時間|
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |

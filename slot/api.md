@@ -46,10 +46,19 @@
 | 武士道         | 1   | 
 | 金錢貓         | 2   | 
 
+## 玩家模式說明
+
+|模式|說明|
+|:---:|:---|
+|0|正常|
+|1|鎖單無法下注|
+|2|封鎖無法登入|
+
 ## 錯誤代碼
 
 | 錯誤代碼  | 錯誤訊息                  | 錯誤說明              |
 |---------- |-------------------------  |---------------------- |
+| 0			  | api server error	| api server 發生錯誤 |
 | 1         | \{parameter\} is required   | 缺少必填參數            |
 | 2         | key is invalid            | 提供的金鑰是不合法的    |
 | 3         | hash is invalid           | 驗證碼是錯誤的           |
@@ -57,15 +66,24 @@
 | 5         | \{method\} is not allowed   | http method 不允許       |
 | 6         | query time range out of limit   | 查詢時間範圍超出限制       |
 | 7         | internal server error   | 伺服器內部錯誤       |
-| 8         | user offline   | 使用者離線       |
-| 9         | add chips error   | 加錢錯誤       |
+| 8         | player is offline   | 使用者離線       |
+| 9	         | player is online	| 使用者在線中 |
 | 10        | service not available   | 無法使用遊戲服務       |
-| 11        | user chips not enough   | 玩家籌碼不足       |
-| 12        | \{parameter\} is invalid   | 參數不合法       |
-| 13        | log not found   | 無法查詢到紀錄       |
-| 14        | nicknames should mapping accounts   | 參數 nickname 與 accounts 需相對應    |
-| 15        |duplicate transfer id|轉帳id重複|
-| 16        |transfer log not found| 轉帳 LOG不存在|
+| 11        | \{parameter\} is invalid   | 參數不合法       |
+| 12 		  | gameType not found | 無此遊戲存在 |
+| 13 | account length between 4 - 20 | 帳號至少4位元以上 | 
+| 14 | nickname length between 1- 20 | 暱稱至少1位元以上 | 
+| 15 | enable setting is invalid | 玩家啟用設定值必須為整數 | 
+| 16 | mode setting is invalid | 玩家帳號模式設定值必須為整數 | 
+| 17 | transfer in error | 額度轉入失敗 | 
+| 18 | transfer out error | 額度轉出失敗 | 
+| 19 | player credit is not enough | 玩家籌碼不足 | 
+| 20 | range :2017-01-01 00:00:00 to 2017-01-02 00:00:00 not found bet results | 查詢結果無注單 | 
+| 21 | bet accounts processing | 帳務結算中不可額度轉出入 | 
+| 22 | {param} must be a unsigned int | {param}設定值必須為正整數 | 
+| 23 | [start_at or end_at] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
+| 24 | {transferId} is not exist | 此筆交易單不存在 | 
+| 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
 
 ## API
 1. ### <span id="register">註冊帳號</span>
@@ -120,17 +138,18 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |   nickname   | 玩家暱稱 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:-----------:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+    |   nickname   | 玩家暱稱 |  string(20)  |     必填，1-20個字元    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + nickname + secret)**
 
     ##### 回傳結果
     成功
+    
     ```javascript
     {  
        "status":"success",
@@ -141,7 +160,9 @@
        }
     }
     ```
+    
     失敗
+    
     ```javascript
     {  
        "status":"error",
@@ -151,12 +172,19 @@
        }
     }
     ```
+    
     回傳參數說明
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account| string | 帳號|
-    |nickname| string | 玩家暱稱 |
+    |account| string(20) | 帳號|
+    |nickname| string(20) | 玩家暱稱 |
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    |錯誤代碼(code)|錯誤訊息(message)|
+    |:---:|:---:|
+    |1|{parameter} is required|
 
 2. ### <span id="auth">取得玩家登入網址</span>
 
@@ -206,11 +234,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |    
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |Y|
+    |  account | 玩家帳號 |  string  |     必填    | Y|   
+    |   hash   | 驗證參數 |  string  |     必填    |Y|
 
     **hash = md5(account + secret)**
 
@@ -246,16 +274,18 @@
 3. ### <span id="login">登入</span>
 
 
-    ```
+
     GET 由[取得玩家登入網址](#取得玩家登入網址)回傳的loginUrl
-    ```
 
     ##### 回傳結果
     成功
+    
     ```
     直接導向遊戲頁
     ```
+    
     失敗
+    
     ```
     導向登入失敗頁
     ```
@@ -308,11 +338,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + secret)**
 
@@ -411,13 +441,13 @@
 
     ##### 參數說明
 
-    | 參數名稱  | 參數說明  | 參數型態  | 說明                            |
-    |---------- |---------- |---------- |------------------------------ |
-    | key       | 服務金鑰  | string    | 由API端提供                   |
-    | account   | 玩家帳號  | string    | 必填                            |
-    | startAt  | 開始時間  | string    | 固定格式Y-m-d,Y-m-d H:i:s或者0，0代表不限制，多查詢七天內的資料  |
-    | endAt    | 結束時間  | string    | 固定格式Y-m-d,Y-m-d H:i:s或者0 ，代表不限制，最多查詢七天內的資料 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱  | 參數說明  | 參數型態  | 說明                            | 必填 |
+    |---------- |---------- |---------- |------------------------------ |---|
+    | key       | 服務金鑰  | string(20)    | 由API端提供                   | Y |
+    | account   | 玩家帳號  | string(20)    | 必填                            | Y |
+    | startAt  | 開始時間  | string    | 固定格式Y-m-d,Y-m-d H:i:s或者0，0代表不限制，多查詢七天內的資料  | Y |
+    | endAt    | 結束時間  | string    | 固定格式Y-m-d,Y-m-d H:i:s或者0 ，代表不限制，最多查詢七天內的資料 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + startAt + endAt + secret)**
 
@@ -425,21 +455,22 @@
     成功
 
     ```javascript
-    [  
-       {  
-          "id":30,
-          "user_id":1,
-          "initial_chips":100720,
-          "sum_of_bet":0,
-          "sum_of_win_chips":0,
-          "final_chips":100720,
-          "ip":"192.168.10.1",
-          "login_at":"2016-04-12 18:29:49",
-          "logout_at":"2016-04-12 18:32:23",
-          "created_at":"2016-04-12 18:29:49",
-          "updated_at":"2016-04-12 18:32:23"
-       }
-    ]
+    {  
+	   "status":"success",
+	   "data":[  
+	      {  
+	         "id":145,
+	         "userId":19,
+	         "initialCredit":1,
+	         "sumOfBet":0,
+	         "sumOfWinCredit":0,
+	         "finalCredit":1,
+	         "ip":"192.168.11.1",
+	         "loginAt":"2017-04-20 10:22:18",
+	         "logoutAt":"2017-04-20 10:22:28",
+	      }
+	   ]
+	}
     ```
     失敗
 
@@ -456,10 +487,10 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    | initial_chips|string|本局初始金額|
-    | sum_of_bet |int|下注|
-    | sum_of_win_chips |int|損益|
-    | final_chips |int|最後籌碼|            
+    | initialCredit |int|初始金額|
+    | sumOfBet |int|下注金額|
+    | sumOfWinCredit |int|贏取金額，損益為 sumOfWinCredit - sumOfBet|
+    | finalCredit |int|最後籌碼|            
 6. ### <spin id="offline_notification">玩家離線通知</spin>
 
     玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
@@ -542,13 +573,13 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |  credit   | 增加的籌碼 |  int  |     必填, 負號代表轉出    |
-    |  transferId   | 交易編號 |  int  |     必填    |    
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |  credit   | 增加的籌碼 |  int  |     必填, 負號代表轉出    | Y |
+    |  transferId   | 交易編號 |  string(30)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + credit + transfer_id + secret)**
 
@@ -572,7 +603,13 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"user not found"
+	   }
+	}
     ```
     回傳參數說明
     
@@ -632,11 +669,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  transferId   | 交易編號 |  int  |     必填    |    
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  transferId   | 交易編號 |  string(30)  |     必填    | Y |   
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + transferId + secret)**
 
@@ -652,7 +689,7 @@
           "finalCredit":3000,
           "account":"mm@gmail.com",
           "orderId":2,
-          "transferId":"fsefs",
+          "transferId":"testTransferId",
           "status":0
        }
     }
@@ -660,13 +697,19 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"user not found"
+	   }
+	}
     ```
     回傳參數說明
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|  
+    |account|string(20)|玩家帳號|  
     |originCredit|int|原始籌碼|
     |addCredit|int|新增籌碼|
     |finalCredit|int|最後籌碼|
@@ -678,6 +721,7 @@
 8. ### <spin id="kick">踢玩家</spin>
 
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
+    
     ```
     DELETE player/kick?
         key=<key>&
@@ -725,12 +769,12 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填   |
-    |  reason  | 剔除原因 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填   | Y |
+    |  reason  | 剔除原因 |  string(50)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + reason + secret)**
 
@@ -759,10 +803,11 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
-    |status|string|狀態user_offline,kicked,user_not_found|
+    |status|string|狀態user\_offline,kicked,user\_not\_found|
         
 8. ### <spin id="kick-multiple">踢多玩家</spin>
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
+    
     ```
     DELETE player/kick-multiple?
         key=<key>&
@@ -809,12 +854,12 @@
 	```
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   |
-    |  reason  | 剔除原因 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
+    |  reason  | 剔除原因 |  string(50)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + reason + secret)**
 
@@ -843,14 +888,20 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+	{  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"user not found"
+	   }
+	}
     ```
     回傳參數說明
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
-    |status|string|狀態user_offline,kicked,user_not_found|
+    |account|string(20)|玩家帳號|
+    |status|string|狀態user\_offline,kicked,user\_not\_found|
 
 9. ### <span id="lose-limit">限輸</span>
 
@@ -902,12 +953,12 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |  limit   | 限制金額 |  int  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |  limit   | 限制金額 |  int  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+limit+secret)**
 
@@ -933,7 +984,7 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
+    |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額|    
 10. ### <span id="win-limit">限贏</span>
@@ -983,16 +1034,16 @@
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
 	$response = curl_exec($ch);
 	echo $response;
-	 ```
+	```
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |  limit   | 限制金額 |  int  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |  limit   | 限制金額 |  int  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+limit+secret)**
 
@@ -1012,13 +1063,19 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+	{  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"user not found"
+	   }
+	}
     ```
     回傳參數說明    
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
+    |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額|  
 
@@ -1071,11 +1128,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+secret)**
 
@@ -1087,7 +1144,7 @@
        "status":"success",
        "data":{  
           "account":"mm@gmail.com",
-          "winChips":0
+          "winCredit":0
        }
     }
     ```
@@ -1098,8 +1155,8 @@
     ```
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
-    | winChips |int|回復後損益|
+    |account|string(20)|玩家帳號|
+    | winCredit |int|回復後損益|
     
 12. ### <span id="ban-mode">設定玩家帳號模式</span>
 
@@ -1152,12 +1209,12 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填  |
-    |   mode | 模式 |  int    |     必填(0:normal,1:locked, 2:banned) <ul><li>`normal` 是無封鎖</li><li>`banned` 是停用</li><li>`locked`是鎖單</li><li>`no_permission`是無權限</li></ul>
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填  | Y |
+    |   mode | 模式 |  int    |     必填([詳細說明](#玩家模式說明)) | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+mode+secret)**
 
@@ -1178,7 +1235,13 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+	{  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"user not found"
+	   }
+	}
     ```
 
 14. ### <span id="limit-query">限注查詢</span>
@@ -1228,11 +1291,11 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + secret)**
 
@@ -1244,7 +1307,7 @@
        "status":"success",
        "data":{  
           "account":"mm@gmail.com",
-          "winChips":0,
+          "winCredit":0,
           "limitWin":11111,
           "limitLose":30000,
           "updatedAt":"2017-04-13 11:03:44"
@@ -1260,10 +1323,10 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
+    |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額|    
-    | winChips |int|損益|     
+    | winCredit |int|損益|     
 
 15. ### <span id="get-ban-mode">查詢玩家帳號模式</span>
 
@@ -1313,11 +1376,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填，支援多組帳號可用`,`分割   | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + secret)**
 
@@ -1330,7 +1393,7 @@
        "data":[  
           {  
              "account":"test-api01",
-             "status":"normal"
+             "mode":0
           }
        ]
     }
@@ -1344,8 +1407,8 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
-    |status|string|模式|    
+    |account|string(20)|玩家帳號|
+    |status|int|模式([詳細說明](#玩家模式說明))|    
 
 16. ### <span id="get-activation">查詢玩家是否啟用遊戲</span>
 
@@ -1396,11 +1459,11 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填，支援多組帳號可用`,`分割   | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + secret)**
 
@@ -1429,7 +1492,7 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
-    | activation |string|是否啟動 1:是, 0:否|    
+    |enable |int|是否啟動 1:是, 0:否|    
 
 17. ### <span id="set-activation">設定玩家是否啟用遊戲</span>
 
@@ -1482,12 +1545,12 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填，支援多組帳號可用`,`分割   |
-    |enable| 驗證參數 |  int    |     必填，是否啟動 1:是, 0:否 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填，支援多組帳號可用`,`分割   | Y |
+    |enable| 驗證參數 |  int    |     必填，是否啟動 1:是, 0:否 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + enable + secret )**
 
@@ -1516,7 +1579,7 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|
+    |account|string(20)|玩家帳號|
     | enable |int|是否啟動 1:是, 0:否| 
 
 18. ### <span id="query-logs">玩家下注記錄查詢</span>
@@ -1571,34 +1634,36 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#GameType) |    
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填 | Y |
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#GameType) | Y |  
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + startAt + endAt + secret)**
 
     ##### 回傳結果
+    
     成功
+    
     ```javascript
 	{  
 	   "status":"success",
 	   "data":[  
 	      {  
 	         "id":423,
-	         "machine_no":1,
+	         "machineNo":1,
 	         "bet":50,
-	         "bet_lines":9,
-	         "total_bet":450,
-	         "win_chips":500,
+	         "betLines":9,
+	         "totalBet":450,
+	         "winCredt":500,
 	         "scatter":0,
 	         "bonus":0,
-	         "created_at":"2017-04-17 10:04:12",
-	         "game_result":[  
+	         "createdAt":"2017-04-17 10:04:12",
+	         "gameResult":[  
 	            {  
 	               "icon":3,
 	               "filled":false
@@ -1663,15 +1728,15 @@
 	      },
 	      {  
 	         "id":434,
-	         "machine_no":1,
+	         "machineNo":1,
 	         "bet":50,
-	         "bet_lines":9,
-	         "total_bet":450,
-	         "win_chips":300,
+	         "betLines":9,
+	         "totalBet":450,
+	         "winCredit":300,
 	         "scatter":0,
 	         "bonus":0,
-	         "created_at":"2017-04-17 10:53:22",
-	         "game_result":[  
+	         "createdAt":"2017-04-17 10:53:22",
+	         "gameResult":[  
 	            {  
 	               "icon":2,
 	               "filled":false
@@ -1739,14 +1804,39 @@
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+	
+	 ##### 回傳參數說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|:---:
+    | data | array\<object\> | server回送的資料陣列 |
+    | id | int | 流水號 |
+    | machineNo | int | 機器編號 |
+    | bet | int | 贏得的金額 |
+    | betLines | int | 下注金額 |
+    | totalBet | string | 建立時間 |
+    | winCredit | int | 贏得金額 |
+    | scatter | int | 是否是在scatter 狀態下 |
+    | bonus | int | bonus 贏得金額 |
+    | createdAt | string | 建立時間 |
+    | gameResult | array\<object\> | 遊戲開牌結果，說明請看下表 |
+    
+    開牌結果說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|:---:
+    | icon | int | 轉到的 icon id |
 
+    
 
 19. ### <span id="bet-report">玩家下注簡報查詢</span>
 
     玩家下注簡報查詢
+    
     ```
     GET bet/report?
         key=<key>&
@@ -1795,36 +1885,47 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string(20)  |     必填 | Y |
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(account + startAt + endAt + secret)**
 
     ##### 回傳結果
 
     成功
+    
     ```javascript
     {  
        "status":"success",
        "data":{  
-          "total_bet":"540",
-          "win_chips":"40"
+          "totalBet":"540",
+          "winCredit":"40"
        }
     }
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+    
+    ##### 回傳參數說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|:---:
+    | winCredit | int | 贏得的金額 |
+    | totalBet | int | 下注金額 |
+    
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
 
     玩家下注簡報查詢
+    
     ```
     GET bet/report-multiple?
         key=<key>&
@@ -1873,43 +1974,60 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) |
-    | startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    | endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
+    | startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    | endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(account + startAt + endAt + secret)**
 
     ##### 回傳結果
 
     成功
+    
     ```javascript
     {  
        "status":"success",
        "data":[  
           {  
              "account":"leochen",
-             "win_chips":null,
-             "total_bet":40,
-             "created_at":"2016-12-16 14:00:11"
+             "winCredit":null,
+             "totalBet":40,
+             "createdAt":"2016-12-16 14:00:11"
           },
           {  
              "account":"wei01",
-             "win_chips":"28935",
-             "total_bet":40,
-             "created_at":"2017-03-23 09:36:08"
+             "winCredit":"28935",
+             "totalBet":40,
+             "createdAtt":"2017-03-23 09:36:08"
           }
        ]
     }
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
+    
+    ##### 回傳參數說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|:---:
+    | data | array\<object\> | server回送的資料陣列，請看下表 |
+    
+    data 內 object 說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|:---:
+    | account | string(20) | 玩家帳號 |
+    | winCredit | int | 贏得的金額 |
+    | totalBet | int | 下注金額 |
+    | createdAt | string | 建立時間 |
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
 
@@ -1961,13 +2079,13 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string  |     必填 | Y |
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(account + startAt + endAt + secret)**
 
@@ -1997,7 +2115,7 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    | jackpot |string|遊戲jackpot編號|
+    | jackpot |int|遊戲jackpot編號|
     | createdAt |string|jackpot時間|
     | paidAt |string|核銷時間|
     
@@ -2051,13 +2169,13 @@
 	
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) |
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(gameType + startAt + endAt + secret)**
 
@@ -2088,7 +2206,7 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    | jackpot |string|遊戲jackpot編號|
+    | jackpot |int|遊戲jackpot編號|
     | created_at |string|jackpot時間|
     | paid_at |string|核銷時間|    
 
@@ -2139,17 +2257,18 @@
 
     ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  status| 狀態 |  int  |  必填 0:不限,1未核銷,2：已核銷 |
-    |   hash   | 驗證參數 |  string  |     必填    |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  status| 狀態 |  int  |  必填 0:不限,1未核銷,2：已核銷 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
        **hash = md5(status + secret)**
 
     ##### 回傳結果
 
     成功
+    
     ```javascript
     {  
        "status":"success",
@@ -2167,6 +2286,7 @@
     ```
 
     失敗
+    
     ```javascript
     {"status":"error","error":{"code":4,"message":"user not found"}}
     ```
@@ -2174,13 +2294,14 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    | jackpot |string|遊戲jackpot編號|
+    | jackpot |int|遊戲jackpot編號|
     | created_at |string|jackpot時間|
     | paid_at |string|核銷時間|
              
 21. ### <span id="jp-vertification">玩家JP核銷</span>
 
     玩家JP核銷
+    
     ```
     PUT jackpot/write-off?
         key=<key>&
@@ -2229,46 +2350,46 @@
  	```
     
 
-    ##### 參數說明
+   ##### 參數說明
 
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account| 玩家帳號 |  string  |     必填 |
-    |jp_id  | jp紀錄的id |  int  |     jp紀錄的id，離線通知會提供 |
-    |verified_at| 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 |
-    |   hash   | 驗證參數 |  string  |     必填    |
-
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string(20)  |     必填 | Y |
+	| jpId  | jp紀錄的id |  int  |     jp紀錄的id，離線通知會提供 | Y |
+	|verifiedAt| 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+	
        **hash = md5(account + jp_id + verified_at + secret)**
 
-    ##### 回傳結果
+   ##### 回傳結果
 
-    成功
+   成功
     
-    ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "id":1,
-          "jackpot":1,
-          "createdAt":"2017-04-13 14:31:50",
-          "paidAt":"2017-04-14 11:36:54",
-          "rate":1,
-          "gameId":1
-       }
-    }
-    ```
+	```javascript
+	{  
+	   "status":"success",
+	   "data":{  
+	      "id":1,
+	      "jackpot":1,
+	      "createdAt":"2017-04-13 14:31:50",
+	      "paidAt":"2017-04-14 11:36:54",
+	      "rate":1,
+	      "gameId":1
+	   }
+	}
+	```
 
-    失敗
+   失敗
     
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
-    ```
+	```javascript
+	{"status":"error","error":{"code":4,"message":"user not found"}}
+	```
     
-    回傳參數說明    
+   回傳參數說明    
     
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    | jackpot |string|遊戲jackpot編號|
-    | createdAt |string|jackpot時間|
-    | paidAt |string|核銷時間|
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	| jackpot |int|遊戲jackpot編號|
+	| createdAt |string|jackpot時間|
+	| paidAt |string|核銷時間|

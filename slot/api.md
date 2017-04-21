@@ -85,6 +85,7 @@
 | 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
 | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
+| 101 | jackpot log not found | 找不到 jackpot 記錄 |
 
 
 ## API
@@ -864,7 +865,7 @@
        "status":"success",
        "data":[  
           {  
-             "status":"kicked",
+             "status":0,
              "account":"haha0738@ifalo.com.tw"
           }
        ]
@@ -881,7 +882,7 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
-    |status|string|狀態user\_offline,kicked,user\_not\_found|
+    |status|int| 狀態0:kick success, 1:player is not online |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -964,14 +965,14 @@
        "data":[  
           {  
              "account":"kk",
-             "status":"user_not_found"
+             "status":0
           },
           {  
              "account":"aa",
-             "status":"user_not_found"
+             "status":1
           },
           {  
-             "status":"user_offline",
+             "status":2,
              "account":"haha0738@ifalo.com.tw"
           }
        ]
@@ -993,7 +994,7 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    |status|string|狀態user\_offline,kicked,user\_not\_found|
+    |status|string|狀態0:kick success, 1:player is not online 2:player not found|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     

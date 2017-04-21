@@ -61,9 +61,9 @@
 | 1         | \{parameter\} is required   | 缺少必填參數            |
 | 2         | key is invalid            | 提供的金鑰是不合法的    |
 | 3         | hash is invalid           | 驗證碼是錯誤的           |
-| 4         | user not found            | 找不到合法的使用者     |
+| 4         | player not found            | 找不到合法的使用者     |
 | 5         | \{method\} is not allowed   | http method 不允許       |
-| 6         | query time range out of limit   | 查詢時間範圍超出限制       |
+| 6         | query time range out of limit   | 查詢時間範圍超出限制   |
 | 7         | internal server error   | 伺服器內部錯誤       |
 | 8         | player is offline   | 使用者離線       |
 | 9	         | player is online	| 使用者在線中 |
@@ -80,7 +80,7 @@
 | 20 | range :2017-01-01 00:00:00 to 2017-01-02 00:00:00 not found bet results | 查詢結果無注單 | 
 | 21 | bet accounts processing | 帳務結算中不可額度轉出入 | 
 | 22 | {param} must be a unsigned int | {param}設定值必須為正整數 | 
-| 23 | [start_at or end_at] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
+| 23 | [startAt or endAt] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
 | 24 | {transferId} is not exist | 此筆交易單不存在 | 
 | 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
 | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
@@ -289,6 +289,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found          |    
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -420,6 +421,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found          |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -533,9 +535,12 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found 			|
     | 5  | {method} is not allowed   |
-    |  7  | internal server error |
+    | 6  | query time range out of limit  |
+    | 7  | internal server error |
     | 11 | {parameter} is invalid   |
+    
         
 6. ### <spin id="offline_notification">玩家離線通知</spin>
 
@@ -676,9 +681,12 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found 			|    
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+    |19 | player credit is not enough|
+
 
       
 7. ### <spin id="transfer-status">玩家轉帳狀態查詢</spin>
@@ -785,6 +793,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+	| 24 | {transferId} is not exist |
+    
 
 8. ### <spin id="kick">踢玩家</spin>
 
@@ -880,8 +890,10 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found |
     | 5  | {method} is not allowed   |
-    |  7  | internal server error |
+    |  7  | internal server error | 
+	| 10 | service not available |
     | 11 | {parameter} is invalid   |
 
         
@@ -990,8 +1002,10 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found |
     | 5  | {method} is not allowed   |
-    |  7  | internal server error |
+    |  7  | internal server error | 
+	| 10 | service not available |
     | 11 | {parameter} is invalid   |
 
 
@@ -1087,6 +1101,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1192,6 +1207,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |    
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1286,6 +1302,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |    
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1392,6 +1409,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1488,6 +1506,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1584,6 +1603,7 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
+    | 4 | player not found  |    	
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
@@ -1679,6 +1699,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1778,6 +1799,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -2039,9 +2061,12 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4 | player not found  |        
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
     
 
 19. ### <span id="bet-report">玩家下注簡報查詢</span>
@@ -2141,9 +2166,12 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
+    | 4 | player not found  |    	
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
     
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
 
@@ -2262,6 +2290,9 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 12 | gameType  not found |
+	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
 
@@ -2365,6 +2396,7 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
+    | 4 | player not found  |    		
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
@@ -2475,6 +2507,7 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 12 | gameType  not found |	
 
 21. ### <span id="jp-status">JP中獎紀錄</span>
 
@@ -2678,6 +2711,8 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
+    | 4 | player not found  |    		
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 101 | jackpot log not found   |

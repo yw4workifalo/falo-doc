@@ -40,7 +40,7 @@
 
 ![流程圖](https://cacoo.com/diagrams/UQAlsLczvUqmOvl6-28811.png?t=1455870225441 "API 登入 流程圖")
 
-## <span id="GameType">Slot Game Type</span>
+## GameType
 | 遊戲名稱  | GameType                  | 
 |---------- |-------------------------  |
 | 武士道         | 1   | 
@@ -1860,7 +1860,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account| 玩家帳號 |  string(20)  |     必填 | Y |
-    |  gameType | 遊戲代稱 |  int  |     選填 [Slot Game Type](#Slot Game Type) | Y |  
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#GameType) | Y |  
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
@@ -2228,7 +2228,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  gameType | 遊戲代稱 |  int  |     必填 [Slot Game Type](#Slot Game Type) | Y |
+	|  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
 	| startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	| endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
@@ -2455,7 +2455,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  gameType | 遊戲代稱 |  int  |     必填 [Slot Game Type](#Slot Game Type) | Y |
+	|  gameType | 遊戲代稱 |  int  |     必填 [GameType](#GameType) | Y |
 	|startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |

@@ -985,7 +985,7 @@
 	   "status":"error",
 	   "error":{  
 	      "code":4,
-	      "message":"user not found"
+	      "message":"service not available"
 	   }
 	}
     ```
@@ -994,7 +994,7 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    |status|string|狀態0:kick success, 1:player is not online 2:player not found|
+    |status|int|狀態0:kick success, 1:player is not online 2:player not found|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1003,7 +1003,6 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found |
     | 5  | {method} is not allowed   |
     |  7  | internal server error | 
 	| 10 | service not available |

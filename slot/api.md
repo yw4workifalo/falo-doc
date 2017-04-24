@@ -2,6 +2,7 @@
 ## 目錄
 1. [註冊帳號](#註冊帳號)
 1. [取得登入連結](#取得玩家登入網址)
+2. [修改暱稱](#修改暱稱)
 1. [登入](#登入)
 1. [查詢玩家](#查詢玩家)   
 2. [取得玩家遊戲紀錄](#取得玩家遊戲紀錄)
@@ -195,6 +196,113 @@
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
+
+1. ### <span id="nickname">修改暱稱</span>
+
+    ```
+    PUT player/nickname?
+        key=<key>&
+        account=<account>&
+        nickname=<nickname>&
+        hash=<hash>
+    ```
+
+    ##### Request 範例
+    
+	bash
+	
+    ```bash
+    CURL -X POST -d account=test -d nickname=測試 -d key=57d0bc61dffff -d hash=106c9b6891a82e9af6d404f4a9707341 \
+      -G http://poker.app/api/v2/slot/player/nickname
+    ```
+    
+    php
+    
+    ```php
+    <?php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/nickname';
+    $data = [
+        'account' => 'test',
+        'nickname' => '測試',
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+        $hash .= $v;
+    }
+    $hash .= $secret;
+
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+
+    $response = curl_exec($ch);
+
+    echo $response;
+    ```
+
+    ##### 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:-----------:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |   nickname   | 玩家暱稱 |  string(20)  |     必填，1-20個字元    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
+
+    **hash = md5(account + nickname + secret)**
+
+    ##### 回傳結果
+    成功
+    
+    ```javascript
+    {  
+       "status":"success",
+       "data":{  
+          "account":"qoo@gmail.com",
+          "nickname":"qoo"
+       }
+    }
+    ```
+    
+    失敗
+    
+    ```javascript
+	{  
+	   "status":"error",
+	   "error":{  
+	      "code":14,
+	      "message":"nickname length between 1 - 20"
+	   }
+	}
+    ```
+    
+    回傳參數說明
+    
+    |參數|型態|說明|
+    |:---:|:---:|:---:|
+    |account| string(20) | 帳號|
+    |nickname| string(20) | 玩家暱稱 |
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |     
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 14 | nickname length between 1- 20  |
+
 
 2. ### <span id="auth">取得玩家登入網址</span>
 
@@ -2154,7 +2262,7 @@
 	##### 回傳參數說明
     
 	|參數名稱|參數型態|說明|
-	|:---:|:---:|:---:|:---:
+	|:---:|:---:|:---:|:---:|
 	| winCredit | int | 贏得的金額 |
 	| totalBet | int | 下注金額 |
 	

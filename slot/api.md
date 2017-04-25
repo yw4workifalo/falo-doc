@@ -767,7 +767,7 @@
 	   "status":"error",
 	   "error":{  
 	      "code":4,
-	      "message":"user not found"
+	      "message":"player not found"
 	   }
 	}
     ```
@@ -876,7 +876,7 @@
 	   "status":"error",
 	   "error":{  
 	      "code":4,
-	      "message":"user not found"
+	      "message":"player not found"
 	   }
 	}
     ```
@@ -983,7 +983,7 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     回傳參數說明
     
@@ -1192,7 +1192,7 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     回傳參數說明
     
@@ -1295,7 +1295,7 @@
 	   "status":"error",
 	   "error":{  
 	      "code":4,
-	      "message":"user not found"
+	      "message":"player not found"
 	   }
 	}
     ```
@@ -1393,7 +1393,7 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     
     回傳參數說明
@@ -1485,7 +1485,7 @@
        "data":[  
           {  
              "account":"haha0738@ifalo.com.tw",
-             "mode":"banned"
+             "mode":1
           }
        ]
     }
@@ -1497,7 +1497,7 @@
 	   "status":"error",
 	   "error":{  
 	      "code":4,
-	      "message":"user not found"
+	      "message":"player not found"
 	   }
 	}
     ```
@@ -1596,7 +1596,7 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     回傳參數說明    
     
@@ -1694,7 +1694,7 @@
    失敗
 	
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
     
 	回傳參數說明    
@@ -1791,7 +1791,7 @@
     失敗
 
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     回傳參數說明    
     
@@ -1890,7 +1890,7 @@
     失敗
     
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     
     回傳參數說明    
@@ -2136,7 +2136,7 @@
     失敗
     
     ```javascript
-    {"status":"error","error":{"code":4,"message":"user not found"}}
+    {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
 	
 	 ##### 回傳參數說明
@@ -2256,7 +2256,7 @@
     失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
     
 	##### 回傳參數說明
@@ -2370,7 +2370,7 @@
 	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
     
     ##### 回傳參數說明
@@ -2486,7 +2486,7 @@
 	失敗
 	
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
     
     回傳參數說明    
@@ -2593,7 +2593,7 @@
     失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
 	
     回傳參數說明    
@@ -2695,7 +2695,7 @@
     	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
 	
     	回傳參數說明    
@@ -2725,8 +2725,8 @@
 	PUT jackpot/write-off?
 		key=<key>&
 		account=<account>&
-		jp_id=<jp_id>&
-		verified_at=<verified_at>&
+		jpId=<jpId>&
+		verifiedAt=<verifiedAt>&
 		hash=<hash>
 	```
     
@@ -2735,7 +2735,7 @@
     bash
     
     ```bash
-    CURL -X PUT -d account=test -d jp_id=1 -d verified_at=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
+    CURL -X PUT -d account=test -d jpId=1 -d verifiedAt=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
  		-G http://poker.app/api/v2/slot/jackpot/write-off
  	```
  	
@@ -2747,8 +2747,8 @@
 	$url = 'http://poker.app/api/v2/slot/jackpot/write-off';
 	$data = [
 		'account'=>'test',
-		'jp_id'=>'1',
-		'verified_at'=>'2017-04-10 23:23:23'
+		'jpId'=>'1',
+		'verifiedAt'=>'2017-04-10 23:23:23'
 	];
 	//產生hash
 	$hash = '';
@@ -2778,7 +2778,7 @@
 	| verifiedAt | 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 	
-       	**hash = md5(account + jp_id + verified_at + secret)**
+       	**hash = md5(account + jpId + verifiedAt + secret)**
 
    	##### 回傳結果
 
@@ -2801,7 +2801,7 @@
    	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"user not found"}}
+	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
 	
 	回傳參數說明    

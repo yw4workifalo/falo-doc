@@ -15,12 +15,11 @@
 9. [限贏](#限贏)
 10. [限注回復](#限注回復)
 11. [設定玩家帳號模式](#設定玩家帳號模式)
-12. [注單回補](#注單回補)
 13. [限注查詢](#限注查詢)
 14. [查詢玩家帳號模式](#查詢玩家帳號模式)
 15. [查詢玩家是否啟用遊戲](#查詢玩家是否啟用遊戲)
 16. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
-17. [LOG查詢](#LOG查詢)
+17. [玩家下注記錄查詢](#玩家下注記錄查詢)
 18. [玩家下注簡報查詢](#玩家下注簡報查詢)
 19. [玩家多人下注簡報區間總額查詢](#玩家多人下注簡報區間總額查詢)
 20. [玩家JP紀錄查詢](#玩家JP紀錄查詢)
@@ -78,7 +77,7 @@
 | 17 | transfer in error | 額度轉入失敗 | 
 | 18 | transfer out error | 額度轉出失敗 | 
 | 19 | player credit is not enough | 玩家籌碼不足 | 
-| 20 | range :2017-01-01 00:00:00 to 2017-01-02 00:00:00 not found bet results | 查詢結果無注單 | 
+| 20 | account:{account} has been used | 此帳號已被使用 | 
 | 21 | bet accounts processing | 帳務結算中不可額度轉出入 | 
 | 22 | {param} must be a unsigned int | {param}設定值必須為正整數 | 
 | 23 | [startAt or endAt] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
@@ -196,6 +195,7 @@
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
+    | 20 | account:{account} has been used | 此帳號已被使用 | 
 
 1. ### <span id="nickname">修改暱稱</span>
 
@@ -795,6 +795,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |19 | player credit is not enough|
+    | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
 
 
       
@@ -2173,7 +2174,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
     
 

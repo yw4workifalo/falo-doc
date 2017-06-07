@@ -1503,7 +1503,6 @@
 	}
     ```
     
-    
      回傳參數說明
     
     | 參數 | 型態 | 說明 |
@@ -1665,8 +1664,8 @@
 	$response = curl_exec($ch);
 	echo $response;
 	```
-
-   ##### 參數說明
+	
+	##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
@@ -1692,7 +1691,7 @@
 	}
 	```
     
-   失敗
+    失敗
 	
 	```javascript
 	{"status":"error","error":{"code":4,"message":"player not found"}}
@@ -1763,7 +1762,6 @@
 	echo $response;
 	```
     
-
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
@@ -2143,7 +2141,7 @@
 	 ##### 回傳參數說明
     
     |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|:---:
+    |:---:|:---:|:---:|
     | data | array\<object\> | server回送的資料陣列 |
     | id | int | 流水號 |
     | machineNo | int | 機器編號 |
@@ -2159,9 +2157,8 @@
     開牌結果說明
     
     |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|:---:
+    |:---:|:---:|:---:|
     | icon | int | 轉到的 icon id |
-	
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -2262,10 +2259,9 @@
 	##### 回傳參數說明
     
 	|參數名稱|參數型態|說明|
-	|:---:|:---:|:---:|:---:|
+	|:---:|:---:|:---:|
 	| winCredit | int | 贏得的金額 |
 	| totalBet | int | 下注金額 |
-	
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
@@ -2278,7 +2274,6 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
-	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
     
 19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
@@ -2399,7 +2394,6 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 12 | gameType  not found |
-	| 20 |range :{startAt} to 2017-01-02 00:00:00 not found bet results |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
 
 20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
@@ -2572,23 +2566,23 @@
 
 	##### 回傳結果
 
-   成功
-    
-	```javascript
-	{  
-	"status":"success",
-	"data":[  
-	  {  
-	     "account":"ooo@gmail.com",
-	     "jackpot":1,
-	     "paid_at":"2017-04-14 11:36:54",
-	     "rate":1,
-	     "game_id":1,
-	     "created_at":"2017-04-13 14:31:50"
-	  }
-	]
-	}
-	```
+     成功
+
+      ```javascript
+      {  
+      "status":"success",
+      "data":[  
+        {  
+           "account":"ooo@gmail.com",
+           "jackpot":1,
+           "paid_at":"2017-04-14 11:36:54",
+           "rate":1,
+           "game_id":1,
+           "created_at":"2017-04-13 14:31:50"
+        }
+      ]
+      }
+      ```
 
     失敗
     
@@ -2604,7 +2598,6 @@
 	| created_at |string|jackpot時間|
 	| paid_at |string|核銷時間|    
 	
-	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
 	| 錯誤代碼 | 錯誤說明 |     
@@ -2618,7 +2611,6 @@
 	| 12 | gameType  not found |	
 
 21. ### <span id="jp-status">JP中獎紀錄</span>
-
 
 	```
 	GET jackpot-status?
@@ -2692,13 +2684,13 @@
 	}
 	```
 
-    	失敗
+	失敗
     
 	```javascript
 	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
 	
-    	回傳參數說明    
+    回傳參數說明    
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
@@ -2824,3 +2816,4 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 101 | jackpot log not found   |
+

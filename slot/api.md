@@ -20,6 +20,7 @@
 15. [查詢玩家是否啟用遊戲](#查詢玩家是否啟用遊戲)
 16. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
 17. [玩家下注記錄查詢](#玩家下注記錄查詢)
+18. [玩家多人下注記錄查詢](#玩家多人下注記錄查詢)
 18. [玩家下注簡報查詢](#玩家下注簡報查詢)
 19. [玩家多人下注簡報區間總額查詢](#玩家多人下注簡報區間總額查詢)
 20. [玩家JP紀錄查詢](#玩家JP紀錄查詢)
@@ -85,6 +86,7 @@
 | 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
 | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
+| 28 | transfer pending | 訂單交易中 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 
 
@@ -514,6 +516,7 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
+    |id|int|序號|
     |account|string|玩家帳號|
     |nickname|string|玩家暱稱|
     |credit|int|玩家目前額度|
@@ -776,12 +779,12 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|  
-    |originCredit|int|原始籌碼|
-    |addCredit|int|新增籌碼|
+    |originalCredit|int|原始籌碼|
+    |addedCredit|int|新增籌碼|
     |finalCredit|int|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
-    |status|int|狀態 0:success, 1:餘額不足, 2:伺服器錯誤, 3:訂單交易中|  
+    |status|int|狀態 0:success|  
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -886,12 +889,12 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|  
-    |originCredit|int|原始籌碼|
-    |addCredit|int|新增籌碼|
+    |originalCredit|int|原始籌碼|
+    |addedCredit|int|新增籌碼|
     |finalCredit|int|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
-    |status|int|狀態 0:success, 1:餘額不足, 2:伺服器錯誤, 3:訂單交易中|
+    |status|int|狀態 0:success|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -904,6 +907,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 	| 24 | {transferId} is not exist |
+	| 28 | transfer pending | 
     
 
 8. ### <spin id="kick">踢玩家</spin>
@@ -1984,6 +1988,8 @@
 	   "data":[  
 	      {  
 	         "id":423,
+	         "account":"wei01",
+	         "gameType":1,
 	         "machineNo":1,
 	         "bet":50,
 	         "betLines":9,
@@ -2057,6 +2063,8 @@
 	      },
 	      {  
 	         "id":434,
+	         "account":"wei01",
+	         "gameType":1,	         
 	         "machineNo":1,
 	         "bet":50,
 	         "betLines":9,
@@ -2144,6 +2152,275 @@
     |:---:|:---:|:---:|
     | data | array\<object\> | server回送的資料陣列 |
     | id | int | 流水號 |
+    | account | int | 玩家帳號 |
+    | gameType | int | 遊戲代稱 |        
+    | machineNo | int | 機器編號 |
+    | bet | int | 贏得的金額 |
+    | betLines | int | 下注金額 |
+    | totalBet | string | 建立時間 |
+    | winCredit | int | 贏得金額 |
+    | scatter | int | 是否是在scatter 狀態下 |
+    | bonus | int | bonus 贏得金額 |
+    | createdAt | string | 建立時間 |
+    | gameResult | array\<object\> | 遊戲開牌結果，說明請看下表 |
+    
+    開牌結果說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|
+    | icon | int | 轉到的 icon id |
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4 | player not found  |        
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    
+18. ### <span id="query-logs">玩家多人下注記錄查詢</span>
+
+    查詢玩家多人下注LOG
+
+    ```
+    GET bet/report-multiple/detail?
+        key=<key>&
+        gameType=<gameType>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+	
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+ 		-G http://poker.app/api/v2/slot/bet/report-multiple/detail
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/bet/report/detail';
+	$data = [
+		'gameType'=>'test',
+		'startAt'=>'0',
+		'endAt'=>'0'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#gametype) | Y |  
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
+
+    **hash = md5(gameType + startAt + endAt + secret)**
+
+    ##### 回傳結果
+    
+    成功
+    
+    ```javascript
+	{  
+	   "status":"success",
+	   "data":[  
+	      {  
+	         "id":423,
+	         "account":"wei01",
+	         "gameType":1,
+	         "machineNo":1,
+	         "bet":50,
+	         "betLines":9,
+	         "totalBet":450,
+	         "winCredt":500,
+	         "scatter":0,
+	         "bonus":0,
+	         "createdAt":"2017-04-17 10:04:12",
+	         "gameResult":[  
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":10,
+	               "filled":true
+	            },
+	            {  
+	               "icon":2,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":11,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            },
+	            {  
+	               "icon":8,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":3,
+	               "filled":false
+	            },
+	            {  
+	               "icon":6,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            }
+	         ]
+	      },
+	      {  
+	         "id":434,
+	         "account":"wei01",
+	         "gameType":1,	         
+	         "machineNo":1,
+	         "bet":50,
+	         "betLines":9,
+	         "totalBet":450,
+	         "winCredit":300,
+	         "scatter":0,
+	         "bonus":0,
+	         "createdAt":"2017-04-17 10:53:22",
+	         "gameResult":[  
+	            {  
+	               "icon":2,
+	               "filled":false
+	            },
+	            {  
+	               "icon":4,
+	               "filled":true
+	            },
+	            {  
+	               "icon":1,
+	               "filled":true
+	            },
+	            {  
+	               "icon":5,
+	               "filled":true
+	            },
+	            {  
+	               "icon":11,
+	               "filled":false
+	            },
+	            {  
+	               "icon":7,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":2,
+	               "filled":true
+	            },
+	            {  
+	               "icon":4,
+	               "filled":true
+	            },
+	            {  
+	               "icon":8,
+	               "filled":false
+	            },
+	            {  
+	               "icon":8,
+	               "filled":false
+	            },
+	            {  
+	               "icon":10,
+	               "filled":true
+	            },
+	            {  
+	               "icon":13,
+	               "filled":false
+	            },
+	            {  
+	               "icon":9,
+	               "filled":true
+	            }
+	         ]
+	      }
+	   ]
+	}
+    ```
+
+    失敗
+    
+    ```javascript
+    {"status":"error","error":{"code":4,"message":"player not found"}}
+    ```
+	
+	 ##### 回傳參數說明
+    
+    |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:|
+    | data | array\<object\> | server回送的資料陣列 |
+    | id | int | 流水號 |
+    | account | int | 玩家帳號 |
+    | gameType | int | 遊戲代稱 |        
     | machineNo | int | 機器編號 |
     | bet | int | 贏得的金額 |
     | betLines | int | 下注金額 |

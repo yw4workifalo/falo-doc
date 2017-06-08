@@ -357,7 +357,8 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |Y|
-    |  account | 玩家帳號 |  string  |     必填    | Y|   
+    |  account | 玩家帳號 |  string  |     必填    | Y| 
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) 直接進入遊戲| Y |        
     |   hash   | 驗證參數 |  string  |     必填    |Y|
 
     **hash = md5(account + secret)**
@@ -2212,7 +2213,7 @@
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/bet/report-multiple/detail';
 	$data = [
-		'gameType'=>'test',
+		'gameType'=>1,
 		'startAt'=>'0',
 		'endAt'=>'0'
 	];

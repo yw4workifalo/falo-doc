@@ -2152,7 +2152,7 @@
     |:---:|:---:|:---:|
     | data | array\<object\> | server回送的資料陣列 |
     | id | int | 流水號 |
-    | account | int | 玩家帳號 |
+    | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
     | machineNo | int | 機器編號 |
     | bet | int | 贏得的金額 |
@@ -2210,7 +2210,7 @@
 	```php
 	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/bet/report/detail';
+	$url = 'http://poker.app/api/v2/slot/bet/report-multiple/detail';
 	$data = [
 		'gameType'=>'test',
 		'startAt'=>'0',
@@ -2419,7 +2419,7 @@
     |:---:|:---:|:---:|
     | data | array\<object\> | server回送的資料陣列 |
     | id | int | 流水號 |
-    | account | int | 玩家帳號 |
+    | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
     | machineNo | int | 機器編號 |
     | bet | int | 贏得的金額 |

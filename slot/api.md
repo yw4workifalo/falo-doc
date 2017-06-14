@@ -1918,7 +1918,7 @@
 
 18. ### <span id="query-logs">玩家下注記錄查詢</span>
 
-    查詢玩家下注LOG
+    查詢玩家下注LOG，查詢區間依注單更新時間
 
     ```
     GET bet/report/detail?
@@ -1975,6 +1975,7 @@
     |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | Y |  
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |page    | 分頁 |  int  |     每頁1000筆，預設:1 | N |    
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + startAt + endAt + secret)**
@@ -1986,158 +1987,240 @@
     ```javascript
 	{  
 	   "status":"success",
-	   "data":[  
-	      {  
-	         "id":423,
-	         "account":"wei01",
-	         "gameType":1,
-	         "machineNo":1,
-	         "bet":50,
-	         "betLines":9,
-	         "totalBet":450,
-	         "winCredt":500,
-	         "scatter":0,
-	         "bonus":0,
-	         "createdAt":"2017-04-17 10:04:12",
-	         "gameResult":[  
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":10,
-	               "filled":true
-	            },
-	            {  
-	               "icon":2,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":11,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            },
-	            {  
-	               "icon":8,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":6,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            }
-	         ]
+	   "data":{  
+	      "pageinfo":{  
+	         "currentPage":1,
+	         "lastPage":1,
+	         "total":2
 	      },
-	      {  
-	         "id":434,
-	         "account":"wei01",
-	         "gameType":1,	         
-	         "machineNo":1,
-	         "bet":50,
-	         "betLines":9,
-	         "totalBet":450,
-	         "winCredit":300,
-	         "scatter":0,
-	         "bonus":0,
-	         "createdAt":"2017-04-17 10:53:22",
-	         "gameResult":[  
-	            {  
-	               "icon":2,
-	               "filled":false
-	            },
-	            {  
-	               "icon":4,
-	               "filled":true
-	            },
-	            {  
-	               "icon":1,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            },
-	            {  
-	               "icon":11,
-	               "filled":false
-	            },
-	            {  
-	               "icon":7,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":2,
-	               "filled":true
-	            },
-	            {  
-	               "icon":4,
-	               "filled":true
-	            },
-	            {  
-	               "icon":8,
-	               "filled":false
-	            },
-	            {  
-	               "icon":8,
-	               "filled":false
-	            },
-	            {  
-	               "icon":10,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            }
-	         ]
-	      }
-	   ]
+	      "logs":[  
+	         {  
+	            "id":391,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":0,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:25:14",
+	            "gameResult":[  
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":1,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":11,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":8,
+	                  "filled":true
+	               }
+	            ]
+	         },
+	         {  
+	            "id":392,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":8,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:25:45",
+	            "gameResult":[  
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":1,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":9,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":8,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               }
+	            ]
+	         },
+	         {  
+	            "id":393,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":0,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:26:10",
+	            "gameResult":[  
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":11,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":9,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               }
+	            ]
+	         }
+	      ]
+	   }
 	}
     ```
 
@@ -2151,7 +2234,7 @@
     
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
-    | data | array\<object\> | server回送的資料陣列 |
+    | logs | array\<object\> | server回送的資料陣列 |    
     | id | int | 流水號 |
     | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
@@ -2170,6 +2253,14 @@
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
     | icon | int | 轉到的 icon id |
+    
+    分頁參數說明
+    
+    |參數名稱|參數型態|說明|   
+    |:---:|:---:|:---:|     
+    | currentPage | int | 當前頁數 |
+    | lastPage | int | 總頁數 |        
+    | total | int | 總筆數 |        
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -2186,7 +2277,7 @@
     
 18. ### <span id="query-logs">玩家多人下注記錄查詢</span>
 
-    查詢玩家多人下注LOG
+    查詢玩家多人下注LOG，查詢區間依注單更新時間
 
     ```
     GET bet/report-multiple/detail?
@@ -2242,6 +2333,7 @@
     |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#gametype) | Y |  
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |page    | 分頁 |  int  |     每頁1000筆，預設:1 | N |        
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(gameType + startAt + endAt + secret)**
@@ -2253,158 +2345,240 @@
     ```javascript
 	{  
 	   "status":"success",
-	   "data":[  
-	      {  
-	         "id":423,
-	         "account":"wei01",
-	         "gameType":1,
-	         "machineNo":1,
-	         "bet":50,
-	         "betLines":9,
-	         "totalBet":450,
-	         "winCredt":500,
-	         "scatter":0,
-	         "bonus":0,
-	         "createdAt":"2017-04-17 10:04:12",
-	         "gameResult":[  
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":10,
-	               "filled":true
-	            },
-	            {  
-	               "icon":2,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":11,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            },
-	            {  
-	               "icon":8,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":3,
-	               "filled":false
-	            },
-	            {  
-	               "icon":6,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            }
-	         ]
+	   "data":{  
+	      "pageinfo":{  
+	         "currentPage":1,
+	         "lastPage":1,
+	         "total":2
 	      },
-	      {  
-	         "id":434,
-	         "account":"wei01",
-	         "gameType":1,	         
-	         "machineNo":1,
-	         "bet":50,
-	         "betLines":9,
-	         "totalBet":450,
-	         "winCredit":300,
-	         "scatter":0,
-	         "bonus":0,
-	         "createdAt":"2017-04-17 10:53:22",
-	         "gameResult":[  
-	            {  
-	               "icon":2,
-	               "filled":false
-	            },
-	            {  
-	               "icon":4,
-	               "filled":true
-	            },
-	            {  
-	               "icon":1,
-	               "filled":true
-	            },
-	            {  
-	               "icon":5,
-	               "filled":true
-	            },
-	            {  
-	               "icon":11,
-	               "filled":false
-	            },
-	            {  
-	               "icon":7,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":2,
-	               "filled":true
-	            },
-	            {  
-	               "icon":4,
-	               "filled":true
-	            },
-	            {  
-	               "icon":8,
-	               "filled":false
-	            },
-	            {  
-	               "icon":8,
-	               "filled":false
-	            },
-	            {  
-	               "icon":10,
-	               "filled":true
-	            },
-	            {  
-	               "icon":13,
-	               "filled":false
-	            },
-	            {  
-	               "icon":9,
-	               "filled":true
-	            }
-	         ]
-	      }
-	   ]
+	      "logs":[  
+	         {  
+	            "id":391,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":0,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:25:14",
+	            "gameResult":[  
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":1,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":11,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":8,
+	                  "filled":true
+	               }
+	            ]
+	         },
+	         {  
+	            "id":392,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":8,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:25:45",
+	            "gameResult":[  
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":1,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":9,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":8,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               }
+	            ]
+	         },
+	         {  
+	            "id":393,
+	            "account":"wei01",
+	            "gameType":1,
+	            "machineNo":1,
+	            "bet":2,
+	            "betLines":9,
+	            "totalBet":18,
+	            "winCredit":0,
+	            "scatter":0,
+	            "bonus":0,
+	            "createdAt":"2017-03-23 09:26:10",
+	            "gameResult":[  
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":10,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":3,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":7,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":13,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":6,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":11,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":4,
+	                  "filled":false
+	               },
+	               {  
+	                  "icon":5,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":9,
+	                  "filled":true
+	               },
+	               {  
+	                  "icon":2,
+	                  "filled":true
+	               }
+	            ]
+	         }
+	      ]
+	   }
 	}
     ```
 
@@ -2418,7 +2592,7 @@
     
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
-    | data | array\<object\> | server回送的資料陣列 |
+    | logs | array\<object\> | server回送的資料陣列 |
     | id | int | 流水號 |
     | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
@@ -2437,6 +2611,14 @@
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
     | icon | int | 轉到的 icon id |
+    
+    分頁參數說明
+    
+    |參數名稱|參數型態|說明|   
+    |:---:|:---:|:---:|     
+    | currentPage | int | 當前頁數 |
+    | lastPage | int | 總頁數 |        
+    | total | int | 總筆數 |            
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     

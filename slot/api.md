@@ -114,8 +114,8 @@
 	bash
 	
     ```bash
-    CURL -X POST -d account=test02 -d nickname=test -d currency=TWD -d key=57d0bc61dffff -d hash=28676265eba1bf74a397887e5b7df167 \
- -G http://poker.app/api/v2/slot/player/register
+    CURL -X POST -d account=test02 -d nickname=test -d currency=TWD -d key=57d0bc61dffff -d hash=28676265eba1bf74a397887e5b7df167 \ 
+    -G http://poker.app/api/v2/slot/player/register
     ```
     
     php

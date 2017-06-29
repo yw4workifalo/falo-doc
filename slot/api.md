@@ -20,7 +20,6 @@
 15. [查詢玩家是否啟用遊戲](#查詢玩家是否啟用遊戲)
 16. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
 17. [玩家下注記錄查詢](#玩家下注記錄查詢)
-18. [玩家多人下注記錄查詢](#玩家多人下注記錄查詢)
 18. [玩家下注簡報查詢](#玩家下注簡報查詢)
 19. [玩家多人下注簡報區間總額查詢](#玩家多人下注簡報區間總額查詢)
 20. [玩家JP紀錄查詢](#玩家JP紀錄查詢)
@@ -32,9 +31,9 @@
 
 ## 登入流程
 1. 玩家透過平台登入
-2. 平台透過[註冊帳號](#register)新增帳號
-3. 平台透過[取得玩家登入網址](#auth)取得帳號密碼
-4. 透過表單直接將取得的帳號密碼送到[登入](#login)驗證
+2. 平台透過[註冊帳號](#註冊帳號)新增帳號
+3. 平台透過[取得玩家登入網址](#取得玩家登入網址)取得帳號密碼
+4. 透過表單直接將取得的帳號密碼送到[登入](#登入)驗證
 5. API直接將玩家導向至遊戲網頁
 
 [流程圖連結](https://cacoo.com/diagrams/UQAlsLczvUqmOvl6)
@@ -54,6 +53,13 @@
 |0|正常|
 |1|鎖單無法下注|
 |2|封鎖無法登入|
+
+## 支援貨幣
+
+ |貨幣代碼|貨幣說明|
+ |:-:|:-:|
+ |TWD|台幣|
+ |CNY|人民幣|
 
 ## 錯誤代碼
 
@@ -88,6 +94,7 @@
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
 | 28 | transfer pending | 訂單交易中 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
+| 102 | The currency what you set is not supported | 你所設定的貨幣類型不支援 |
 
 
 ## API
@@ -98,6 +105,7 @@
         key=<key>&
         account=<account>&
         nickname=<nickname>&
+        currency=<currency>&
         hash=<hash>
     ```
 
@@ -106,20 +114,20 @@
 	bash
 	
     ```bash
-    CURL -X POST -d account=test -d nickname=測試 -d key=57d0bc61dffff -d hash=106c9b6891a82e9af6d404f4a9707341 \
-      -G http://poker.app/api/v2/slot/player/register
+    CURL -X POST -d account=test02 -d nickname=test -d currency=TWD -d key=57d0bc61dffff -d hash=28676265eba1bf74a397887e5b7df167 \
+ -G http://poker.app/api/v2/slot/player/register
     ```
     
     php
     
     ```php
-    <?php
     $key = '57d0bc61dffff';
     $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
     $url = 'http://poker.app/api/v2/slot/player/register';
     $data = [
-        'account' => 'test',
-        'nickname' => '測試',
+        'account'=>'test02',
+        'nickname'=>'test',
+        'currency'=>'TWD'
     ];
     //產生hash
     $hash = '';
@@ -135,9 +143,7 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
-
     $response = curl_exec($ch);
-
     echo $response;
     ```
 
@@ -148,6 +154,7 @@
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
     |   nickname   | 玩家暱稱 |  string(20)  |     必填，1-20個字元    | Y |
+    | currency | 玩家貨幣類型 | string(10) | 設定玩家貨幣類型，設定之後不可更改 [支援貨幣](#支援貨幣)| Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + nickname + secret)**
@@ -159,9 +166,10 @@
     {  
        "status":"success",
        "data":{  
-          "account":"qoo@gmail.com",
-          "nickname":"qoo",
-          "id":34
+          "currency":"TWD",
+          "account":"test02",
+          "nickname":"test",
+          "id":36
        }
     }
     ```
@@ -169,11 +177,11 @@
     失敗
     
     ```javascript
-    {  
+   {  
        "status":"error",
        "error":{  
-          "code":1,
-          "message":"account is required"
+          "code":102,
+          "message":"The currency what you set is not supported"
        }
     }
     ```
@@ -184,6 +192,8 @@
     |:---:|:---:|:---:|
     |account| string(20) | 帳號|
     |nickname| string(20) | 玩家暱稱 |
+    |currency| string(10) | 玩家設定貨幣 |
+    |id| integer | 遊戲方玩家編號 | 
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -198,6 +208,7 @@
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
     | 20 | account:{account} has been used | 此帳號已被使用 | 
+    | 102 | The currency what you set is not supported |
 
 1. ### <span id="nickname">修改暱稱</span>
 
@@ -1971,9 +1982,9 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  account| 玩家帳號 |  string(20)  |     必填 | Y |
-    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | Y |  
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |  account| 玩家帳號 |  string(20)  |     選填 | N |
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | N |  
+    |startAt？．  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |page    | 分頁 |  int  |     每頁1000筆，預設:1 | N |    
     |   hash   | 驗證參數 |  string  |     必填    | Y |
@@ -1986,639 +1997,86 @@
     
     ```javascript
 	{  
-	   "status":"success",
-	   "data":{  
-	      "pageinfo":{  
-	         "currentPage":1,
-	         "lastPage":1,
-	         "total":2
-	      },
-	      "logs":[  
-	         {  
-	            "id":391,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":0,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:25:14",
-	            "gameResult":[  
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":1,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":11,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":8,
-	                  "filled":true
-	               }
-	            ]
-	         },
-	         {  
-	            "id":392,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":8,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:25:45",
-	            "gameResult":[  
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":1,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":9,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":8,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               }
-	            ]
-	         },
-	         {  
-	            "id":393,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":0,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:26:10",
-	            "gameResult":[  
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":11,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":9,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               }
-	            ]
-	         }
-	      ]
-	   }
-	}
+       "status":"success",
+       "data":{  
+          "total":25890,
+          "perPage":1000,
+          "currentPage":1,
+          "lastPage":26,
+          "previousPageUrl":null,
+          "nextPageUrl":"http:\/\/poker.app\/api\/v2\/slot\/bet\/report\/detail?account=test-api01&startAt=2017-06-01&endAt=2017-06-30&key=57d0bc61dffff&hash=bf7e365f2731d57951ac6b912692367b&page=2",
+          "datas":[  
+             {  
+                "id":3010,
+                "account":"test-api01",
+                "gameType":2,
+                "bet":"1.0000",
+                "betLines":20,
+                "totalBet":"20.0000",
+                "winCredit":"0.0000",
+                "scatter":0,
+                "bonus":"0.0000",
+                "createdAt":"2017-06-15 13:47:57"
+             },
+             {  
+                "id":3011,
+                "account":"test-api01",
+                "gameType":2,
+                "bet":"1.0000",
+                "betLines":20,
+                "totalBet":"20.0000",
+                "winCredit":"0.0000",
+                "scatter":0,
+                "bonus":"0.0000",
+                "createdAt":"2017-06-15 13:48:01"
+             },
+             ...............
+          ]
+       }
+    }
     ```
 
     失敗
     
     ```javascript
-    {"status":"error","error":{"code":4,"message":"player not found"}}
+    {  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
     ```
 	
 	 ##### 回傳參數說明
     
     |參數名稱|參數型態|說明|
+    |:---:|:---:|:---:| 
+    | currentPage | int | 當前頁數 |
+    | lastPage | int | 最後一頁的頁數 |        
+    | total | int | 總筆數 |   
+    | perPage | int | 一頁的筆數 |
+    | previousPageUrl | string | 存取上一頁資料的url，沒有上一頁時為null |
+    | nextPageUrl | string | 存取下一頁資料的url，沒有下一頁時為null |
+    | datas | array\<object\> | server回送的資料陣列 |   
+    
+    資料說明
+
+    |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
-    | logs | array\<object\> | server回送的資料陣列 |    
     | id | int | 流水號 |
     | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
     | machineNo | int | 機器編號 |
-    | bet | int | 贏得的金額 |
-    | betLines | int | 下注金額 |
-    | totalBet | string | 建立時間 |
+    | bet | int | 押注金額 |
+    | betLines | int | 下注線數 |
+    | totalBet | string | 總下注金額 |
     | winCredit | int | 贏得金額 |
-    | scatter | int | 是否是在scatter 狀態下 |
+    | scatter | int | 是否是在scatter 狀態下，scatter時總下注金額不需計算 |
     | bonus | int | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
-    | gameResult | array\<object\> | 遊戲開牌結果，說明請看下表 |
     
-    開牌結果說明
-    
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|
-    | icon | int | 轉到的 icon id |
-    
-    分頁參數說明
-    
-    |參數名稱|參數型態|說明|   
-    |:---:|:---:|:---:|     
-    | currentPage | int | 當前頁數 |
-    | lastPage | int | 總頁數 |        
-    | total | int | 總筆數 |        
-	
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
-    |:--------:|:--------:|
-    | 1  | {parameter} is required   |
-    | 2  | key is invalid            |
-    | 3  | hash is invalid           |
-    | 4 | player not found  |        
-    | 5  | {method} is not allowed   |
-    |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
-    
-18. ### <span id="query-logs">玩家多人下注記錄查詢</span>
 
-    查詢玩家多人下注LOG，查詢區間依注單更新時間
-
-    ```
-    GET bet/report-multiple/detail?
-        key=<key>&
-        gameType=<gameType>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
-	
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- 		-G http://poker.app/api/v2/slot/bet/report-multiple/detail
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/bet/report-multiple/detail';
-	$data = [
-		'gameType'=>1,
-		'startAt'=>'0',
-		'endAt'=>'0'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
-    ##### 參數說明
-
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  gameType | 遊戲代稱 |  int  |     必填 [GameType](#gametype) | Y |  
-    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |page    | 分頁 |  int  |     每頁1000筆，預設:1 | N |        
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
-
-    **hash = md5(gameType + startAt + endAt + secret)**
-
-    ##### 回傳結果
-    
-    成功
-    
-    ```javascript
-	{  
-	   "status":"success",
-	   "data":{  
-	      "pageinfo":{  
-	         "currentPage":1,
-	         "lastPage":1,
-	         "total":2
-	      },
-	      "logs":[  
-	         {  
-	            "id":391,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":0,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:25:14",
-	            "gameResult":[  
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":1,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":11,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":8,
-	                  "filled":true
-	               }
-	            ]
-	         },
-	         {  
-	            "id":392,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":8,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:25:45",
-	            "gameResult":[  
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":1,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":9,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":8,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               }
-	            ]
-	         },
-	         {  
-	            "id":393,
-	            "account":"wei01",
-	            "gameType":1,
-	            "machineNo":1,
-	            "bet":2,
-	            "betLines":9,
-	            "totalBet":18,
-	            "winCredit":0,
-	            "scatter":0,
-	            "bonus":0,
-	            "createdAt":"2017-03-23 09:26:10",
-	            "gameResult":[  
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":10,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":3,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":7,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":13,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":6,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":11,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":4,
-	                  "filled":false
-	               },
-	               {  
-	                  "icon":5,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":9,
-	                  "filled":true
-	               },
-	               {  
-	                  "icon":2,
-	                  "filled":true
-	               }
-	            ]
-	         }
-	      ]
-	   }
-	}
-    ```
-
-    失敗
-    
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"player not found"}}
-    ```
-	
-	 ##### 回傳參數說明
-    
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|
-    | logs | array\<object\> | server回送的資料陣列 |
-    | id | int | 流水號 |
-    | account | String | 玩家帳號 |
-    | gameType | int | 遊戲代稱 |        
-    | machineNo | int | 機器編號 |
-    | bet | int | 贏得的金額 |
-    | betLines | int | 下注金額 |
-    | totalBet | string | 建立時間 |
-    | winCredit | int | 贏得金額 |
-    | scatter | int | 是否是在scatter 狀態下 |
-    | bonus | int | bonus 贏得金額 |
-    | createdAt | string | 建立時間 |
-    | gameResult | array\<object\> | 遊戲開牌結果，說明請看下表 |
-    
-    開牌結果說明
-    
-    |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:|
-    | icon | int | 轉到的 icon id |
-    
-    分頁參數說明
-    
-    |參數名稱|參數型態|說明|   
-    |:---:|:---:|:---:|     
-    | currentPage | int | 當前頁數 |
-    | lastPage | int | 總頁數 |        
-    | total | int | 總筆數 |            
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -2713,7 +2171,13 @@
     失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
     
 	##### 回傳參數說明
@@ -2825,7 +2289,13 @@
 	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
     
     ##### 回傳參數說明
@@ -2940,7 +2410,13 @@
 	失敗
 	
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
     
     回傳參數說明    
@@ -3047,7 +2523,13 @@
     失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
 	
     回傳參數說明    
@@ -3147,7 +2629,13 @@
 	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
 	
     回傳參數說明    
@@ -3253,7 +2741,13 @@
    	失敗
     
 	```javascript
-	{"status":"error","error":{"code":4,"message":"player not found"}}
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
 	```
 	
 	回傳參數說明    

@@ -54,7 +54,7 @@
 | 17 | transfer in error  | 額度轉入失敗       |
 | 18 | transfer out error  | 額度轉出失敗       |
 | 19 | player credit is not enough  | 玩家籌碼不足       |
-| 20 | range :{startAt} to {EndAt} not found bet results|查詢結果無注單        |
+| 20 | account:{account} has been used| 玩家帳號已註冊過
 | 21 | bet accounts processing  | 帳務結算中不可額度轉出入       |
 | 22 | {param} must be a unsigned int  | {param}設定值必須為正整數       |
 | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
@@ -62,6 +62,7 @@
 | 25 | transfer id credit can not be empty  | 交易的ID不可為空       |
 | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用       |
 | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0       |
+| 28 | transfer id:{transfer id} transaction processing  | 交易單處理中       |
 
 ### <span id="GameType">Casino Game Type</span>
 | 遊戲名稱  | gameType                  | 

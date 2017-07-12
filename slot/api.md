@@ -460,7 +460,7 @@
     <?php
     $key = '57d0bc61dffff';
     $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-    $url = 'http://poker.app/api/v2/slot/player/auth';
+    $url = 'http://poker.app/api/v2/slot/player/info';
     $data = [
         'account' => 'test',
     ];
@@ -509,7 +509,8 @@
           "enable":1,
           "limitWin":11111,
           "limitLose":30000,
-          "isOnline":false
+          "isOnline":false,
+          "currency":"TWD"
        }
     }
     ```
@@ -537,6 +538,7 @@
     |limitWin|int|限贏 0為無限制|
     |limitLose|int|限輸 0為無限制|
     |isOnline|boolean|玩家是否在上線|
+    |currency|string| 玩家設定貨幣 |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -704,7 +706,7 @@
         key=<key>&
         account=<account>&
         credit =<credit>&
-        transfer_id = <transfer_id>&
+        transferId=<transferId>&
         hash=<hash>
     ```
     
@@ -713,7 +715,7 @@
     bash
     
     ```bash
-    CURL -X PUT -d account=test -d credit=1 -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=f28a85dd168db1089dc2ae2b1c033424 \
+    CURL -X PUT -d account=test -d credit=1 -d transferId=GC0001 -d key=57d0bc61dffff -d hash=f28a85dd168db1089dc2ae2b1c033424 \
 		-G http://poker.app/api/v2/slot/player/credit/transfer
     ```
     
@@ -765,13 +767,14 @@
     {  
        "status":"success",
        "data":{  
-          "originalCredit":0,
+          "originalCredit":0,       
           "addedCredit":3000,
           "finalCredit":3000,
           "account":"mm@gmail.com",
           "orderId":2,
           "transferId":"fsefs",
           "status":0
+          "currency":"TWD"          
        }
     }
     ```
@@ -791,12 +794,14 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|  
-    |originalCredit|int|原始籌碼|
+    |originalCredit|int|原始籌碼|    
     |addedCredit|int|新增籌碼|
     |finalCredit|int|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success|  
+    |currency|string| 玩家設定貨幣 |    
+    
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -809,11 +814,12 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+    | 17 |transfer in error|
+    | 18 |transfer out error|    
     |19 | player credit is not enough|
-    | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
+    | 26 | transfer id:（平台方TransferID）has been used |
 
 
-      
 7. ### <spin id="transfer-status">玩家轉帳狀態查詢</spin>
 
     ```
@@ -881,7 +887,8 @@
           "account":"mm@gmail.com",
           "orderId":2,
           "transferId":"testTransferId",
-          "status":0
+          "status":0,
+          "currency":"TWD"          
        }
     }
     ```
@@ -907,6 +914,7 @@
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success|
+    |currency|string| 玩家設定貨幣 |        
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1202,7 +1210,8 @@
        "data":{  
           "account":"haha0738@ifalo.com.tw",
           "limitLose":500,
-          "limitWin":"5000"
+          "limitWin":"5000",
+          "winCredit":-144
        }
     }
     ```
@@ -1217,7 +1226,8 @@
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
-    |limitWin|int|限贏金額|    
+    |limitWin|int|限贏金額|
+    | winCredit | int | 當前損益 |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1301,7 +1311,8 @@
        "data":{  
           "account":"haha0738@ifalo.com.tw",
           "limitLose":500,
-          "limitWin":"5000"
+          "limitWin":"5000",
+          "winCredit":-144          
        }
     }
     ```
@@ -1324,6 +1335,7 @@
     |account|string(20)|玩家帳號|
     |limitLose|int|限輸金額|
     |limitWin|int|限贏金額| 
+    | winCredit | int | 當前損益 |    
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1984,9 +1996,10 @@
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account| 玩家帳號 |  string(20)  |     選填 | N |
     |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | N |  
-    |startAt？．  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
+    |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |page    | 分頁 |  int  |     每頁1000筆，預設:1 | N |    
+    |page    | 分頁 |  int  |     預設:1 | N |    
+    |pageSize    | 分頁筆數 |  int  |     預設每頁1000筆 | N |        
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + startAt + endAt + secret)**
@@ -2016,7 +2029,9 @@
                 "winCredit":"0.0000",
                 "scatter":0,
                 "bonus":"0.0000",
-                "createdAt":"2017-06-15 13:47:57"
+                "createdAt":"2017-06-15 13:47:57",
+				   "updatedAt":"2017-07-06 14:30:12",
+				   "billingDate":"2017-07-06"
              },
              {  
                 "id":3011,
@@ -2028,7 +2043,9 @@
                 "winCredit":"0.0000",
                 "scatter":0,
                 "bonus":"0.0000",
-                "createdAt":"2017-06-15 13:48:01"
+                "createdAt":"2017-06-15 13:48:01",
+				   "updatedAt":"2017-07-06 14:30:12",
+				   "billingDate":"2017-07-06"                
              },
              ...............
           ]
@@ -2075,6 +2092,8 @@
     | scatter | int | 是否是在scatter 狀態下，scatter時總下注金額不需計算 |
     | bonus | int | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
+    | updateAt | string | 更新時間 |    
+    | billingDate | string | 結帳日 |    
     
 
 	

@@ -49,17 +49,24 @@
 ## 玩家模式說明
 
 |模式|說明|
-|:---:|:---|
+|:---:|:---:|
 |0|正常|
 |1|鎖單無法下注|
 |2|封鎖無法登入|
 
 ## 支援貨幣
 
- |貨幣代碼|貨幣說明|
+ |代碼|說明|
  |:-:|:-:|
  |TWD|台幣|
  |CNY|人民幣|
+
+## 支援語系
+
+ |代碼|說明|
+ |:-:|:-:|
+ | zh_TW |繁體中文|
+ | zh_CN |簡體中文|
 
 ## 錯誤代碼
 
@@ -94,7 +101,8 @@
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
 | 28 | transfer pending | 訂單交易中 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
-| 102 | The currency what you set is not supported | 你所設定的貨幣類型不支援 |
+| 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
+| 103 | The language is not supported | 您所設定的語系類型不支援 |
 
 
 ## API
@@ -369,7 +377,8 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |Y|
     |  account | 玩家帳號 |  string  |     必填    | Y| 
-    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) 直接進入遊戲| Y |        
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) 直接進入遊戲| N |
+    |  language | 語系代碼 |  string  |     選填 [支援語系](#支援語系) | N |
     |   hash   | 驗證參數 |  string  |     必填    |Y|
 
     **hash = md5(account + secret)**
@@ -416,6 +425,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+	| 103 | The language is not supported |    
 
 3. ### <span id="login">登入</span>
 

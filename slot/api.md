@@ -67,6 +67,14 @@
  |:-:|:-:|
  | zh_TW |繁體中文|
  | zh_CN |簡體中文|
+ 
+## 支援裝置
+
+ |代碼|說明|
+ |:-:|:-:|
+ | WEB-PC | 網頁電腦版 |
+ | Android | Android App | 
+ | IOS | IOS App |  
 
 ## 錯誤代碼
 
@@ -379,6 +387,7 @@
     |  account | 玩家帳號 |  string  |     必填    | Y| 
     |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) 直接進入遊戲| N |
     |  language | 語系代碼 |  string  |     選填 [支援語系](#支援語系) | N |
+    |   platformType   | 裝置代碼 |  string  |     選填 [支援裝置](#支援裝置)    |N|    
     |   hash   | 驗證參數 |  string  |     必填    |Y|
 
     **hash = md5(account + secret)**
@@ -2103,9 +2112,9 @@
     | bonus | int | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
     | updateAt | string | 更新時間 |    
-    | billingDate | string | 結帳日 |    
+    | billingDate | string | 結帳日 | 
+    |   platformType   | 裝置代碼 |
     
-
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     

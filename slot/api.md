@@ -2113,7 +2113,7 @@
     | createdAt | string | 建立時間 |
     | updateAt | string | 更新時間 |    
     | billingDate | string | 結帳日 | 
-    |   platformType   | 裝置代碼 |
+    |   platformType  | string | 裝置代碼 |
     
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))

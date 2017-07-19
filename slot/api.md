@@ -521,13 +521,13 @@
           "id":30,
           "account":"mm@gmail.com",
           "nickname":"mm",
-          "credit":0,
+          "credit":"100.0000",
           "loginAt":null,
           "logoutAt":null,
           "mode":0,
           "enable":1,
-          "limitWin":11111,
-          "limitLose":30000,
+          "limitWin":"100000.0000",
+          "limitLose":"100000.0000",
           "isOnline":false,
           "currency":"TWD"
        }
@@ -551,11 +551,11 @@
     |id|int|序號|
     |account|string|玩家帳號|
     |nickname|string|玩家暱稱|
-    |credit|int|玩家目前額度|
+    |credit|decimal(19, 4)|玩家目前額度|
     |mode|int|玩家目前模式 0:正常 1:鎖單無法下注 2:封鎖無法登入|
     |enable|int|是否啟用 0:停用 1:啟用|
-    |limitWin|int|限贏 0為無限制|
-    |limitLose|int|限輸 0為無限制|
+    |limitWin|decimal(19, 4)|限贏 0為無限制|
+    |limitLose|decimal(19, 4)|限輸 0為無限制|
     |isOnline|boolean|玩家是否在上線|
     |currency|string| 玩家設定貨幣 |
     
@@ -773,7 +773,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account | 玩家帳號 |  string(20)  |     必填    | Y |
-    |  credit   | 增加的籌碼 |  int  |     必填, 負號代表轉出    | Y |
+    |  credit   | 增加的籌碼 |  decimal(19, 4)  |     必填, 負號代表轉出。(目前不開放小數籌碼，請仍以整數串送)    | Y |
     |  transferId   | 交易編號 |  string(30)  |     必填    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
@@ -783,19 +783,19 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "originalCredit":0,       
-          "addedCredit":3000,
-          "finalCredit":3000,
-          "account":"mm@gmail.com",
-          "orderId":2,
-          "transferId":"fsefs",
-          "status":0
-          "currency":"TWD"          
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "originalCredit":"1010810.0000",
+	      "addedCredit":"9999.0000",
+	      "finalCredit":"1020809.0000",
+	      "account":"57b_wei",
+	      "orderId":11,
+	      "transferId":"PDNN",
+	      "status":0,
+	      "currency":"TWD"
+	   }
+	}
     ```
     失敗
 
@@ -813,9 +813,9 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|  
-    |originalCredit|int|原始籌碼|    
-    |addedCredit|int|新增籌碼|
-    |finalCredit|int|最後籌碼|
+    |originalCredit|decimal(19, 4)|原始籌碼|    
+    |addedCredit|decimal(19, 4)|新增籌碼|
+    |finalCredit|decimal(19, 4)|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success|  
@@ -897,19 +897,19 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "originalCredit":0,
-          "addedCredit":3000,
-          "finalCredit":3000,
-          "account":"mm@gmail.com",
-          "orderId":2,
-          "transferId":"testTransferId",
-          "status":0,
-          "currency":"TWD"          
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "addedCredit":"9999.0000",
+	      "originalCredit":"1010810.0000",
+	      "finalCredit":"1020809.0000",
+	      "account":"57b_wei",
+	      "orderId":11,
+	      "transferId":"PDNN",
+	      "status":0,
+	      "currency":"TWD"
+	   }
+	}
     ```
     失敗
 
@@ -927,9 +927,9 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|  
-    |originalCredit|int|原始籌碼|
-    |addedCredit|int|新增籌碼|
-    |finalCredit|int|最後籌碼|
+    |originalCredit|decimal(19, 4)|原始籌碼|
+    |addedCredit|decimal(19, 4)|新增籌碼|
+    |finalCredit|decimal(19, 4)|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success|
@@ -1215,7 +1215,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account | 玩家帳號 |  string(20)  |     必填    | Y |
-    |  limit   | 限制金額 |  int  |     必填    | Y |
+    |  limit   | 限制金額 |  decimal(19, 4)  |     必填    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+limit+secret)**
@@ -1224,15 +1224,15 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "account":"haha0738@ifalo.com.tw",
-          "limitLose":500,
-          "limitWin":"5000",
-          "winCredit":-144
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "account":"57b_wei",
+	      "limitWin":"100000.0000",
+	      "limitLose":"9998.0000",
+	      "winCredit":"0.0000"
+	   }
+	}
     ```
     失敗
 
@@ -1244,9 +1244,9 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    |limitLose|int|限輸金額|
-    |limitWin|int|限贏金額|
-    | winCredit | int | 當前損益 |
+    |limitLose|decimal(19, 4)|限輸金額|
+    |limitWin|decimal(19, 4)|限贏金額|
+    | winCredit | decimal(19, 4) | 當前損益 |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1316,7 +1316,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account | 玩家帳號 |  string(20)  |     必填    | Y |
-    |  limit   | 限制金額 |  int  |     必填    | Y |
+    |  limit   | 限制金額 |  decimal(19, 4)  |     必填    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account+limit+secret)**
@@ -1325,15 +1325,15 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "account":"haha0738@ifalo.com.tw",
-          "limitLose":500,
-          "limitWin":"5000",
-          "winCredit":-144          
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "account":"57b_wei",
+	      "limitWin":"100000.0000",
+	      "limitLose":"9998.0000",
+	      "winCredit":"0.0000"
+	   }
+	}
     ```
     失敗
 
@@ -1352,9 +1352,9 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    |limitLose|int|限輸金額|
-    |limitWin|int|限贏金額| 
-    | winCredit | int | 當前損益 |    
+    |limitLose|decimal(19, 4)|限輸金額|
+    |limitWin|decimal(19, 4)|限贏金額| 
+    | winCredit | decimal(19, 4) | 當前損益 |    
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1430,13 +1430,13 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "account":"mm@gmail.com",
-          "winCredit":0
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "account":"57b_wei",
+	      "winCredit":"0.0000"
+	   }
+	}
     ```
     失敗
 
@@ -1449,7 +1449,7 @@
     | 參數 | 型態 | 說明 |
     |:---:|:---:|:---:|
     | account |string(20)| 玩家帳號 |
-    | winCredit |int| 回復後損益 |
+    | winCredit |decimal(19, 4)| 回復後損益 |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -1629,16 +1629,16 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "account":"mm@gmail.com",
-          "winCredit":0,
-          "limitWin":11111,
-          "limitLose":30000,
-          "updatedAt":"2017-04-13 11:03:44"
-       }
-    }
+	{  
+	   "status":"success",
+	   "data":{  
+	      "account":"57b_wei",
+	      "winCredit":"0.0000",
+	      "limitWin":"8888.9900",
+	      "limitLose":"9998.0000",
+	      "updatedAt":"2017-07-19 11:31:56"
+	   }
+	}
     ```
     失敗
 
@@ -1650,9 +1650,9 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    |limitLose|int|限輸金額|
-    |limitWin|int|限贏金額|    
-    | winCredit |int|損益|     
+    |limitLose|decimal(19, 4)|限輸金額|
+    |limitWin|decimal(19, 4)|限贏金額|    
+    | winCredit |decimal(19, 4)|損益|     
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
@@ -2050,7 +2050,8 @@
                 "bonus":"0.0000",
                 "createdAt":"2017-06-15 13:47:57",
 				   "updatedAt":"2017-07-06 14:30:12",
-				   "billingDate":"2017-07-06"
+				   "billingDate":"2017-07-06",
+				   "platformType":"WEB-PC"
              },
              {  
                 "id":3011,
@@ -2064,7 +2065,8 @@
                 "bonus":"0.0000",
                 "createdAt":"2017-06-15 13:48:01",
 				   "updatedAt":"2017-07-06 14:30:12",
-				   "billingDate":"2017-07-06"                
+				   "billingDate":"2017-07-06",  
+				   "platformType":"WEB-PC"
              },
              ...............
           ]
@@ -2104,14 +2106,14 @@
     | account | String | 玩家帳號 |
     | gameType | int | 遊戲代稱 |        
     | machineNo | int | 機器編號 |
-    | bet | int | 押注金額 |
+    | bet | decimal(19, 4) | 押注金額 |
     | betLines | int | 下注線數 |
-    | totalBet | string | 總下注金額 |
-    | winCredit | int | 贏得金額 |
+    | totalBet | decimal(19, 4) | 總下注金額 |
+    | winCredit | decimal(19, 4) | 贏得金額 |
     | scatter | int | 是否是在scatter 狀態下，scatter時總下注金額不需計算 |
-    | bonus | int | bonus 贏得金額 |
+    | bonus | decimal(19, 4) | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
-    | updateAt | string | 更新時間 |    
+    | updatedAt | string | 更新時間 |    
     | billingDate | string | 結帳日 | 
     |   platformType  | string | 裝置代碼 |
     
@@ -2198,11 +2200,11 @@
     
 	```javascript
 	{  
-		"status":"success",
-		"data":{  
-			  "totalBet":"540",
-			  "winCredit":"40"
-		}
+	   "status":"success",
+	   "data":{  
+	      "totalBet":"56440.0000",
+	      "winCredit":"41960.0000"
+	   }
 	}
 	```
 
@@ -2222,8 +2224,8 @@
     
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|
-	| winCredit | int | 贏得的金額 |
-	| totalBet | int | 下注金額 |
+	| winCredit | decimal(19, 4) | 贏得的金額 |
+	| totalBet | decimal(19, 4) | 下注金額 |
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
@@ -2306,21 +2308,15 @@
     
 	```javascript
 	{  
-		"status":"success",
-		"data":[  
-		  {  
-		     "account":"leochen",
-		     "winCredit":null,
-		     "totalBet":40,
-		     "createdAt":"2016-12-16 14:00:11"
-		  },
-		  {  
-		     "account":"wei01",
-		     "winCredit":"28935",
-		     "totalBet":40,
-		     "createdAtt":"2017-03-23 09:36:08"
-		  }
-		]
+	   "status":"success",
+	   "data":[  
+	      {  
+	         "account":"57b_wei",
+	         "winCredit":"41960.0000",
+	         "totalBet":"40.0000",
+	         "createdAt":"2017-07-06 14:30:11"
+	      }
+	   ]
 	}
 	```
 
@@ -2347,8 +2343,8 @@
 	| 參數名稱 | 參數型態 | 說明 |
 	|:---:|:---:|:---:|
 	| account | string(20) | 玩家帳號 |
-	| winCredit | int | 贏得的金額 |
-	| totalBet | int | 下注金額 |
+	| winCredit | decimal(19, 4) | 贏得的金額 |
+	| totalBet | decimal(19, 4) | 下注金額 |
 	| createdAt | string | 建立時間 |
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))

@@ -639,17 +639,28 @@
     {  
 	   "status":"success",
 	   "data":[  
-	      {  
-	         "id":145,
-	         "userId":19,
-	         "initialCredit":1,
-	         "sumOfBet":0,
-	         "sumOfWinCredit":0,
-	         "finalCredit":1,
-	         "ip":"192.168.11.1",
-	         "loginAt":"2017-04-20 10:22:18",
-	         "logoutAt":"2017-04-20 10:22:28",
-	      }
+		{  
+		   "id":8,
+		   "userId":53,
+		   "initialCredit":"985519.0000",
+		   "sumOfBet":"0.0000",
+		   "sumOfWinCredit":"0.0000",
+		   "finalCredit":"985519.0000",
+		   "ip":"192.168.11.1",
+		   "loginAt":"2017-07-13 11:16:13",
+		   "logoutAt":"2017-07-13 11:18:16"
+		},
+		{  
+		   "id":9,
+		   "userId":53,
+		   "initialCredit":"985519.0000",
+		   "sumOfBet":"0.0000",
+		   "sumOfWinCredit":"0.0000",
+		   "finalCredit":"985519.0000",
+		   "ip":"192.168.11.1",
+		   "loginAt":"2017-07-13 11:21:33",
+		   "logoutAt":"2017-07-13 11:23:36"
+		}
 	   ]
 	}
     ```
@@ -668,10 +679,10 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    | initialCredit |int|初始金額|
-    | sumOfBet |int|下注金額|
-    | sumOfWinCredit |int|贏取金額，損益為 sumOfWinCredit - sumOfBet|
-    | finalCredit |int|最後籌碼|    
+    | initialCredit |decimal(19, 4)|初始金額|
+    | sumOfBet |decimal(19, 4)|下注金額|
+    | sumOfWinCredit |decimal(19, 4)|贏取金額，損益為 sumOfWinCredit - sumOfBet|
+    | finalCredit |decimal(19, 4)|最後籌碼|    
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     

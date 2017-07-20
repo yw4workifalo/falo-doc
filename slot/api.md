@@ -72,7 +72,7 @@
 
  |代碼|說明|
  |:-:|:-:|
- | WEB-PC | 網頁電腦版 |
+ | Web | 網頁電腦版 |
  | Android | Android App | 
  | IOS | IOS App |  
 
@@ -2064,7 +2064,7 @@
                 "createdAt":"2017-06-15 13:47:57",
 				   "updatedAt":"2017-07-06 14:30:12",
 				   "billingDate":"2017-07-06",
-				   "platformType":"WEB-PC"
+				   "platformType":"Android"
              },
              {  
                 "id":3011,
@@ -2079,7 +2079,7 @@
                 "createdAt":"2017-06-15 13:48:01",
 				   "updatedAt":"2017-07-06 14:30:12",
 				   "billingDate":"2017-07-06",  
-				   "platformType":"WEB-PC"
+				   "platformType":"Android"
              },
              ...............
           ]

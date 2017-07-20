@@ -111,6 +111,7 @@
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
+| 104 | The platform type is not supported | 您指定登入的平台不支援 |
 
 
 ## API
@@ -434,7 +435,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 103 | The language is not supported |    
+	| 103 | The language is not supported |   
+	| 104 | The platform type is not supported | 	 
 
 3. ### <span id="login">登入</span>
 

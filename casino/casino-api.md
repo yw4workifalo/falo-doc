@@ -1017,7 +1017,7 @@
                 "betFormId":1,
                 "gameType":1,
                 "gameMethod":1,
-                "tableType:3,
+                "tableType":3,
                 "tableId":"A",
                 "round":1955101,
                 "run":63,

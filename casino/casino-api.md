@@ -13,8 +13,8 @@
 1. [玩家限注回復](#玩家限注回復)
 1. [玩家額度轉出入](#玩家額度轉出入)
 1. [玩家轉帳狀態查詢](#玩家轉帳狀態查詢)
+1. [玩家下注查詢](#玩家下注查詢)
 1. [玩家下注簡報查詢](#玩家下注簡報查詢)
-1. [玩家多人下注簡報區間總額查詢](#玩家多人下注簡報區間總額查詢)
 1. [踢玩家](#踢玩家)
 1. [踢多玩家](#踢多玩家)
 
@@ -30,6 +30,30 @@
 
 ![流程圖](https://cacoo.com/diagrams/xgypN4flYVaJlTcU-28811.png "API 登入 流程圖")
 
+### <span id="GameType">遊戲類別</span>
+| 遊戲名稱  | gameType                 | 
+|---------- |-------------------------  |
+| 百家樂         | 1   | 
+
+### <span id="mode">玩家帳號模式</span>
+| 代碼  | mode 說明                | 
+|---------- |-------------------------  |
+| 0         | 正常   | 
+| 1        | 鎖單(不能下注)   | 
+| 2        | 停用(不能進入遊戲)，修改狀態為 2時會執行踢除玩家   | 
+
+### <span id="enable">玩家啟用狀態</span>
+| 代碼  | enable 說明                 | 
+|---------- |-------------------------  |
+| 0         | 停用   | 
+| 1        | 啟用   | 
+
+### <span id="currency">支援幣別</span>
+| 代碼  | 幣別                  | 
+|---------- |-------------------------  |
+| TWD        | 台幣   | 
+| CNY       | 人民幣   | 
+| USD       | 美金   | 
 
 ### *錯誤代碼*
 -------
@@ -54,7 +78,7 @@
 | 17 | transfer in error  | 額度轉入失敗       |
 | 18 | transfer out error  | 額度轉出失敗       |
 | 19 | player credit is not enough  | 玩家籌碼不足       |
-| 20 | account:{account} has been used| 玩家帳號已註冊過
+| 20 | account:{account} has been used| 此帳號已被使用 |
 | 21 | bet accounts processing  | 帳務結算中不可額度轉出入       |
 | 22 | {param} must be a unsigned int  | {param}設定值必須為正整數       |
 | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
@@ -63,12 +87,7 @@
 | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用       |
 | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0       |
 | 28 | transfer id:{transfer id} transaction processing  | 交易單處理中       |
-
-### <span id="GameType">Casino Game Type</span>
-| 遊戲名稱  | gameType                  | 
-|---------- |-------------------------  |
-| 百家樂         | 1   | 
-
+| 102 | The currency:{currency} is not supported  | 您所設定的貨幣類型不支援       |
 
 ### *API 使用*
 -------
@@ -90,6 +109,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |  nickname   | 玩家暱稱 |  string  |     必填    |
+    |  currency   | 玩家貨幣類型 |  設定玩家貨幣類型，設定之後不可更改  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(account + nickname + secret)`**
@@ -101,6 +121,8 @@
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  | 
     |  nickname   | 玩家暱稱 |  string  |
+    |  currency   | 玩家設定幣別 |  string  |
+    |  playerId   | 遊戲方玩家編號 |  integer  |
 
     ---
 
@@ -112,7 +134,9 @@
         "status":"success",
         "data":{
             "account":"a1234",
-            "nickname":"a99asdf"
+            "nickname":"a99asdf",
+            "currency":"TWD",
+            "playerId":63
         }
     }
     ```
@@ -235,7 +259,7 @@
     |  enable | 帳號啟用|  smallint  | 
     |  mode | 帳號模式|  smallint  | 
     |  isOnline | 玩家是否在線|  smallint  | 
-    |  credit | 額度|  float  | 
+    |  credit | 額度|  decimal(19,4)  | 
     |  limitWin | 限贏|  integer  | 
     |  limitLose | 限輸|  integer  | 
 
@@ -732,7 +756,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  credit | 轉出入額度 |integer  |必填，正值為轉入，負值為轉出    |
+    |  credit | 轉出入額度 |integer  |必填，正值為轉入，負值為轉出。(目前不開放小數籌碼，請仍以整數串送)    |
     |transferId |平台方交易Id |string| 必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
@@ -744,9 +768,9 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  | 
-    |  originCredit   | 交易前額度 |  float  |
+    |  originCredit   | 交易前額度 |  decimal(19,4)  |
     |  addCredit   | 增加額度 |  integer  |
-    |  finalCredit   | 交易後額度 |  float  |
+    |  finalCredit   | 交易後額度 |  decimal(19,4)  |
     |  transferId   | 平台方交易Id |  string  |
     |  orderId   | 此筆交易單號 |  integer  |
     |  status   | 交易狀態 |  smallint  |
@@ -830,9 +854,9 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  | 
-    |  originCredit   | 交易前額度 |  float  |
+    |  originCredit   | 交易前額度 |  decimal(19,4)  |
     |  addCredit   | 增加額度 |  integer  |
-    |  finalCredit   | 交易後額度 |  float  |
+    |  finalCredit   | 交易後額度 |  decimal(19,4)  |
     |  transferId   | 平台方交易Id |  string  |
     |  orderId   | 此筆交易單號 |  integer  |
     |  status   | 交易狀態 |  smallint  |
@@ -888,12 +912,11 @@
     | 25 | transfer id credit can not be empty  |
 
 
-12. ### <span id="bet-report">玩家下注簡報查詢</span>
+12. ### <span id="bet-report">玩家下注查詢</span>
 
     ```
     GET /casino-api/bet/report?
         key=<key>&
-        account=<account>&
         startAt=<startAt>&
         endAt=<endAt>&
         hash=<hash>
@@ -904,52 +927,54 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
     |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
-    #### **`hash = md5(account + startAt + endAt + secret)`**
+    #### **`hash = md5(startAt + endAt + secret)`**
     ---
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號 |  string  | 
-    |  betFormId| 注單編號 |integer  |
-    |  gameType| [遊戲類別](#遊戲類別) |smallint  |
-    |  gameMethods|[遊戲玩法](#遊戲玩法)  |smallint  |
-    |  tableId|桌台編號  | string |
-    |  tableType|[桌台類型](#桌台類型)  | smallint  |
-    |  round| 輪號 | integer |
-    |  run| 局號 | integer |
-    |  gameResult| 遊戲結果 | string  |
-    |gameResultDescription | 遊戲開牌結果，[百家樂遊戲開牌代碼說明](#百家樂遊戲開牌代碼說明) | string |
-    | gameRunStartTime | 遊戲局開始時間 | datetime |
-    | gameRunEndTime | 遊戲局結束時間 | datetime |
-    | amount | 總下注注額 | integer |
-    | validAmount | 總有效下注注額 | integer |
-    | betDetail | 下注注區，金額，賠率明細 | string |
-    | loseWinAmount | 輸贏額度  | float |
-    | betTime | 下注時間 | datetime |
-    | status | [注單狀態](#注單狀態) | smallint  |
-    ---
-
-    ```
-    百家樂 無風險下注說明
-    同時下注莊閒、閒單閒雙、莊單莊雙、大小皆算無風險投注
-    ```
+    |  total | 總筆數 |  integer  | 
+    |  perPage| 各分頁含有筆數 |integer  |
+    |  currentPage| 目前所在頁數 |integer  |
+    |  lastPage|下一頁頁數 |integer  |
+    |  previousPageUrl|上一頁 (null 表示為第一頁)  | string or null |
+    |  nextPageUrl|下一頁 (null 表示無下一頁) | string or null  |
+    |  betResult| [下注明細](#betResult 說明) | array |
     
-    ### <span id="GameType">遊戲類別</span>
-    | 遊戲名稱  | gameType                  | 
-    |---------- |-------------------------  |
-    | 百家樂         | 1   | 
+    #### <span id="betResult">betResult 說明</span>
+    
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    |  betFormId| 注單編號 | integer |
+    |  gameType| [遊戲類別](#遊戲類別) | smallint  |
+    |gameMethod |[遊戲玩法](#遊戲玩法)| smallint |
+    |tableType |[桌台類型](#桌台類型)| smallint |
+    | tableId | 遊戲局桌檯Id | string |
+    | round | 局號 | integer |
+    | run | 輪號| smallint |
+    | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明) | string |
+    | playerId | 遊戲方玩家Id | integer |
+    | account | 玩家帳號 | string |
+    | amount | 總有效下注注額 | integer |
+    | betList | 下注注區列表 | string(json) |
+    | checkoutAmount | 結帳金額 | decimal(19,4) |
+    | betTime | 當局最後一筆下注時間 | string |
+    | billingDate | 結帳日 | string |
+    | modifiedStatus | [注單狀態](#注單狀態) | smallint |
+    | updatedAt | 更新時間 | string |
+    | createdAt | 結帳時間 | string |
+    
+    ---
     
     ### <span id="gameMethods">遊戲玩法</span>
     | 名稱  | gameMethods                  | 
     |---------- |-------------------------  |
     | 百家樂標準         | 1   | 
-    | 百家樂免水         | 2   |
-    | 百家樂西洋         | 3   |
+    | 百家樂西洋         | 2   |
+    | 百家樂免水         | 3   |
     
     ### <span id="tableType">桌台類型</span>
     | 名稱  | tableType                  | 
@@ -978,120 +1003,39 @@
     成功
 
     ```javascript
-    {
-        "status": "success",
-        "data": [
-            {
-                "account": "aa1234",
-                "betFormId": 716719,
-                "gameType": 1,
-                "gameMethods": 1,
-                "tableId": "A",
-                "tableType": 1,
-                "round": 1870760,
-                "run": 17,
-                "gameResult": "banker win",
-                "gameResultDescription": {
-                    "banker": "D4,S4",
-                    "player": "S6,HK"
-                },
-                "gameRunStartTime": "2017-01-02 15:00:00",
-                "gameRunEndTime": "2017-01-02 15:02:10",
-                "amount": 3000,
-                "validAmount": 2000,
-                "betDetail": [
-                    {
-                        "spot": "莊家",
-                        "odds": 0.95,
-                        "betAmount": 1000,
-                        "betWin": 950
-                    },
-                    {
-                        "spot": "閒家",
-                        "odds": 1,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    },
-                    {
-                        "spot": "大",
-                        "odds": 0.53,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    },
-                    {
-                        "spot": "莊雙",
-                        "odds": 0.92,
-                        "betAmount": 1000,
-                        "betWin": 920
-                    }
-                ],
-                "loseWinAmount": -130,
-                "betTime": "2017-01-02 15:00:10",
-                "status": 0
-            },
-            {
-                "account": "aa1234",
-                "betFormId": 716720,
-                "gameType": 1,
-                "gameMethods": 1,
-                "tableId": "A",
-                "tableType": 3,
-                "round": 1889286,
-                "run": 25,
-                "gameResult": "player win",
-                "gameResultDescription": {
-                    "banker": "D8,C9",
-                    "player": "C6,H3"
-                },
-                "gameRunStartTime": "2017-01-02 16:30:00",
-                "gameRunEndTime": "2017-01-02 16:31:02",
-                "amount": 6000,
-                "validAmount": 2000,
-                "betDetail": [
-                    {
-                        "spot": "莊家",
-                        "odds": 0.95,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    },
-                    {
-                        "spot": "閒家",
-                        "odds": 1,
-                        "betAmount": 1000,
-                        "betWin": 1000
-                    },
-                    {
-                        "spot": "大",
-                        "odds": 0.53,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    },
-                    {
-                        "spot": "小",
-                        "odds": 1.45,
-                        "betAmount": 1000,
-                        "betWin": 1450
-                    },
-                    {
-                        "spot": "莊雙",
-                        "odds": 0.92,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    }
-                    {
-                        "spot": "閒雙",
-                        "odds": 0.88,
-                        "betAmount": 1000,
-                        "betWin": -1000
-                    }
-                ],
-                "loseWinAmount": -1550,
-                "betTime": "2017-01-02 16:30:11",
-                "status": 0
-            },
-        ]
+    {  
+       "status":"success",
+       "data":{  
+          "total":1,
+          "perPage":15,
+          "currentPage":1,
+          "lastPage":1,
+          "previousPageUrl":null,
+          "nextPageUrl":"http://api.app/casino-api/bet/report?key=5940a95a77de4&startAt=2017-06-19+11%3A23%3A00&endAt=2017-08-19+11%3A25%3A00&hash=df7f8337727966f4d5969597228ccb22&page=2",
+          "betResult":[  
+          {  
+                "betFormId":1,
+                "gameType":1,
+                "gameMethod":1,
+                "tableType:3,
+                "tableId":"A",
+                "round":1955101,
+                "run":63,
+                "gameResult":"S8,H1,D6,H6,S1,",
+                "playerId":5,
+                "account":"bill1234",
+                "amount":1500,
+                "betList":"[{\"spotId\":1,\"betAmout\":1500,\"loseWinAmount\":1425,\"odds\":0.95}]",
+                "checkoutAmount":"1425.0",
+                "betTime":"2017-06-19 11:23:32",
+                "billingDate":"2017-06-19",
+                "modifiedStatus":0,
+                "updatedAt":"2017-06-19 11:24:03",
+                "createdAt":"2017-06-19 11:24:03"
+             }
+          ]
+       }
     }
-    
     ```
 
     失敗
@@ -1100,8 +1044,8 @@
     {
         "status":"error",
         "error":{
-            "code":20,
-            "message":"range :2017-01-01 00:00:00 to 2017-01-02 00:00:00 not found bet results"
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
         }
     }
     ```
@@ -1112,20 +1056,16 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4  | player not found            |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 20 | range :{startAt} to {EndAt} not found bet results|查詢結果無注單        |
     | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
-    | 25 | transfer id credit can not be empty  |
 
-13. #### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
+13. #### <span id="bet-report-multiple">玩家下注簡報查詢</span>
 
     ```
     GET /casino-api/bet/report?
         key=<key>&
-        gameType=<gameType>&
         startAt=<startAt>&
         endAt=<endAt>&
         hash=<hash>
@@ -1136,17 +1076,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  gameType | [遊戲類別](#遊戲類別) |  string  |     必填    |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
     |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
-    #### **`hash = md5(gameType + startAt + endAt + secret)`**
-    
-    ### <span id="GameType">遊戲類別</span>
-    | 遊戲名稱  | gameType                  | 
-    |---------- |-------------------------  |
-    | 百家樂         | 1   | 
+    #### **`hash = md5(startAt + endAt + secret)`**
     
     ---
     #### Response 參數說明
@@ -1155,8 +1089,7 @@
     |  account | 玩家帳號 |  string  | 
     |  betFormCount | 注單數量 |integer  |
     |  totalAmount | 總下注額度 |integer  |
-    |  totalValidAmount | 總有效下注額度 |integer  |
-    |  totalLoseWinAmount | 總輸贏 | float(小數點第一位)  |
+    |  totalLoseWinAmount | 總輸贏 | decimal(19,4)  |
         
     ---
 
@@ -1172,7 +1105,7 @@
                 "betFormCount":13,
                 "totalAmount":2000,
                 "totalValidAmount":2000,
-                "totalLoseWinAmount":1000,
+                "totalLoseWinAmount":1000.88,
             },
             {
                 "account":"a129995b",
@@ -1191,11 +1124,22 @@
     {
         "status":"error",
         "error":{
-            "code":22,
-            "message":"gameType must be a unsigned int"
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
         }
     }
     ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 
 14. #### <span id="player-kick">踢玩家</span>
 

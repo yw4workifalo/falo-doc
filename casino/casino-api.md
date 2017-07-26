@@ -955,7 +955,7 @@
     | tableId | 遊戲局桌檯Id | string |
     | round | 局號 | integer |
     | run | 輪號| smallint |
-    | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明) | string |
+    | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明)，順序：[閒1,莊1,閒2,莊2,閒補,莊補]，若空的表示 無補牌 | string |
     | playerId | 遊戲方玩家Id | integer |
     | account | 玩家帳號 | string |
     | amount | 總有效下注注額 | integer |

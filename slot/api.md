@@ -3,10 +3,8 @@
 1. [註冊帳號](#註冊帳號)
 1. [取得登入連結](#取得玩家登入網址)
 2. [修改暱稱](#修改暱稱)
-1. [登入](#登入)
 1. [查詢玩家](#查詢玩家)   
 2. [取得玩家遊戲紀錄](#取得玩家遊戲紀錄)
-3. [玩家離線通知](#玩家離線通知)
 4. [玩家額度轉出入](#玩家額度轉出入)
 5. [玩家轉帳狀態查詢](#玩家轉帳狀態查詢)
 6. [踢玩家](#踢玩家)
@@ -27,18 +25,18 @@
 22. [JP中獎紀錄](#JP中獎紀錄)
 23. [玩家JP核銷](#玩家JP核銷)
 
-
+## CHANGE LOG
+[CHANGE LOG](CHANGELOG.md)
 
 ## 登入流程
 1. 玩家透過平台登入
 2. 平台透過[註冊帳號](#註冊帳號)新增帳號
-3. 平台透過[取得玩家登入網址](#取得玩家登入網址)取得帳號密碼
-4. 透過表單直接將取得的帳號密碼送到[登入](#登入)驗證
-5. API直接將玩家導向至遊戲網頁
+3. 平台透過[取得玩家登入網址](#取得玩家登入網址)取得登入網址
+5. 透過登入網址直接進入遊戲
 
-[流程圖連結](https://cacoo.com/diagrams/UQAlsLczvUqmOvl6)
+[流程圖連結](https://cacoo.com/diagrams/WaDYppQPnrwiv0ot/simple#28811)
 
-![流程圖](https://cacoo.com/diagrams/UQAlsLczvUqmOvl6-28811.png?t=1455870225441 "API 登入 流程圖")
+![流程圖](https://cacoo.com/diagrams/WaDYppQPnrwiv0ot-28811.png?t=1501038793649 "API 登入 流程圖")
 
 ## GameType
 | 遊戲名稱  | GameType                  | 
@@ -438,25 +436,6 @@
 	| 103 | The language is not supported |   
 	| 104 | The platform type is not supported | 	 
 
-3. ### <span id="login">登入</span>
-
-
-
-    GET 由[取得玩家登入網址](#取得玩家登入網址)回傳的loginUrl
-
-    ##### 回傳結果
-    成功
-    
-    ```
-    直接導向遊戲頁
-    ```
-    
-    失敗
-    
-    ```
-    導向登入失敗頁
-    ```
-
 4. ### <span id="user">查詢玩家</span>
 
     ```
@@ -699,38 +678,7 @@
     | 7  | internal server error |
     | 11 | {parameter} is invalid   |
     
-        
-6. ### <spin id="offline_notification">玩家離線通知</spin>
-
-    玩家離線通知需要在後台設定callback url，離線通知會透過`POST`的方式傳送資料，目前會附帶以下資料。
-    
-    ```
-    id=<id>&                            //紀錄id (int)
-    ip=<ip>&                            //玩家ip (string)
-    loginAt=<loginAt>&                 //玩家登入時間 (string)
-    logoutAt=<logoutAt>&               //玩家登出時間 (string)
-    account=<account>&                   //玩家帳號 (string)
-    key=<key>&                          //服務金鑰 (string)
-    account=<account>&                  //玩家帳號(string)
-    token=<token>&                      //Session Token(string)
-    paid=<paid>&                        //玩家淨賠(int)
-    result=<result>&                    //玩家損益(int)
-    hash=<hash>                         //驗證參數(string)
-    ```
-    您可以驗證callback參數，獲得更好的安全性。
-    
-    **hash = md5(account + token + id + paid + result + secret)**
-
-    另外請您回傳一組 Json，格式如下：
-    成功
-     ```javascript
-    {"status":"success","message":"<自訂訊息>"}
-    ```           
-    失敗
-     ```javascript
-    {"status":"error","message":"<自訂訊息>"}
-    ```   
-	
+        	
 7. ### <spin id="credit_transfer">玩家額度轉出入</spin>
 
     ```

@@ -965,7 +965,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account| 玩家帳號 |  string(20)  |     必填   | Y |
-    |  reason  | 剔除原因 |  string(50)  |     必填    | Y |
+    |  reason  | 剔除原因 |  string(50)  |     選填    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + reason + secret)**
@@ -1064,7 +1064,7 @@
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
-    |  reason  | 剔除原因 |  string(50)  |     必填    | Y |
+    |  reason  | 剔除原因 |  string(50)  |     玩家    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + reason + secret)**

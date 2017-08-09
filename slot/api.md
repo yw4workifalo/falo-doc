@@ -24,6 +24,7 @@
 21. [玩家多人JP紀錄查詢](#玩家多人JP紀錄查詢)
 22. [JP中獎紀錄](#JP中獎紀錄)
 23. [玩家JP核銷](#玩家JP核銷)
+24. [手機API串接](#手機API串接)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -2767,4 +2768,30 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 101 | jackpot log not found   |
-
+	
+25. ### 手機API串接
+	#### 武士道
+	###### scheme url 
+		
+	```
+	pharao-warrior-mobile://launch-game?
+		token=0123456&
+		lang=en
+	```
+	
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	| token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
+	| lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
+	#### 金錢貓
+	
+	```
+	pharao-goldencat-mobile://launch-game?
+		token=0123456&
+		lang=en
+	```
+	
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	| token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
+	| lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |

@@ -30,10 +30,14 @@
 
 ![流程圖](https://cacoo.com/diagrams/xgypN4flYVaJlTcU-28811.png "API 登入 流程圖")
 
+---
+
 ### <span id="GameType">遊戲類別</span>
 | 遊戲名稱  | gameType                 | 
 |---------- |-------------------------  |
 | 百家樂         | 1   | 
+
+--
 
 ### <span id="mode">玩家帳號模式</span>
 | 代碼  | mode 說明                | 
@@ -42,18 +46,31 @@
 | 1        | 鎖單(不能下注)   | 
 | 2        | 停用(不能進入遊戲)，修改狀態為 2時會執行踢除玩家   | 
 
+--
+
 ### <span id="enable">玩家啟用狀態</span>
 | 代碼  | enable 說明                 | 
 |---------- |-------------------------  |
 | 0         | 停用   | 
 | 1        | 啟用   | 
 
+--
+
 ### <span id="currency">支援幣別</span>
 | 代碼  | 幣別                  | 
 |---------- |-------------------------  |
 | TWD        | 台幣   | 
 | CNY       | 人民幣   | 
-| USD       | 美金   | 
+
+--
+
+### <span id="language">支援語系</span>
+| 代碼  | 說明                  | 
+|---------- |-------------------------  |
+| zh_TW     | 繁體中文   | 
+| zh_CN     | 簡體中文   | 
+
+--
 
 ### *錯誤代碼*
 -------
@@ -86,8 +103,9 @@
 | 25 | transfer id credit can not be empty  | 交易的ID不可為空       |
 | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用       |
 | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0       |
-| 28 | transfer id:{transfer id} transaction processing  | 交易單處理中       |
-| 102 | The currency:{currency} is not supported  | 您所設定的貨幣類型不支援       |
+|28|transfer id:{transfer id} transaction processing| 交易單處理中   |
+| 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
+| 103 | The language is not supported| 您所設定的語系類型不支援 |
 
 ### *API 使用*
 -------
@@ -166,7 +184,8 @@
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
-   
+   | 20 | account:{account} has been used  |
+   | 102 | The currency:{currency} is not supported |
    
 2. ## <span id="player-auth">取得玩家登入網址</span>
 
@@ -183,6 +202,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
+    |  language | 語系代碼 |  string  |     選填，預設為：zh_TW    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(account + secret)`**
@@ -191,6 +211,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  loginUrl | 遊戲登入網址|  string  | 
+    | token | 登入用 token | string |
 
     ---
 
@@ -201,7 +222,8 @@
     {
         "status":"success",
         "data":{
-            "loginUrl":"http://test.app/casino-api/player/login?token=......M1NyJ9"}
+            "loginUrl":"http://test.app/casino-api/player/login?token=......M1NyJ9",
+            "token":"......M1NyJ9"}
     }
     ```
 
@@ -230,7 +252,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
-   
+   | 103 | The language is not supported |
    
 3. ## <span id="player-info">查詢玩家</span>
 

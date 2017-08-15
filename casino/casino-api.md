@@ -100,7 +100,7 @@
 | 22 | {param} must be a unsigned int  | {param}設定值必須為正整數       |
 | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 | 24 |{transferId} is not exist   | 此筆交易單不存在       |
-| 25 | transfer id credit can not be empty  | 交易的ID不可為空       |
+| 25 | transfer id can not be empty  | 交易的ID不可為空       |
 | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用       |
 | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0       |
 |28|transfer id:{transfer id} transaction processing| 交易單處理中   |
@@ -251,7 +251,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
    | 103 | The language is not supported |
    
 3. ## <span id="player-info">查詢玩家</span>
@@ -411,7 +410,8 @@
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
-    | 3  | hash is invalid           |
+    | 3  | hash is invalid           |   
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -485,6 +485,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -559,6 +560,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -626,6 +628,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -692,6 +695,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -755,6 +759,7 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -801,7 +806,6 @@
     | 代碼  | status                  | 
     |---------- |-------------------------  |
     | 0         | 成功   | 
-    | 1        | 伺服器錯誤  | 
     
     ---
 
@@ -842,13 +846,13 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid    |
     | 3  | hash is invalid    |
+     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    |  10  |service not available |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     | 19 | player credit is not enough  |
-    | 25 | transfer id credit can not be empty  |
-    | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用 |
+    | 25 | transfer id can not be empty  |
     | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0 |
 
     
@@ -887,9 +891,6 @@
     | 代碼  | status                  | 
     |---------- |-------------------------  |
     | 0         | 成功   | 
-    | 1        | 餘額不足  | 
-    | 2 | 伺服器錯誤 |
-    | 3 | 交易單處理中 |
     ---
 
     #### Response 結果
@@ -928,10 +929,11 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    |  10  |service not available |
     | 11 | {parameter} is invalid   |
-    | 25 | transfer id credit can not be empty  |
 
 
 12. ### <span id="bet-report">玩家下注查詢</span>
@@ -1233,6 +1235,7 @@
     | 4  | player not found            |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    |  10  |service not available |
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
    
@@ -1316,6 +1319,7 @@
     | 3  | hash is invalid           |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    |  10  |service not available |
     | 11 | {parameter} is invalid   |
 
 

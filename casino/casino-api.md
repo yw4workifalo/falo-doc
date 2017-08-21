@@ -84,10 +84,10 @@
 | 6  | query time range out of limit   | 查詢時間範圍超出限制       |
 | 7  | internal server error   | 伺服器內部錯誤       |
 | 8  | player is offline   | 玩家離線       |
-| 9  | player is online   | 玩家在線中       |
+| 9  | player is online   | 玩家在線中，無法轉出入額度       |
 | 10 | service not available   | 無法使用遊戲服務       |
 | 11 | {parameter} is invalid   | 參數不合法       |
-| 12 | gameType  not found  | 無此遊戲存在       |
+| 12 | gameType:{gameType} not found  | 無此遊戲存在       |
 | 13 | account length between 4 - 20  |  帳號至少4位元以上      |
 | 14 | nickname length between 1- 20  | 暱稱至少1位元以上       |
 | 15 | enable setting is invalid  | 玩家啟用設定值不合法       |
@@ -96,14 +96,17 @@
 | 18 | transfer out error  | 額度轉出失敗       |
 | 19 | player credit is not enough  | 玩家籌碼不足       |
 | 20 | account:{account} has been used| 此帳號已被使用 |
-| 21 | bet accounts processing  | 帳務結算中不可額度轉出入       |
-| 22 | {param} must be a unsigned int  | {param}設定值必須為正整數       |
+| 21 | player have not yet checkout bet | 玩家有下注尚未結算注單，無法轉出入額度       |
+| 22 | {param} must be a unsigned integer  | {param}設定值必須為正整數       |
 | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 | 24 |{transferId} is not exist   | 此筆交易單不存在       |
 | 25 | transfer id can not be empty  | 交易的ID不可為空       |
 | 26 | transferid:（平台方TransferID）has been used  | 此交易單已被使用       |
 | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0       |
 |28|transfer id:{transfer id} transaction processing| 交易單處理中   |
+|29|{params} must be entirely alpha-numeric characters| {param} 只允許英數   |
+|30|{params} must be a unsigned decimal| {param} 只允許正數的 decimal   |
+|31|{params} must be a integer| {param} 只允許整數   |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -202,6 +205,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
+    |  gameType | [遊戲類別](#遊戲類別)  |  smallint  |     選填，預設為：1(百家樂)    |
     |  language | 語系代碼 |  string  |     選填，預設為：zh_TW    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
@@ -251,7 +255,9 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-   | 103 | The language is not supported |
+    | 12 | gameType:{gameType}  not found|
+    |22 |{param} must be a unsigned integer |
+    | 103 | The language is not supported |
    
 3. ## <span id="player-info">查詢玩家</span>
 
@@ -281,8 +287,8 @@
     |  mode | 帳號模式|  smallint  | 
     |  isOnline | 玩家是否在線|  smallint  | 
     |  credit | 額度|  decimal(19,4)  | 
-    |  limitWin | 限贏|  integer  | 
-    |  limitLose | 限輸|  integer  | 
+    |  limitWin | 限贏|  decimal(19,4)  | 
+    |  limitLose | 限輸|  decimal(19,4)  | 
 
     ---
 
@@ -314,12 +320,13 @@
         "data":{
             "account":"a1234",
             "nickname":"a99asdf",
+            "currency":"TWD",
             "enable":1,
             "mode":0,
             "isOnline":0,
-            "credit":4101,
-            "limitWin":1099,
-            "limitLose":1
+            "credit":4101.0000,
+            "limitWin":1099.0000,
+            "limitLose":1.0000
         }
     }
     ```
@@ -346,7 +353,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
 
 
 4. ## <span id="player-nickname">修改玩家暱稱</span>
@@ -415,7 +421,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
     
 5. ## <span id="player-mode">設定玩家帳號模式</span>
@@ -489,9 +494,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     | 16 | mode setting is invalid  |
-    | 22 | {param} must be a unsigned int  |
+    | 22 | {param} must be a unsigned integer  |
 
 6. ## <span id="player-enable">設定玩家是否啟用遊戲</span>
 
@@ -564,9 +568,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     | 15 | enable setting is invalid  |
-    | 22 | {param} must be a unsigned int  |
+    | 22 | {param} must be a unsigned integer  |
     
 7. ## <span id="player-limit-lose">設定玩家限輸</span>
 
@@ -584,7 +587,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  limit   | 限輸值 |  integer |     必填    |
+    |  limit   | 限輸值 |  decimal(19,4) |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(account + limit + secret)`**
@@ -593,7 +596,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  | 
-    |  limit   | 限輸值 |  integer  |
+    |  limit   | 限輸值 |  decimal(19,4)  |
 
     ---
 
@@ -605,7 +608,7 @@
         "status":"success",
         "data":{
             "account":"a1234",
-            "limitLose":10
+            "limitLose":10.1239
         }
     }
     ```
@@ -616,8 +619,8 @@
    {
         "status":"error",
         "error":{
-            "code":22,
-            "message":"LimitLose must be a unsigned int"
+            "code":30,
+            "message":"limit must be a unsigned decima"
         }
     }
    ```
@@ -633,7 +636,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
-    | 22 | {param} must be a unsigned int  |
+    |30|{params} must be a unsigned decimal|
     
 8. ## <span id="player-limit-win">設定玩家限贏</span>
 
@@ -651,7 +654,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  limit   | 限贏值 |  integer |     必填    |
+    |  limit   | 限贏值 |  decimal(19,4) |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(account + limit + secret)`**
@@ -660,7 +663,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  | 
-    |  limit   | 限贏值 |  integer  |
+    |  limit   | 限贏值 |  decimal(19,4)  |
 
     ---
 
@@ -672,7 +675,7 @@
         "status":"success",
         "data":{
             "account":"a1234",
-            "limitWin":"1099"
+            "limitWin":10.1239
         }
     }
     ```
@@ -683,8 +686,8 @@
     {
         "status":"error",
         "error":{
-            "code":22,
-            "message":"LimitWin must be a unsigned int"
+            "code":30,
+            "message":"limit must be a unsigned decima"
         }
     }
    ```
@@ -699,8 +702,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
-    | 22 | {param} must be a unsigned int  |
+    |30|{params} must be a unsigned decimal|
     
 
 9. ## <span id="player-recover">玩家限注回復</span>
@@ -763,7 +765,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     
 
 10. ### <spin id="player-transfer">玩家額度轉出入</spin>
@@ -798,7 +799,7 @@
     |  originCredit   | 交易前額度 |  decimal(19,4)  |
     |  addCredit   | 增加額度 |  integer  |
     |  finalCredit   | 交易後額度 |  decimal(19,4)  |
-    |  transferId   | 平台方交易Id |  string  |
+    |  transferId   | 平台方交易Id(只允許英數) |  string  |
     |  orderId   | 此筆交易單號 |  integer  |
     |  status   | 交易狀態 |  smallint  |
 
@@ -846,14 +847,19 @@
     | 1  | {parameter} is required   |
     | 2  | key is invalid    |
     | 3  | hash is invalid    |
-     | 4  | player not found         |
+    | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    | 9  | player is online   |
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
     | 19 | player credit is not enough  |
+    | 21 | player have not yet checkout bet |
     | 25 | transfer id can not be empty  |
-    | 27 | transfer in or out can not be 0  | 額度轉出入設定值不可為0 |
+    | 26 | transferid:（平台方TransferID）has been used  |
+    | 27 | transfer in or out can not be 0  | 
+    |29|{params} must be entirely alpha-numeric characters| {param} 只允許英數   |
+    |31|{params} must be a integer|
 
     
 11. ### <spin id="player-transfer-status">玩家轉帳狀態查詢</spin>
@@ -934,6 +940,7 @@
     |  7  | internal server error |
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
+    | 24 |{transferId} is not exist   |
 
 
 12. ### <span id="bet-report">玩家下注查詢</span>
@@ -1085,87 +1092,7 @@
     | 11 | {parameter} is invalid   |
     | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 
-13. #### <span id="bet-report-multiple">玩家下注簡報查詢</span>
-
-    ```
-    GET /casino-api/bet/report?
-        key=<key>&
-        startAt=<startAt>&
-        endAt=<endAt>&
-        hash=<hash>
-    ```
-    
-    #### Request 參數說明
-
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
-    |   hash   | 驗證參數 |  string  |     必填    |
-    
-    #### **`hash = md5(startAt + endAt + secret)`**
-    
-    ---
-    #### Response 參數說明
-    | 參數名稱 | 參數說明 | 參數型態 |     
-    |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號 |  string  | 
-    |  betFormCount | 注單數量 |integer  |
-    |  totalAmount | 總下注額度 |integer  |
-    |  totalLoseWinAmount | 總輸贏 | decimal(19,4)  |
-        
-    ---
-
-    #### Response 結果
-    成功
-
-    ```javascript
-    {
-        "status":"success",
-        "data":[
-            {
-                "account":"a1234",
-                "betFormCount":13,
-                "totalAmount":2000,
-                "totalValidAmount":2000,
-                "totalLoseWinAmount":1000.88,
-            },
-            {
-                "account":"a129995b",
-                "betFormCount":67,
-                "totalAmount":563900,
-                "totalValidAmount"365000,
-                "totalLoseWinAmount":-10647.6,
-            },
-        ]
-    }
-    ```
-
-    失敗
-
-    ```javascript
-    {
-        "status":"error",
-        "error":{
-            "code":23,
-            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
-        }
-    }
-    ```
-
-    #### 會出現的錯誤項目
-    | 錯誤代碼 | 錯誤說明 |     
-    |:--------:|:--------:|
-    | 1  | {parameter} is required   |
-    | 2  | key is invalid            |
-    | 3  | hash is invalid           |
-    | 5  | {method} is not allowed   |
-    |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
-    | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
-
-14. #### <span id="player-kick">踢玩家</span>
+13. #### <span id="player-kick">踢玩家</span>
 
     ```
     DELETE /casino-api/player/kick?
@@ -1237,9 +1164,8 @@
     |  7  | internal server error |
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
    
-15. #### <span id="player-kick-multiple">踢多玩家</span>
+14. #### <span id="player-kick-multiple">踢多玩家</span>
 
     ```
     DELETE /casino-api/player/kick-multiple?

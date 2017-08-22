@@ -107,6 +107,8 @@
 |29|{params} must be entirely alpha-numeric characters| {param} 只允許英數   |
 |30|{params} must be a unsigned decimal| {param} 只允許正數的 decimal   |
 |31|{params} must be a integer| {param} 只允許整數   |
+|32|player mode is been disabled   | 此帳號模式已被停用 |
+|33|player enable is been disabled   | 此帳號已設定為不啟用 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -257,6 +259,8 @@
     | 11 | {parameter} is invalid   |
     | 12 | gameType:{gameType}  not found|
     |22 |{param} must be a unsigned integer |
+    |32|player mode is been disabled   | 
+    |33|player enable is been disabled   |
     | 103 | The language is not supported |
    
 3. ## <span id="player-info">查詢玩家</span>
@@ -1092,7 +1096,85 @@
     | 11 | {parameter} is invalid   |
     | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 
-13. #### <span id="player-kick">踢玩家</span>
+13. #### <span id="bet-report-multiple">玩家下注簡報查詢</span>
+
+    ```
+    GET /casino-api/bet/report?
+        key=<key>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+    
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+    
+    #### **`hash = md5(startAt + endAt + secret)`**
+    
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  | 
+    |  betFormCount | 注單數量 |integer  |
+    |  totalAmount | 總下注額度 |integer  |
+    |  totalLoseWinAmount | 總輸贏 | decimal(19,4)  |
+        
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[
+            {
+                "account":"a1234",
+                "betFormCount":13,
+                "totalAmount":2000,
+                "totalLoseWinAmount":1000.88,
+            },
+            {
+                "account":"a129995b",
+                "betFormCount":67,
+                "totalAmount":563900,
+                "totalLoseWinAmount":-10647.6,
+            },
+        ]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
+    
+14. #### <span id="player-kick">踢玩家</span>
 
     ```
     DELETE /casino-api/player/kick?
@@ -1165,7 +1247,7 @@
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
    
-14. #### <span id="player-kick-multiple">踢多玩家</span>
+15. #### <span id="player-kick-multiple">踢多玩家</span>
 
     ```
     DELETE /casino-api/player/kick-multiple?

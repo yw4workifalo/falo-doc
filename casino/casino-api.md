@@ -945,6 +945,7 @@
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
     | 24 |{transferId} is not exist   |
+    |29|{params} must be entirely alpha-numeric characters| 
 
 
 12. ### <span id="bet-report">玩家下注查詢</span>

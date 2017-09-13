@@ -1100,7 +1100,7 @@
 13. #### <span id="bet-report-multiple">玩家下注簡報查詢</span>
 
     ```
-    GET /casino-api/bet/report?
+    GET /casino-api/bet/report-multiple?
         key=<key>&
         startAt=<startAt>&
         endAt=<endAt>&

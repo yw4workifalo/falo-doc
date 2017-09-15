@@ -1041,39 +1041,37 @@
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":{  
-          "total":1,
-          "perPage":1000,
-          "currentPage":1,
-          "lastPage":1,
-          "previousPageUrl":null,
-          "nextPageUrl":"http://api.app/casino-api/bet/report?key=5940a95a77de4&startAt=2017-06-19+11%3A23%3A00&endAt=2017-08-19+11%3A25%3A00&hash=df7f8337727966f4d5969597228ccb22&page=2",
-          "betResult":[  
-          {  
-                "betFormId":1,
+    {
+        "status":"success",
+        "data":{
+            "total":1,
+            "perPage":1000,
+            "currentPage":1,
+            "lastPage":1,
+            "previousPageUrl":null,
+            "nextPageUrl":null,
+            "betResult":[{
+                "betFormId":299,
                 "gameType":1,
                 "gameMethod":1,
                 "tableType":3,
                 "tableId":"A",
-                "round":1955101,
-                "run":63,
-                "gameResult":"S8,H1,D6,H6,S1,",
-                "playerId":5,
-                "account":"bill1234",
-                "amount":1500,
-                "betList":"[{\"spotId\":1,\"betAmout\":1500,\"loseWinAmount\":1425,\"odds\":0.95}]",
-                "checkoutAmount":"1425.0",
-                "betTime":"2017-06-19 11:23:32",
-                "billingDate":"2017-06-19",
+                "round":1658620520,
+                "run":4,
+                "gameResult":"C1,CJ,DJ,H1,C7,C7",
+                "playerId":26,
+                "account":"EddyCount",
+                "amount":1000,
+                "betList":[{"spotId":18,"spotName":"BankerJQKA","betAmount":1000,"loseWinAmount":14000,"odds":14}],
+                "checkoutAmount":"14000.0000",
+                "betTime":"2017-08-25 16:30:09",
+                "billingDate":"2017-08-26",
                 "modifiedStatus":0,
-                "updatedAt":"2017-06-19 11:24:03",
-                "createdAt":"2017-06-19 11:24:03"
-             }
-          ]
-       }
-    }
+                "updatedAt":"2017-08-25 16:31:24",
+                "createdAt":"2017-08-25 16:31:24"}]
+        }
+    }  
+              
     ```
 
     失敗

@@ -135,7 +135,7 @@
     |  currency   | 玩家貨幣類型 |  設定玩家貨幣類型，設定之後不可更改  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
-    #### **`hash = md5(account + nickname + secret)`**
+    #### **`hash = md5(account + nickname + currency + secret)`**
     
     ---
     

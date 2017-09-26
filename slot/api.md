@@ -3026,7 +3026,7 @@
 	
 	```bash
 	CURL -X GET -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit
+ 		-G http://poker.app/api/v2/slot/player/credit/reset
 	```
 	
 	php
@@ -3034,7 +3034,7 @@
 	```php
 	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit';
+	$url = 'http://poker.app/api/v2/slot/player/credit/reset';
 	$data = [
 		'callback'=>'http://callback.url/reset',
 	];

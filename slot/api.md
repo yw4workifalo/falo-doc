@@ -2853,7 +2853,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-   |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+	|  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
 	|credit  | 玩家額度|  decimal(19, 4)  |   要設定的信用額度 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
@@ -2889,7 +2889,7 @@
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
-   |  account|  string(20)  | 玩家帳號 |
+	|  account|  string(20)  | 玩家帳號 |
 	| credit | decimal(19, 4) |目前設定的信用額度 |
 
 	
@@ -2956,7 +2956,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-   |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+	|  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
 	**hash = md5(account + credit + secret)**
@@ -2992,9 +2992,9 @@
     
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
-   |  account|  string(20)  | 玩家帳號 |
+	|  account|  string(20)  | 玩家帳號 |
 	| credit | decimal(19, 4) |目前設定的信用額度 |
-		| currentCredit | decimal(19, 4) | 玩家目前可用額度 |
+	| currentCredit | decimal(19, 4) | 玩家目前可用額度 |
 
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
@@ -3060,7 +3060,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-   |  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
+	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
 	**hash = md5(account + credit + secret)**

@@ -25,6 +25,9 @@
 22. [JP中獎紀錄](#jp中獎紀錄)
 23. [玩家JP核銷](#玩家jp核銷)
 24. [手機API串接](#手機api串接)
+25. [設定信用玩家額度](#設定信用玩家額度)
+26. [查詢信用玩家額度](#查詢信用玩家額度)
+27. [重設信用玩家額度](#重設信用玩家額度)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -2797,3 +2800,308 @@
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	| token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
 	| lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
+	
+20. ### 設定信用玩家額度
+
+	設定信用玩家額度
+    
+	```
+	PUT player/credit?
+		key=<key>&
+		account=<account>&
+		credit=<credit>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X PUT -d account=test01 -d credit=100000 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit';
+	$data = [
+		'account'=>'test01',
+		'credit'=>'100000',
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+   |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+	|credit  | 玩家額度|  decimal(19, 4)  |   要設定的信用額度 | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(account + credit + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+      {  
+      "status":"success",
+      "data":{  
+           "account":"test01",
+           "credit":100000,
+        }
+      }
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+   |  account|  string(20)  | 玩家帳號 |
+	| credit | decimal(19, 4) |目前設定的信用額度 |
+
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 4 | player not found  |    		
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
+
+20. ### 查詢信用玩家額度
+
+	查詢信用玩家額度
+    
+	```
+	GET player/credit?
+		key=<key>&
+		account=<account>&
+		credit=<credit>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d account=test01 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit';
+	$data = [
+		'account'=>'test01',
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+   |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(account + credit + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+      {  
+      "status":"success",
+      "data":{  
+           "account":"test01",
+           "credit":100000,
+           "currentCredit": 1000
+        }
+      }
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+   |  account|  string(20)  | 玩家帳號 |
+	| credit | decimal(19, 4) |目前設定的信用額度 |
+		| currentCredit | decimal(19, 4) | 玩家目前可用額度 |
+
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 4 | player not found  |    		
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
+
+
+20. ### 重設信用玩家額度
+
+	重設信用玩家額度
+    
+	```
+	GET player/credit/reset?
+		key=<key>&
+		callback=<callback>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit';
+	$data = [
+		'callback'=>'http://callback.url/reset',
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+   |  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(account + credit + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+      {  
+      	   "status":"success",
+	       "data": null
+      }
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	不回傳
+
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |	
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
+
+

@@ -19,7 +19,10 @@
 1. [踢多玩家](#踢多玩家)
 2. [設定信用玩家額度](#設定信用玩家額度)
 3. [查詢信用玩家額度](#查詢信用玩家額度)
-4. [重設信用玩家額度](#重設玩家回復額度)
+4. [重設信用玩家額度](#重設信用玩家額度)
+5. [查詢注區範本](#查詢注區範本)
+6. [玩家注區範本設定查詢](#玩家注區範本設定查詢)
+7. [玩家注區範本設定](#玩家注區範本設定)
 
 ### *登入流程*
 -------
@@ -75,6 +78,14 @@
 
 --
 
+### <span id="TableType">注區範本遊戲類別</span>
+| 遊戲名稱  | gameType                 |
+|---------- |-------------------------  |
+| 百家樂         | 1   |
+| 多檯         | 4   |
+
+--
+
 ### *錯誤代碼*
 -------
 | 錯誤代碼  | 錯誤訊息                  | 錯誤說明              |
@@ -112,6 +123,9 @@
 |31|{params} must be a integer| {param} 只允許整數   |
 |32|player mode is been disabled   | 此帳號模式已被停用 |
 |33|player enable is been disabled   | 此帳號已設定為不啟用 |
+|34|tableType:{tableType} not found|您所設定的[注區範本遊戲類別](#注區範本遊戲類別)不支援|
+|35|player stake limit setting max five count| 注區範本最大為5筆 |
+|36|player stake limit setting value [{invalid stakeLimitValue}] is invalid| 注區範本設定值有不合法內容 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -1465,7 +1479,7 @@
     | 11 | {parameter} is invalid   |
 
 
-3. ## <span id="player-credit-reset">重設玩家回復額度</span>
+3. ## <span id="player-credit-reset">重設信用玩家額度</span>
 
     ```
     PUT /casino-api/credit/reset?
@@ -1519,4 +1533,219 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+
+3. ## <span id="stake-limit-query">查詢注區範本</span>
+
+    ```
+    GET /casino-api/stake-limit-list?
+        key=<key>&
+        currency=<currency>&
+        tableType=<tableType>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  currency | [支援幣別](#支援幣別) |  string  |     必填    |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(currency + tableType + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  stakeLimitId | 範本Id|  integer  |
+    |  min | 最小下注值|  integer  |
+    |  max | 最大下注值|  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        {
+            "status":"success",
+            "data":[
+                {"stakeListId":110,"min":50,"max":1000},
+                {"stakeListId":111,"min":50,"max":2000},
+                {"stakeListId":112,"min":100,"max":5000},
+                {"stakeListId":118,"min":200,"max":10000},
+                {"stakeListId":113,"min":200,"max":20000},
+                {"stakeListId":119,"min":200,"max":30000},
+                {"stakeListId":114,"min":500,"max":50000},
+                {"stakeListId":115,"min":500,"max":100000},
+                {"stakeListId":99,"min":50,"max":200000},
+                {"stakeListId":116,"min":500,"max":200000},
+                {"stakeListId":117,"min":1000,"max":400000}
+            ]
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":3,
+            "message":"key is invalid"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 34 | tableType:{tableType} not found|
+    | 102 | The currency:{currency} is not supported|
+
+3. ## <span id="player-stake-limit-setting-query">玩家注區範本設定查詢</span>
+
+    ```
+    GET /casino-api/player/stake-limit?
+        key=<key>&
+        account=<account>&
+        tableType=<tableType>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + tableType + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別)  |  string  |
+    |  stakeLimitValue | 玩家所設定範本 |  string  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"test001",
+            "stakeLimitValue":"110,112,113"
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":4,
+            "message":"player not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 34 | tableType:{tableType} not found|
+
+3. ## <span id="player-stake-limit-setting-query">玩家注區範本設定</span>
+
+    ```
+    PUT /casino-api/player/stake-limit?
+        key=<key>&
+        account=<account>&
+        tableType=<tableType>&
+        stakeLimitValue=<stakeLimitValue>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  string  |     必填    |
+    |  stakeLimitValue | 設定玩家幣別能使用的範本Id，多筆請用`,` 號 |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + tableType + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別)  |  string  |
+    |  stakeLimitValue | 玩家所設定範本 |  string  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"test001",
+            "tableType":4,
+            "stakeLimitValue":"110,112,113,115"
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":36,
+            "message":
+            "player stake limit setting value [133] is invalid"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 34 | tableType:{tableType} not found|
+    | 35 | player stake limit setting max five count|
+    | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
 

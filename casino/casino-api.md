@@ -1697,7 +1697,7 @@
     |  stakeLimitValue | 設定玩家幣別能使用的範本Id，多筆請用`,` 號 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + tableType + secret)`**
+    #### **`hash = md5(account + tableType + stakeLimitValue + secret)`**
     ---
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |

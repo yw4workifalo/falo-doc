@@ -23,6 +23,7 @@
 5. [查詢注區範本](#查詢注區範本)
 6. [玩家注區範本設定查詢](#玩家注區範本設定查詢)
 7. [玩家注區範本設定](#玩家注區範本設定)
+8. [手機API串接](#手機API串接)
 
 ### *登入流程*
 -------
@@ -1748,4 +1749,20 @@
     | 34 | tableType:{tableType} not found|
     | 35 | player stake limit setting max five count|
     | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
+
+3. ## <span id="app-api">手機API串接</span>
+
+    ###### scheme url
+    
+    ```
+    pharao-casino-mobile://launch-game?
+        token=eyJpdiI6Im9kYTk1WVFlaVRyZm5..&
+        lang=zh_TW
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |   必填    |
+    |:--------:|:--------:|:--------:|:-----------:|:-----------:|
+    |    token   | 從[取得玩家登入網址](#取得玩家登入網址)取得的token |  string  | 用來驗證玩家 |Y|
+    |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
 

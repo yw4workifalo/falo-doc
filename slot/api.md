@@ -28,6 +28,7 @@
 25. [設定信用玩家額度](#設定信用玩家額度)
 26. [查詢信用玩家額度](#查詢信用玩家額度)
 27. [重設信用玩家額度](#重設信用玩家額度)
+28. [APP下載連結](#APP下載連結)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -2962,7 +2963,7 @@
 	|  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(account + credit + secret)**
+	**hash = md5(account + secret)**
 
 	##### 回傳結果
 
@@ -3067,7 +3068,7 @@
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(account + credit + secret)**
+	**hash = md5(callback + secret)**
 
 	##### 回傳結果
 
@@ -3112,5 +3113,23 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 30 | the cash type is invalid | 只適用信用用戶 |
+	
+21. ### APP下載連結
 
+	 下載 app
+	 
+	 ```
+	 GET app-download/{game}
+	 ```
+	 
+	##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    game   | 下載的app |  string  | enum('warrior') | Y |
+	
+	#### 回傳
+	
+		302 redirect to app download link
+	
 

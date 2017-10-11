@@ -79,6 +79,15 @@
 
 --
 
+### <span id="platformType">支援裝置</span>
+| 代碼  | 說明                  |
+|---------- |-------------------------  |
+| Web     | 網頁電腦版  |
+| Android    | App   |
+| IOS     | App   |
+
+--
+
 ### <span id="TableType">注區範本遊戲類別</span>
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
@@ -127,6 +136,7 @@
 |34|tableType:{tableType} not found|您所設定的[注區範本遊戲類別](#注區範本遊戲類別)不支援|
 |35|player stake limit setting max five count| 注區範本最大為5筆 |
 |36|player stake limit setting value [{invalid stakeLimitValue}] is invalid| 注區範本設定值有不合法內容 |
+|37|platform type {platformType} is invalid | 支援裝置不存在 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -225,8 +235,9 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  gameType | [遊戲類別](#遊戲類別)  |  smallint  |     選填，預設為：1(百家樂)    |
-    |  language | 語系代碼 |  string  |     選填，預設為：zh_TW    |
+    |  gameType | [遊戲類別](#遊戲類別)  |  smallint  | 選填，預設為：1(百家樂)    |
+    |  language | 語系代碼 |  string  | 選填[支援語系](#支援語系)，預設為：zh_TW    |
+    |  platformType | 裝置代碼|string| 選填[支援裝置](#支援裝置)，預設為：Web    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(account + secret)`**
@@ -279,6 +290,7 @@
     |22 |{param} must be a unsigned integer |
     |32|player mode is been disabled   | 
     |33|player enable is been disabled   |
+    |37|platform type {platformType} is invalid |
     | 103 | The language is not supported |
    
 3. ## <span id="player-info">查詢玩家</span>
@@ -985,6 +997,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
     |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   page   | 分頁 |  int  |     選填，預設：1   |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(startAt + endAt + secret)`**

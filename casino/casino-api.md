@@ -137,6 +137,8 @@
 |35|player stake limit setting max five count| 注區範本最大為5筆 |
 |36|player stake limit setting value [{invalid stakeLimitValue}] is invalid| 注區範本設定值有不合法內容 |
 |37|platform type {platformType} is invalid | 支援裝置不存在 |
+|38|The cashtype is invalid | 此 api 操作不合法 |
+|39|The credit reset action is padding | 回復設定尚在進行中 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -812,6 +814,8 @@
         hash=<hash>
     ```
     
+    #### *限現金平台使用
+    
     #### Request 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -894,7 +898,7 @@
     | 27 | transfer in or out can not be 0  | 
     |29|{params} must be entirely alpha-numeric characters| {param} 只允許英數   |
     |31|{params} must be a integer|
-
+    |38|The cashtype is invalid | 此 api 操作不合法 |
     
 11. ### <spin id="player-transfer-status">玩家轉帳狀態查詢</spin>
     
@@ -1372,6 +1376,8 @@
         hash=<hash>
     ```
 
+    #### *限信用平台使用
+
     ### Request 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1426,6 +1432,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+    |38|The cashtype is invalid | 此 api 操作不合法 |
 
 3. ## <span id="player-credit-info">查詢信用玩家額度</span>
 
@@ -1435,7 +1442,9 @@
         account=<account>&
         hash=<hash>
     ```
-
+    
+    #### *限信用平台使用
+    
     ### Request 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
@@ -1491,7 +1500,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-
+    |38|The cashtype is invalid | 此 api 操作不合法 |
 
 3. ## <span id="player-credit-reset">重設信用玩家額度</span>
 
@@ -1502,6 +1511,8 @@
         hash=<hash>
     ```
 
+    #### *限信用平台使用
+    
     ### Request 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
@@ -1522,7 +1533,9 @@
     ```javascript
     {
         "status":"success",
-        "data":null
+        "data":{
+            "recordId":12
+        }
     }
     ```
 
@@ -1547,7 +1560,9 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-
+    |38|The cashtype is invalid | 此 api 操作不合法 |
+    |39|The credit reset action is padding |
+    
 3. ## <span id="stake-limit-query">查詢注區範本</span>
 
     ```

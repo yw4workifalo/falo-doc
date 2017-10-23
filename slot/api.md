@@ -112,6 +112,8 @@
 | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
 | 28 | transfer pending | 訂單交易中 |
+| 29 | transfer over ratelimit {count} times/per munite | 超過每分鐘請求次數 |
+| 30 | the cash type is invalid | 只適用信用用戶 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
@@ -2904,6 +2906,7 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 30 | the cash type is invalid | 只適用信用用戶 |
 
 20. ### 查詢信用玩家額度
 
@@ -3008,6 +3011,7 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 30 | the cash type is invalid | 只適用信用用戶 |
 
 
 20. ### 重設信用玩家額度
@@ -3070,10 +3074,12 @@
      成功
 
       ```javascript
-      {  
-      	   "status":"success",
-	       "data": null
-      }
+	{
+		"status": "success",
+		"data": {
+			"logId": 3
+		}
+	}
       ```
 
     失敗
@@ -3082,15 +3088,17 @@
 	{  
        "status":"error",
        "error":{  
-          "code":4,
-          "message":"player not found"
+          "code":30,
+          "message":"the cash type is invalid"
        }
     }
 	```
 	
     回傳參數說明    
     
-	不回傳
+	|參數|型態|說明|
+	|:---:|:---:|:---:|
+	|  logId|  int  | 重設紀錄編號 |
 
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
@@ -3103,5 +3111,6 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
+	| 30 | the cash type is invalid | 只適用信用用戶 |
 
 

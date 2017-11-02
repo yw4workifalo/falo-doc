@@ -2009,37 +2009,37 @@
           "lastPage":26,
           "previousPageUrl":null,
           "nextPageUrl":"http:\/\/poker.app\/api\/v2\/slot\/bet\/report\/detail?account=test-api01&startAt=2017-06-01&endAt=2017-06-30&key=57d0bc61dffff&hash=bf7e365f2731d57951ac6b912692367b&page=2",
-          "datas":[  
-             {  
-                "id":3010,
-                "account":"test-api01",
-                "gameType":2,
-                "bet":"1.0000",
-                "betLines":20,
-                "totalBet":"20.0000",
-                "winCredit":"0.0000",
-                "scatter":0,
-                "bonus":"0.0000",
-                "createdAt":"2017-06-15 13:47:57",
-				   "updatedAt":"2017-07-06 14:30:12",
-				   "billingDate":"2017-07-06",
-				   "platformType":"Android"
-             },
-             {  
-                "id":3011,
-                "account":"test-api01",
-                "gameType":2,
-                "bet":"1.0000",
-                "betLines":20,
-                "totalBet":"20.0000",
-                "winCredit":"0.0000",
-                "scatter":0,
-                "bonus":"0.0000",
-                "createdAt":"2017-06-15 13:48:01",
-				   "updatedAt":"2017-07-06 14:30:12",
-				   "billingDate":"2017-07-06",  
-				   "platformType":"Android"
-             },
+          "datas":[  //改單的情況
+				{  
+					"id":2010,
+					"account":"test-api01",
+					"gameType":2,
+					"bet":"1.0000",
+					"betLines":20,
+					"totalBet":"20.0000",
+					"winCredit":"0.0000",
+					"scatter":0,
+					"bonus":"0.0000",
+					"createdAt":"2017-05-15 13:47:57",
+					"updatedAt":"2017-06-06 14:30:12",
+					"billingDate":"2017-05-15",
+					"platformType":"Android"
+         		},
+				{   	//未改單的情況
+					"id":3011,
+					"account":"test-api01",
+					"gameType":2,
+					"bet":"1.0000",
+					"betLines":20,
+					"totalBet":"20.0000",
+					"winCredit":"0.0000",
+					"scatter":0,
+					"bonus":"0.0000",
+					"createdAt":"2017-06-06 14:30:12",
+					"updatedAt":"2017-06-06 14:30:12",
+					"billingDate":"2017-06-06",
+					"platformType":"Android"
+				},
              ...............
           ]
        }

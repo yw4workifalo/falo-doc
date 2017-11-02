@@ -139,6 +139,7 @@
 |37|platform type {platformType} is invalid | 支援裝置不存在 |
 |38|The cashtype is invalid | 此 api 操作不合法 |
 |39|The credit reset action is padding | 回復設定尚在進行中 |
+|40|{param} must be a unsigned integer, and only numeric characters | 只允許正數的 integer，且不允許正負記號 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -532,6 +533,7 @@
     | 11 | {parameter} is invalid   |
     | 16 | mode setting is invalid  |
     | 22 | {param} must be a unsigned integer  |
+    |40|{param} must be a unsigned integer, and only numeric characters |
 
 6. ## <span id="player-enable">設定玩家是否啟用遊戲</span>
 
@@ -606,6 +608,7 @@
     | 11 | {parameter} is invalid   |
     | 15 | enable setting is invalid  |
     | 22 | {param} must be a unsigned integer  |
+    |40|{param} must be a unsigned integer, and only numeric characters |
     
 7. ## <span id="player-limit-lose">設定玩家限輸</span>
 
@@ -999,9 +1002,10 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |  startAt | 起始時間 |  string|必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |必填，格式 2017-01-01 13:00:10    |
     |   page   | 分頁 |  int  |     選填，預設：1   |
+    | pageSize| 分頁筆數 |  int  | 選填，預設：1000，若有輸入錯誤，會自動填入1000   |
     |   hash   | 驗證參數 |  string  |     必填    |
     
     #### **`hash = md5(startAt + endAt + secret)`**
@@ -1432,6 +1436,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
+    |30|{params} must be a unsigned decimal| {param} 只允許正數的 decimal   |
     |38|The cashtype is invalid | 此 api 操作不合法 |
 
 3. ## <span id="player-credit-info">查詢信用玩家額度</span>
@@ -1777,6 +1782,7 @@
     | 34 | tableType:{tableType} not found|
     | 35 | player stake limit setting max five count|
     | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
+    |40|{param} must be a unsigned integer, and only numeric characters | 
 
 3. ## <span id="app-api">手機API串接</span>
 

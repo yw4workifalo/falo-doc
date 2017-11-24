@@ -661,7 +661,7 @@
         "status":"error",
         "error":{
             "code":30,
-            "message":"limit must be a unsigned decima"
+            "message":"limit must be a unsigned decimal"
         }
     }
    ```
@@ -677,6 +677,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
+    |40|{param} must be a unsigned integer, and only numeric characters |
     
 8. ## <span id="player-limit-win">設定玩家限贏</span>
 
@@ -727,7 +728,7 @@
         "status":"error",
         "error":{
             "code":30,
-            "message":"limit must be a unsigned decima"
+            "message":"limit must be a unsigned decimal"
         }
     }
    ```
@@ -743,7 +744,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
-    
+    |40|{param} must be a unsigned integer, and only numeric characters |
 
 9. ## <span id="player-recover">玩家限注回復</span>
 
@@ -1851,7 +1852,7 @@
         "status":"error",
         "error":{
             "code":30,
-            "message":"limit must be a unsigned decima"
+            "message":"percent must be a unsigned decimal"
         }
     }
    ```
@@ -1867,5 +1868,6 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
+    |40|{param} must be a unsigned integer, and only numeric characters |
     |41|{param} must between 1 and 0|
 

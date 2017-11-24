@@ -29,6 +29,7 @@
 26. [查詢信用玩家額度](#查詢信用玩家額度)
 27. [重設信用玩家額度](#重設信用玩家額度)
 28. [APP下載連結](#APP下載連結)
+29. [修改玩家佔成](#修改玩家佔成)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -115,6 +116,7 @@
 | 28 | transfer pending | 訂單交易中 |
 | 29 | transfer over ratelimit {count} times/per munite | 超過每分鐘請求次數 |
 | 30 | the cash type is invalid | 只適用信用用戶 |
+| 31 | \{var\} must between \{min\} and \{max\}| 設定數值超出範圍 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
@@ -2019,6 +2021,7 @@
 					"totalBet":"20.0000",
 					"winCredit":"0.0000",
 					"scatter":0,
+					"percent": 0.5,
 					"bonus":"0.0000",
 					"createdAt":"2017-05-15 13:47:57",
 					"updatedAt":"2017-06-06 14:30:12",
@@ -2034,6 +2037,7 @@
 					"totalBet":"20.0000",
 					"winCredit":"0.0000",
 					"scatter":0,
+					"percent": 0.5,
 					"bonus":"0.0000",
 					"createdAt":"2017-06-06 14:30:12",
 					"updatedAt":"2017-06-06 14:30:12",
@@ -2083,11 +2087,12 @@
     | totalBet | decimal(19, 4) | 總下注金額 |
     | winCredit | decimal(19, 4) | 贏得金額 |
     | scatter | int | 是否是在scatter 狀態下，scatter時總下注金額不需計算 |
+    | percent | float | 玩家注單佔成 |
     | bonus | decimal(19, 4) | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
     | updatedAt | string | 更新時間 |    
     | billingDate | string | 結帳日 | 
-    |   platformType  | string | 裝置代碼 |
+    | platformType  | string | 裝置代碼 |
     
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
@@ -3131,5 +3136,211 @@
 	#### 回傳
 	
 		302 redirect to app download link
+		
+9. ### <span id="lose-limit">限輸</span>
+
+    設定玩家限輸
+
+    ```
+    PUT player/limit/lose?
+        key=<key>&
+        account=<account>&
+        limit=<limit>&
+        hash=<hash>
+    ```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
+ 		-G http://poker.app/api/v2/slot/player/limit/lose
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/limit/lose';
+	$data = [
+		'account'=>'test',
+		'limit'=>'10000'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |  limit   | 限制金額 |  decimal(19, 4)  |     必填    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
+
+    **hash = md5(account+limit+secret)**
+
+    ##### 回傳結果
+    成功
+
+    ```javascript
+	{  
+	   "status":"success",
+	   "data":{  
+	      "account":"57b_wei",
+	      "limitWin":"100000.0000",
+	      "limitLose":"9998.0000",
+	      "winCredit":"0.0000"
+	   }
+	}
+    ```
+    失敗
+
+    ```javascript
+    {"status":"error","error":{"code":4,"message":"player not found"}}
+    ```
+    回傳參數說明
+    
+    |參數|型態|說明|
+    |:---:|:---:|:---:|
+    |account|string(20)|玩家帳號|
+    |limitLose|decimal(19, 4)|限輸金額|
+    |limitWin|decimal(19, 4)|限贏金額|
+    | winCredit | decimal(19, 4) | 當前損益 |
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4 | player not found  |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
+
+10. ### 設定玩家佔成
+
+    設定玩家佔成
+
+    ```
+    PUT player/profit-percent
+        key=<key>&
+        account=<account>&
+        percent=<percent>&
+        hash=<hash>
+    ```
+    
+    ##### Request 範例
+    
+    bash
+    
+    ```bash
+    CURL -X PUT -d account=poker -d percent=0.5 -d key=5a16601d7f7fb -d hash=6571ba1dad29d8964a6182a849922574 \
+ -G http://localhost/api/v2/slot/player/profit-percent
+	 ```
+	 
+	 php
+	 
+	 ```php
+	$key = '5a16601d7f7fb';
+	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+	$url = 'http://localhost/api/v2/slot/player/profit-percent';
+	$data = [
+		'account'=>'poker',
+		'percent'=>'0.5'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;	
+	```
+
+    ##### 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
+    |  percent   | 佔成比例 |  float  |     必填，只能到小數點第二位且0~1之間    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
+
+    **hash = md5(account+limit+secret)**
+
+    ##### 回傳結果
+    成功
+
+    ```javascript
+	{
+		"status": "success",
+		"data": {
+			"account": "poker",
+			"percent": 0.5
+		}
+	}
+    ```
+    失敗
+
+    ```javascript
+	{  
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"player not found"
+	   }
+	}
+    ```
+    
+    回傳參數說明    
+    
+    |參數|型態|說明|
+    |:---:|:---:|:---:|
+    |account|string(20)|玩家帳號|
+    | percent |float|佔成|
+    | winCredit | decimal(19, 4) | 當前損益 |    
+    
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4 | player not found  |    
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 31 | {parameter} must between 1 and 0   |
+
 	
 

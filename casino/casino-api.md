@@ -24,6 +24,7 @@
 6. [玩家注區範本設定查詢](#玩家注區範本設定查詢)
 7. [玩家注區範本設定](#玩家注區範本設定)
 8. [手機API串接](#手機API串接)
+9. [修改玩家佔成](#修改玩家佔成)
 
 ### *登入流程*
 -------
@@ -140,6 +141,7 @@
 |38|The cashtype is invalid | 此 api 操作不合法 |
 |39|The credit reset action is padding | 回復設定尚在進行中 |
 |40|{param} must be a unsigned integer, and only numeric characters | 只允許正數的 integer，且不允許正負記號 |
+|41|{param} must between 1 and 0| 設定的數值只允許 1 到 0，且小位數最多 2 位數 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -674,7 +676,6 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-    | 13 | account length between 4 - 20  |
     |30|{params} must be a unsigned decimal|
     
 8. ## <span id="player-limit-win">設定玩家限贏</span>
@@ -1799,4 +1800,72 @@
     |:--------:|:--------:|:--------:|:-----------:|:-----------:|
     |    token   | 從[取得玩家登入網址](#取得玩家登入網址)取得的token |  string  | 用來驗證玩家 |Y|
     |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
+
+
+7. ## <span id="playper-percent">設定玩家佔成</span>
+
+    ```
+    PUT /casino-api/player/profit-percent?
+        key=<key>&
+        account=<account>&
+        percent=<percent>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  percent   | 佔成比例 |  decimal(19,2) | 必填，只能0~1之間，且只能小數點第 2 位|
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + percent + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    |  percent   | 佔成比例 |  decimal(19,2)  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "percent":0.85
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":30,
+            "message":"limit must be a unsigned decima"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    |30|{params} must be a unsigned decimal|
+    |41|{param} must between 1 and 0|
 

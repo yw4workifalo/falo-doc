@@ -3255,7 +3255,7 @@
     
     ```bash
     CURL -X PUT -d account=poker -d percent=0.5 -d key=5a16601d7f7fb -d hash=6571ba1dad29d8964a6182a849922574 \
- -G http://localhost/api/v2/slot/player/profit-percent
+-G http://localhost/api/v2/slot/player/profit-percent
 	 ```
 	 
 	 php

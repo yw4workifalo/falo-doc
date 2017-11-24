@@ -142,6 +142,7 @@
 |39|The credit reset action is padding | 回復設定尚在進行中 |
 |40|{param} must be a unsigned integer, and only numeric characters | 只允許正數的 integer，且不允許正負記號 |
 |41|{param} must between 1 and 0| 設定的數值只允許 1 到 0，且小位數最多 2 位數 |
+|42|{param} must be a unsigned decimal, and only numeric characters | 只允許正數的 decimal，且不允許正負記號 |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -677,7 +678,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
-    |40|{param} must be a unsigned integer, and only numeric characters |
+    |42|{param} must be a unsigned decimal, and only numeric characters |
     
 8. ## <span id="player-limit-win">設定玩家限贏</span>
 
@@ -744,7 +745,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
-    |40|{param} must be a unsigned integer, and only numeric characters |
+    |42|{param} must be a unsigned decimal, and only numeric characters |
 
 9. ## <span id="player-recover">玩家限注回復</span>
 
@@ -1440,6 +1441,7 @@
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal| {param} 只允許正數的 decimal   |
     |38|The cashtype is invalid | 此 api 操作不合法 |
+    |42|{param} must be a unsigned decimal, and only numeric characters |
 
 3. ## <span id="player-credit-info">查詢信用玩家額度</span>
 
@@ -1868,6 +1870,6 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
-    |40|{param} must be a unsigned integer, and only numeric characters |
     |41|{param} must between 1 and 0|
+    |42|{param} must be a unsigned decimal, and only numeric characters |
 

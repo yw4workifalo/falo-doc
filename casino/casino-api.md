@@ -1795,7 +1795,8 @@
     ```
     pharao-casino-mobile://launch-game?
         token=eyJpdiI6Im9kYTk1WVFlaVRyZm5..&
-        lang=zh_TW
+        lang=zh_TW&
+        platformURL=pharao-platform-mobile://launch-game?...
     ```
 
     ### Request 參數說明

@@ -1801,9 +1801,9 @@
     ### Request 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |   必填    |
     |:--------:|:--------:|:--------:|:-----------:|:-----------:|
-    |    token   | 從[取得玩家登入網址](#取得玩家登入網址)取得的token |  string  | 用來驗證玩家 |Y|
+    |token| 從[取得玩家登入網址](#取得玩家登入網址)取得的token |string| 用來驗證玩家 |Y|
     |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
-
+    |platformURL| 返回平台 schemal url |  string  | 遊戲app返回平台APP使用  |Y|
 
 7. ## <span id="playper-percent">設定玩家佔成</span>
 

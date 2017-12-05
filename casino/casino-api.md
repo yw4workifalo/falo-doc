@@ -1038,8 +1038,10 @@
     | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明)，順序：[閒1,莊1,閒2,莊2,閒補,莊補]，若空的表示 無補牌 | string |
     | playerId | 遊戲方玩家Id | integer |
     | account | 玩家帳號 | string |
-    | amount | 總有效下注注額 | integer |
+    | amount | 總下注額度 | integer |
+    | validAmount | 總有效下注額度 | integer |
     | betList | 下注注區列表 | string(json) |
+    | percent | 佔成 | decimal(19,2) |
     | checkoutAmount | 結帳金額 | decimal(19,4) |
     | betTime | 當局最後一筆下注時間 | string |
     | billingDate | 結帳日 | string |
@@ -1104,8 +1106,10 @@
                 "playerId":26,
                 "account":"EddyCount",
                 "amount":1000,
+                "validAmount":1000,
                 "betList":[{"spotId":18,"spotName":"BankerJQKA","betAmount":1000,"loseWinAmount":14000,"odds":14}],
                 "checkoutAmount":"14000.0000",
+                "percent":0.87,
                 "betTime":"2017-08-25 16:30:09",
                 "billingDate":"2017-08-26",
                 "modifiedStatus":0,

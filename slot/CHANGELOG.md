@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+### 2017-12-06
+- 修改下載 app api
+- 修改app schema url api
+
 ### 2017-11-23
 - 新增修改玩家額度 api
 - 新增錯誤代碼 `31 - value_between`

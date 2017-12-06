@@ -28,7 +28,7 @@
 25. [設定信用玩家額度](#設定信用玩家額度)
 26. [查詢信用玩家額度](#查詢信用玩家額度)
 27. [重設信用玩家額度](#重設信用玩家額度)
-28. [APP下載連結](#APP下載連結)
+28. [APP下載連結](#app下載連結)
 29. [設定玩家佔成](#設定玩家佔成)
 
 ## CHANGE LOG
@@ -124,7 +124,7 @@
 
 
 ## API
-1. ### <span id="register">註冊帳號</span>
+1. ### 註冊帳號
 
     ```
     POST player/register?
@@ -236,7 +236,7 @@
     | 20 | account:{account} has been used | 此帳號已被使用 | 
     | 102 | The currency what you set is not supported |
 
-1. ### <span id="nickname">修改暱稱</span>
+1. ### 修改暱稱
 
     ```
     PUT player/nickname?
@@ -343,7 +343,7 @@
     | 14 | nickname length between 1- 20  |
 
 
-2. ### <span id="auth">取得玩家登入網址</span>
+2. ### 取得玩家登入網址
 
     ```
     GET player/auth?
@@ -449,7 +449,7 @@
 	| 103 | The language is not supported |   
 	| 104 | The platform type is not supported | 	 
 
-4. ### <span id="user">查詢玩家</span>
+4. ### 查詢玩家
 
     ```
     GET player/info?
@@ -566,7 +566,7 @@
     | 11 | {parameter} is invalid   |
 
     
-5. ### <span id="bet-report-session">取得玩家遊戲紀錄</span>
+5. ### 取得玩家遊戲紀錄
 
     ```
     GET player/bet/report/session?
@@ -692,7 +692,7 @@
     | 11 | {parameter} is invalid   |
     
         	
-7. ### <spin id="credit_transfer">玩家額度轉出入</spin>
+7. ### 玩家額度轉出入
 
     ```
     PUT player/credit/transfer?
@@ -813,7 +813,7 @@
     | 26 | transfer id:（平台方TransferID）has been used |
 
 
-7. ### <spin id="transfer-status">玩家轉帳狀態查詢</spin>
+7. ### 玩家轉帳狀態查詢
 
     ```
     GET player/credit/transfer-status?
@@ -923,7 +923,7 @@
 	| 28 | transfer pending | 
     
 
-8. ### <spin id="kick">踢玩家</spin>
+8. ### 踢玩家
 
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
     
@@ -1024,7 +1024,7 @@
     | 11 | {parameter} is invalid   |
 
         
-8. ### <spin id="kick-multiple">踢多玩家</spin>
+8. ### 踢多玩家
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
     
     ```
@@ -1135,7 +1135,7 @@
     | 11 | {parameter} is invalid   |
 
 
-9. ### <span id="lose-limit">限輸</span>
+9. ### 限輸
 
     設定玩家限輸
 
@@ -1235,7 +1235,7 @@
     | 11 | {parameter} is invalid   |
 
 
-10. ### <span id="win-limit">限贏</span>
+10. ### 限贏
 
     設定玩家限贏
 
@@ -1343,7 +1343,7 @@
     | 11 | {parameter} is invalid   |
  
 
-11. ### <span id="limit-recover">限注回復</span>
+11. ### 限注回復
 
     限注回復
 
@@ -1438,7 +1438,7 @@
     | 11 | {parameter} is invalid   |
 
     
-12. ### <span id="ban-mode">設定玩家帳號模式</span>
+12. ### 設定玩家帳號模式
 
     玩家封鎖模式
 
@@ -1544,7 +1544,7 @@
     | 11 | {parameter} is invalid   |
 
 
-14. ### <span id="limit-query">限注查詢</span>
+14. ### 限注查詢
 
     查詢玩家限注狀態
 
@@ -1640,7 +1640,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 
-15. ### <span id="get-ban-mode">查詢玩家帳號模式</span>
+15. ### 查詢玩家帳號模式
 
     查詢玩家鎖單/停用狀態
 
@@ -1737,7 +1737,7 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 
-16. ### <span id="get-activation">查詢玩家是否啟用遊戲</span>
+16. ### 查詢玩家是否啟用遊戲
 
     查詢玩家是否啟用遊戲
 
@@ -1832,7 +1832,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 
-17. ### <span id="set-activation">設定玩家是否啟用遊戲</span>
+17. ### 設定玩家是否啟用遊戲
 
     設定玩家是否啟用遊戲
 
@@ -1932,7 +1932,7 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 
-18. ### <span id="query-logs">玩家下注記錄查詢</span>
+18. ### 玩家下注記錄查詢
 
     查詢玩家下注LOG，查詢區間依注單更新時間
 
@@ -2109,7 +2109,7 @@
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
     
 
-19. ### <span id="bet-report">玩家下注簡報查詢</span>
+19. ### 玩家下注簡報查詢
 
     	玩家下注簡報查詢
     
@@ -2217,7 +2217,7 @@
 	| 11 | {parameter} is invalid   |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
     
-19. ### <span id="bet-report-multiple">玩家多人下注簡報區間總額查詢</span>
+19. ### 玩家多人下注簡報區間總額查詢
 
     玩家下注簡報查詢
     
@@ -2337,7 +2337,7 @@
 	| 12 | gameType  not found |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
 
-20. ### <span id="jp-logs">玩家JP紀錄查詢</span>
+20. ### 玩家JP紀錄查詢
 
     玩家JP紀錄查詢
     
@@ -2450,7 +2450,7 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
     
-20. ### <span id="jp-multiple">玩家多人JP紀錄查詢</span>
+20. ### 玩家多人JP紀錄查詢
 
     玩家JP紀錄查詢
     
@@ -2563,7 +2563,7 @@
 	| 11 | {parameter} is invalid   |
 	| 12 | gameType  not found |	
 
-21. ### <span id="jp-status">JP中獎紀錄</span>
+21. ### JP中獎紀錄
 
 	```
 	GET jackpot-status?
@@ -2668,7 +2668,7 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
              
-21. ### <span id="jp-vertification">玩家JP核銷</span>
+21. ### 玩家JP核銷
 
 	玩家JP核銷
 
@@ -2799,7 +2799,7 @@
 	| 	token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
 	| 	lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
 	|	platformURL 	|	設定返回平台的 callback url	| 	string 	|	可以使用schema url 或者 http 網址 |	N |
-	|	gameType	|	可以直接開啟相對應遊戲，未設定進大廳 	| 	int	| 	請查看 [gameType](#gameType)	| 	N	|
+	|	gameType	|	可以直接開啟相對應遊戲，未設定進大廳	| 	int	| 	請查看 [gameType](#gametype)	| 	N	|
 	
 	
 20. ### 設定信用玩家額度

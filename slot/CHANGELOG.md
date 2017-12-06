@@ -1,8 +1,8 @@
 # CHANGE LOG
 
 ### 2017-12-06
-- 修改下載 app api
-- 修改app schema url api
+- 修改下載 [APP下載連結](./api.md#app下載連結)
+- 修改[手機api串接](./api.md#手機api串接)
 
 ### 2017-11-23
 - 新增修改玩家額度 api

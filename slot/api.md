@@ -2783,31 +2783,24 @@
 	| 101 | jackpot log not found   |
 	
 25. ### 手機API串接
-	#### 武士道
+	#### 大地圖app
 	###### scheme url 
 		
 	```
-	pharao-warrior-mobile://launch-game?
-		token=0123456&
-		lang=en
+	pharaoh-gamecity://launch-game?
+		token=<token>&
+		lang=<lang>&
+		platformURL=<schemaUrl>&
+		gameType=<gameType>
 	```
 	
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	| token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
-	| lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
-	#### 金錢貓
+	| 	token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
+	| 	lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
+	|	platformURL 	|	設定返回平台的 callback url	| 	string 	|	可以使用schema url 或者 http 網址 |	N |
+	|	gameType	|	可以直接開啟相對應遊戲，未設定進大廳 	| 	int	| 	請查看 [gameType](#gameType)	| 	N	|
 	
-	```
-	pharao-goldencat-mobile://launch-game?
-		token=0123456&
-		lang=en
-	```
-	
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	| token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
-	| lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
 	
 20. ### 設定信用玩家額度
 
@@ -3008,16 +3001,16 @@
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
-	| 錯誤代碼 | 錯誤說明 |     
-	|:--------:|:--------:|
-	| 1  | {parameter} is required   |
-	| 2  | key is invalid            |
-	| 3  | hash is invalid           |
-	| 4 | player not found  |    		
-	| 5  | {method} is not allowed   |
-	|  7  | internal server error |
-	| 11 | {parameter} is invalid   |
-	| 30 | the cash type is invalid | 只適用信用用戶 |
+	|   錯誤代碼 |   錯誤說明 |     
+	|:---------:|:--------:|
+	| 	1  | {parameter} is required   |
+	|  	2  | key is invalid            |
+	|  	3  | hash is invalid           |
+	|  	4 | player not found  |    		
+	|  	5  | {method} is not allowed   |
+	|  	7 | internal server error |
+	|  	11 | {parameter} is invalid   |
+	|  	30 | the cash type is invalid | 只適用信用用戶 |
 
 
 20. ### 重設信用玩家額度
@@ -3102,141 +3095,40 @@
 	
     回傳參數說明    
     
-	|參數|型態|說明|
+	|  參數 | 型態 | 說明 |
 	|:---:|:---:|:---:|
 	|  logId|  int  | 重設紀錄編號 |
 
-	
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	#錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
-	| 錯誤代碼 | 錯誤說明 |     
+	|  錯誤代碼 |  錯誤說明 |     
 	|:--------:|:--------:|
-	| 1  | {parameter} is required   |
-	| 2  | key is invalid            |
-	| 3  | hash is invalid           |	
-	| 5  | {method} is not allowed   |
-	|  7  | internal server error |
-	| 11 | {parameter} is invalid   |
-	| 30 | the cash type is invalid | 只適用信用用戶 |
+	| 	1 |  \{parameter\} is required   |
+	| 	2  | key is invalid            |
+	| 	3  | hash is invalid           |	
+	| 	5  | \{method\} is not allowed   |
+	|  	7  | internal server error |
+	| 	11 | {parameter} is invalid   |
+	| 	30 | the cash type is invalid | 只適用信用用戶 |
 	
 21. ### APP下載連結
 
 	 下載 app
 	 
 	 ```
-	 GET app-download/{game}
+	 GET app-download/{game?}
 	 ```
 	 
 	##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    game   | 下載的app |  string  | enum('warrior') | Y |
+	|    game   | 下載的app |  string  | enum('warrior','golden_cat', 'ghost', 'mermaid') | Ｎ |
 	
 	#### 回傳
 	
 		302 redirect to app download link
 		
-9. ### <span id="lose-limit">限輸</span>
-
-    設定玩家限輸
-
-    ```
-    PUT player/limit/lose?
-        key=<key>&
-        account=<account>&
-        limit=<limit>&
-        hash=<hash>
-    ```
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
- 		-G http://poker.app/api/v2/slot/player/limit/lose
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/limit/lose';
-	$data = [
-		'account'=>'test',
-		'limit'=>'10000'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
-    ##### 參數說明
-
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-    |:--------:|:--------:|:--------:|:-----------:|:---:|
-    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  account | 玩家帳號 |  string(20)  |     必填    | Y |
-    |  limit   | 限制金額 |  decimal(19, 4)  |     必填    | Y |
-    |   hash   | 驗證參數 |  string  |     必填    | Y |
-
-    **hash = md5(account+limit+secret)**
-
-    ##### 回傳結果
-    成功
-
-    ```javascript
-	{  
-	   "status":"success",
-	   "data":{  
-	      "account":"57b_wei",
-	      "limitWin":"100000.0000",
-	      "limitLose":"9998.0000",
-	      "winCredit":"0.0000"
-	   }
-	}
-    ```
-    失敗
-
-    ```javascript
-    {"status":"error","error":{"code":4,"message":"player not found"}}
-    ```
-    回傳參數說明
-    
-    |參數|型態|說明|
-    |:---:|:---:|:---:|
-    |account|string(20)|玩家帳號|
-    |limitLose|decimal(19, 4)|限輸金額|
-    |limitWin|decimal(19, 4)|限贏金額|
-    | winCredit | decimal(19, 4) | 當前損益 |
-    
-    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
-    |:--------:|:--------:|
-    | 1  | {parameter} is required   |
-    | 2  | key is invalid            |
-    | 3  | hash is invalid           |
-    | 4 | player not found  |
-    | 5  | {method} is not allowed   |
-    |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
-
-
 10. ### 設定玩家佔成
 
     設定玩家佔成
@@ -3335,14 +3227,14 @@
     
     | 錯誤代碼 | 錯誤說明 |     
     |:--------:|:--------:|
-    | 1  | {parameter} is required   |
-    | 2  | key is invalid            |
-    | 3  | hash is invalid           |
-    | 4 | player not found  |    
-    | 5  | {method} is not allowed   |
-    |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
-    | 31 | {parameter} must between 1 and 0   |
+    | 	1  	| {parameter} is required   |
+    | 	2  	| key is invalid            |
+    | 	3  	| hash is invalid           |
+    | 	4 	| player not found  |    
+    | 	5  	| {method} is not allowed   |
+    |  	7  	| internal server error |
+    | 	11 	| {parameter} is invalid   |
+    | 	31 	| {parameter} must between 1 and 0   |
 
 	
 

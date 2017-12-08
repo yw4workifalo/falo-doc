@@ -10,6 +10,7 @@
 1. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
 1. [設定玩家限輸](#設定玩家限輸)
 1. [設定玩家限贏](#設定玩家限贏)
+2. [玩家限注查詢](#玩家限注查詢)
 1. [玩家限注回復](#玩家限注回復)
 1. [玩家額度轉出入](#玩家額度轉出入)
 1. [玩家轉帳狀態查詢](#玩家轉帳狀態查詢)
@@ -746,6 +747,75 @@
     | 11 | {parameter} is invalid   |
     |30|{params} must be a unsigned decimal|
     |42|{param} must be a unsigned decimal, and only numeric characters |
+
+
+
+3. ## <span id="player-limit-info">玩家限注查詢</span>
+
+    ```
+    GET /casino-api/player/limit?
+        key=<key>&
+        account=<account>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  winCredit | 目前損益| decimal(19,4)  |
+    |  limitWin | 限贏|  decimal(19,4)  |
+    |  limitLose | 限輸|  decimal(19,4)  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "winCredit":20113.6
+            "limitWin":250000.0000,
+            "limitLose":0.0000
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":4,
+            "message":"player not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found            |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 9. ## <span id="player-recover">玩家限注回復</span>
 

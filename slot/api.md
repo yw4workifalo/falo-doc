@@ -3099,7 +3099,7 @@
 	|:---:|:---:|:---:|
 	|  logId|  int  | 重設紀錄編號 |
 
-	#錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
 	|  錯誤代碼 |  錯誤說明 |     
 	|:--------:|:--------:|
@@ -3110,6 +3110,108 @@
 	|  	7  | internal server error |
 	| 	11 | {parameter} is invalid   |
 	| 	30 | the cash type is invalid | 只適用信用用戶 |
+	
+	
+20. ### 重設指定信用玩家額度
+
+	重設信用玩家額度
+    
+	```
+	GET player/credit/multi-reset?
+		key=<key>&
+		callback=<callback>&
+		accounts=<accounts>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit/multi-reset
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit/multi-reset';
+	$data = [
+		'callback'=>'http://callback.url/reset',
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
+	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(callback + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+	{
+		"status": "success",
+		"data": {
+			"logId": 3
+		}
+	}
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":30,
+          "message":"the cash type is invalid"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	|  參數 | 型態 | 說明 |
+	|:---:|:---:|:---:|
+	|  logId|  int  | 重設紀錄編號 |
+
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	|  錯誤代碼 |  錯誤說明 |     
+	|:--------:|:--------:|
+	| 	1 |  \{parameter\} is required   |
+	| 	2  | key is invalid            |
+	| 	3  | hash is invalid           |	
+	| 	5  | \{method\} is not allowed   |
+	|  	7  | internal server error |
+	| 	11 | {parameter} is invalid   |
+	| 	30 | the cash type is invalid | 只適用信用用戶 |
+		
 	
 21. ### APP下載連結
 

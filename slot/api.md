@@ -3116,15 +3116,13 @@
 	 下載 app
 	 
 	 ```
-	 GET app-download/{game?}
+	 GET app-download/
 	 ```
 	 
 	##### 參數說明
 
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    game   | 下載的app |  string  | enum('warrior','golden_cat', 'ghost', 'mermaid') | Ｎ |
-	
+	none
+		
 	#### 回傳
 	
 		302 redirect to app download link

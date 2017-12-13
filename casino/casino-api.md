@@ -47,6 +47,7 @@
 | 百家樂         | 1   | 
 | Jackpot Bonus         | 98   |
 | Jackpot BigWin         | 99   |
+
 --
 
 ### <span id="mode">玩家帳號模式</span>

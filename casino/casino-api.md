@@ -45,7 +45,8 @@
 | 遊戲名稱  | gameType                 | 
 |---------- |-------------------------  |
 | 百家樂         | 1   | 
-
+| Jackpot Bonus         | 98   |
+| Jackpot BigWin         | 99   |
 --
 
 ### <span id="mode">玩家帳號模式</span>
@@ -1097,25 +1098,26 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  betFormId| 注單編號 | integer |
-    |  gameType| [遊戲類別](#遊戲類別) | smallint  |
-    |gameMethod |[遊戲玩法](#遊戲玩法)| smallint |
-    |tableType |[桌台類型](#桌台類型)| smallint |
-    | tableId | 遊戲局桌檯Id | string |
-    | round | 局號 | integer |
-    | run | 輪號| smallint |
-    | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明)，順序：[閒1,莊1,閒2,莊2,閒補,莊補]，若空的表示 無補牌 | string |
+    |  gameType| [遊戲類別](#遊戲類別) ，`98`為額外彩金，`99`為JP彩金| smallint  |
+    |gameMethod|[遊戲玩法](#遊戲玩法)，`gameType` 為 `98` or `99`，此欄位 0|smallint |
+    |tableType|[桌台類型](#桌台類型)，`gameType` 為 `98` or `99`，此欄位 0| smallint |
+    | tableId | 遊戲局桌檯Id，`gameType` 為 `98` or `99`，此欄位為空白 | string |
+    | round | 局號，`gameType` 為 `98` or `99`，此欄位 0 | integer |
+    | run | 輪號，`gameType` 為 `98` or `99`，此欄位 0| smallint |
+    | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明)，順序：[閒1,莊1,閒2,莊2,閒補,莊補]，若空的表示 無補牌，若 `gameType` 為 `98` or `99` 分別顯示對應的 Jackpot 獎項名稱 | string |
     | playerId | 遊戲方玩家Id | integer |
     | account | 玩家帳號 | string |
-    | amount | 總下注額度 | integer |
-    | validAmount | 總有效下注額度 | integer |
-    | betList | 下注注區列表 | string(json) |
+    | amount | 總下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
+    | validAmount | 總有效下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
+    | betList | 下注注區列表，`gameType` 為 `98` or `99`，此欄位為空白 | string(json) |
+    | checkoutAmount|結帳金額，`gameType` 為 `98` or `99`相對應 Jackpot獎金 |decimal(19,4)|
+    | jackpotBonus|`gameType` 為 `98` or `99` 相對應 Jackpot獎金|decimal(19,4)|
     | percent | 佔成 | decimal(19,2) |
-    | checkoutAmount | 結帳金額 | decimal(19,4) |
-    | betTime | 當局最後一筆下注時間 | string |
+    |betTime|當局最後一筆下注時間，`gameType` 為 `98` or `99`，此欄位為中獎時間|string |
     | billingDate | 結帳日 | string |
     | modifiedStatus | [注單狀態](#注單狀態) | smallint |
-    | updatedAt | 更新時間 | string |
-    | createdAt | 結帳時間 | string |
+    | updatedAt | 更新時間，`gameType` 為 `98` or `99`，此欄位為中獎時間 | string |
+    | createdAt | 結帳時間，`gameType` 為 `98` or `99`，此欄位為中獎時間 | string |
     
     ---
     
@@ -1177,13 +1179,60 @@
                 "validAmount":1000,
                 "betList":[{"spotId":18,"spotName":"BankerJQKA","betAmount":1000,"loseWinAmount":14000,"odds":14}],
                 "checkoutAmount":"14000.0000",
+                "jackpotBonus":0,
                 "percent":0.87,
                 "betTime":"2017-08-25 16:30:09",
                 "billingDate":"2017-08-26",
                 "modifiedStatus":0,
                 "updatedAt":"2017-08-25 16:31:24",
                 "createdAt":"2017-08-25 16:31:24"}]
-        }
+        },
+        {
+	        "betFormId": 1578,
+	        "gameType": 98,
+	        "gameMethod": 0,
+	        "tableType": 0,
+	        "tableId": "",
+	        "round": 0,
+	        "run": 0,
+	        "gameResult": "JackpotBonus",
+	        "playerId": 4,
+	        "account": "rick",
+	        "amount": 0,
+	        "validAmount": 0,
+	        "betList": "",
+	        "checkoutAmount": 0,
+	        "jackpotBonus": 1200,
+	        "percent": 0.88,
+	        "betTime": "2017-12-11 16:41:00",
+	        "billingDate": "2017-12-12",
+	        "modifiedStatus": 0,
+	        "updatedAt": "2017-12-11 16:41:00",
+	        "createdAt": "2017-12-11 16:41:00"
+	      },
+	      {
+	        "betFormId": 1584,
+	        "gameType": 99,
+	        "gameMethod": 0,
+	        "tableType": 0,
+	        "tableId": "",
+	        "round": 0,
+	        "run": 0,
+	        "gameResult": "JackpotBigWin",
+	        "playerId": 4,
+	        "account": "rick",
+	        "amount": 0,
+	        "validAmount": 0,
+	        "betList": "",
+	        "checkoutAmount": 0,
+	        "jackpotBonus": 771520,
+	        "percent": 0.88,
+	        "betTime": "2017-12-11 16:44:58",
+	        "billingDate": "2017-12-12",
+	        "modifiedStatus": 0,
+	        "updatedAt": "2017-12-11 16:44:58",
+	        "createdAt": "2017-12-11 16:44:58"
+	      }
     }  
               
     ```

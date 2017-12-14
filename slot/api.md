@@ -118,6 +118,7 @@
 | 29 | transfer over ratelimit {count} times/per munite | 超過每分鐘請求次數 |
 | 30 | the cash type is invalid | 只適用信用用戶 |
 | 31 | \{var\} must between \{min\} and \{max\}| 設定數值超出範圍 |
+| 	32 | reset credit error | 信用重設失敗 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
@@ -3019,7 +3020,7 @@
 	重設信用玩家額度
     
 	```
-	GET player/credit/reset?
+	PUT player/credit/reset?
 		key=<key>&
 		callback=<callback>&
 		hash=<hash>
@@ -3099,6 +3100,24 @@
 	|  參數 | 型態 | 說明 |
 	|:---:|:---:|:---:|
 	|  logId|  int  | 重設紀錄編號 |
+	
+	##### Callback 回傳請求
+	```
+	POST {callback url}?
+		status=<error>
+		&logId=<logid>
+		&code=<int>
+		&message=<string> 
+	```
+		
+    ##### Callback 回傳參數說明    
+    
+	|  參數 | 型態 | 說明 |必填 |
+	|:---:|:---:|:---:|:---:|
+	|  status |  enum(success, error)  | 重設狀態 |Y|
+	|  logId|  int  | 重設紀錄編號 |Y|
+	|  code |  int  | 錯誤編號 |N|
+	|  message |  string  | 錯誤訊息 |N|
 
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
@@ -3110,7 +3129,8 @@
 	| 	5  | \{method\} is not allowed   |
 	|  	7  | internal server error |
 	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 只適用信用用戶 |
+	| 	30 | the cash type is invalid | 
+	| 	32 | reset credit error | 
 	
 	
 20. ### 重設指定信用玩家額度
@@ -3118,7 +3138,7 @@
 	重設信用玩家額度
     
 	```
-	GET player/credit/multi-reset?
+	PUT player/credit/multi-reset?
 		key=<key>&
 		callback=<callback>&
 		accounts=<accounts>&
@@ -3168,7 +3188,7 @@
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(callback + secret)**
+	**hash = md5(callback + accounts + secret)**
 
 	##### 回傳結果
 
@@ -3200,6 +3220,27 @@
 	|  參數 | 型態 | 說明 |
 	|:---:|:---:|:---:|
 	|  logId|  int  | 重設紀錄編號 |
+	
+	
+	##### Callback 回傳請求
+	```
+	POST {callback url}?
+		status=<error>
+		&logId=<logid>
+		&code=<int>
+		&message=<string> 
+	```
+		
+    ##### Callback 回傳參數說明    
+    
+	|  參數 | 型態 | 說明 |必填 |
+	|:---:|:---:|:---:|:---:|
+	|  status |  enum(success, error)  | 重設狀態 |Y|
+	|  logId|  int  | 重設紀錄編號 |Y|
+	|  code |  int  | 錯誤編號 |N|
+	|  message |  string  | 錯誤訊息 |N|
+	
+	
 
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
@@ -3208,10 +3249,12 @@
 	| 	1 |  \{parameter\} is required   |
 	| 	2  | key is invalid            |
 	| 	3  | hash is invalid           |	
+	|  4  | player not found \{accounts\}     |
 	| 	5  | \{method\} is not allowed   |
 	|  	7  | internal server error |
 	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 只適用信用用戶 |
+	| 	30 | the cash type is invalid | 
+	| 	32 | reset credit error | 
 		
 	
 21. ### APP下載連結

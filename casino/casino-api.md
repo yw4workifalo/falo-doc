@@ -134,6 +134,7 @@
 |40|{param} must be a unsigned integer, and only numeric characters | 只允許正數的 integer，且不允許正負記號 |
 |41|{param} must between 1 and 0| 設定的數值只允許 1 到 0，且小位數最多 2 位數 |
 |42|{param} must be a unsigned decimal, and only numeric characters | 只允許正數的 decimal，且不允許正負記號 |
+| 43  | player:{player} not found            | 找不到合法的使用者     |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -460,7 +461,7 @@
     PUT /casino-api/player/mode?
         key=<key>&
         account=<account>&
-        mode=<nickname>&
+        mode=<mode>&
         hash=<hash>
     ```
     
@@ -1572,7 +1573,7 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + credit + secret)`**
+    #### **`hash = md5(account + secret)`**
     ---
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
@@ -1642,7 +1643,9 @@
     #### **`hash = md5(callback + secret)`**
     ---
     ### Response 參數說明
-    無
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  recordId | 重設紀錄 id 流水號|  integer  |
 
     ---
 
@@ -1682,6 +1685,72 @@
     |38|The cashtype is invalid | 此 api 操作不合法 |
     |39|The credit reset action is padding |
     
+
+3. ## <span id="player-credit-reset">重設指定信用玩家額度</span>
+
+    ```
+    PUT /casino-api/credit/multi-reset?
+        key=<key>&
+        accounts=<accounts>&
+        callback=<callback>&
+        hash=<hash>
+    ```
+
+    #### *限信用平台使用
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  accounts | 玩家帳號 |string |必填，多玩家使用 `,` 號隔開|
+    |  callback | 執行完後通知平台 url |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(accounts + callback + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  recordId | 重設紀錄 id 流水號|  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "recordId":12
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":3,
+            "message":"key is invalid"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    |38|The cashtype is invalid | 此 api 操作不合法 |
+    | 43  | player:{account} not found           |
+
 3. ## <span id="stake-limit-query">查詢注區範本</span>
 
     ```

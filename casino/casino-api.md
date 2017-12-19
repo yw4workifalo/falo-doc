@@ -87,7 +87,6 @@
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
 | 百家樂         | 1   |
-| 多檯         | 4   |
 
 ### *錯誤代碼*
 -------
@@ -137,6 +136,7 @@
 |42|{param} must be a unsigned decimal, and only numeric characters | 只允許正數的 decimal，且不允許正負記號 |
 | 43  | player:{player} not found            | 找不到合法的使用者     |
 | 44  | The credit player:%s reset action is pending|使用者回復設定尚在進行中  |
+| 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}| 設定的注區範本等級超過允許設定的等級  |
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -1329,8 +1329,8 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
-    
-14. #### <span id="player-kick">踢玩家</span>
+
+12. #### <span id="player-kick">踢玩家</span>
 
     ```
     DELETE /casino-api/player/kick?
@@ -1777,7 +1777,9 @@
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    |  stakeLimitId | 範本Id|  integer  |
+    |  limitId | 範本Id |  integer  |
+    |  cashLevel | 現金對應範本等級 A~E|  integer  |
+    |  creditLevel | 信用對應範本等級|  integer  |
     |  min | 最小下注值|  integer  |
     |  max | 最大下注值|  integer  |
 
@@ -1788,23 +1790,23 @@
 
     ```javascript
     {
-        {
-            "status":"success",
-            "data":[
-                {"stakeListId":110,"min":50,"max":1000},
-                {"stakeListId":111,"min":50,"max":2000},
-                {"stakeListId":112,"min":100,"max":5000},
-                {"stakeListId":118,"min":200,"max":10000},
-                {"stakeListId":113,"min":200,"max":20000},
-                {"stakeListId":119,"min":200,"max":30000},
-                {"stakeListId":114,"min":500,"max":50000},
-                {"stakeListId":115,"min":500,"max":100000},
-                {"stakeListId":99,"min":50,"max":200000},
-                {"stakeListId":116,"min":500,"max":200000},
-                {"stakeListId":117,"min":1000,"max":400000}
-            ]
-        }
-    }
+		{
+			"status":"success",
+			"data":[
+				{"limitId":1,"cashLevel":"A","creditLevel":1,"min":50,"max":1000},
+				{"limitId":2,"cashLevel":"A","creditLevel":2,"min":50,"max":2000},
+				{"limitId":3,"cashLevel":"A","creditLevel":3,"min":100,"max":5000},
+				{"limitId":4,"cashLevel":"B","creditLevel":4,"min":200,"max":10000},
+				{"limitId":5,"cashLevel":"B","creditLevel":5,"min":200,"max":20000},
+				{"limitId":6,"cashLevel":"C","creditLevel":6,"min":200,"max":30000},
+				{"limitId":7,"cashLevel":"C","creditLevel":7,"min":500,"max":50000},
+				{"limitId":8,"cashLevel":"D","creditLevel":8,"min":500,"max":100000},
+				{"limitId":9,"cashLevel":"D","creditLevel":9,"min":50,"max":200000},
+				{"limitId":10,"cashLevel":"E","creditLevel":10,"min":500,"max":200000},
+				{"limitId":11,"cashLevel":"E","creditLevel":11,"min":1000,"max":400000}
+			]
+		}
+}
     ```
 
     失敗
@@ -1856,7 +1858,17 @@
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號|  string  |
     |  tableType | [注區範本遊戲類別](#注區範本遊戲類別)  |  string  |
-    |  stakeLimitValue | 玩家所設定範本 |  string  |
+    |  limitValue | 玩家所設定範本內容 |  array  |
+
+    #### <span id="limitValue">limitValue 說明</span>
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  limitId| 範本對應 Id | integer |
+    |  enable| 是否有設定此範本，0=>不使用，1=>使用  | boolean|
+    |  cashLevel | 現金對應範本等級 A~E|  integer  |
+    |  creditLevel | 信用對應範本等級|  integer  |
+    |  min | 最小下注值|  integer  |
+    |  max | 最大下注值|  integer  |
 
     ---
 
@@ -1864,13 +1876,103 @@
     成功
 
     ```javascript
-    {
-        "status":"success",
-        "data":{
-            "account":"test001",
-            "stakeLimitValue":"110,112,113"
-        }
-    }
+	{
+		"status": "success",
+		"data": {
+			"account": "supreme",
+			"tableType": 1,
+			"limitValue": [
+		      {
+		        "limitId": 1,
+		        "enable": 1,
+		        "cashLevel": "A",
+		        "creditLevel": 1,
+		        "min": 50,
+		        "max": 1000,
+		      },
+		      {
+		        "limitId": 2,
+		        "enable": 1,
+		        "cashLevel": "A",
+		        "creditLevel": 2,
+		        "min": 50,
+		        "max": 2000,
+		      },
+		      {
+		        "limitId": 3,
+		        "enable": 1,
+		        "cashLevel": "A",
+		        "creditLevel": 3,
+		        "min": 100,
+		        "max": 5000
+		      },
+		      {
+		        "limitId": 4,
+		        "enable": 1,
+		        "cashLevel": "B",
+		        "creditLevel": 4,
+		        "min": 200,
+		        "max": 10000
+		      },
+		      {
+		        "limitId": 5,
+		        "enable": 0,
+		        "min": 200,
+		        "max": 20000,
+		        "cashLevel": "B",
+		        "creditLevel": 5
+		      },
+		      {
+		        "limitId": 6,
+		        "enable": 0,
+		        "cashLevel": "C",
+		        "creditLevel": 6,
+		        "min": 200,
+		        "max": 30000
+		      },
+		      {
+		        "limitId": 7,
+		        "enable": 1,
+		        "cashLevel": "C",
+		        "creditLevel": 7
+		        "min": 500,
+		        "max": 50000
+		      },
+		      {
+		        "limitId": 8,
+		        "enable": 1,
+		        "cashLevel": "D",
+		        "creditLevel": 8,
+		        "min": 500,
+		        "max": 100000
+		      },
+		      {
+		        "limitId": 9,
+		        "enable": 1,
+		        "cashLevel": "D",
+		        "creditLevel": 9,
+		        "min": 50,
+		        "max": 200000
+		      },
+		      {
+		        "limitId": 10,
+		        "enable": 1,
+		        "cashLevel": "E",
+		        "creditLevel": 10,
+		        "min": 500,
+		        "max": 200000
+		      },
+		      {
+		        "limitId": 11,
+		        "enable": 1,
+		        "cashLevel": "E",
+		        "creditLevel": 11,
+		        "min": 1000,
+		        "max": 400000
+		      }
+		    ]
+		}
+}
     ```
 
     失敗
@@ -1966,9 +2068,9 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 34 | tableType:{tableType} not found|
-    | 35 | player stake limit setting max five count|
     | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
     |40|{param} must be a unsigned integer, and only numeric characters | 
+    | 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}|
 
 3. ## <span id="app-api">手機API串接</span>
 

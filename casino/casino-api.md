@@ -1882,98 +1882,98 @@
 			"account": "supreme",
 			"tableType": 1,
 			"limitValue": [
-		      {
-		        "limitId": 1,
-		        "enable": 1,
-		        "cashLevel": "A",
-		        "creditLevel": 1,
-		        "min": 50,
-		        "max": 1000,
-		      },
-		      {
-		        "limitId": 2,
-		        "enable": 1,
-		        "cashLevel": "A",
-		        "creditLevel": 2,
-		        "min": 50,
-		        "max": 2000,
-		      },
-		      {
-		        "limitId": 3,
-		        "enable": 1,
-		        "cashLevel": "A",
-		        "creditLevel": 3,
-		        "min": 100,
-		        "max": 5000
-		      },
-		      {
-		        "limitId": 4,
-		        "enable": 1,
-		        "cashLevel": "B",
-		        "creditLevel": 4,
-		        "min": 200,
-		        "max": 10000
-		      },
-		      {
-		        "limitId": 5,
-		        "enable": 0,
-		        "min": 200,
-		        "max": 20000,
-		        "cashLevel": "B",
-		        "creditLevel": 5
-		      },
-		      {
-		        "limitId": 6,
-		        "enable": 0,
-		        "cashLevel": "C",
-		        "creditLevel": 6,
-		        "min": 200,
-		        "max": 30000
-		      },
-		      {
-		        "limitId": 7,
-		        "enable": 1,
-		        "cashLevel": "C",
-		        "creditLevel": 7
-		        "min": 500,
-		        "max": 50000
-		      },
-		      {
-		        "limitId": 8,
-		        "enable": 1,
-		        "cashLevel": "D",
-		        "creditLevel": 8,
-		        "min": 500,
-		        "max": 100000
-		      },
-		      {
-		        "limitId": 9,
-		        "enable": 1,
-		        "cashLevel": "D",
-		        "creditLevel": 9,
-		        "min": 50,
-		        "max": 200000
-		      },
-		      {
-		        "limitId": 10,
-		        "enable": 1,
-		        "cashLevel": "E",
-		        "creditLevel": 10,
-		        "min": 500,
-		        "max": 200000
-		      },
-		      {
-		        "limitId": 11,
-		        "enable": 1,
-		        "cashLevel": "E",
-		        "creditLevel": 11,
-		        "min": 1000,
-		        "max": 400000
-		      }
-		    ]
-		}
-}
-    ```
+			      {
+			        "limitId": 1,
+			        "enable": 1,
+			        "cashLevel": "A",
+			        "creditLevel": 1,
+			        "min": 50,
+			        "max": 1000,
+			      },
+			      {
+			        "limitId": 2,
+			        "enable": 1,
+			        "cashLevel": "A",
+			        "creditLevel": 2,
+			        "min": 50,
+			        "max": 2000,
+			      },
+			      {
+			        "limitId": 3,
+			        "enable": 1,
+			        "cashLevel": "A",
+			        "creditLevel": 3,
+			        "min": 100,
+			        "max": 5000
+			      },
+			      {
+			        "limitId": 4,
+			        "enable": 1,
+			        "cashLevel": "B",
+			        "creditLevel": 4,
+			        "min": 200,
+			        "max": 10000
+			      },
+			      {
+			        "limitId": 5,
+			        "enable": 0,
+			        "min": 200,
+			        "max": 20000,
+			        "cashLevel": "B",
+			        "creditLevel": 5
+			      },
+			      {
+			        "limitId": 6,
+			        "enable": 0,
+			        "cashLevel": "C",
+			        "creditLevel": 6,
+			        "min": 200,
+			        "max": 30000
+			      },
+			      {
+			        "limitId": 7,
+			        "enable": 1,
+			        "cashLevel": "C",
+			        "creditLevel": 7
+			        "min": 500,
+			        "max": 50000
+			      },
+			      {
+			        "limitId": 8,
+			        "enable": 1,
+			        "cashLevel": "D",
+			        "creditLevel": 8,
+			        "min": 500,
+			        "max": 100000
+			      },
+			      {
+			        "limitId": 9,
+			        "enable": 1,
+			        "cashLevel": "D",
+			        "creditLevel": 9,
+			        "min": 50,
+			        "max": 200000
+			      },
+			      {
+			        "limitId": 10,
+			        "enable": 1,
+			        "cashLevel": "E",
+			        "creditLevel": 10,
+			        "min": 500,
+			        "max": 200000
+			      },
+			      {
+			        "limitId": 11,
+			        "enable": 1,
+			        "cashLevel": "E",
+			        "creditLevel": 11,
+			        "min": 1000,
+			        "max": 400000
+			      }
+			    ]
+			}
+	 }
+   ```
 
     失敗
 

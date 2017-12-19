@@ -1790,22 +1790,20 @@
 
     ```javascript
     {
-		{
-			"status":"success",
-			"data":[
-				{"limitId":1,"cashLevel":"A","creditLevel":1,"min":50,"max":1000},
-				{"limitId":2,"cashLevel":"A","creditLevel":2,"min":50,"max":2000},
-				{"limitId":3,"cashLevel":"A","creditLevel":3,"min":100,"max":5000},
-				{"limitId":4,"cashLevel":"B","creditLevel":4,"min":200,"max":10000},
-				{"limitId":5,"cashLevel":"B","creditLevel":5,"min":200,"max":20000},
-				{"limitId":6,"cashLevel":"C","creditLevel":6,"min":200,"max":30000},
-				{"limitId":7,"cashLevel":"C","creditLevel":7,"min":500,"max":50000},
-				{"limitId":8,"cashLevel":"D","creditLevel":8,"min":500,"max":100000},
-				{"limitId":9,"cashLevel":"D","creditLevel":9,"min":50,"max":200000},
-				{"limitId":10,"cashLevel":"E","creditLevel":10,"min":500,"max":200000},
-				{"limitId":11,"cashLevel":"E","creditLevel":11,"min":1000,"max":400000}
-			]
-		}
+		"status":"success",
+		"data":[
+			{"limitId":1,"cashLevel":"A","creditLevel":1,"min":50,"max":1000},
+			{"limitId":2,"cashLevel":"A","creditLevel":2,"min":50,"max":2000},
+			{"limitId":3,"cashLevel":"A","creditLevel":3,"min":100,"max":5000},
+			{"limitId":4,"cashLevel":"B","creditLevel":4,"min":200,"max":10000},
+			{"limitId":5,"cashLevel":"B","creditLevel":5,"min":200,"max":20000},
+			{"limitId":6,"cashLevel":"C","creditLevel":6,"min":200,"max":30000},
+			{"limitId":7,"cashLevel":"C","creditLevel":7,"min":500,"max":50000},
+			{"limitId":8,"cashLevel":"D","creditLevel":8,"min":500,"max":100000},
+			{"limitId":9,"cashLevel":"D","creditLevel":9,"min":50,"max":200000},
+			{"limitId":10,"cashLevel":"E","creditLevel":10,"min":500,"max":200000},
+			{"limitId":11,"cashLevel":"E","creditLevel":11,"min":1000,"max":400000}
+		]
 	 }
    ```
 
@@ -1970,8 +1968,8 @@
 			        "min": 1000,
 			        "max": 400000
 			      }
-			    ]
-			}
+			]
+		}
 	 }
    ```
 

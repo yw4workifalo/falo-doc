@@ -22,6 +22,8 @@
 3. [查詢信用玩家額度](#查詢信用玩家額度)
 4. [重設信用玩家額度](#重設信用玩家額度)
 5. [重設指定信用玩家額度](#重設指定信用玩家額度)
+6. [設定信用額度重設群組](#設定信用額度重設群組)
+7. [查詢信用額度重設群組](#查詢信用額度重設群組)
 5. [查詢注區範本](#查詢注區範本)
 6. [玩家注區範本設定查詢](#玩家注區範本設定查詢)
 7. [玩家注區範本設定](#玩家注區範本設定)
@@ -87,6 +89,14 @@
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
 | 百家樂         | 1   |
+
+### <span id="resetGroup">重設群組類型</span>
+| 類型  | groupId                 |
+|---------- |-------------------------  |
+| 不回復         | 0   |
+| 日回復         | 1   |
+| 週回復         | 2   |
+
 
 ### *錯誤代碼*
 -------
@@ -1693,7 +1703,7 @@
     ```
     PUT /casino-api/credit/multi-reset?
         key=<key>&
-        accounts=<accounts>&
+        groupId=<groupId>&
         callback=<callback>&
         hash=<hash>
     ```
@@ -1704,11 +1714,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  accounts | 玩家帳號 |string |必填，多玩家使用 `,` 號隔開|
+    |  groupId | [重設群組類型](#重設群組類型) |integer |必填|
     |  callback | 執行完後通知平台 url |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(accounts + callback + secret)`**
+    #### **`hash = md5(groupId + callback + secret)`**
     ---
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
@@ -1753,6 +1763,134 @@
     |38|The cashtype is invalid | 此 api 操作不合法 |
     | 43  | player:{account} not found           |
     | 44  | The credit player:{account} reset action is pending|
+
+3. ## <span id="credit-reset-group">設定信用額度重設群組</span>
+
+    ```
+    PUT /casino-api/credit-reset-group?
+        key=<key>&
+        account=<account>&
+        groupId=<groupId>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  groupId | [重設群組類型](#重設群組類型) |  integer  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + groupId + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  groupId |重設群組類型 |  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "groupId":2
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":4,
+            "message":"player not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found            |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
+3. ## <span id="query-credit-reset-group">查詢信用額度重設群組</span>
+
+    ```
+    GET /casino-api/credit-reset-group?
+        key=<key>&
+        account=<account>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  groupId |[重設群組類型](#重設群組類型) |  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "groupId":2
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":4,
+            "message":"player not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found            |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 3. ## <span id="stake-limit-query">查詢注區範本</span>
 

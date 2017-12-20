@@ -28,7 +28,6 @@
 25. [設定信用玩家額度](#設定信用玩家額度)
 26. [查詢信用玩家額度](#查詢信用玩家額度)
 27. [重設信用玩家額度](#重設信用玩家額度)
-28. [重設指定信用玩家額度](#重設指定信用玩家額度)
 29. [設定信用額度重設群組](#設定信用額度重設群組)
 30. [查詢信用額度重設群組](#查詢信用額度重設群組)
 31. [APP下載連結](#app下載連結)
@@ -125,6 +124,7 @@
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
 | 104 | The platform type is not supported | 您指定登入的平台不支援 |
+| 106 | group 0 can not be reset | 信用群組0為不回覆 |
 
 
 
@@ -3025,124 +3025,6 @@
 	重設信用玩家額度
     
 	```
-	PUT player/credit/reset?
-		key=<key>&
-		callback=<callback>&
-		hash=<hash>
-	```
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X PUT -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit/reset
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit/reset';
-	$data = [
-		'callback'=>'http://callback.url/reset',
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
-    ##### 參數說明
-
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
-	|   hash   | 驗證參數 |  string  |     必填    | Y |
-
-	**hash = md5(callback + secret)**
-
-	##### 回傳結果
-
-     成功
-
-      ```javascript
-	{
-		"status": "success",
-		"data": {
-			"logId": 3
-		}
-	}
-      ```
-
-    失敗
-    
-	```javascript
-	{  
-       "status":"error",
-       "error":{  
-          "code":30,
-          "message":"the cash type is invalid"
-       }
-    }
-	```
-	
-    回傳參數說明    
-    
-	|  參數 | 型態 | 說明 |
-	|:---:|:---:|:---:|
-	|  logId|  int  | 重設紀錄編號 |
-	
-	##### Callback 回傳請求
-	```
-	POST {callback url}?
-		status=<error>
-		&logId=<logid>
-		&code=<int>
-		&message=<string> 
-	```
-		
-    ##### Callback 回傳參數說明    
-    
-	|  參數 | 型態 | 說明 |必填 |
-	|:---:|:---:|:---:|:---:|
-	|  status |  enum(success, error)  | 重設狀態 |Y|
-	|  logId|  int  | 重設紀錄編號 |Y|
-	|  code |  int  | 錯誤編號 |N|
-	|  message |  string  | 錯誤訊息 |N|
-
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	|  錯誤代碼 |  錯誤說明 |     
-	|:--------:|:--------:|
-	| 	1 |  \{parameter\} is required   |
-	| 	2  | key is invalid            |
-	| 	3  | hash is invalid           |	
-	| 	5  | \{method\} is not allowed   |
-	|  	7  | internal server error |
-	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 
-	| 	32 | reset credit error | 
-	
-	
-20. ### 重設指定信用玩家額度
-
-	重設信用玩家額度
-    
-	```
 	PUT player/credit/multi-reset?
 		key=<key>&
 		callback=<callback>&
@@ -3190,8 +3072,8 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  groupId| 信用群組編號 | int  |        | Y |
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
+	|  groupId| 信用群組編號 | int  |        | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
 	**hash = md5(callback + accounts + secret)**
@@ -3255,12 +3137,12 @@
 	| 	1 |  \{parameter\} is required   |
 	| 	2  | key is invalid            |
 	| 	3  | hash is invalid           |	
-	|  4  | player not found \{accounts\}     |
 	| 	5  | \{method\} is not allowed   |
 	|  	7  | internal server error |
 	| 	11 | {parameter} is invalid   |
 	| 	30 | the cash type is invalid | 
 	| 	32 | reset credit error | 
+	| 106 | group 0 can not be reset | 信用群組0為不回覆 |
 		
 		
 20. ### 設定信用額度重設群組

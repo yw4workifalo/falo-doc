@@ -193,7 +193,7 @@
     |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
     |   nickname   | 玩家暱稱 |  string(20)  |     必填，1-20個字元    | Y |
     | currency | 玩家貨幣類型 | string(10) | 設定玩家貨幣類型，設定之後不可更改 [支援貨幣](#支援貨幣)| Y |
-    |   groupId   | 信用群組 | int  |     選填    | N |
+    |   groupId   | 信用群組 | int  |     選填，[信用群組編號](#信用群組編號)    | N |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + nickname + secret)**
@@ -3080,7 +3080,7 @@
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
-	|  groupId| 信用群組編號 | int  |        | Y |
+	|  groupId| 信用群組編號 | int  |    [信用群組編號](#信用群組編號)    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
 	**hash = md5(callback + accounts + secret)**
@@ -3205,7 +3205,7 @@
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
 	|  account| 玩家帳號 |  string  |       | Y |
-	|  groupId| 群組編號 |  int  |       | Y |
+	|  groupId| 群組編號 |  int  |    [信用群組編號](#信用群組編號)   | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
 	**hash = md5(callback + secret)**
@@ -3241,7 +3241,7 @@
 	|  參數 | 型態 | 說明 |
 	|:---:|:---:|:---:|
 	|  account |  string  | 玩家帳號 |
-	|  groupId |  int  | 群組編號 |
+	|  groupId |  int  | [信用群組編號](#信用群組編號) |
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
@@ -3344,7 +3344,7 @@
 	|  參數 | 型態 | 說明 |
 	|:---:|:---:|:---:|
 	|  account |  string  | 玩家帳號 |
-	|  groupId |  int  | 群組編號 |
+	|  groupId |  int  | [信用群組編號](#信用群組編號) |
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    

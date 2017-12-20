@@ -240,7 +240,6 @@
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
     | 20 | account:{account} has been used | 此帳號已被使用 | 
-    | 30 | the cash type is invalid | 
     | 102 | The currency what you set is not supported |
     
 
@@ -3266,7 +3265,6 @@
 		
 20. ### 設定信用額度重設群組
 
-	重設信用玩家額度
     
 	```
 	PUT player/credit/reset-group?
@@ -3373,13 +3371,11 @@
 			
 21. ### 查詢信用額度重設群組
 
-	重設信用玩家額度
     
 	```
 	GET player/credit/reset-group?
 		key=<key>&
 		account=<account>&
-		groupId=<groupId>&
 		hash=<hash>
 	```
 	##### Request 範例

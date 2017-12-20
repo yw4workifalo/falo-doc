@@ -123,6 +123,8 @@
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
 | 104 | The platform type is not supported | 您指定登入的平台不支援 |
+| 106 | User already in a group | 用戶已在信用群組 |
+| 107 | User not in any group | 用戶不存在於任何信用群組 |
 
 
 ## API
@@ -3184,7 +3186,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
+	|  groupId| 信用群組編號 | int  |     必填，可填多組用`,` 分割   | Y |
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
@@ -3256,6 +3258,219 @@
 	| 	30 | the cash type is invalid | 
 	| 	32 | reset credit error | 
 		
+		
+20. ### 設定信用額度重設群組
+
+	重設信用玩家額度
+    
+	```
+	PUT player/credit/reset-group?
+		key=<key>&
+		account=<account>&
+		groupId=<groupId>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X PUT -d callback=http://callback.url/reset-group -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit/reset-group
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit/reset-group';
+	$data = [
+		'account'=>'5e7_wei',
+		'groupId'=>1
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string  |       | Y |
+	|  groupId| 群組編號 |  int  |       | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(callback + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+	{
+		"status": "success",
+		"data": {
+			"account": "5e7_wei",
+			"groupId": 1
+		}
+	}
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":106,
+          "message":"User already in a group"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	|  參數 | 型態 | 說明 |
+	|:---:|:---:|:---:|
+	|  account |  string  | 玩家帳號 |
+	|  groupId |  int  | 群組編號 |
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	|  錯誤代碼 |  錯誤說明 |     
+	|:--------:|:--------:|
+	| 	1 |  \{parameter\} is required   |
+	| 	2  | key is invalid            |
+	| 	3  | hash is invalid           |	
+	|  4  | player not found                |
+	| 	5  | \{method\} is not allowed   |
+	|  	7  | internal server error |
+	| 	11 | {parameter} is invalid   |
+	| 	30 | the cash type is invalid | 
+	| 	32 | reset credit error | 
+	| 	106 | User already in a group | 
+			
+21. ### 查詢玩家信用額度重設群組
+
+	重設信用玩家額度
+    
+	```
+	GET player/credit/reset-group?
+		key=<key>&
+		account=<account>&
+		groupId=<groupId>&
+		hash=<hash>
+	```
+	##### Request 範例
+	
+	bash
+	
+	```bash
+	CURL -X GET -d callback=http://callback.url/reset-group -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+ 		-G http://poker.app/api/v2/slot/player/credit/reset-group
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/credit/reset-group';
+	$data = [
+		'account'=>'5e7_wei',
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+
+    ##### 參數說明
+
+	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+	|:--------:|:--------:|:--------:|:-----------:|:---:|
+	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+	|  account| 玩家帳號 |  string  |       | Y |
+	|   hash   | 驗證參數 |  string  |     必填    | Y |
+
+	**hash = md5(callback + secret)**
+
+	##### 回傳結果
+
+     成功
+
+      ```javascript
+	{
+		"status": "success",
+		"data": {
+			"account": "5e7_wei",
+			"groupId": 1
+		}
+	}
+      ```
+
+    失敗
+    
+	```javascript
+	{  
+       "status":"error",
+       "error":{  
+          "code":107,
+          "message":"User not in any group"
+       }
+    }
+	```
+	
+    回傳參數說明    
+    
+	|  參數 | 型態 | 說明 |
+	|:---:|:---:|:---:|
+	|  account |  string  | 玩家帳號 |
+	|  groupId |  int  | 群組編號 |
+	
+	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	|  錯誤代碼 |  錯誤說明 |     
+	|:--------:|:--------:|
+	| 	1 |  \{parameter\} is required   |
+	| 	2  | key is invalid            |
+	| 	3  | hash is invalid           |	
+	|  4  | player not found                |
+	| 	5  | \{method\} is not allowed   |
+	|  	7  | internal server error |
+	| 	11 | {parameter} is invalid   |
+	| 	30 | the cash type is invalid | 
+	| 	32 | reset credit error | 
+	| 	107 | User not in any group | 			
+				
 	
 21. ### APP下載連結
 

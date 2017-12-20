@@ -30,7 +30,7 @@
 27. [重設信用玩家額度](#重設信用玩家額度)
 28. [重設指定信用玩家額度](#重設指定信用玩家額度)
 29. [設定信用額度重設群組](#設定信用額度重設群組)
-30. [查詢信用額度重設群組](#查詢玩家信用額度重設群組)
+30. [查詢信用額度重設群組](#查詢信用額度重設群組)
 31. [APP下載連結](#app下載連結)
 32. [設定玩家佔成](#設定玩家佔成)
 
@@ -3034,7 +3034,7 @@
 	bash
 	
 	```bash
-	CURL -X GET -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+	CURL -X PUT -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
  		-G http://poker.app/api/v2/slot/player/credit/reset
 	```
 	
@@ -3059,7 +3059,7 @@
 	$data['hash'] = $hash;
 	$ch = curl_init($url.'?'.http_build_query($data));
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 	$response = curl_exec($ch);
 	echo $response;
 	```
@@ -3145,7 +3145,7 @@
 	PUT player/credit/multi-reset?
 		key=<key>&
 		callback=<callback>&
-		accounts=<accounts>&
+		groupId=<groupId>&
 		hash=<hash>
 	```
 	##### Request 範例
@@ -3153,7 +3153,7 @@
 	bash
 	
 	```bash
-	CURL -X GET -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+	CURL -X PUT -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
  		-G http://poker.app/api/v2/slot/player/credit/multi-reset
 	```
 	
@@ -3165,6 +3165,7 @@
 	$url = 'http://poker.app/api/v2/slot/player/credit/multi-reset';
 	$data = [
 		'callback'=>'http://callback.url/reset',
+		'groupId'=>1
 	];
 	//產生hash
 	$hash = '';
@@ -3178,7 +3179,7 @@
 	$data['hash'] = $hash;
 	$ch = curl_init($url.'?'.http_build_query($data));
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 	$response = curl_exec($ch);
 	echo $response;
 	```
@@ -3188,7 +3189,7 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  groupId| 信用群組編號 | int  |     必填，可填多組用`,` 分割   | Y |
+	|  groupId| 信用群組編號 | int  |        | Y |
 	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 

@@ -147,6 +147,7 @@
 | 43  | player:{player} not found            | 找不到合法的使用者     |
 | 44  | The credit player:%s reset action is pending|使用者回復設定尚在進行中  |
 | 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}| 設定的注區範本等級超過允許設定的等級  |
+|46|multi credit player reset do not allow call zero|重設指定信用玩家額度不允許執行不回復操作|
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -1714,7 +1715,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  groupId | [重設群組類型](#重設群組類型) |integer |必填|
+    |  groupId | [重設群組類型](#重設群組類型)，注意只允許日及週回復 |integer |必填|
     |  callback | 執行完後通知平台 url |  string  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
@@ -1724,6 +1725,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     |  recordId | 重設紀錄 id 流水號|  integer  |
+    |  groupId | [重設群組類型](#重設群組類型)|  integer  |
 
     ---
 
@@ -1734,7 +1736,8 @@
     {
         "status":"success",
         "data":{
-            "recordId":12
+            "recordId":12,
+            "groupId":1
         }
     }
     ```
@@ -1763,6 +1766,7 @@
     |38|The cashtype is invalid | 此 api 操作不合法 |
     | 43  | player:{account} not found           |
     | 44  | The credit player:{account} reset action is pending|
+    |46|multi credit player reset do not allow call zero|
 
 3. ## <span id="credit-reset-group">設定信用額度重設群組</span>
 

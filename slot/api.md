@@ -125,8 +125,7 @@
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
 | 104 | The platform type is not supported | 您指定登入的平台不支援 |
-| 106 | User already in a group | 用戶已在信用群組 |
-| 107 | User not in any group | 用戶不存在於任何信用群組 |
+
 
 
 ## API
@@ -187,6 +186,7 @@
     |  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
     |   nickname   | 玩家暱稱 |  string(20)  |     必填，1-20個字元    | Y |
     | currency | 玩家貨幣類型 | string(10) | 設定玩家貨幣類型，設定之後不可更改 [支援貨幣](#支援貨幣)| Y |
+    |   groupId   | 信用群組 | int  |     選填    | N |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + nickname + secret)**
@@ -240,7 +240,9 @@
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
     | 20 | account:{account} has been used | 此帳號已被使用 | 
+    | 30 | the cash type is invalid | 
     | 102 | The currency what you set is not supported |
+    
 
 1. ### 修改暱稱
 
@@ -3341,8 +3343,8 @@
 	{  
        "status":"error",
        "error":{  
-          "code":106,
-          "message":"User already in a group"
+          "code":4,
+          "message":"player not found"
        }
     }
 	```
@@ -3367,7 +3369,7 @@
 	| 	11 | {parameter} is invalid   |
 	| 	30 | the cash type is invalid | 
 	| 	32 | reset credit error | 
-	| 	106 | User already in a group | 
+
 			
 21. ### 查詢信用額度重設群組
 
@@ -3446,8 +3448,8 @@
 	{  
        "status":"error",
        "error":{  
-          "code":107,
-          "message":"User not in any group"
+          "code":4,
+          "message":"player not found"
        }
     }
 	```
@@ -3472,7 +3474,7 @@
 	| 	11 | {parameter} is invalid   |
 	| 	30 | the cash type is invalid | 
 	| 	32 | reset credit error | 
-	| 	107 | User not in any group | 			
+		
 				
 	
 21. ### APP下載連結

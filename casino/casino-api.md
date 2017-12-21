@@ -144,7 +144,7 @@
 |40|{param} must be a unsigned integer, and only numeric characters | 只允許正數的 integer，且不允許正負記號 |
 |41|{param} must between 1 and 0| 設定的數值只允許 1 到 0，且小位數最多 2 位數 |
 |42|{param} must be a unsigned decimal, and only numeric characters | 只允許正數的 decimal，且不允許正負記號 |
-| 43  | player:{player} not found            | 找不到合法的使用者     |
+| 43  | reset group id not found player | 此回復群組沒有任何玩家     |
 | 44  | The credit player:%s reset action is pending|使用者回復設定尚在進行中  |
 | 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}| 設定的注區範本等級超過允許設定的等級  |
 |46|multi credit player reset do not allow call zero|重設指定信用玩家額度不允許執行不回復操作|
@@ -1764,8 +1764,8 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     |38|The cashtype is invalid | 此 api 操作不合法 |
-    | 43  | player:{account} not found           |
-    | 44  | The credit player:{account} reset action is pending|
+    |39|The credit reset action is pending |
+    | 43  | reset group id not found player |
     |46|multi credit player reset do not allow call zero|
 
 3. ## <span id="credit-reset-group">設定信用額度重設群組</span>

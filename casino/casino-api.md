@@ -1936,15 +1936,14 @@
 		"data":[
 			{"limitId":1,"cashLevel":"A","creditLevel":1,"min":50,"max":1000},
 			{"limitId":2,"cashLevel":"A","creditLevel":2,"min":50,"max":2000},
-			{"limitId":3,"cashLevel":"A","creditLevel":3,"min":100,"max":5000},
+			{"limitId":3,"cashLevel":"B","creditLevel":3,"min":100,"max":5000},
 			{"limitId":4,"cashLevel":"B","creditLevel":4,"min":200,"max":10000},
-			{"limitId":5,"cashLevel":"B","creditLevel":5,"min":200,"max":20000},
+			{"limitId":5,"cashLevel":"C","creditLevel":5,"min":200,"max":20000},
 			{"limitId":6,"cashLevel":"C","creditLevel":6,"min":200,"max":30000},
-			{"limitId":7,"cashLevel":"C","creditLevel":7,"min":500,"max":50000},
+			{"limitId":7,"cashLevel":"D","creditLevel":7,"min":500,"max":50000},
 			{"limitId":8,"cashLevel":"D","creditLevel":8,"min":500,"max":100000},
-			{"limitId":9,"cashLevel":"D","creditLevel":9,"min":50,"max":200000},
-			{"limitId":10,"cashLevel":"E","creditLevel":10,"min":500,"max":200000},
-			{"limitId":11,"cashLevel":"E","creditLevel":11,"min":1000,"max":400000}
+			{"limitId":9,"cashLevel":"E","creditLevel":9,"min":500,"max":200000},
+			{"limitId":10,"cashLevel":"E","creditLevel":10,"min":1000,"max":400000}
 		]
 	 }
    ```
@@ -2041,7 +2040,7 @@
 			      {
 			        "limitId": 3,
 			        "enable": 1,
-			        "cashLevel": "A",
+			        "cashLevel": "B",
 			        "creditLevel": 3,
 			        "min": 100,
 			        "max": 5000
@@ -2059,7 +2058,7 @@
 			        "enable": 0,
 			        "min": 200,
 			        "max": 20000,
-			        "cashLevel": "B",
+			        "cashLevel": "C",
 			        "creditLevel": 5
 			      },
 			      {
@@ -2073,7 +2072,7 @@
 			      {
 			        "limitId": 7,
 			        "enable": 1,
-			        "cashLevel": "C",
+			        "cashLevel": "D",
 			        "creditLevel": 7
 			        "min": 500,
 			        "max": 50000
@@ -2089,9 +2088,9 @@
 			      {
 			        "limitId": 9,
 			        "enable": 1,
-			        "cashLevel": "D",
+			        "cashLevel": "E",
 			        "creditLevel": 9,
-			        "min": 50,
+			        "min": 500,
 			        "max": 200000
 			      },
 			      {
@@ -2099,14 +2098,6 @@
 			        "enable": 1,
 			        "cashLevel": "E",
 			        "creditLevel": 10,
-			        "min": 500,
-			        "max": 200000
-			      },
-			      {
-			        "limitId": 11,
-			        "enable": 1,
-			        "cashLevel": "E",
-			        "creditLevel": 11,
 			        "min": 1000,
 			        "max": 400000
 			      }
@@ -2210,7 +2201,7 @@
     | 34 | tableType:{tableType} not found|
     | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
     |40|{param} must be a unsigned integer, and only numeric characters | 
-    | 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}|
+    | 45 | setting limitId:{limitId} level is {level}, platform limit level can set {level} level|
 
 3. ## <span id="app-api">手機API串接</span>
 

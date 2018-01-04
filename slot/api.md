@@ -127,6 +127,7 @@
 | 30 | the cash type is invalid | 只適用信用用戶 |
 | 31 | \{var\} must between \{min\} and \{max\}| 設定數值超出範圍 |
 | 	32 | reset credit error | 信用重設失敗 |
+| 	33 | the credit type is invalid | 只適用現金用戶 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
@@ -825,6 +826,7 @@
     | 18 |transfer out error|    
     |19 | player credit is not enough|
     | 26 | transfer id:（平台方TransferID）has been used |
+    | 	33 | the credit type is invalid | 
 
 
 7. ### 玩家轉帳狀態查詢
@@ -935,6 +937,7 @@
     | 11 | {parameter} is invalid   |
 	| 24 | {transferId} is not exist |
 	| 28 | transfer pending | 
+	| 	33 | the credit type is invalid | 
     
 
 8. ### 踢玩家

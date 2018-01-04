@@ -28,6 +28,7 @@
 6. [玩家注區範本設定查詢](#玩家注區範本設定查詢)
 7. [玩家注區範本設定](#玩家注區範本設定)
 8. [手機API串接](#手機API串接)
+9. [手機API串接-CN](#手機API串接-CN)
 9. [修改玩家佔成](#修改玩家佔成)
 10. [新增遊戲公告](#新增遊戲公告)
 11. [查詢遊戲公告](#查詢遊戲公告)
@@ -982,11 +983,9 @@
     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 9  | player is online   |
     |  10  |service not available |
     | 11 | {parameter} is invalid   |
     | 19 | player credit is not enough  |
-    | 21 | player have not yet checkout bet |
     | 25 | transfer id can not be empty  |
     | 26 | transferid:（平台方TransferID）has been used  |
     | 27 | transfer in or out can not be 0  | 
@@ -2221,13 +2220,31 @@
 
 3. ## <span id="app-api">手機API串接</span>
 
-    ###### scheme url
+    ###### scheme url - tw
     
     ```
     pharao-casino-mobile://launch-game?
         token=eyJpdiI6Im9kYTk1WVFlaVRyZm5..&
         lang=zh_TW&
         platformURL=pharao-platform-mobile://launch-game?...
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |   必填    |
+    |:--------:|:--------:|:--------:|:-----------:|:-----------:|
+    |token| 從[取得玩家登入網址](#取得玩家登入網址)取得的token |string| 用來驗證玩家 |Y|
+    |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
+    |platformURL| 返回平台 schemal url |  string  | 遊戲app返回平台APP使用  |Y|
+
+3. ## <span id="app-api-cn">手機API串接-CN</span>
+
+    ###### scheme url - cn
+
+    ```
+    pharao-casino-mobile-cn://launch-game?
+        token=eyJpdiI6Im9kYTk1WVFlaVRyZm5..&
+        lang=zh_TW&
+        platformURL=pharao-platform-mobile-cn://launch-game?...
     ```
 
     ### Request 參數說明

@@ -29,6 +29,10 @@
 7. [玩家注區範本設定](#玩家注區範本設定)
 8. [手機API串接](#手機API串接)
 9. [修改玩家佔成](#修改玩家佔成)
+10. [新增遊戲公告](#新增遊戲公告)
+11. [查詢遊戲公告](#查詢遊戲公告)
+12. [修改遊戲公告](#修改遊戲公告)
+13. [刪除遊戲公告](#刪除遊戲公告)
 
 ### *登入流程*
 -------
@@ -97,6 +101,15 @@
 | 日回復         | 1   |
 | 週回復         | 2   |
 
+### <span id="marqueeUseLocation">公告播放地點代碼</span>
+| 地點  | location                 |
+|---------- |-------------------------  |
+| Lobby        | 99   |
+| 百家樂 A 桌        | 1   |
+| 百家樂 B 桌         | 2   |
+| 百家樂 C 桌        | 3   |
+| 百家樂 D 桌         | 4   |
+| 百家樂 E 桌        | 5  |
 
 ### *錯誤代碼*
 -------
@@ -148,6 +161,9 @@
 | 44  | The credit player:%s reset action is pending|使用者回復設定尚在進行中  |
 | 45 | setting limitId:{limitId} level is {level}, platform limit level is {level}| 設定的注區範本等級超過允許設定的等級  |
 |46|multi credit player reset do not allow call zero|重設指定信用玩家額度不允許執行不回復操作|
+|47|marqueeId:{marqueeId} is not found|查無此遊戲公告|
+|48| location:{location} is invalid |播放地點代碼不存在|
+|49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|公告播放時間不合法|
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -2288,4 +2304,308 @@
     |30|{params} must be a unsigned decimal|
     |41|{param} must between 1 and 0|
     |42|{param} must be a unsigned decimal, and only numeric characters |
+
+7. ## <span id="add-marquee">新增遊戲公告</span>
+
+    ```
+    POST /casino-api/marquee?
+        key=<key>&
+        message=<message>&
+        location=<location>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  message | 公告訊息|  string  |     必填    |
+    | location| [公告播放地點代碼](#公告播放地點代碼) | string | 必填，多筆請用`,` 號|
+    |  startAt   | 播放起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 播放結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(message + location + startAt + endAt + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  marqueeId | 遊戲公告Id |  integer  |
+    |  message   | 公告訊息|  string  |
+    |  location   | [公告播放地點代碼](#公告播放地點代碼)|  string  |
+    |  startAt   | 播放起始時間|  string  |
+    |  endAt   | 播放結束時間|  string  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+    	"status":"success",
+    	"data":{
+    		"marqueeId":88,
+    		"message":"test A,B,C,D",
+    		"location":"1,2,3,4",
+    		"startAt":"2017-12-26 16:00:00",
+    		"endAt":"2017-12-28 00:00:00"
+    	}
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+   	"status":"error",
+   	"error":{
+   		"code":48,
+   		"message":"location:100 is invalid"
+   	}
+   }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    |48|location:{location} is invalid|
+    |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|
+
+7. ## <span id="add-marquee">修改遊戲公告</span>
+
+    ```
+    PUT /casino-api/marquee?
+        key=<key>&
+        marqueeId=<marqueeId>&
+        message=<message>&
+        location=<location>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  marqueeId | 遊戲公告Id|  integer  |     必填    |
+    |  message | 公告訊息|  string  |     必填    |
+    | location| [公告播放地點代碼](#公告播放地點代碼) | string | 必填，多筆請用`,` 號|
+    |  startAt   | 播放起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 播放結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(marqueeId + message + location + startAt + endAt + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  marqueeId | 遊戲公告Id |  integer  |
+    |  message   | 公告訊息|  string  |
+    |  location   | [公告播放地點代碼](#公告播放地點代碼)|  string  |
+    |  startAt   | 播放起始時間|  string  |
+    |  endAt   | 播放結束時間|  string  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+    	"status":"success",
+    	"data":{
+    		"marqueeId":"85",
+    		"message":"test A,B,C,D",
+    		"location":"1,2,3,4",
+    		"startAt":"2017-12-26 16:00:00",
+    		"endAt":"2017-12-28 00:00:00"
+    	}
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+   		"status":"error",
+   		"error":{
+   			"code":47,
+   			"message":"marqueeId:100 is not found"
+   		}
+   }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    |47|marqueeId:{marqueeId} is not found|
+    |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|
+
+7. ## <span id="add-marquee">查詢遊戲公告</span>
+
+    ```
+    GET /casino-api/marquee?
+        key=<key>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  startAt   | 播放起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 播放結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(startAt + endAt + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  marqueeId | 遊戲公告Id |  integer  |
+    |  status   | 公告是否啟用|  boolean  |
+    |  message   | 公告訊息|  string  |
+    |  location   | [公告播放地點代碼](#公告播放地點代碼)|  string  |
+    |  startAt   | 播放起始時間|  string  |
+    |  endAt   | 播放結束時間|  string  |
+    |  updateTime   | 公告修改時間|  string  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+	 {
+	  "status": "success",
+	  "data": [
+	    {
+	      "marqueeId": 85,
+	      "status": 1,
+	      "message": "test A,B,C,D",
+	      "useLocation": "1,2,3,4,5",
+	      "startAt": "2017-12-26 16:00:00",
+	      "endAt": "2017-12-28 00:00:00",
+	      "updateTime": "2017-12-26 16:00:00"
+	    },
+	    {
+	      "marqueeId": 86,
+	      "status": 0,
+	      "message": "hello moto 1122",
+	      "useLocation": "1,3,99",
+	      "startAt": "2017-12-26 16:00:00",
+	      "endAt": "2017-12-27 00:00:00"
+	      "updateTime": "2017-12-26 16:00:00"
+	    }
+	  ]
+	}
+   ```
+
+    失敗
+
+   ```javascript
+   {
+   		"status":"error",
+   		"error":{
+   			"code":47,
+   			"message":"marqueeId:100 is not found"
+   		}
+   }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+
+7. ## <span id="add-marquee">刪除遊戲公告</span>
+
+    ```
+    DELETE /casino-api/marquee?
+        key=<key>&
+        marqueeId=<marqueeId>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  marqueeId | 遊戲公告Id|  integer  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(marqueeId + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  marqueeId | 遊戲公告Id |  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+   ```javascript
+	 {
+	 	"status":"success",
+	 	"data":{
+	 		"marqueeId":"85"
+	 	}
+	 }   
+	```
+
+    失敗
+
+   ```javascript
+   {
+   		"status":"error",
+   		"error":{
+   			"code":47,
+   			"message":"marqueeId:100 is not found"
+   		}
+   }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    |47|marqueeId:{marqueeId} is not found|
 

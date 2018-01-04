@@ -2346,14 +2346,14 @@
 
     ```javascript
     {
-    	"status":"success",
-    	"data":{
-    		"marqueeId":88,
-    		"message":"test A,B,C,D",
-    		"location":"1,2,3,4",
-    		"startAt":"2017-12-26 16:00:00",
-    		"endAt":"2017-12-28 00:00:00"
-    	}
+        "status":"success",
+        "data":{
+            "marqueeId":88,
+            "message":"test A,B,C,D",
+            "location":"1,2,3,4",
+            "startAt":"2017-12-26 16:00:00",
+            "endAt":"2017-12-28 00:00:00"
+        }
     }
     ```
 
@@ -2361,11 +2361,11 @@
 
    ```javascript
    {
-   	"status":"error",
-   	"error":{
-   		"code":48,
-   		"message":"location:100 is invalid"
-   	}
+       "status":"error",
+       "error":{
+           "code":48,
+           "message":"location:100 is invalid"
+       }
    }
    ```
 
@@ -2378,7 +2378,7 @@
     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
+    | 11 | {parameter} is invalid   |    
     |48|location:{location} is invalid|
     |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|
 
@@ -2425,14 +2425,14 @@
 
     ```javascript
     {
-    	"status":"success",
-    	"data":{
-    		"marqueeId":"85",
-    		"message":"test A,B,C,D",
-    		"location":"1,2,3,4",
-    		"startAt":"2017-12-26 16:00:00",
-    		"endAt":"2017-12-28 00:00:00"
-    	}
+       "status":"success",
+       "data":{
+           "marqueeId":"85",
+           "message":"test A,B,C,D",
+           "location":"1,2,3,4",
+           "startAt":"2017-12-26 16:00:00",
+           "endAt":"2017-12-28 00:00:00"
+       }
     }
     ```
 
@@ -2440,11 +2440,11 @@
 
    ```javascript
    {
-   		"status":"error",
-   		"error":{
-   			"code":47,
-   			"message":"marqueeId:100 is not found"
-   		}
+       "status":"error",
+       "error":{
+           "code":47,
+           "message":"marqueeId:100 is not found"
+       }
    }
    ```
 
@@ -2457,7 +2457,7 @@
     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
+    | 11 | {parameter} is invalid   |    
     |47|marqueeId:{marqueeId} is not found|
     |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|
 
@@ -2500,27 +2500,27 @@
 
     ```javascript
 	 {
-	  "status": "success",
-	  "data": [
-	    {
-	      "marqueeId": 85,
-	      "status": 1,
-	      "message": "test A,B,C,D",
-	      "useLocation": "1,2,3,4,5",
-	      "startAt": "2017-12-26 16:00:00",
-	      "endAt": "2017-12-28 00:00:00",
-	      "updateTime": "2017-12-26 16:00:00"
-	    },
-	    {
-	      "marqueeId": 86,
-	      "status": 0,
-	      "message": "hello moto 1122",
-	      "useLocation": "1,3,99",
-	      "startAt": "2017-12-26 16:00:00",
-	      "endAt": "2017-12-27 00:00:00"
-	      "updateTime": "2017-12-26 16:00:00"
-	    }
-	  ]
+        "status": "success",
+        "data": [
+            {
+                 "marqueeId": 85,
+                 "status": 1,
+                 "message": "test A,B,C,D",
+                 "useLocation": "1,2,3,4,5",
+                 "startAt": "2017-12-26 16:00:00",
+                 "endAt": "2017-12-28 00:00:00",
+                 "updateTime": "2017-12-26 16:00:00"
+             },
+             {
+                 "marqueeId": 86,
+                 "status": 0,
+                 "message": "hello moto 1122",
+                 "useLocation": "1,3,99",
+                 "startAt": "2017-12-26 16:00:00",
+                 "endAt": "2017-12-27 00:00:00"
+                 "updateTime": "2017-12-26 16:00:00"
+             }
+        ]
 	}
    ```
 
@@ -2528,11 +2528,11 @@
 
    ```javascript
    {
-   		"status":"error",
-   		"error":{
-   			"code":47,
-   			"message":"marqueeId:100 is not found"
-   		}
+        "status":"error",
+        "error":{
+            "code":47,
+            "message":"marqueeId:100 is not found"
+        }
    }
    ```
 
@@ -2545,7 +2545,7 @@
     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
+    | 11 | {parameter} is invalid   |    
 
 7. ## <span id="add-marquee">刪除遊戲公告</span>
 
@@ -2578,22 +2578,22 @@
 
    ```javascript
 	 {
-	 	"status":"success",
-	 	"data":{
-	 		"marqueeId":"85"
-	 	}
-	 }   
+       "status":"success",
+       "data":{
+           "marqueeId":"85"
+       }
+   }   
 	```
 
     失敗
 
    ```javascript
    {
-   		"status":"error",
-   		"error":{
-   			"code":47,
-   			"message":"marqueeId:100 is not found"
-   		}
+       "status":"error",
+       "error":{
+           "code":47,
+           "message":"marqueeId:100 is not found"
+       }
    }
    ```
 
@@ -2606,6 +2606,7 @@
     | 4  | player not found         |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
+    | 11 | {parameter} is invalid   |    
     |47|marqueeId:{marqueeId} is not found|
+
 

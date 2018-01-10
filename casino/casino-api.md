@@ -97,7 +97,7 @@
 |---------- |-------------------------  |
 | 百家樂         | 1   |
 
-### <span id="TableType">遊戲類別</span>
+### <span id="TableType">退水遊戲類別</span>
 
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
@@ -2653,7 +2653,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  tableType | [遊戲類別](#遊戲類別) |  smallint  |     必填    |
+    |  tableType | [退水遊戲類別](#退水遊戲類別) |  smallint  |     必填    |
     |  refund | 退水設定值 0 ~ 150 |  integer  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
@@ -2663,7 +2663,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號|  string  |
-    |  tableType | [遊戲類別](#遊戲類別)  |  smallint  |
+    |  tableType | [退水遊戲類別](#退水遊戲類別)  |  smallint  |
     |  refund | 退水設定值 |  integer  |
 
     ---
@@ -2724,7 +2724,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  tableType | [遊戲類別](#遊戲類別) |  smallint  |     必填    |
+    |  tableType | [退水遊戲類別](#退水遊戲類別) |  smallint  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(account + tableType + secret)`**
@@ -2733,7 +2733,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號|  string  |
-    |  tableType | [遊戲類別](#遊戲類別)  |  smallint  |
+    |  tableType | [退水遊戲類別](#退水遊戲類別)  |  smallint  |
     |  refund | 退水設定值 |  integer  |
 
     ---

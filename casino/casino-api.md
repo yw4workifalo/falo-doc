@@ -34,6 +34,8 @@
 11. [查詢遊戲公告](#查詢遊戲公告)
 12. [修改遊戲公告](#修改遊戲公告)
 13. [刪除遊戲公告](#刪除遊戲公告)
+14. [修改玩家退水](#修改玩家退水)
+15. [查詢玩家退水](#查詢玩家退水)
 
 ### *登入流程*
 -------
@@ -165,6 +167,7 @@
 |47|marqueeId:{marqueeId} is not found|查無此遊戲公告|
 |48| location:{location} is invalid |播放地點代碼不存在|
 |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|公告播放時間不合法|
+| 50 | refund set value 0 ~ 150, setting refund is:{refund}|退水設定值 0 ~ 150|
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -1128,6 +1131,7 @@
     | amount | 總下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
     | validAmount | 總有效下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
     | betList | 下注注區列表，`gameType` 為 `98` or `99`，此欄位為空白 | string(json) |
+    | refund| 退水 | decimal(10,2)|
     | checkoutAmount|結帳金額，`gameType` 為 `98` or `99`相對應 Jackpot獎金 |decimal(19,4)|
     | jackpotBonus|`gameType` 為 `98` or `99` 相對應 Jackpot獎金|decimal(19,4)|
     | percent | 佔成 | decimal(19,2) |
@@ -1196,6 +1200,7 @@
                 "amount":1000,
                 "validAmount":1000,
                 "betList":[{"spotId":18,"spotName":"BankerJQKA","betAmount":1000,"loseWinAmount":14000,"odds":14}],
+                "refund": 70,
                 "checkoutAmount":"14000.0000",
                 "jackpotBonus":0,
                 "percent":0.87,
@@ -1219,6 +1224,7 @@
 	        "amount": 0,
 	        "validAmount": 0,
 	        "betList": "",
+	        "refund": 0,
 	        "checkoutAmount": 0,
 	        "jackpotBonus": 1200,
 	        "percent": 0.88,
@@ -1242,6 +1248,7 @@
 	        "amount": 0,
 	        "validAmount": 0,
 	        "betList": "",
+	        "refund": 0,
 	        "checkoutAmount": 0,
 	        "jackpotBonus": 771520,
 	        "percent": 0.88,
@@ -2162,7 +2169,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  string  |     必填    |
-    |  stakeLimitValue | 設定玩家幣別能使用的範本Id，多筆請用`,` 號 |  string  |     必填    |
+    |  stakeLimitValue | 設定玩家幣別能使用的範本Id，多筆請用`,` 號 | string | 必填  |
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(account + tableType + stakeLimitValue + secret)`**
@@ -2197,8 +2204,7 @@
         "status":"error",
         "error":{
             "code":36,
-            "message":
-            "player stake limit setting value [133] is invalid"
+            "message":"player stake limit setting value [133] is invalid"
         }
     }
    ```
@@ -2216,7 +2222,6 @@
     | 34 | tableType:{tableType} not found|
     | 36 | player stake limit setting value [{invalid stakeLimitValue}] is invalid|
     |40|{param} must be a unsigned integer, and only numeric characters | 
-    | 45 | setting limitId:{limitId} level is {level}, platform limit level can set {level} level|
 
 3. ## <span id="app-api">手機API串接</span>
 
@@ -2626,4 +2631,143 @@
     | 11 | {parameter} is invalid   |    
     |47|marqueeId:{marqueeId} is not found|
 
+3. ## <span id="set-refund">修改玩家退水</span>
+
+    ```
+    PUT /casino-api/player/refund?
+        key=<key>&
+        account=<account>&
+        tableType=<tableType>&
+        refund=<refund>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  smallint  |     必填    |
+    |  refund | 退水設定值 0 ~ 150 |  integer  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + tableType + refund + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別)  |  smallint  |
+    |  refund | 退水設定值 |  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"test001",
+            "tableType":1,
+            "refund":120
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":34,
+            "message":"tableType:2 not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 22 | {param} must be a unsigned integer  |
+    | 34 | tableType:{tableType} not found|
+    |40 |{param} must be a unsigned integer, and only numeric characters |
+    | 50 | refund set value 0 ~ 150, setting refund is:{refund}|
+
+3. ## <span id="get-refund">查詢玩家退水</span>
+
+    ```
+    GET /casino-api/player/refund?
+        key=<key>&
+        account=<account>&
+        tableType=<tableType>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別) |  smallint  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + tableType + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  tableType | [注區範本遊戲類別](#注區範本遊戲類別)  |  smallint  |
+    |  refund | 退水設定值 |  integer  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"test001",
+            "tableType":1,
+            "refund":120
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":34,
+            "message":"tableType:2 not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 22 | {param} must be a unsigned integer  |
+    | 34 | tableType:{tableType} not found|
 

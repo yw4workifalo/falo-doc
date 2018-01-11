@@ -1137,7 +1137,8 @@
     | amount | 總下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
     | validAmount | 總有效下注額度，`gameType` 為 `98` or `99`，此欄位 0 | integer |
     | betList | 下注注區列表，`gameType` 為 `98` or `99`，此欄位為空白 | string(json) |
-    | refund| 退水 | decimal(10,2)|
+    | refund| 退水設定值 0 ~ 150 | integer|
+    | refundFee| 退水費用 | decimal(10,2)|
     | checkoutAmount|結帳金額，`gameType` 為 `98` or `99`相對應 Jackpot獎金 |decimal(19,4)|
     | jackpotBonus|`gameType` 為 `98` or `99` 相對應 Jackpot獎金|decimal(19,4)|
     | percent | 佔成 | decimal(19,2) |
@@ -1206,7 +1207,8 @@
                 "amount":1000,
                 "validAmount":1000,
                 "betList":[{"spotId":18,"spotName":"BankerJQKA","betAmount":1000,"loseWinAmount":14000,"odds":14}],
-                "refund": 70,
+                "refund": 35,
+                "refundFee": 49,
                 "checkoutAmount":"14000.0000",
                 "jackpotBonus":0,
                 "percent":0.87,
@@ -1231,6 +1233,7 @@
 	        "validAmount": 0,
 	        "betList": "",
 	        "refund": 0,
+	        "refundFee": 0,
 	        "checkoutAmount": 0,
 	        "jackpotBonus": 1200,
 	        "percent": 0.88,
@@ -1255,6 +1258,7 @@
 	        "validAmount": 0,
 	        "betList": "",
 	        "refund": 0,
+	        "refundFee": 0,
 	        "checkoutAmount": 0,
 	        "jackpotBonus": 771520,
 	        "percent": 0.88,

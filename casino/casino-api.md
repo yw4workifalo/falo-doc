@@ -1,6 +1,6 @@
 # Casino API Document
   
-### API數量：**15**
+### API數量：**33**
 -------
 1. [註冊帳號](#註冊帳號)
 1. [取得玩家登入網址](#取得玩家登入網址)
@@ -30,6 +30,7 @@
 8. [手機API串接](#手機API串接)
 9. [手機API串接-CN](#手機API串接-CN)
 9. [修改玩家佔成](#修改玩家佔成)
+10. [查詢玩家佔成](#查詢玩家佔成)
 10. [新增遊戲公告](#新增遊戲公告)
 11. [查詢遊戲公告](#查詢遊戲公告)
 12. [修改遊戲公告](#修改遊戲公告)
@@ -2336,6 +2337,69 @@
     |30|{params} must be a unsigned decimal|
     |41|{param} must between 1 and 0|
     |42|{param} must be a unsigned decimal, and only numeric characters |
+
+7. ## <span id="get-player-percent">查詢玩家佔成</span>
+
+    ```
+    GET /casino-api/player/profit-percent?
+        key=<key>&
+        account=<account>&
+        hash=<hash>
+    ```
+
+    ### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + secret)`**
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    |  percent   | 佔成比例 |  decimal(19,2)  |
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "percent":0.85
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":4,
+            "message":"player not found"
+        }
+    }
+   ```
+
+    #### 會出現的錯誤項目
+   | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found         |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
 
 7. ## <span id="add-marquee">新增遊戲公告</span>
 

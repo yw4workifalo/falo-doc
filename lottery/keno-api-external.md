@@ -22,7 +22,7 @@
 21. [查詢玩家注區範本](#查詢玩家注區範本)
 22. [修改退水值](#修改退水值)
 23. [查詢退水值](#查詢退水值)
-24. [手機串接API](#手機串接API)
+24. [手機串接](#手機串接)
 
 ------
 1. ## <span>註冊玩家帳號</span>
@@ -1262,7 +1262,7 @@
       }
       ```
 
-19. ### 查詢平台注區範本
+19. ## <span>查詢平台注區範本</span>
     **API Name : stake-limit-list**</br>  
     **Method : GET**
     ### 輸入參數
@@ -1322,7 +1322,7 @@
       }
       ```
 
-20. ### 設定玩家注區範本
+20. ## <span>設定玩家注區範本</span>
     **API Name : stake-limit**</br>
     **Method : PUT**
     ### 輸入參數
@@ -1389,7 +1389,7 @@
       }
       ```
 
-21. ### 查詢玩家注區範本
+21. ## <span>查詢玩家注區範本</span>
     **API Name : stake-limit**</br>
     **Method : GET**
     ### 輸入參數
@@ -1451,13 +1451,14 @@
       }
       ```
 
-22. ### 修改退水值
+22. ## <span>修改退水值</span>
     **API Name : refund**</br>
     **Method : PUT**
     ## 輸入參數
     | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
     | -- | ---- | ----------- | ----------- | -- |
     | account | 會員帳號 | string | Y |
+    | lotteryType | [彩種編號](#彩種編號) | string | Y | |
     | refund | 退水值 | string | Y | 0 ~ 150 |
     | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
     | hash | 驗證參數 | string | Y | md5 |
@@ -1468,6 +1469,7 @@
     | 參數名稱 | 參數說明 | 參數型態 | 說明 |
     | -- | ---- | ----------- | -- |
     | account | 會員帳號 | string |
+    | lotteryType | [彩種編號](#彩種編號) | string | |
     | refund | 退水值 | string | 0 ~ 150 |
     | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1488,6 +1490,7 @@
         PUT /keno-api/player/refund?
             account=ifalo&
             refund=15
+            lotteryType=20001
             key=3de5b29aac97c072f5824dc99c5637d6&
             hash=26f6b1074e1c9e80e9b613bf79a923a6
       ```
@@ -1498,6 +1501,7 @@
           "status":"success",
           "data":{
               "account":"ifalo",
+              "lotteryType":"lotteryType",
               "refund":"15"
           },
           "uuquid":"01212c3b9e1eac371776a8e932289906"
@@ -1514,14 +1518,14 @@
           "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
       }
       ```
-23. ### 查詢退水值
-    **API Name : refund**
+23. ## <span>查詢退水值</span>
+    **API Name : refund**</br>
     **Method : PUT**
     ### 輸入參數
     | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
     | -- | ---- | ----------- | ----------- | -- |
     | account | 會員帳號 | string | Y |
-    | refund | 退水值 | string | Y | 0 ~ 150 |
+    | lotteryType | [彩種編號](#彩種編號) | string | Y | |
     | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
     | hash | 驗證參數 | string | Y | md5 |
 
@@ -1531,6 +1535,7 @@
     | 參數名稱 | 參數說明 | 參數型態 | 說明 |
     | -- | ---- | ----------- | -- |
     | account | 會員帳號 | string |
+    | lotteryType | [彩種編號](#彩種編號) | string | |
     | refund | 退水值 | string | 0 ~ 150 |
     | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1550,7 +1555,7 @@
       ```
         PUT /keno-api/player/refund?
             account=ifalo&
-            refund=15
+            lotteryType=20001
             key=3de5b29aac97c072f5824dc99c5637d6&
             hash=26f6b1074e1c9e80e9b613bf79a923a6
       ```
@@ -1561,6 +1566,7 @@
           "status":"success",
           "data":{
              "account":"ifalo",
+             "lotteryType":"20001",
              "refund":"15"
           },
           "uuquid":"01212c3b9e1eac371776a8e932289906"
@@ -1578,7 +1584,7 @@
       }
       ```
 
-24. ### 手機串接API
+24. ## <span>手機串接</span>
     **API Name :**</br>
     **Method :**
     ### 輸入參數
@@ -1603,3 +1609,14 @@
 | C | 10 |
 | D | 50 |
 | E | 100 |
+
+### <span>彩種編號</span>
+| 彩種編號 | 彩種名稱 |
+| -- | ---- |
+| 10003 | 天津時時彩 |
+| 10004 | 新疆時時彩 |
+| 10011 | 重慶時時彩 |
+| 10016 | 北京PK10 |
+| 20000 | 今彩539 |
+| 20001 | 賓果賓果 |
+| 20002 | 北京快樂8 |

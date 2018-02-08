@@ -8,8 +8,8 @@
 ● [額度轉出入](#額度轉出入)<br>
 ● [額度轉出入狀態](#額度轉出入狀態)<br>
 ● [玩家踢線](#玩家踢線)<br>
-● [設定會員限輸](#設定會員限輸)<br>
-● [設定會員限贏](#設定會員限贏)<br>
+● [設定玩家限輸](#設定玩家限輸)<br>
+● [設定玩家限贏](#設定玩家限贏)<br>
 ● [玩家限注回復](#玩家限注回復)<br>
 ● [玩家限注查詢](#玩家限注查詢)<br>
 ● [玩家信用額度回復](#玩家信用額度回復)<br>
@@ -37,8 +37,8 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    |----|----|----|----|----|
-   |  account | 會員帳號 | string | Y | 長度最短4，最長20 |
-   |  nickname | 會員暱稱 | string | Y | 長度最短4，最長20 |
+   |  account | 帳號 | string | Y | 長度最短4，最長20 |
+   |  nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
    |  currency | 貨幣 | string | N | [玩家貨幣類型](#支援貨幣)，不指定以代理商為準 |
    | maxbetlimit | 單次最大下注額 | string | Y |
    |  limitwin | 限贏 | string | Y | 0表示無限制 |
@@ -51,8 +51,8 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
-   | account | 會員帳號  | string  |
-   | nickname | 會員暱稱 | string |
+   | account | 玩家帳號  | string  |
+   | nickname | 玩家暱稱 | string |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -113,7 +113,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | 長度最短4，最長20 |
+   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
    #### **`  hash = md5(account+privateKey) `**
@@ -121,7 +121,7 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | --| ---- | ----------- | -- |
-   | account | 會員帳號 | string |
+   | account | 玩家帳號 | string |
    | login | 登入網址 | string |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -177,8 +177,8 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | 長度最短4，最長20 |
-   | nickname | 會員暱稱 | string | Y | 長度最短4，最長20 |
+   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
+   | nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -187,8 +187,8 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string |
-   | nickname | 會員暱稱 | |
+   | account | 玩家帳號 | string |
+   | nickname | 玩家暱稱 | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
 
@@ -203,7 +203,7 @@
    | 7 | internal server error  | 服務器內部錯誤 |
    | 15 | data format error  | 資料格式有誤 |
    | 31 | account_not_exist | 帳號不存在 |
-   | 32 | prohibited_to_modify_their_own_members | 禁止修改非自己的會員 |
+   | 32 | prohibited_to_modify_their_own_members | 禁止修改非自己的玩家 |
 
   ###範例
   + 調用方法
@@ -244,7 +244,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | 長度最短4，最長20 |
+   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -253,9 +253,9 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string |
-   | nickname | 會員暱稱 | string |
-   | credit | 會員餘額 | float | 格式: 0.0000 |
+   | account | 玩家帳號 | string |
+   | nickname | 玩家暱稱 | string |
+   | credit | 玩家餘額 | float | 格式: 0.0000 |
    | enable | 是否啟用 | int | 凍結狀態(0:正常，1:鎖單無法下注，2:封鎖無法登入) |
    | limitWin | 限贏 | float | 0表示無限制 |
    | limitLose | 限輸 | float | 0表示無限制 |
@@ -318,7 +318,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y |
+   | account | 玩家帳號 | string | Y |
    | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | now | 第?頁 | string | N | 空值代表第1頁 |
@@ -334,8 +334,8 @@
    | totalPage | 總頁數 | string |
    | historyList | 歷史紀錄 | array |
    | historyList \ orderID | 下注單號 | string |
-   | historyList \ memberUID | 會員編號 | string |
-   | historyList \ memberAccount | 會員帳號 | string |
+   | historyList \ memberUID | 玩家編號 | string |
+   | historyList \ memberAccount | 玩家帳號 | string |
    | historyList \ agentUID | 代理商編號 | string |
    | historyList \ agentName | 代理商名稱 | string |
    | historyList \ lotteryName | 彩票名稱 | string |
@@ -431,7 +431,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y |
+   | account | 玩家帳號 | string | Y |
    | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | now | 第x頁 | string | Y | 空值代表第1頁 |
@@ -443,7 +443,7 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | memberAccount | 會員帳號 | string |
+   | memberAccount | 玩家帳號 | string |
    | agentUID | 代理商編號 | string |
    | agentName | 代理商名稱 | string |
    | type | 分類項目 | array |
@@ -513,7 +513,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | --| ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y |
+   | account | 玩家帳號 | string | Y |
    | credit | 轉出入額度 | string | Y | 格式: ±0.0000<br>正數為轉入，負數為轉出 |
    | orderNo | 平台交易編號 | string | Y | 介接平台產生，核對帳務 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
@@ -597,7 +597,7 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明
    | --| ---- | ----------- | -- |
-   | account | 會員帳號 | string |
+   | account | 玩家帳號 | string |
    | orginalCredit | 交易前額度 | string |
    | finalCredit | 交易後額度 | string |
    | addedCredit | 新增額度 | string |
@@ -664,7 +664,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | 多個玩家用","隔開 |
+   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -673,8 +673,8 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string |
-   | status | 處理狀況 | string | 0:成功，1:玩家不在線，2:非該代理會員 |
+   | account | 玩家帳號 | string |
+   | status | 處理狀況 | string | 0:成功，1:玩家不在線，2:非該代理玩家 |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -728,13 +728,13 @@
      ```
 ------
 
-## <span>設定會員限輸</span>
+## <span>設定玩家限輸</span>
    **API Name : loseLimit**</br>
    **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | |
+   | account | 玩家帳號 | string | Y | |
    | limit | 限輸額度 | string | Y | 整數格式，0表示無限制 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
@@ -744,7 +744,7 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string |
+   | account | 玩家帳號 | string |
    | limit | 限輸額度 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -794,13 +794,13 @@
      ```
 ------
 
-## <span>設定會員限贏</span>
+## <span>設定玩家限贏</span>
    **API Name : winLimit**</br>
    **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 會員帳號 | string | Y | |
+   | account | 玩家帳號 | string | Y | |
    | limit | 限贏額度 | string | Y | 整數格式，0表示無限制 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
@@ -810,7 +810,7 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string |
+   | account | 玩家帳號 | string |
    | limit | 限贏額度 | string |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -867,7 +867,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 代理帳號 | string | Y | 多個代理用","隔開 |
+   | account | 玩家帳號 | string | Y | 多個代理用","隔開 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -876,8 +876,8 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | account | 會員帳號 | string | 多個代理用","隔開 |
-   | status | 會員帳號 | string | 回復狀態，1：成功、0：失敗 |
+   | account | 玩家帳號 | string | 多個代理用","隔開 |
+   | status | 玩家帳號 | string | 回復狀態，1：成功、0：失敗 |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -937,7 +937,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 多個會員用","隔開 |
+   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -1013,7 +1013,7 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 代理帳號 | string | Y | 多個會員用","隔開 |
+  | account | 代理帳號 | string | Y | 多個玩家用","隔開 |
   | callback | 執行完後通知平台 url	| string |  |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
@@ -1023,7 +1023,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string |
+  | account | 玩家帳號 | string |
   | status | 回復狀態 | string | 回復狀態，1：成功、0：失敗 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1094,7 +1094,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string | |
+  | account | 玩家帳號 | string | |
   | creditLimit | 最高額度 | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1152,7 +1152,7 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 代理帳號 | string | Y | 多個會員用","隔開 |
+  | account | 代理帳號 | string | Y | 多個玩家用","隔開 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生)
   | hash | 驗證參數 | string | Y | md5
 
@@ -1161,7 +1161,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string | |
+  | account | 玩家帳號 | string | |
   | creditLimit | 最高額度 | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1424,7 +1424,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string | |
+  | account | 玩家帳號 | string | |
   | mode | 模式 | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1481,7 +1481,7 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | --| ---- | ----------- | ----------- | -- |
-  | account | 代理帳號 | string | Y | 多個會員用","隔開 |
+  | account | 代理帳號 | string | Y | 多個玩家用","隔開 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1490,8 +1490,8 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string | 多個會員用","隔開
-  | mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，多個會員用","隔開 |
+  | account | 玩家帳號 | string | 多個玩家用","隔開
+  | mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，多個玩家用","隔開 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1551,8 +1551,8 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 會員帳號 | string | Y |
-  | percent | 會員佔成 | string | Y | 0.00 ~ 1.00
+  | account | 玩家帳號 | string | Y |
+  | percent | 玩家佔成 | string | Y | 0.00 ~ 1.00 (1.00代表100%) |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1561,8 +1561,8 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string |
-  | percent | 會員佔成 | string | 以小數表示 |
+  | account | 玩家帳號 | string |
+  | percent | 玩家佔成 | string | 以小數表示 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1690,7 +1690,7 @@
 ------
 
 ## <span>設定平台注區範本</span>
-  **API Name : stake-limit-list**</br>
+  **API Name : **</br>
   **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1699,7 +1699,7 @@
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(account+exampleType+maxbetlimit+privateKey)`**
+  #### **`hash = md5(exampleType+privateKey)`**
 
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
@@ -1816,8 +1816,8 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 會員帳號 | string | Y | |
-  | exampleType | [注區範本](#注區範本) | string | Y | 多個會員用","隔開
+  | account | 玩家帳號 | string | Y | |
+  | exampleType | [注區範本](#注區範本) | string | Y | 多個玩家用","隔開
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1826,7 +1826,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string | |
+  | account | 玩家帳號 | string | |
   | exampleType | 範本類別 | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1882,7 +1882,7 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 會員帳號 | string | Y | 多個會員用","隔開 |
+  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1951,7 +1951,7 @@
   ## 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 會員帳號 | string | Y | |
+  | account | 玩家帳號 | string | Y | |
   | lotteryType | [彩種編號](#彩種編號) | string | Y | |
   | refund | 退水值 | string | Y | 0 ~ 150 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
@@ -1962,7 +1962,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string |
+  | account | 玩家帳號 | string |
   | lotteryType | [彩種編號](#彩種編號) | string | |
   | refund | 退水值 | string | 0 ~ 150 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
@@ -2020,7 +2020,7 @@
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 會員帳號 | string | Y | |
+  | account | 玩家帳號 | string | Y | |
   | lotteryType | [彩種編號](#彩種編號) | string | Y | |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
@@ -2030,7 +2030,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | account | 會員帳號 | string |
+  | account | 玩家帳號 | string |
   | lotteryType | [彩種編號](#彩種編號) | string | |
   | refund | 退水值 | string | 0 ~ 150 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |

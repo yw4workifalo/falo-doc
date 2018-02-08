@@ -1763,15 +1763,11 @@
     ```
     台灣版
     tw-pharao-keno-game://launch-game?
-    loginURL=https://keno.com/keno-game/player/login?
-         account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&
-    platormURL=http://pha888.com.tw
+         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platormURL=http://pha888.com.tw
 
     大陸版
     cn-pharao-keno-game://launch-game?
-    loginURL=https://keno.com/keno-game/player/login?
-         account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&
-    platormURL=http://pha888.com.tw
+         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platormURL=http://pha888.com.tw
     ```
 
 ## <span>附表</span>

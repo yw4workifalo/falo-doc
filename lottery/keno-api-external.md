@@ -379,8 +379,9 @@
          "status":"success",
          "data":{
            "count":1,
-           "historyList":[["3993747581","996291332","ifalo001",728299597,"ifalo","重慶時時彩","20170904045","五星玩法","五星複式","0,1,2,3,4",1,180000,1,2,0,"192.168.111.77",1,0]]
-           },
+           "historyList":[
+           {"orderID":"1408203561","memberUID":"124113565","memberAccount":"ifalo006","agentUID":728299597,"agentName":"ifalo","lotteryName":"天津時時彩","drawingNo":"20180206056","groupName":"五星玩法","gameName":"五星單式","betData":"1,5,9,8,7","betNumber":1,"odd":"1.99","multiple":100,"betAmount":200,"winBonus":0,"ip":"210.71.170.48","betStatus":"已結算","currency":"台幣","balance":"9092680.08"},
+           {"orderID":"1516930382","memberUID":"124113565","memberAccount":"ifalo006","agentUID":728299597,"agentName":"ifalo","lotteryName":"天津時時彩","drawingNo":"20180206066","groupName":"五星玩法","gameName":"五星複式","betData":"0123456789,0123456789,0123456789,0123456789,0123456789","betNumber":100000,"odd":"1.99","multiple":1,"betAmount":200000,"winBonus":"3.97","ip":"210.71.170.48","betStatus":"已結算","currency":"台幣","balance":"7092719.80"},
            "uuquid":"01212c3b9e1eac371776a8e932289906"
      }
      ```

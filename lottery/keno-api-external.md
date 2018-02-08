@@ -374,7 +374,8 @@
           hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
    + 成功
-     ```javascript
+
+
      {
          "status":"success",
          "data":{
@@ -1131,7 +1132,6 @@
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
   | account | 代理帳號 | string | Y | 多個會員用","隔開 |
-  | creditLimit | 最高額度 | string | Y | 多個會員用","隔開 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生)
   | hash | 驗證參數 | string | Y | md5
 
@@ -1160,7 +1160,6 @@
     ```
     GET /keno-api/player/creditLimit?
         account=ifalo001,ifalo002&
-        creditLimit=100000,200000&
         key=3de5b29aac97c072f5822dc99c5633d6&
         hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```

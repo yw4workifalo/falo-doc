@@ -10,15 +10,20 @@
 ● [玩家踢線](#玩家踢線)<br>
 ● [設定會員限輸](#設定會員限輸)<br>
 ● [設定會員限贏](#設定會員限贏)<br>
-● [玩家信用限注回復](#玩家信用限注回復)<br>
-● [玩家信用限注查詢](#玩家信用限注查詢)<br>
+● [玩家限注回復](#玩家限注回復)<br>
+● [玩家限注查詢](#玩家限注查詢)<br>
 ● [玩家信用額度回復](#玩家信用額度回復)<br>
 ● [玩家信用額度設定](#玩家信用額度設定)<br>
 ● [玩家信用額度查詢](#玩家信用額度查詢)<br>
+● [群組信用額度回復](#群組信用額度回復)<br>
+● [群組信用額度設定](#群組信用額度設定)<br>
+● [群組信用額度查詢](#群組信用額度查詢)<br>
 ● [設定玩家帳號模式](#設定玩家帳號模式)<br>
 ● [查詢玩家帳號模式](#查詢玩家帳號模式)<br>
 ● [設定玩家佔成](#設定玩家佔成)<br>
 ● [查詢注區範本](#查詢注區範本)<br>
+● [設定平台注區範本](#設定平台注區範本)<br>
+● [查詢平台注區範本](#查詢平台注區範本)<br>
 ● [設定玩家注區範本](#設定玩家注區範本)<br>
 ● [查詢玩家注區範本](#查詢玩家注區範本)<br>
 ● [修改退水值](#修改退水值)<br>
@@ -316,7 +321,7 @@
    | account | 會員帳號 | string | Y |
    | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
-   | now | 第x頁 | string | Y | 空值代表第1頁 |
+   | now | 第?頁 | string | N | 空值代表第1頁 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -374,20 +379,40 @@
           hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
    + 成功
-
-
+     ```javascript
      {
          "status":"success",
          "data":{
-           "count":1,
+           "count":"1",
            "historyList":[
-           {"orderID":"1408203561","memberUID":"124113565","memberAccount":"ifalo006","agentUID":728299597,"agentName":"ifalo","lotteryName":"天津時時彩","drawingNo":"20180206056","groupName":"五星玩法","gameName":"五星單式","betData":"1,5,9,8,7","betNumber":1,"odd":"1.99","multiple":100,"betAmount":200,"winBonus":0,"ip":"210.71.170.48","betStatus":"已結算","currency":"台幣","balance":"9092680.08"},
-           {"orderID":"1516930382","memberUID":"124113565","memberAccount":"ifalo006","agentUID":728299597,"agentName":"ifalo","lotteryName":"天津時時彩","drawingNo":"20180206066","groupName":"五星玩法","gameName":"五星複式","betData":"0123456789,0123456789,0123456789,0123456789,0123456789","betNumber":100000,"odd":"1.99","multiple":1,"betAmount":200000,"winBonus":"3.97","ip":"210.71.170.48","betStatus":"已結算","currency":"台幣","balance":"7092719.80"},
+               {
+                 "orderID":"1408203561",
+                 "memberUID":"124113565",
+                 "memberAccount":"ifalo006",
+                 "agentUID":"728299597",
+                 "agentName":"ifalo",
+                 "lotteryName":"天津時時彩",
+                 "drawingNo":"20180206056",
+                 "groupName":"五星玩法",
+                 "gameName":"五星單式",
+                 "betData":"1,5,9,8,7",
+                 "betNumber":"1",
+                 "odd":"1.99",
+                 "multiple":"100",
+                 "betAmount":"200",
+                 "winBonus":"0",
+                 "ip":"210.71.170.48",
+                 "betStatus":"已結算",
+                 "currency":"台幣",
+                 "balance":"9092680.08"
+               }
+           ],
            "uuquid":"01212c3b9e1eac371776a8e932289906"
+         }
      }
      ```
 
-   + 失敗
+  + 失敗
      ```javascript
      {
          "status":"error",
@@ -499,22 +524,14 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明
    | -- | ---- | ----------- | -- |
-   | transactionNo | 交易編號 | string |
-   | time | 交易時間 | string |
-   | orginalCredit | 交易前額度 | string |
-   | transferCredit | 交易額度 | string |
-   | finalCredit | 交易後額度 | string |
-   | currency | 貨幣 | string |
-   | status | 交易狀態 | string |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
-
-   ### 交易錯誤碼
-   | 錯誤碼 | 錯誤訊息 |
-   | -- | ---- |
-   | 0 | 成功 |
-   | 1 | 交易失敗，餘額不足 |
-   | 2 | 交易失敗，帳戶凍結 |
-   | 3 | 服務器內部異常 |
+   | transactionNo | 交易編號 | string | |
+   | time | 交易時間 | string | |
+   | orginalCredit | 交易前額度 | string | |
+   | transferCredit | 交易額度 | string | |
+   | finalCredit | 交易後額度 | string | |
+   | currency | 貨幣 | string | |
+   | status | [交易狀態](#交易狀態) | string | |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 | |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -586,7 +603,7 @@
    | addedCredit | 新增額度 | string |
    | transactionNo | 遊戲交易編號 | 遊戲平台產生 |
    | orderNo | 平台交易編號 | 介接平台產生 |
-   | status | 交易狀態 | string |
+   | status | [交易狀態](#交易狀態) | string |
    | time | 交易時間 | string
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -648,7 +665,6 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
    | account | 會員帳號 | string | Y | 多個玩家用","隔開 |
-   | reason | 踢線原因 | string | N |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -685,14 +701,16 @@
      ```javascript
      {
           "status":"success",
-          "data":[{
-             "account":"ifalo001",
-             "status":"0"
-          },
-          {
-             "account":"ifalo002",
-             "status":"-1"
-          }],
+          "data":[
+            {
+              "account":"ifalo001",
+              "status":"0"
+            },
+            {
+              "account":"ifalo002",
+              "status":"-1"
+            }
+          ],
           "uuquid":"01212c3b9e1eac371776a8e932289906"
      }
      ```
@@ -717,7 +735,7 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
    | account | 會員帳號 | string | Y | |
-   | limit | 限輸額度 | string | Y | 0表示無限制 |
+   | limit | 限輸額度 | string | Y | 整數格式，0表示無限制 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -783,7 +801,7 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
    | account | 會員帳號 | string | Y | |
-   | limit | 限贏額度 | string | Y | 0表示無限制 |
+   | limit | 限贏額度 | string | Y | 整數格式，0表示無限制 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -843,7 +861,7 @@
      ```
 ------
 
-## <span>玩家信用限注回復</span>
+## <span>玩家限注回復</span>
    **API Name : limitReturn**</br>
    **Method : POST**
    ### 輸入參數
@@ -913,7 +931,7 @@
      ```
 ------
 
-## <span>玩家信用限注查詢</span>
+## <span>玩家限注查詢</span>
    **API Name : limitQuery**</br>
    **Method : GET**
    ### 輸入參數
@@ -990,15 +1008,17 @@
 
 ## <span>玩家信用額度回復</span>
   **API Name : balanceReturn**</br>
-  **Method : POST**
+  **Method : POST**</br>
+  + 限信用平台使用
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
   | account | 代理帳號 | string | Y | 多個會員用","隔開 |
+  | callback | 執行完後通知平台 url	| string |  |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(account+privateKey)`**
+  #### **`hash = md5(account+callback+privateKey)`**
 
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
@@ -1023,6 +1043,7 @@
     ```
     POST /keno-api/player/balanceReturn?
          account=ifalo001,ifalo002&
+         callback=http://www.platform.com/api
          key=3de5b29aac97c272f5822dc99c5637d6&
          hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```
@@ -1057,7 +1078,7 @@
     ```
 ------
 
-## 玩家信用額度設定
+## <span>玩家信用額度設定</span>
   **API Name : creditLimit**</br>
   **Method : POST**
   ### 輸入參數
@@ -1125,7 +1146,7 @@
     ```
 ------
 
-## 玩家信用額度查詢
+## <span>玩家信用額度查詢</span>
   **API Name : creditLimit**</br>
   **Method : GET**
   ### 輸入參數
@@ -1195,7 +1216,199 @@
     ```
 ------
 
-## 設定玩家帳號模式
+## <span>群組信用額度回復</span>
+  **API Name : groupBalanceReturn**</br>
+  **Method : POST**</br>
+  + 限信用平台使用
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | groudId | 群組類型 | string | Y | 1:日回復、2:周回復 |
+  | callback | 執行完後通知平台 url	| string |  |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(groudId+callback+privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | groudId | 群組類型 | string |  |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+    POST /keno-api/player/groupBalanceReturn?
+         groudId=1&
+         callback=http://www.platform.com/api
+         key=3de5b29aac97c272f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":{"groudId":"1"},
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+            "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+------
+
+## <span>群組信用額度設定</span>
+  **API Name : groupBalanceReturn**</br>
+  **Method : PUT**</br>
+  + 限信用平台使用
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | account | 玩家帳號	| string |  |
+  | groudId | 群組類型 | string | Y | 1:日回復、2:周回復 |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(account+groudId+privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | account | 玩家帳號 | string |  |
+  | groudId | 群組類型 | string |  |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+    PUT /keno-api/player/groupBalanceReturn?
+         account=ifalo001&
+         groudId=1&
+         key=3de5b29aac97c272f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+          "account":"ifalo001"
+          "groudId":"1"
+        },
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+            "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+------
+
+## <span>群組信用額度查詢</span>
+  **API Name : groupBalanceReturn**</br>
+  **Method : GET**</br>
+  + 限信用平台使用
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | account | 玩家帳號	| string |  |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(account+privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | account | 玩家帳號 | string |  |
+  | groudId | 群組類型 | string |  |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+    GET /keno-api/player/groupBalanceReturn?
+         account=ifalo001&
+         key=3de5b29aac97c272f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+          "account":"ifalo001"
+          "groudId":"1"
+        },
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+            "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+------
+
+## <span>設定玩家帳號模式</span>
   **API Name : modifyb**</br>
   **Method : POST**
   ### 輸入參數
@@ -1262,7 +1475,7 @@
     ```
 ------
 
-## 查詢玩家帳號模式
+## <span>查詢玩家帳號模式</span>
   **API Name : block**</br>
   **Method : POST**
   ### 輸入參數
@@ -1332,7 +1545,7 @@
     ```
 ------
 
-## 設定玩家佔成
+## <span>設定玩家佔成</span>
   **API Name : profit-percent**</br>
   **Method : POST**
   ### 輸入參數
@@ -1411,7 +1624,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | exampleType | 範本類別 | string |
+  | exampleType | [注區範本](#注區範本) | string |
   | defaultBet | 底注 | string | 此為額度，幣值區分"元"、"角"、"分"
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -1476,6 +1689,127 @@
     ```
 ------
 
+## <span>設定平台注區範本</span>
+  **API Name : stake-limit-list**</br>
+  **Method : PUT**
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | exampleType | 範本類別 | string | Y | [注區範本](#注區範本) |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(account+exampleType+maxbetlimit+privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | exampleType | 範本類別 | string |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+      PUT /keno-api/player/stake-limit-list?
+          exampleType=A
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "exampleType":"A"
+        },
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+            "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+------
+
+## <span>查詢平台注區範本</span>
+  **API Name : stake-limit-list**</br>  
+  **Method : GET**
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **` hash = md5(privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | exampleType | [注區範本](#注區範本) | string |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在
+  | 7 | internal server error  | 服務器內部錯誤
+  | 15 | data format error  | 資料格式有誤
+
+  ### 範例
+  + 調用方法
+    ```
+      GET /keno-api/player/stake-limit-list?
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "exampleType":"A",
+        },
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+
+  + 失敗
+    ```javascript
+    {
+       "status":"error",
+       "error": {
+         "code":7,
+         "message":"internal server error"
+       },
+      "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+------
+
 ## <span>設定玩家注區範本</span>
   **API Name : stake-limit**</br>
   **Method : PUT**
@@ -1483,7 +1817,7 @@
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
   | account | 會員帳號 | string | Y | |
-  | exampleType | 範本類別 | string | Y | [注區範本](#注區範本)，多個會員用","隔開
+  | exampleType | [注區範本](#注區範本) | string | Y | 多個會員用","隔開
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1543,7 +1877,7 @@
 ------
 
 ## <span>查詢玩家注區範本</span>
-  **API Name : stake-limit**</br>
+  **API Name : stake-limit-player**</br>
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1557,7 +1891,7 @@
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
-  | defaultBet | 底注 | string | |
+  | exampleType | [注區範本](#注區範本) | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1797,3 +2131,11 @@
 | 20000 | 今彩539 |
 | 20001 | 賓果賓果 |
 | 20002 | 北京快樂8 |
+
+### <span>交易狀態</span>
+| 錯誤碼 | 錯誤訊息 |
+| -- | ---- |
+| 0 | 成功 |
+| 1 | 交易失敗，餘額不足 |
+| 2 | 交易失敗，帳戶凍結 |
+| 3 | 服務器內部異常 |

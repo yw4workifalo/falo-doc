@@ -43,6 +43,7 @@
    | maxbetlimit | 單次最大下注額 | string | Y |
    |  limitwin | 限贏 | string | Y | 0表示無限制 |
    |  limitlose | 限輸 | string | Y | 0表示無限制 |
+   |  memberType | 帳務類型 | string | Y | 1:現金制、2:信用制 |
    |  key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    |  hash | 驗證參數 | string | Y | md5 |
 

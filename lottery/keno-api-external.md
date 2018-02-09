@@ -47,7 +47,7 @@
    |  key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    |  hash | 驗證參數 | string | Y | md5 |
 
-   #### **` hash = md5(account+nickname+maxbetlimit+limitwin+limitlose+privateKey)`**
+   #### **` hash = md5(account+nickname+maxbetlimit+limitwin+limitlose+memberType+privateKey)`**
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |

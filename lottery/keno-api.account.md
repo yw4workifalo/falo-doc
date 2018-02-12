@@ -396,7 +396,7 @@
    |----|----|----|----|----|
    | publicKey | 平台公鑰 | string | Y |  |
    | player | 玩家帳號 | string | Y |  |
-   | begin | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | key | 公鑰 | string | Y | 專屬公鑰 |
    | hash | 驗證參數 | string | Y | md5 |
@@ -462,7 +462,7 @@
    |----|----|----|----|----|
    | publicKey | 平台公鑰 | string | Y |  |
    | player | 玩家帳號 | string | Y | 依"＠"區隔多組，不填表示全部 |
-   | begin | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | page | 頁數 | string | N | 預設第1頁 |
    | key | 公鑰 | string | Y | 專屬公鑰 |
@@ -474,6 +474,9 @@
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
    | totalPage | 總頁數 | string |  |
+   | totalTBetCount | 總筆數 | string |  |
+   | totalTBet | 總額度 | string |  |
+   | totalBenefit | 總輸贏 | string |  |
    | detail\ | 報表資訊 | array |  |
    | detail\publicKey | 平台公鑰 | string |  |
    | detail\platformName | 平台帳號 | string |  |

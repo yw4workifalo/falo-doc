@@ -514,6 +514,9 @@
          "status":"success",
          "data": {
            "totalPage":"10",
+           "totalTBetCount":"10000",
+           "totalTBet":"250000",
+           "totalBenefit":"500000"
            "detail":[
            {
               "publicKey":"3de5b29aac97c072f5822dc99c5637d6",

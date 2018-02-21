@@ -37,23 +37,23 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    |----|----|----|----|----|
-   |  account | 帳號 | string | Y | 長度最短4，最長20 |
-   |  nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
-   |  currency | 貨幣 | string | N | [玩家貨幣類型](#支援貨幣)，不指定以代理商為準 |
+   | account | 帳號 | string | Y | 長度最短4，最長20 |
+   | nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
+   | currency | 貨幣 | string | N | [玩家貨幣類型](#支援貨幣)，不指定以代理商為準 |
    | maxbetlimit | 單次最大下注額 | string | Y |
-   |  limitwin | 限贏 | string | Y | 0表示無限制 |
-   |  limitlose | 限輸 | string | Y | 0表示無限制 |
-   |  memberType | 帳務類型 | string | Y | 1:現金制、2:信用制 |
-   |  key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   |  hash | 驗證參數 | string | Y | md5 |
+   | limitwin | 限贏 | string | Y | 0表示無限制 |
+   | limitlose | 限輸 | string | Y | 0表示無限制 |
+   | memberType | 帳務類型 | string | Y | 1:現金制、2:信用制 |
+   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+   | hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+nickname+maxbetlimit+limitwin+limitlose+memberType+privateKey)`**
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
-   | account | 玩家帳號  | string  |
-   | nickname | 玩家暱稱 | string |
+   | account | 玩家帳號  | string  | |
+   | nickname | 玩家暱稱 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -204,7 +204,7 @@
    | 7 | internal server error  | 服務器內部錯誤 |
    | 15 | data format error  | 資料格式有誤 |
    | 31 | account_not_exist | 帳號不存在 |
-   | 32 | prohibited_to_modify_their_own_members | 禁止修改非自己的玩家 |
+   | 32 | prohibited to modify their own members | 禁止修改非自己的玩家 |
 
   ###範例
   + 調用方法
@@ -256,7 +256,7 @@
    | -- | ---- | ----------- | -- |
    | account | 玩家帳號 | string |
    | nickname | 玩家暱稱 | string |
-   | credit | 玩家餘額 | float | 格式: 0.0000 |
+   | credit | 玩家餘額 | float | 位數格式:(19,4) ex:1000.0001 |
    | enable | 是否啟用 | int | 凍結狀態(0:正常，1:鎖單無法下注，2:封鎖無法登入) |
    | limitWin | 限贏 | float | 0表示無限制 |
    | limitLose | 限輸 | float | 0表示無限制 |
@@ -294,7 +294,7 @@
           "enable":0,
           "limitWin":0,
           "limitLose":0,
-	      "isOnline":"true"
+	        "isOnline":"true"
         }
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
@@ -331,28 +331,28 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | --| ---- | ----------- | -- |
-   | count | 下注筆數 | string |
-   | totalPage | 總頁數 | string |
-   | historyList | 歷史紀錄 | array |
-   | historyList \ orderID | 下注單號 | string |
-   | historyList \ memberUID | 玩家編號 | string |
-   | historyList \ memberAccount | 玩家帳號 | string |
-   | historyList \ agentUID | 代理商編號 | string |
-   | historyList \ agentName | 代理商名稱 | string |
-   | historyList \ lotteryName | 彩票名稱 | string |
-   | historyList \ drawingNo | 開獎期別 | string |
-   | historyList \ groupName | 玩法群組名稱 | string |
-   | historyList \ gameName | 玩法名稱 | string |
-   | historyList \ betData | 下注號碼 | string |
-   | historyList \ betNumber | 注數 | int |
-   | historyList \ odd | 賠率 | string |
-   | historyList \ multiple | 倍數 | string |
-   | historyList \ betAmount | 下注總額 | string |
-   | historyList \ winBonus | 中獎金額 | string |
-   | historyList \ ip | 下注IP | string |
-   | historyList \ betStatus | 注單狀態 | string |注單狀態<br>0:未結算，<br>1:已結算，<br>2:撤單，<br>3:追號，<br>4:追號中獎停追，<br>5:金額不足 |
-   | historyList \ currency | 貨幣 | string |
-   |historyList \ balance | 餘額 | string |
+   | count | 下注筆數 | string | |
+   | totalPage | 總頁數 | string | |
+   | historyList | 歷史紀錄 | array | |
+   | historyList \ orderID | 下注單號 | string | |
+   | historyList \ memberUID | 玩家編號 | string | |
+   | historyList \ memberAccount | 玩家帳號 | string | |
+   | historyList \ agentUID | 代理商編號 | string | |
+   | historyList \ agentName | 代理商名稱 | string | |
+   | historyList \ lotteryName | 彩票名稱 | string | |
+   | historyList \ drawingNo | 開獎期別 | string | |
+   | historyList \ groupName | 玩法群組名稱 | string | |
+   | historyList \ gameName | 玩法名稱 | string | |
+   | historyList \ betData | 下注號碼 | string | |
+   | historyList \ betNumber | 注數 | int | |
+   | historyList \ odd | 賠率 | string | |
+   | historyList \ multiple | 倍數 | string | |
+   | historyList \ betAmount | 下注總額 | string | 位數格式:(19,4) ex:1000.0001 |
+   | historyList \ winBonus | 中獎金額 | string | 位數格式:(19,4) ex:1000.0001 |
+   | historyList \ ip | 下注IP | string | |
+   | historyList \ betStatus | 注單狀態 | string | [注單狀態](#注單狀態) |
+   | historyList \ currency | 貨幣 | string | |
+   | historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -400,12 +400,12 @@
                  "betNumber":"1",
                  "odd":"1.99",
                  "multiple":"100",
-                 "betAmount":"200",
-                 "winBonus":"0",
+                 "betAmount":"200.0000",
+                 "winBonus":"0.0000",
                  "ip":"210.71.170.48",
                  "betStatus":"已結算",
                  "currency":"台幣",
-                 "balance":"9092680.08"
+                 "balance":"9092680.0800"
                }
            ],
            "uuquid":"01212c3b9e1eac371776a8e932289906"
@@ -448,8 +448,8 @@
    | agentName | 代理商名稱 | string |
    | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
    | betNumber | 總注數 | string |
-   | betAmount | 總下注額 | string |
-   | winBonus | 輸贏總金額 | string |
+   | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001
+   | winBonus | 輸贏總金額 | string | 位數限制:(19,4) ex:1000.0001
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -485,8 +485,8 @@
             "agentName":"ifalo",
             "currency":"NTD",
             "betNumber":"100",
-            "betAmount":"15000",
-            "winBonus":"-10000"
+            "betAmount":"15000.0018",
+            "winBonus":"-10000.0018"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
      }
@@ -512,7 +512,7 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | --| ---- | ----------- | ----------- | -- |
    | account | 玩家帳號 | string | Y |
-   | credit | 轉出入額度 | string | Y | 格式: ±0.0000<br>正數為轉入，負數為轉出 |
+   | credit | 轉出入額度 | string | Y | 位數限制:±(19,4) ex:+1000.0001<br>正數為轉入，負數為轉出 |
    | orderNo | 平台交易編號 | string | Y | 介接平台產生，核對帳務 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
@@ -527,7 +527,7 @@
    | orginalCredit | 交易前額度 | string | |
    | transferCredit | 交易額度 | string | |
    | finalCredit | 交易後額度 | string | |
-   | currency | 貨幣 | string | |
+   | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣) |
    | status | [交易狀態](#交易狀態) | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 | |
 
@@ -558,9 +558,9 @@
         "data":{
           "transactionNo":"5943a950a3227",
           "time":"2017/06/12 15:50:00",
-	        "orginalCredit":"+1000",
-          "transferCredit":"+500",
-          "finalCredit":"+1500",
+	        "orginalCredit":"+1000.0005",
+          "transferCredit":"+500.0005",
+          "finalCredit":"+1500.0005",
           "message":"交易成功"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
@@ -594,7 +594,7 @@
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明
-   | --| ---- | ----------- | -- |
+   | -- | ---- | ----------- | -- |
    | account | 玩家帳號 | string |
    | orginalCredit | 交易前額度 | string |
    | finalCredit | 交易後額度 | string |
@@ -741,8 +741,8 @@
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
+   | -- | ---- | ----------- | -- | |
+   | account | 玩家帳號 | string | |
    | limit | 限輸額度 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -808,14 +808,14 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
-   | limit | 限贏額度 | string |
+   | account | 玩家帳號 | string | |
+   | limit | 限贏額度 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
    | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位
+   | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
    | 4 | {parameter} not found | 欄位參數值無效 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
@@ -945,7 +945,7 @@
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
    | account | 玩家帳號 | string |
-   | winCredit | 目前損益 | string |
+   | winCredit | 目前輸贏 | string |
    | winLimit | 限贏 | string |
    | loseLimit | 限輸 | string |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
@@ -1084,8 +1084,8 @@
   | -- | ---- | ----------- | ----------- | -- |
   | account | 代理帳號 | string | Y | |
   | creditLimit | 最高額度 | string | Y | |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生)
-  | hash | 驗證參數 | string | Y | md5
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(account+privateKey)`**
 
@@ -1623,7 +1623,7 @@
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
   | exampleType | [注區範本](#注區範本) | string |
-  | defaultBet | 底注 | string | 此為額度，幣值區分"元"、"角"、"分"
+  | defaultBet | 底注 | string |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1919,7 +1919,7 @@
         "data":[
           {
               "account":"ifalo001"
-              "exampleType":"A"
+              "exampleType":"A"*
           },
           {
               "account":"ifalo002"
@@ -2023,7 +2023,7 @@
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(account+lotteryType+refund+privateKey)`**
+  #### **`hash = md5(account+lotteryType+privateKey)`**
 
   ### 輸出參數
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
@@ -2137,3 +2137,13 @@
 | 1 | 交易失敗，餘額不足 |
 | 2 | 交易失敗，帳戶凍結 |
 | 3 | 服務器內部異常 |
+
+### <span>注單狀態</span>
+| 注單狀態 | 說明 |
+| -- | ---- |
+| 0 | 未結算 |
+| 1 | 已結算 |
+| 2 | 撤單 |
+| 3 | 追號 |
+| 4 | 追號中獎停追 |
+| 5 | 金額不足 |

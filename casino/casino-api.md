@@ -37,6 +37,7 @@
 13. [刪除遊戲公告](#刪除遊戲公告)
 14. [修改玩家退水](#修改玩家退水)
 15. [查詢玩家退水](#查詢玩家退水)
+16. [查詢玩家下注區間總額](#查詢玩家下注區間總額)
 
 ### *登入流程*
 -------
@@ -2844,4 +2845,76 @@
     | 11 | {parameter} is invalid   |
     | 22 | {param} must be a unsigned integer  |
     | 34 | tableType:{tableType} not found|
+
+13. #### <span id="single-player-bet-report">查詢玩家下注區間總額</span>
+
+    ```
+    GET /casino-api/player/bet-report?
+        key=<key>&
+        account=<account>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    account   | 玩家帳號 |  string  |  由API端提供 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    |  totalBetCount | 注單數量 |integer  |
+    |  totalBetAmount | 總下注額度 |integer  |
+    |  totalBetCheckoutAmount | 總輸贏 | decimal(19,4)  |
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "betFormCount":14,
+            "totalAmount":208000,
+            "totalLoseWinAmount":-128250,
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
 

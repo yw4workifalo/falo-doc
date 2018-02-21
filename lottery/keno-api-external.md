@@ -4,7 +4,7 @@
 ● [修改玩家帳號暱稱](#修改玩家帳號暱稱)<br>
 ● [查詢玩家](#查詢玩家)<br>
 ● [查詢玩家下注紀錄](#查詢玩家下注紀錄)<br>
-● [查詢多玩家下注簡報總額](#查詢多玩家下注簡報總額)<br>
+● [查詢玩家下注簡報總額](#查詢玩家下注簡報總額)<br>
 ● [額度轉出入](#額度轉出入)<br>
 ● [額度轉出入狀態](#額度轉出入狀態)<br>
 ● [玩家踢線](#玩家踢線)<br>
@@ -426,7 +426,7 @@
      ```
 ------
 
-## <span>查詢多玩家下注簡報總額</span>
+## <span>查詢玩家下注簡報總額</span>
    **API Name : betReport**</br>
    **Method : POST**
    ### 輸入參數
@@ -435,7 +435,6 @@
    | account | 玩家帳號 | string | Y |
    | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
-   | now | 第x頁 | string | Y | 空值代表第1頁 |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -444,14 +443,13 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
-   | memberAccount | 玩家帳號 | string |
+   | account | 玩家帳號 | string |
    | agentUID | 代理商編號 | string |
    | agentName | 代理商名稱 | string |
-   | type | 分類項目 | array |
-   | type \ betNumber | 注數 | string |
-   | type \ betAmount | 下注總額 | string |
-   | type \ winBonus | 中獎金額 | string |
-   | type \ currency | 貨幣 | string |
+   | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
+   | betNumber | 總注數 | string |
+   | betAmount | 總下注額 | string |
+   | winBonus | 輸贏總金額 | string |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -474,7 +472,6 @@
           account=ifalo001&
           startAt=2017-09-01 00:00:00&
           endAt=2017-09-04 14:00:00&
-          now=1&
           key=3de5b21aac97c072f5822dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
@@ -483,13 +480,13 @@
      {
         "status":"success",
         "data":{
-            "memberAccount":"ifalo001",
-            "agentUID":"ifalo001",
+            "account":"ifalo001",
+            "agentUID":"279848181",
             "agentName":"ifalo",
-            "type":[
-                {1000,5000,500,NTD},
-                {250,7000,500,MCY},
-            ]
+            "currency":"NTD",
+            "betNumber":"100",
+            "betAmount":"15000",
+            "winBonus":"-10000"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
      }

@@ -32,6 +32,7 @@
 30. [查詢信用額度重設群組](#查詢信用額度重設群組)
 31. [APP下載連結](#app下載連結)
 32. [設定玩家佔成](#設定玩家佔成)
+33. [查詢玩家下注區間總額](#查詢玩家下注區間總額)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -3490,11 +3491,11 @@
 
 	```
 	GET player/bet-report?
-		key=<key>&
-	   account=<account>&
-	   startAt=<startAt>&
-	   endAt=<endAt>&
-		hash=<hash>
+	key=<key>&
+	account=<account>&
+	startAt=<startAt>&
+	endAt=<endAt>&
+	hash=<hash>
 	```
     
     ##### Request  範例
@@ -3551,7 +3552,7 @@
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號 |  string  |
     |  totalBetCount | 注單數量 |integer  |
-    |  totalBetAmount | 總下注額度 |integer  |
+    |  totalBetAmount | 總下注額度 |decimal(19,4)  |
     |  totalBetCheckoutAmount | 總輸贏 | decimal(19,4)  |
 
 
@@ -3561,15 +3562,15 @@
     成功
 
     ```javascript
-    {
-        "status":"success",
-        "data":{
-            "account":"a1234",
-            "totalBetCount":14,
-            "totalBetAmount":208000,
-            "totalBetCheckoutAmount":-128250,
-        }
-    }
+	{
+		"status": "success",
+		"data": {
+			"totalBetCount": 8,
+			"totalBetCheckoutAmount": "10500.0000",
+			"totalBetAmount": "19830.0000",
+			"account": "225_wei2"
+		}
+	}
     ```
 
     失敗

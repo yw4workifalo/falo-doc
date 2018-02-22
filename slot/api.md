@@ -3486,4 +3486,114 @@
     | 	31 	| {parameter} must between 1 and 0   |
 
 	
+21. ### 查詢玩家下注區間總額
+
+	```
+	GET player/bet-report?
+		key=<key>&
+	   account=<account>&
+	   startAt=<startAt>&
+	   endAt=<endAt>&
+		hash=<hash>
+	```
+    
+    ##### Request  範例
+    
+    bash
+    
+	```bash
+	CURL -X GET -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
+		-G http://poker.app/api/v2/slot/player/bet-report
+	```
+	
+	php
+	
+	```php
+	$key = '57d0bc61dffff';
+	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+	$url = 'http://poker.app/api/v2/slot/player/bet-report';
+	$data = [
+		'status'=>'1'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+	  #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    account   | 玩家帳號 |  string  |  必填 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
+    |gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) |  
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(account + startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    |  totalBetCount | 注單數量 |integer  |
+    |  totalBetAmount | 總下注額度 |integer  |
+    |  totalBetCheckoutAmount | 總輸贏 | decimal(19,4)  |
+
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "account":"a1234",
+            "totalBetCount":14,
+            "totalBetAmount":208000,
+            "totalBetCheckoutAmount":-128250,
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 4  | player not found          |   
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+
 

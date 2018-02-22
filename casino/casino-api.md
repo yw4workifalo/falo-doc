@@ -2888,9 +2888,9 @@
         "status":"success",
         "data":{
             "account":"a1234",
-            "betFormCount":14,
-            "totalAmount":208000,
-            "totalLoseWinAmount":-128250,
+            "totalBetCount":14,
+            "totalBetAmount":208000,
+            "totalBetCheckoutAmount":-128250,
         }
     }
     ```

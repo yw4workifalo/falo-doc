@@ -3492,7 +3492,6 @@
 	```
 	GET player/bet-report?
 	key=<key>&
-	account=<account>&
 	startAt=<startAt>&
 	endAt=<endAt>&
 	hash=<hash>
@@ -3538,19 +3537,19 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |    account   | 玩家帳號 |  string  |  必填 |
+    |    account   | 玩家帳號 |  string  |  選填 |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
     |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
     |gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) |  
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + startAt + endAt + secret)`**
+    #### **`hash = md5( startAt + endAt + secret)`**
 
     ---
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號 |  string  |
+    |  account | 玩家帳號(若無 account 此欄位不會出現) |  string  |
     |  totalBetCount | 注單數量 |integer  |
     |  totalBetAmount | 總下注額度 |decimal(19,4)  |
     |  totalBetCheckoutAmount | 總輸贏 | decimal(19,4)  |
@@ -3560,6 +3559,8 @@
 
     #### Response 結果
     成功
+    
+    **`查詢單一玩家結果`**
 
     ```javascript
 	{
@@ -3572,6 +3573,19 @@
 		}
 	}
     ```
+    **`查詢多位玩家結果`**
+    
+    ```javascript
+	{
+		"status": "success",
+		"data": {
+			"totalBetCount": 8,
+			"totalBetCheckoutAmount": "105300.0000",
+			"totalBetAmount": "193830.0000",
+		}
+	}
+    ```
+    
 
     失敗
 

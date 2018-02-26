@@ -2867,7 +2867,7 @@
     |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + startAt + endAt + secret)`**
+    #### **`hash = md5(startAt + endAt + secret)`**
 
     ---
     #### Response 參數說明

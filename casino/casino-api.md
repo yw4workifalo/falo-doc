@@ -1453,7 +1453,7 @@
     ```
     DELETE /casino-api/player/kick-multiple?
         key=<key>&
-        account=<account>&
+        accounts=<accounts>&
         reason=<reason>&
         hash=<hash>
     ```
@@ -1463,11 +1463,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 遊戲帳號 |  string  |     必填，多玩家使用 `,` 號隔開   |
+    |  accounts | 遊戲帳號 |  string  |     必填，多玩家使用 `,` 號隔開   |
     |  reason   | 原因 |  string  |     非必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
-    #### **`hash = md5(account + secret)`**
+    #### **`hash = md5(accounts + secret)`**
     ---
     #### Response 參數說明
 

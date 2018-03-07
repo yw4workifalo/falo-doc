@@ -129,6 +129,7 @@
 | 31 | \{var\} must between \{min\} and \{max\}| 設定數值超出範圍 |
 | 	32 | reset credit error | 信用重設失敗 |
 | 	33 | the credit type is invalid | 只適用現金用戶 |
+| 	34 | The credit reset action is pending | 請用回復中，禁止操作 |
 | 101 | jackpot log not found | 找不到 jackpot 記錄 |
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
@@ -1463,7 +1464,7 @@
     ```
     PUT player/mode?
         key=<key>&
-        account=<account>&
+        accounts=<accounts>&
         mode=<mode>&        
         hash=<hash>
     ```
@@ -1473,7 +1474,7 @@
     bash
     
     ```bash  
-	CURL -X PUT -d account=test -d mode=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
+	CURL -X PUT -d accounts=test -d mode=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
  		-G http://poker.app/api/v2/slot/player/mode
     ```
     
@@ -1484,7 +1485,7 @@
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/player/mode';
 	$data = [
-		'account'=>'test',
+		'accounts'=>'test',
 		'mode'=>'1'
 	];
 	//產生hash
@@ -1510,11 +1511,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  account| 玩家帳號 |  string(20)  |     必填  | Y |
+    |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
     |   mode | 模式 |  int    |     必填([詳細說明](#玩家模式說明)) | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
-    **hash = md5(account+mode+secret)**
+    **hash = md5(accounts+mode+secret)**
 
     ##### 回傳結果
     成功
@@ -1524,7 +1525,7 @@
        "status":"success",
        "data":[  
           {  
-             "account":"haha0738@ifalo.com.tw",
+             "accounts":"haha0738@ifalo.com.tw",
              "mode":1
           }
        ]
@@ -1546,7 +1547,7 @@
     
     | 參數 | 型態 | 說明 |
     |:---:|:---:|:---:|
-    | account |string(20)| 玩家帳號 |
+    | accounts |string(20)| 玩家帳號 |
     | mode |int| 玩家模式([詳細說明](#玩家模式說明)) |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
@@ -2924,6 +2925,7 @@
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 30 | the cash type is invalid | 只適用信用用戶 |
+	| 	34 | The credit reset action is pending | 
 
 20. ### 查詢信用玩家額度
 
@@ -3260,6 +3262,7 @@
 	| 	11 | {parameter} is invalid   |
 	| 	30 | the cash type is invalid | 
 	| 	32 | reset credit error | 
+	| 	34 | The credit reset action is pending | 
 
 			
 21. ### 查詢信用額度重設群組

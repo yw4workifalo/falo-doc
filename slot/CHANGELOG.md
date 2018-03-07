@@ -1,4 +1,8 @@
 # CHANGE LOG
+### 2018-03-07
+- 新增錯誤：34 | The credit reset action is pending | 
+- 修改：設定玩家帳號模式，參數account改為支援多玩家的accounts
+
 ### 2018-02-22
 - 修改：查詢玩家下注區間總額可查詢所有玩家
 

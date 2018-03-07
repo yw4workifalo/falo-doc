@@ -3,8 +3,8 @@
 ● [刪除平台商](#刪除平台商)<br>
 ● [更改密鑰 ](#更改密鑰)<br>
 ● [平台報表查詢](#平台報表查詢)<br>
-● [總會員出入明細](#總會員出入明細)<br>
 ● [各產品總帳查詢](#各產品總帳查詢)<br>
+● [總會員出入明細](#總會員出入明細)<br>
 ● [會員注單查詢](#會員注單查詢)<br>
 
 ------
@@ -197,6 +197,118 @@
 
 ------
 ## <span>平台報表查詢</span>
+   **API Name : platform-repor-summary**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y | 空白代表全部 |
+   | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | lottery | 彩票編號 | string | Y | 空白代表全部 |
+   | game | 玩法編號 | string | Y | 空白代表全部 |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+begin+end+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | totalPage | 總頁數 | string |  |
+   | totalTBetCount | 總筆數 | string |  |
+   | totalBenefit | 總輸贏 | array | [{TWD,CNY,USD}](#支援貨幣) |
+   | \ | 報表資訊 | array |  |
+   | \platformName | 平台帳號 | string | 空白代表全部 |
+   | \publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
+   | \begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | \end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | \currency | 幣別 | string |  |
+   | \lottery | 彩票編號 | string | 空白代表全部 |
+   | \game | 玩法編號 | string | 空白代表全部 |
+   | \tBetCount | 下注總筆數 | string |  |
+   | \tBet | 下注總額度 | string | 依幣別 |
+   | \tPL | 總輸贏 | string | "-"表示虧（虛貨） |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/platform-report?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         begin=2017-10-31 00:00:00&
+         end=2017-11-31 23:59:59&
+         lottery=10002&
+         game=104&
+         page=1
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+           "totalPage":"200",
+           "totalTBetCount":"10000",
+           "totalBenefit":{10000,5000,1000},
+           "detail":[
+               {
+                 "platformName":"falo1",
+                 "publicKey":"3de5b29aac97c072f5822dc99c5637d6",
+                 "begin":"2017-10-30 00:00:00",
+                 "end":"2017-10-31 11:59:59",
+                 "currency":"NTD",
+                 "lottery":"10002",
+                 "game":"104",
+                 "tBetCount":"3000",
+                 "tBet":"2000",
+                 "tPL":"20000",
+                 "uuid":"a6f5fe8f3cfa4abf8f12e903d27e9414"
+               },
+               {
+                 "platformName":"falo2",
+                 "publicKey":"3de5b29aac97c072f5822dc99c5637d6",
+                 "begin":"2017-10-29 00:00:00",
+                 "end":"2017-10-30 11:59:59",
+                 "currency":"USD",
+                 "lottery":"10002",
+                 "game":"104",
+                 "tBetCount":"3000",
+                 "tBet":"2000",
+                 "tPL":"20000",
+                 "uuid":"f56a62934dc44d6fa8ae5606923868e9"
+               }
+           ]
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+------
+## <span>產品總帳查詢</span>
    **API Name : platform-report**</br>
    **Method : GET**
    ### 輸入參數

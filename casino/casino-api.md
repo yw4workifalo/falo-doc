@@ -501,7 +501,7 @@
     ```
     PUT /casino-api/player/mode?
         key=<key>&
-        account=<account>&
+        accounts=<accounts>&
         mode=<mode>&
         hash=<hash>
     ```
@@ -511,7 +511,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  |     必填    |
     |  mode   | 帳號模式 |  smallint  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
     
@@ -523,13 +523,25 @@
     | 1        | 鎖單(不能下注)   | 
     | 2        | 停用(不能進入遊戲)，修改狀態為 2時會執行踢除玩家   | 
     
-    #### **`hash = md5(account + mode + secret)`**
+    #### **`hash = md5(accounts + mode + secret)`**
     ---
     ### Response 參數說明
-    | 參數名稱 | 參數說明 | 參數型態 |     
+    | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號 |  string  | 
     |  mode   | 帳號模式 |  smallint  |
+    |  result | 多玩家處理狀況 |  string  |
+
+    #### result 多玩家處理狀況
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    | status| [玩家設定結果](#玩家設定結果)|smallint  |
+
+    #### <span id="set-mode-status">玩家設定結果</span>
+    | 狀態代碼 | status                  |
+    |---------- |-------------------------  |
+    | 0 | success |
+    | -1 | player not found |
 
     ---
 
@@ -540,8 +552,12 @@
     {
         "status":"success",
         "data":{
-            "account":"a1234",
-            "mode":1
+            "mode":1,
+            "result":[
+                {"account":"test1","status":-1},
+                {"account":"test666","status":0},
+                {"account":"test2","status":-1}
+            ]
         }
     }
     ```

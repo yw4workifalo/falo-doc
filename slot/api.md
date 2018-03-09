@@ -33,6 +33,10 @@
 31. [APP下載連結](#app下載連結)
 32. [設定玩家佔成](#設定玩家佔成)
 33. [查詢玩家下注區間總額](#查詢玩家下注區間總額)
+34. [新增維護](#新增維護)
+35. [查詢維護](#查詢維護)
+36. [修改維護](#修改維護)
+37. [刪除維護](#刪除維護)
 
 ## CHANGE LOG
 [CHANGE LOG](CHANGELOG.md)
@@ -134,8 +138,8 @@
 | 102 | The currency what you set is not supported | 您所設定的貨幣類型不支援 |
 | 103 | The language is not supported | 您所設定的語系類型不支援 |
 | 104 | The platform type is not supported | 您指定登入的平台不支援 |
-| 106 | group 0 can not be reset | 信用群組0為不回覆 |
-
+| 106 | group 0 can not be reset | 信用群組0為不回覆 
+| 107 | Record is not exist | 記錄不存在 |
 
 
 ## API
@@ -3613,5 +3617,455 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+
+
+21. ### 新增維護
+
+	```
+	POST maintain?
+	key=<key>&
+	startAt=<startAt>&
+	endAt=<endAt>&
+	hash=<hash>
+	```
+    
+    ##### Request  範例
+    
+    bash
+    
+	```bash
+	CURL -X POST -d status=1 -d key=57d0bc61dffff -d hash=61f7e46050c1a02277d473348f0f2ee7 \
+		-G http://poker.app/api/v2/slot/maintain
+	```
+	
+	php
+	
+	```php
+	$key = '5a16601d7f7fb';
+	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+	$url = 'http://192.168.118.113/api/v2/slot/maintain';
+	$data = [
+		'startAt'=>'20170101',
+		'endAt'=>'20180909'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+	  #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  id | 維護編號 |  integer  |
+    |  startAt | 起始時間 |string  |
+    |  endAt | 結束時間 |string  |
+
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+	{
+        "status": "success",
+        "datas": [
+            {
+                "id": 1,
+                "startAt": "2018-01-01 00:00:00",
+                "endAt": "2018-01-01 02:00:00",
+            },
+            {
+                "id": 2,
+                "startAt": "2018-01-01 03:00:00",
+                "endAt": "2018-01-01 04:00:00",
+            },
+        ]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+
+
+
+
+21. ### 查詢維護
+
+	```
+	GET maintain?
+	key=<key>&
+	startAt=<startAt>&
+	endAt=<endAt>&
+	hash=<hash>
+	```
+    
+    ##### Request  範例
+    
+    bash
+    
+	```bash
+	CURL -X GET -d maintainId=30 -d key=5a16601d7f7fb -d hash=29d6b34e5a6f579f21d5860c79531ff0 \
+	 -G http://192.168.118.113/api/v2/slot/maintain
+	```
+	
+	php
+	
+	```php
+	$key = '5a16601d7f7fb';
+	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+	$url = 'http://192.168.118.113/api/v2/slot/maintain';
+	$data = [
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url.'?'.http_build_query($data));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+	  #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  id | 維護編號 |  integer  |
+    |  startAt | 起始時間 |string  |
+    |  endAt | 結束時間 |string  |
+
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+	{
+        "status": "success",
+        "datas": [
+            {
+                "id": 1,
+                "startAt": "2018-01-01 00:00:00",
+                "endAt": "2018-01-01 02:00:00",
+            },
+            {
+                "id": 2,
+                "startAt": "2018-01-01 03:00:00",
+                "endAt": "2018-01-01 04:00:00",
+            },
+        ]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+
+
+21. ### 修改維護
+
+	```
+	PUT maintain?
+	key=<key>&
+	id=<id>&
+	startAt=<startAt>&
+	endAt=<endAt>&
+	hash=<hash>
+	```
+    
+    ##### Request  範例
+    
+    bash
+    
+	```bash
+	CURL -X PUT -d maintainId=31 -d startAt=20170101 -d endAt=20180909 -d key=5a16601d7f7fb -d hash=ead255a794207569b2ef0e68f3099129 \
+	 -G http://192.168.118.113/api/v2/slot/maintain
+	```
+	
+	php
+	
+	```php
+	$key = '5a16601d7f7fb';
+	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+	$url = 'http://192.168.118.113/api/v2/slot/maintain';
+	$data = [
+		'maintainId'=>'31',
+		'startAt'=>'20170101',
+		'endAt'=>'20180909'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+	  #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    id   | 維護編號 |  string  | 必填 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( id + startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  id | 維護編號 |  integer  |
+    |  startAt | 起始時間 |string  |
+    |  endAt | 結束時間 |string  |
+
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+	{
+		"status": "success",
+		"data": {
+			"id": 31,
+			"startAt": "20170101",
+			"endAt": "20180909",
+		}
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+			"code": 107,
+			"message": "Record is not exist",
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+	| 107 | Record is not exist | 
+
+
+21. ### 刪除維護
+
+	```
+	DELETE maintain?
+	key=<key>&
+	id=<id>&
+	hash=<hash>
+	```
+    
+    ##### Request  範例
+    
+    bash
+    
+	```bash
+	CURL -X DELETE -d maintainId=31 -d key=5a16601d7f7fb -d hash=57a2c7e4b15720a0def64f8ed5282ad7 \
+	 -G http://192.168.118.113/api/v2/slot/maintain
+	```
+	
+	php
+	
+	```php
+	$key = '5a16601d7f7fb';
+	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+	$url = 'http://192.168.118.113/api/v2/slot/maintain';
+	$data = [
+		'maintainId'=>'31'
+	];
+	//產生hash
+	$hash = '';
+	foreach ($data as $k => $v) {
+		$hash .= $v;
+	}
+	$hash .= $secret;
+	
+	$hash = md5($hash);
+	$data['key'] = $key;
+	$data['hash'] = $hash;
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+	$response = curl_exec($ch);
+	echo $response;
+	```
+	
+	  #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    id   | 維護編號 |  string  | 必填 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( id + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  id | 維護編號 |  integer  |
+    |  startAt | 起始時間 |string  |
+    |  endAt | 結束時間 |string  |
+
+
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+	{
+        "status": "success",
+        "datas": [
+            {
+                "id": 1,
+                "startAt": "2018-01-01 00:00:00",
+                "endAt": "2018-01-01 02:00:00",
+            },
+            {
+                "id": 2,
+                "startAt": "2018-01-01 03:00:00",
+                "endAt": "2018-01-01 04:00:00",
+            },
+        ]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+			"code": 107,
+			"message": "Record is not exist",
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+	| 107 | Record is not exist | 
+
+
 
 

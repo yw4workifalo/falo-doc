@@ -1,4 +1,7 @@
 # CHANGE LOG
+### 2018-03-09
+- 新增：維護-新修刪改 Endpoints
+
 ### 2018-03-07
 - 新增錯誤：34 | The credit reset action is pending | 
 - 修改：設定玩家帳號模式，參數account改為支援多玩家的accounts

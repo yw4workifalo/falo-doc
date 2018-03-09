@@ -3750,7 +3750,7 @@
     bash
     
 	```bash
-	CURL -X GET -d maintainId=30 -d key=5a16601d7f7fb -d hash=29d6b34e5a6f579f21d5860c79531ff0 \
+	CURL -X GET  -d key=5a16601d7f7fb -d hash=29d6b34e5a6f579f21d5860c79531ff0 \
 	 -G http://192.168.118.113/api/v2/slot/maintain
 	```
 	
@@ -3871,7 +3871,7 @@
 	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
 	$url = 'http://192.168.118.113/api/v2/slot/maintain';
 	$data = [
-		'maintainId'=>'31',
+		'id'=>'31',
 		'startAt'=>'20170101',
 		'endAt'=>'20180909'
 	];
@@ -3980,7 +3980,7 @@
 	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
 	$url = 'http://192.168.118.113/api/v2/slot/maintain';
 	$data = [
-		'maintainId'=>'31'
+		'id'=>'31'
 	];
 	//產生hash
 	$hash = '';
@@ -4026,19 +4026,12 @@
 
     ```javascript
 	{
-        "status": "success",
-        "datas": [
-            {
-                "id": 1,
-                "startAt": "2018-01-01 00:00:00",
-                "endAt": "2018-01-01 02:00:00",
-            },
-            {
-                "id": 2,
-                "startAt": "2018-01-01 03:00:00",
-                "endAt": "2018-01-01 04:00:00",
-            },
-        ]
+		"status": "success",
+		"data": {
+			"id": 31,
+			"startAt": "20170101",
+			"endAt": "20180909",
+		}
     }
     ```
 

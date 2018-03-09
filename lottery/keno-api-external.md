@@ -1,6 +1,7 @@
 # 彩票系統介接API範本
 ● [註冊玩家帳號](#註冊玩家帳號)<br>
-● [取得登入網址](#取得登入網址)<br>
+● [取得登入網址](#取得登入網址)<br> <!--
+● [取得測試帳號登入網址](#取得測試帳號登入網址)<br>-->
 ● [修改玩家帳號暱稱](#修改玩家帳號暱稱)<br>
 ● [查詢玩家](#查詢玩家)<br>
 ● [查詢玩家下注紀錄](#查詢玩家下注紀錄)<br>
@@ -171,7 +172,69 @@
      }
      ```
 ------
+<!--
+## <span>取得測試帳號登入網址</span>
+   **API Name : authtest**</br>
+   **Method : POST**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   | -- | ---- | ----------- | ----------- | -- |
+   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+   | hash | 驗證參數 | string | Y | md5 |
+   #### **`  hash = md5(privateKey) `**
 
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   | --| ---- | ----------- | -- |
+   | account | 會員帳號 | string |
+   | login | 登入網址 | string |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | --| ---- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位 |
+   | 2 | invalid key  | 金鑰無效 |
+   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 5 | method is not allowed  | 使用之Http方法不允許 |
+   | 6 | function not found  | API不存在 |
+   | 7 | internal server error  | 服務器內部錯誤 |
+   | 15 | data format error  | 服務器內部錯誤 |
+   | 25 | locked_and_can_not_login | 帳號或上層被鎖 |
+   | 52 | Trial_account_expired | 試玩帳號限期已過 |
+
+   ### 範例
+   + 調用方法
+     ```
+     POST /keno-api/player/authtest?
+     key=3de5b29aac97c072f5823dc99c5637d6&
+     hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+       "status":"success",
+       "data": {
+          "login":"https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzFZGdwVDVmSGliSE5EMloxS3dEM3c9PQ=="
+       },
+       "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+        "error": {
+          "code":7,
+          "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+------
+-->
 ## <span>修改玩家帳號暱稱</span>
    **API Name : modifyn**</br>
    **Method : POST**
@@ -558,7 +621,7 @@
         "data":{
           "transactionNo":"5943a950a3227",
           "time":"2017/06/12 15:50:00",
-	        "orginalCredit":"+1000.0005",
+	      "orginalCredit":"+1000.0005",
           "transferCredit":"+500.0005",
           "finalCredit":"+1500.0005",
           "message":"交易成功"
@@ -1489,7 +1552,7 @@
   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
   | account | 玩家帳號 | string | 多個玩家用","隔開
-  | mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，多個玩家用","隔開 |
+  | mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1688,7 +1751,7 @@
 ------
 
 ## <span>設定平台注區範本</span>
-  **API Name : **</br>
+  **API Name : stake-limit-list**</br>
   **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1809,13 +1872,13 @@
 ------
 
 ## <span>設定玩家注區範本</span>
-  **API Name : stake-limit**</br>
+  **API Name : stake-limit-player**</br>
   **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
   | account | 玩家帳號 | string | Y | |
-  | exampleType | [注區範本](#注區範本) | string | Y | 多個玩家用","隔開
+  | exampleType | [注區範本](#注區範本) | string | Y | |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
 
@@ -1842,7 +1905,7 @@
   ### 範例
   + 調用方法
     ```
-      PUT /keno-api/player/stake-limit?
+      PUT /keno-api/player/stake-limit-player?
           account=ifalo001&
           exampleType=A&
           key=3de5b29aac97c072f5824dc99c5637d6&
@@ -1906,7 +1969,7 @@
   ## 範例
   + 調用方法
     ```
-      GET /keno-api/player/stake-limit?
+      GET /keno-api/player/stake-limit-player?
           account=ifalo001,ifalo002&
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -2014,7 +2077,7 @@
 
 ## <span>查詢退水值</span>
   **API Name : refund**</br>
-  **Method : PUT**
+  **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |

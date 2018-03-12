@@ -38,6 +38,11 @@
 14. [修改玩家退水](#修改玩家退水)
 15. [查詢玩家退水](#查詢玩家退水)
 16. [查詢玩家下注區間總額](#查詢玩家下注區間總額)
+17. [新增維護](#新增維護)
+18. [查詢維護](#查詢維護)
+19. [修改維護](#修改維護)
+20. [刪除維護](#刪除維護)
+
 
 ### *登入流程*
 -------
@@ -176,6 +181,9 @@
 |48| location:{location} is invalid |播放地點代碼不存在|
 |49|marquee date range startAt:{startAt} ~ endAt:{endAt} is invalid|公告播放時間不合法|
 | 50 | refund set value 0 ~ 150, setting refund is:{refund}|退水設定值 0 ~ 150|
+| 51 | recordId:{recordId} is not exist|維護紀錄Id不存在|
+| 52 | maintain time range is invalid startAt:{startAt} ~ endAt:{endAt} is invalid, At least half an hour|維護時間區間有問題，不允許過往時間且維護時間需至少半小時|
+| 53 | get maintain record is need recordId or startAt and endAt|查詢維護紀錄，recordId 或 時間區間需擇一輸入|
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -2949,4 +2957,289 @@
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 23 | [startAt or  EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
+
+13. #### <span id="create-maintain">新增維護</span>
+
+    ```
+    POST /casino-api/maintain?
+        key=<key>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | recordId | 維護紀錄Id| int |
+    |  startAt  | 起始時間| string |
+    |  endAt  | 結束時間| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "recordId":65,
+            "startAt":"2018-03-01 15:00:00",
+            "endAt":"2018-03-01 16:00:00"
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or EndAt] value must be datetime Example：2017-01-01 00:00:00   | 查詢玩家注單，時間參數必須使用規定格式       |
+
+13. #### <span id="get-maintain">查詢維護</span>
+
+    ```
+    GET /casino-api/maintain?
+        key=<key>&
+        recordId=<recordId>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  recordId   | 維護紀錄Id |  int  | 選填，維護紀錄Id |
+    |  startAt   | 起始時間 |  string  |     選填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     選填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | recordId | 維護紀錄Id| int |
+    |  active  | 是否有啟動維護| boolean |
+    |  startAt  | 起始時間| string |
+    |  endAt  | 結束時間| string |
+    |  modifyTime  | 修改時間 | string |
+    |  createTime  | 建立時間 | string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[
+            {
+                "recordId":66,
+                "active":0,
+                "startAt":"2018-03-01 13:00:00",
+                "endAt":"2018-03-01 13:30:00",
+                "modifyTime":"2018-03-01 12:00:00",
+                "createTime":"2018-03-01 12:00:00",
+            },
+            {
+                "recordId":67,
+                "active":1,
+                "startAt":"2018-03-02 14:00:00",
+                "endAt":"2018-03-02 14:30:00",
+                "modifyTime":"2018-03-02 12:20:00",
+                "createTime":"2018-03-02 12:00:00",
+            },
+        ]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or EndAt] value must be datetime Example：2017-01-01 00:00:00| 
+    | 51 | record id:{recordI} is not exist|  
+
+13. #### <span id="modify-maintain">修改維護</span>
+
+    ```
+    PUT /casino-api/maintain?
+        key=<key>&
+        recordId=<recordId>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  recordId   | 維護紀錄Id |  int  | 必填，維護紀錄Id |
+    |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10    |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(recordId + startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | recordId | 維護紀錄Id| int |
+    |  startAt  | 起始時間| string |
+    |  endAt  | 結束時間| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+           "recordId":66,
+           "startAt":"2018-03-01 13:00:00",
+           "endAt":"2018-03-01 13:30:00",
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or EndAt] value must be datetime Example：2017-01-01 00:00:00| 
+    | 51 | record id:{recordI} is not exist|
+    | 52 |maintain time range is invalid startAt:{startAt} ~ endAt:{endAt} is invalid|
+
+13. #### <span id="delete-maintain">刪除維護</span>
+
+    ```
+    DELETE /casino-api/maintain?
+        key=<key>&
+        recordId=<recordId>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  recordId   | 維護紀錄Id |  int  | 必填，維護紀錄Id |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(recordId + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | recordId | 維護紀錄Id| int |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+           "recordId":66,
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":51,
+            "message":"record id:66 is not exist"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 51 | record id:{recordI} is not exist|
 

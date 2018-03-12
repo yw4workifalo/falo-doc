@@ -22,9 +22,9 @@
 ● [設定玩家帳號模式](#設定玩家帳號模式)<br>
 ● [查詢玩家帳號模式](#查詢玩家帳號模式)<br>
 ● [設定玩家佔成](#設定玩家佔成)<br>
-● [查詢注區範本](#查詢注區範本)<br>
+● [查詢注區範本](#查詢注區範本)<br><!--
 ● [設定平台注區範本](#設定平台注區範本)<br>
-● [查詢平台注區範本](#查詢平台注區範本)<br>
+● [查詢平台注區範本](#查詢平台注區範本)<br>-->
 ● [設定玩家注區範本](#設定玩家注區範本)<br>
 ● [查詢玩家注區範本](#查詢玩家注區範本)<br>
 ● [修改退水值](#修改退水值)<br>
@@ -111,7 +111,7 @@
 
 ## <span>取得登入網址</span>
    **API Name : auth**</br>
-   **Method : POST**
+   **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -143,7 +143,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/auth?
+     GET /keno-api/player/auth?
      account=ifalo001&
      key=3de5b29aac97c072f5823dc99c5637d6&
      hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -236,8 +236,8 @@
 ------
 -->
 ## <span>修改玩家帳號暱稱</span>
-   **API Name : modifyn**</br>
-   **Method : POST**
+   **API Name : nickname**</br>
+   **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -272,7 +272,7 @@
   ###範例
   + 調用方法
     ```
-    POST /keno-api/player/modifyn?
+    PUT /keno-api/player/nickname?
          account=ifalo001&
          nickname=ifaloxxx&
          key=3de5b29aac93c072f5822dc99c5637d6&
@@ -303,8 +303,8 @@
 ------
 
 ## <span>查詢玩家</span>
-   **API Name : playerInfo**</br>
-   **Method : POST**
+   **API Name : info**</br>
+   **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -340,7 +340,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/playerInfo?
+     GET /keno-api/player/info?
      account=ifalo001&
      key=3de5b29aac97c072f5222dc99c5637d6&
      hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -357,7 +357,7 @@
           "enable":0,
           "limitWin":0,
           "limitLose":0,
-	        "isOnline":"true"
+	      "isOnline":"true"
         }
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
@@ -377,8 +377,8 @@
 ------
 
 ## <span>查詢玩家下注紀錄</span>
-   **API Name : betDetail**</br>
-   **Method : POST**
+   **API Name : report**</br>
+   **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -434,7 +434,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/betDetail?
+     GET /keno-api/player/report?
           account=ifalo001&
           startAt=2017-09-01 00:00:00&
           endAt=2017-09-04 14:00:00&
@@ -490,8 +490,8 @@
 ------
 
 ## <span>查詢玩家下注簡報總額</span>
-   **API Name : betReport**</br>
-   **Method : POST**
+   **API Name : report-multiple**</br>
+   **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -531,7 +531,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/betReport?
+     GET /keno-api/player/report-multiple?
           account=ifalo001&
           startAt=2017-09-01 00:00:00&
           endAt=2017-09-04 14:00:00&
@@ -569,8 +569,8 @@
 ------
 
 ## <span>額度轉出入</span>
-   **API Name : transaction**</br>
-   **Method : POST**
+   **API Name : transfer**</br>
+   **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | --| ---- | ----------- | ----------- | -- |
@@ -608,7 +608,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/transaction?
+     PUT /keno-api/player/transfer?
           account=ifalo001&
           credit=10000&
           key=3de5b29aac97c072f5222dc99c5637d6&
@@ -644,8 +644,8 @@
 ------
 
 ## <span>額度轉出入狀態</span>
-   **API Name : gettransaction**</br>
-   **Method : POST**
+   **API Name : transfer-status**</br>
+   **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -682,7 +682,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/gettransaction?
+     GET /keno-api/player/transfer-status?
           transactionNo=59a8c0c3198cd&
           key=3de5b29aac97c072f5822dc99c5137d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -752,7 +752,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/kick-multiple?
+     DELETE /keno-api/player/kick-multiple?
           account=ifalo001,ifalo002&
           key=3de5b29a2c97c072f5822dc99c5637d6&
           hash=6f6b1074e1c9e80e9b613bf79a923a6
@@ -790,7 +790,7 @@
 ------
 
 ## <span>設定玩家限輸</span>
-   **API Name : loseLimit**</br>
+   **API Name : lose**</br>
    **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -804,7 +804,7 @@
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- | |
+   | -- | ---- | ----------- | -- |
    | account | 玩家帳號 | string | |
    | limit | 限輸額度 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
@@ -823,7 +823,7 @@
    ### 範例
    + 調用方法
      ```
-      PUT /keno-api/player/loseLimit?
+      PUT /keno-api/player/lose?
           account=ifalo001&
           limit=0&
           key=3de5b29aac97c072f5822dc99c5337d6&
@@ -856,7 +856,7 @@
 ------
 
 ## <span>設定玩家限贏</span>
-   **API Name : winLimit**</br>
+   **API Name : win**</br>
    **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -889,7 +889,7 @@
    ### 範例
    + 調用方法
      ```
-      PUT /keno-api/player/winLimit?
+      PUT /keno-api/player/win?
           account=ifalo001&
           limit=0&
           key=3de5b29aac97c072f5822dc99c5337d6&
@@ -923,8 +923,8 @@
 ------
 
 ## <span>玩家限注回復</span>
-   **API Name : limitReturn**</br>
-   **Method : POST**
+   **API Name : recover**</br>
+   **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
@@ -955,7 +955,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/limitReturn?
+     PUT /keno-api/player/recover?
            account=ifalo001,ifalo002&
            key=3de5b29aac97c072f5822dc9925637d6&
            hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -993,7 +993,7 @@
 ------
 
 ## <span>玩家限注查詢</span>
-   **API Name : limitQuery**</br>
+   **API Name : limit**</br>
    **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1027,7 +1027,7 @@
    ### 範例
    + 調用方法
      ```
-     POST /keno-api/player/limitQuery?
+     GET /keno-api/player/limit?
           account=ifalo001,ifalo002&
           key=3de5b29aac97c272f5822dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1068,8 +1068,8 @@
 ------
 
 ## <span>玩家信用額度回復</span>
-  **API Name : balanceReturn**</br>
-  **Method : POST**</br>
+  **API Name : reset**</br>
+  **Method : PUT**</br>
   + 限信用平台使用
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1102,7 +1102,7 @@
   ### 範例
   + 調用方法
     ```
-    POST /keno-api/player/balanceReturn?
+    PUT /keno-api/player/reset?
          account=ifalo001,ifalo002&
          callback=http://www.platform.com/api
          key=3de5b29aac97c272f5822dc99c5637d6&
@@ -1140,8 +1140,8 @@
 ------
 
 ## <span>玩家信用額度設定</span>
-  **API Name : creditLimit**</br>
-  **Method : POST**
+  **API Name : credit**</br>
+  **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
@@ -1153,14 +1153,14 @@
   #### **` hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
   | -- | ---- | ----------- | -- |
   | account | 玩家帳號 | string | |
   | creditLimit | 最高額度 | string | |
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
@@ -1173,7 +1173,7 @@
   ### 範例
   + 調用方法
     ```
-    POST /keno-api/player/creditLimit?
+    PUT /keno-api/player/credit?
           account=ifalo001&
           creditLimit=100000&
           key=3de5b29aac97c072f5822dc99c5633d6&
@@ -1208,7 +1208,7 @@
 ------
 
 ## <span>玩家信用額度查詢</span>
-  **API Name : creditLimit**</br>
+  **API Name : credit**</br>
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1240,7 +1240,7 @@
   ### 範例
   + 調用方法
     ```
-    GET /keno-api/player/creditLimit?
+    GET /keno-api/player/credit?
         account=ifalo001,ifalo002&
         key=3de5b29aac97c072f5822dc99c5633d6&
         hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1278,7 +1278,7 @@
 ------
 
 ## <span>群組信用額度回復</span>
-  **API Name : groupBalanceReturn**</br>
+  **API Name : credit-reset-group**</br>
   **Method : POST**</br>
   + 限信用平台使用
   ### 輸入參數
@@ -1311,7 +1311,7 @@
   ### 範例
   + 調用方法
     ```
-    POST /keno-api/player/groupBalanceReturn?
+    POST /keno-api/player/credit-reset-group?
          groudId=1&
          callback=http://www.platform.com/api
          key=3de5b29aac97c272f5822dc99c5637d6&
@@ -1340,7 +1340,7 @@
 ------
 
 ## <span>群組信用額度設定</span>
-  **API Name : groupBalanceReturn**</br>
+  **API Name : credit-reset-group**</br>
   **Method : PUT**</br>
   + 限信用平台使用
   ### 輸入參數
@@ -1374,7 +1374,7 @@
   ### 範例
   + 調用方法
     ```
-    PUT /keno-api/player/groupBalanceReturn?
+    PUT /keno-api/player/credit-reset-group?
          account=ifalo001&
          groudId=1&
          key=3de5b29aac97c272f5822dc99c5637d6&
@@ -1406,7 +1406,7 @@
 ------
 
 ## <span>群組信用額度查詢</span>
-  **API Name : groupBalanceReturn**</br>
+  **API Name : credit-reset-group**</br>
   **Method : GET**</br>
   + 限信用平台使用
   ### 輸入參數
@@ -1439,7 +1439,7 @@
   ### 範例
   + 調用方法
     ```
-    GET /keno-api/player/groupBalanceReturn?
+    GET /keno-api/player/credit-reset-group?
          account=ifalo001&
          key=3de5b29aac97c272f5822dc99c5637d6&
          hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1470,8 +1470,8 @@
 ------
 
 ## <span>設定玩家帳號模式</span>
-  **API Name : modifyb**</br>
-  **Method : POST**
+  **API Name : mode**</br>
+  **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
@@ -1504,7 +1504,7 @@
   ### 範例
   + 調用方法
     ```
-    POST /keno-api/player/modifyb?
+    PUT /keno-api/player/mode?
          account=ifalo001&
          mode=0&
          key=3de5b29aac97c072f5822dc99c5637d4&
@@ -1537,8 +1537,8 @@
 ------
 
 ## <span>查詢玩家帳號模式</span>
-  **API Name : block**</br>
-  **Method : POST**
+  **API Name : mode**</br>
+  **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | --| ---- | ----------- | ----------- | -- |
@@ -1569,7 +1569,7 @@
   ### 範例
   + 調用方法
     ```
-      POST /keno-api/player/block?
+      GET /keno-api/player/mode?
             account=ifalo001,ifalo002&
             key=3de5b29aac97c072f5824dc99c5637d6&
             hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1608,7 +1608,7 @@
 
 ## <span>設定玩家佔成</span>
   **API Name : profit-percent**</br>
-  **Method : POST**
+  **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
@@ -1640,7 +1640,7 @@
   ### 範例
   + 調用方法
     ```
-      POST /keno-api/player/profit-percent?
+      PUT /keno-api/player/profit-percent?
           account=ifalo001&
           percent=0.05&
           key=3de5b29aac97c072f5824dc99c5637d6&
@@ -1672,7 +1672,7 @@
 ------
 
 ## <span>查詢注區範本</span>
-  **API Name : stake-limit**</br>
+  **API Name : stake-limit-list**</br>
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1703,7 +1703,7 @@
   ### 範例
   + 調用方法
     ```
-      GET /keno-api/player/stake-limit?
+      GET /keno-api/player/stake-limit-list?
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```
@@ -1749,9 +1749,9 @@
     }
     ```
 ------
-
+<!--
 ## <span>設定平台注區範本</span>
-  **API Name : stake-limit-list**</br>
+  **API Name : stake-limit-platform**</br>
   **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1782,7 +1782,7 @@
   ### 範例
   + 調用方法
     ```
-      PUT /keno-api/player/stake-limit-list?
+      PUT /keno-api/player/stake-limit-platform?
           exampleType=A
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1812,7 +1812,7 @@
 ------
 
 ## <span>查詢平台注區範本</span>
-  **API Name : stake-limit-list**</br>  
+  **API Name : stake-limit-platform**</br>  
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1842,7 +1842,7 @@
   ### 範例
   + 調用方法
     ```
-      GET /keno-api/player/stake-limit-list?
+      GET /keno-api/player/stake-limit-platform?
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```
@@ -1870,9 +1870,10 @@
     }
     ```
 ------
+-->
 
 ## <span>設定玩家注區範本</span>
-  **API Name : stake-limit-player**</br>
+  **API Name : stake-limit**</br>
   **Method : PUT**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1905,7 +1906,7 @@
   ### 範例
   + 調用方法
     ```
-      PUT /keno-api/player/stake-limit-player?
+      PUT /keno-api/player/stake-limit?
           account=ifalo001&
           exampleType=A&
           key=3de5b29aac97c072f5824dc99c5637d6&
@@ -1938,7 +1939,7 @@
 ------
 
 ## <span>查詢玩家注區範本</span>
-  **API Name : stake-limit-player**</br>
+  **API Name : stake-limit**</br>
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -1969,7 +1970,7 @@
   ## 範例
   + 調用方法
     ```
-      GET /keno-api/player/stake-limit-player?
+      GET /keno-api/player/stake-limit?
           account=ifalo001,ifalo002&
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -2180,7 +2181,6 @@
 | 10004 | 新疆時時彩 |
 | 10011 | 重慶時時彩 |
 | 10016 | 北京PK10 |
-| 20000 | 今彩539 |
 | 20001 | 賓果賓果 |
 | 20002 | 北京快樂8 |
 

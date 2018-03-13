@@ -1,3 +1,5 @@
+<div id="top"></div>
+
 # 彩票系統介接API範本
 ● [註冊玩家帳號](#註冊玩家帳號)<br>
 ● [取得登入網址](#取得登入網址)<br> <!--
@@ -107,6 +109,8 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>取得登入網址</span>
@@ -171,6 +175,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 <!--
 ## <span>取得測試帳號登入網址</span>
@@ -300,6 +306,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢玩家</span>
@@ -374,6 +382,8 @@
        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢玩家下注紀錄</span>
@@ -487,6 +497,8 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢玩家下注簡報總額</span>
@@ -566,6 +578,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>額度轉出入</span>
@@ -641,6 +655,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>額度轉出入狀態</span>
@@ -717,6 +733,8 @@
             "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
       }
       ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家踢線</span>
@@ -787,6 +805,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>設定玩家限輸</span>
@@ -853,6 +873,8 @@
           "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>設定玩家限贏</span>
@@ -920,6 +942,8 @@
           "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家限注回復</span>
@@ -990,6 +1014,8 @@
          "uuquid":"e1f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家限注查詢</span>
@@ -1065,6 +1091,8 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家信用額度回復</span>
@@ -1137,6 +1165,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家信用額度設定</span>
@@ -1205,6 +1235,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>玩家信用額度查詢</span>
@@ -1275,6 +1307,8 @@
       "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>群組信用額度回復</span>
@@ -1337,6 +1371,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>    
+
 ------
 
 ## <span>群組信用額度設定</span>
@@ -1403,6 +1439,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>群組信用額度查詢</span>
@@ -1467,6 +1505,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>設定玩家帳號模式</span>
@@ -1534,6 +1574,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢玩家帳號模式</span>
@@ -1604,6 +1646,8 @@
       "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>設定玩家佔成</span>
@@ -1669,6 +1713,8 @@
           "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢注區範本</span>
@@ -1748,6 +1794,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 <!--
 ## <span>設定平台注區範本</span>
@@ -1936,6 +1984,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢玩家注區範本</span>
@@ -2005,6 +2055,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>修改退水值</span>
@@ -2074,6 +2126,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>查詢退水值</span>
@@ -2142,6 +2196,8 @@
         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
     }
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>手機串接</span>
@@ -2165,6 +2221,8 @@
     cn-pharao-keno-game://launch-game?
          loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platormURL=http://pha888.com.tw
     ```
+<div align="right"><a href="#top">Top</a></div>
+
 
 ## <span>附表</span>
 ### <span>支援貨幣</span>

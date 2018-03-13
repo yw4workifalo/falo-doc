@@ -1,11 +1,21 @@
+<div id="top"></div>
+
 # 彩票系統介接帳務系統API範本
 ● [新增平台商](#新增平台商)<br>
 ● [刪除平台商](#刪除平台商)<br>
 ● [更改密鑰 ](#更改密鑰)<br>
 ● [平台報表查詢](#平台報表查詢)<br>
-● [各產品總帳查詢](#各產品總帳查詢)<br>
+● [產品總帳查詢](#產品總帳查詢)<br>
 ● [總會員出入明細](#總會員出入明細)<br>
 ● [會員注單查詢](#會員注單查詢)<br>
+● [會員注單明細網址](#會員注單明細網址)<br>
+● [遊戲開關查詢](#遊戲開關查詢)<br>
+● [遊戲開關設定](#遊戲開關設定)<br>
+● [會員等級範本查詢](#會員等級範本查詢)<br>
+● [會員等級設定](#會員等級設定)<br>
+● [會員等級查詢](#會員等級查詢)<br>
+● [會員帳號模式設定](#會員帳號模式設定)<br>
+● [會員帳號模式查詢](#會員帳號模式查詢)<br>
 
 ------
 ## <span>新增平台商</span>
@@ -72,6 +82,7 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
 
 ------
 ## <span>刪除平台商</span>
@@ -132,6 +143,7 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
 
 ------
 ## <span>更改密鑰</span>
@@ -194,19 +206,18 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
 
 ------
 ## <span>平台報表查詢</span>
-   **API Name : platform-repor-summary**</br>
+   **API Name : platform-report-summary**</br>
    **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y | 空白代表全部 |
+   | publicKey | 平台公鑰 | string | N | 依"＠"區隔多組key |
    | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | lottery | 彩票編號 | string | Y | 空白代表全部 |
-   | game | 玩法編號 | string | Y | 空白代表全部 |
    | key | 公鑰 | string | Y | 專屬公鑰 |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -215,20 +226,17 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
-   | totalPage | 總頁數 | string |  |
-   | totalTBetCount | 總筆數 | string |  |
-   | totalBenefit | 總輸贏 | array | [{TWD,CNY,USD}](#支援貨幣) |
-   | \ | 報表資訊 | array |  |
-   | \platformName | 平台帳號 | string | 空白代表全部 |
-   | \publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
-   | \begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | \end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | \currency | 幣別 | string |  |
-   | \lottery | 彩票編號 | string | 空白代表全部 |
-   | \game | 玩法編號 | string | 空白代表全部 |
-   | \tBetCount | 下注總筆數 | string |  |
-   | \tBet | 下注總額度 | string | 依幣別 |
-   | \tPL | 總輸贏 | string | "-"表示虧（虛貨） |
+   | detail\ | 報表資訊 | array |  |
+   | detail\platformName | 平台帳號 | string |  |
+   | detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
+   | detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | detail\currency | 幣別 | string |  |
+   | detail\lottery | 彩票編號 | string |  |
+   | detail\gameGroup | 玩法群組編號 | string |  |
+   | detail\tBetCount | 下注總筆數 | string |  |
+   | detail\tBet | 下注總額度 | string | 依幣別 |
+   | detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -245,13 +253,11 @@
    ### 範例
    + 調用方法
      ```
-     GET /keno-api/agent/platform-report?
-         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+     GET /keno-api/agent/platform-repor-summary?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6@3de5b29aac97c072f5822dc99c5637d6&
          begin=2017-10-31 00:00:00&
          end=2017-11-31 23:59:59&
-         lottery=10002&
-         game=104&
-         page=1
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
 
    + 成功
@@ -259,9 +265,6 @@
      {
          "status":"success",
          "data": {
-           "totalPage":"200",
-           "totalTBetCount":"10000",
-           "totalBenefit":{10000,5000,1000},
            "detail":[
                {
                  "platformName":"falo1",
@@ -270,7 +273,7 @@
                  "end":"2017-10-31 11:59:59",
                  "currency":"NTD",
                  "lottery":"10002",
-                 "game":"104",
+                 "gameGroup":"104",
                  "tBetCount":"3000",
                  "tBet":"2000",
                  "tPL":"20000",
@@ -283,7 +286,7 @@
                  "end":"2017-10-30 11:59:59",
                  "currency":"USD",
                  "lottery":"10002",
-                 "game":"104",
+                 "gameGroup":"104",
                  "tBetCount":"3000",
                  "tBet":"2000",
                  "tPL":"20000",
@@ -306,6 +309,7 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
 
 ------
 ## <span>產品總帳查詢</span>
@@ -325,18 +329,15 @@
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
-   | totalPage | 總頁數 | string |  |
-   | totalTBetCount | 總筆數 | string |  |
-   | totalBenefit | 總輸贏 | array | [{TWD,CNY,USD}](#支援貨幣) |
-   | \ | 報表資訊 | array |  |
-   | \platformName | 平台帳號 | string |  |
-   | \publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
-   | \begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | \end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | \currency | 幣別 | string |  |
-   | \tBetCount | 下注總筆數 | string |  |
-   | \tBet | 下注總額度 | string | 依幣別 |
-   | \tPL | 總輸贏 | string | "-"表示虧（虛貨） |
+   | detail\ | 報表資訊 | array |  |
+   | detail\platformName | 平台帳號 | string |  |
+   | detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
+   | detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
+   | detail\currency | 幣別 | string |  |
+   | detail\tBetCount | 下注總筆數 | string |  |
+   | detail\tBet | 下注總額度 | string | 依幣別 |
+   | detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -357,7 +358,7 @@
          publicKey=3de5b29aac97c072f5822dc99c5637d6@3de5b29aac97c072f5822dc99c5637d6&
          begin=2017-10-31 00:00:00&
          end=2017-11-31 23:59:59&
-         page=1
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
 
    + 成功
@@ -365,9 +366,6 @@
      {
          "status":"success",
          "data": {
-           "totalPage":"200",
-           "totalTBetCount":"10000",
-           "totalBenefit":{10000,5000,1000},
            "detail":[
                {
                  "platformName":"falo1",
@@ -408,73 +406,9 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
 
 -----
-## <span>會員注單明細網址</span>
-   **API Name : player-report**</br>
-   **Method : GET**
-   ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | player | 玩家帳號 | string | Y |  |
-   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
-
-   #### **` hash = md5(publicKey+begin+end+privateKey)`**
-
-   ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | url | 連結網址 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
-
-   ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | -- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位
-   | 2 | invalid key  | 金鑰無效
-   | 4 | {parameter} not found | 欄位參數值無效
-   | 5 | method is not allowed  | 使用之Http方法不允許
-   | 6 | function not found  | API不存在
-   | 7 | internal server error  | 服務器內部錯誤
-   | 15 | data format error  | 資料格式錯誤
-
-   ### 範例
-   + 調用方法
-     ```
-     GET /keno-api/agent/player-report?
-         publicKey=3de5b29aac97c072f5822dc99c5637d6&
-         player=ifalo001&
-         begin=2017-10-31 00:00:00&
-         end=2017-11-31 23:59:59
-     ```
-
-   + 成功
-     ```javascript
-     {
-         "status":"success",
-         "data": {
-           "url":"http://xxx.xxx.xxx/xxx"
-         },
-         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
-     }
-     ```
-
-   + 失敗
-     ```javascript
-     {
-        "status":"error",
-         "error": {
-           "code":7,
-           "message":"internal server error"
-         },
-         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
-     }
-     ```
-------
 
 ## <span>總會員出入明細</span>
    **API Name : player-log-report**</br>
@@ -485,6 +419,7 @@
    | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
    | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | page | 頁數 | string | Y | 空白代表第1頁 |
    | key | 公鑰 | string | Y | 專屬公鑰 |
    | hash | 驗證參數 | string | Y | md5 |
 
@@ -494,8 +429,6 @@
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
    | totalPage | 全部頁數 | string |  |
-   | totalTBetCount | 總筆數 | string |  |
-   | totalBenefit | 總輸贏 | array | [{TWD,CNY,USD}](#支援貨幣) |
    | detail | 出入明細 | string |  |
    | detail\publicKey | 平台公鑰 | string | 玩家依公鑰對應之平台 |
    | detail\playerAccount | 玩家帳號 | string |  |
@@ -526,7 +459,8 @@
          publicKey=3de5b29aac97c072f5822dc99c5637d6@3de5b29aac97c072f5822dc99c5637d6&
          begin=2017-10-31 00:00:00&
          end=2017-11-31 23:59:59&
-         page=1
+         page=1&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
 
    + 成功
@@ -535,8 +469,6 @@
          "status":"success",
          "data": {
            "totalPage":"200",
-           "totalTBetCount":"10000",
-           "totalBenefit":{10000,5000,1000},
            "detail":[
                {
                  "publicKey":"3de5b29aac97c072f5822dc99c5637d6",
@@ -575,6 +507,8 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
 ------
 ## <span>會員注單查詢</span>
    **API Name : player-bet-report**</br>
@@ -583,21 +517,19 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    |----|----|----|----|----|
    | publicKey | 平台公鑰 | string | Y |  |
-   | player | 玩家帳號 | string | Y | 依"＠"區隔多組，不填表示全部 |
+   | player | 玩家帳號 | string | Y | 依","區隔多組，不填表示全部 |
    | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | page | 頁數 | string | N | 預設第1頁 |
+   | page | 頁數 | string | N | 空白代表第1頁 |
    | key | 公鑰 | string | Y | 專屬公鑰 |
    | hash | 驗證參數 | string | Y | md5 |
 
-   #### **` hash = md5(publicKey+begin+end+privateKey)`**
+   #### **` hash = md5(publicKey+player+begin+end+page+privateKey)`**
 
    ### 輸出參數
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
    | totalPage | 總頁數 | string |  |
-   | totalTBetCount | 總筆數 | string |  |
-   | totalBenefit | 總輸贏 | array | [{TWD,CNY,USD}](#支援貨幣) |
    | detail\ | 報表資訊 | array |  |
    | detail\publicKey | 平台公鑰 | string |  |
    | detail\platformName | 平台帳號 | string |  |
@@ -626,7 +558,8 @@
          publicKey=3de5b29aac97c072f5822dc99c5637d6&
          player=ifalo001,ifalo002&
          begin=2017-10-31 00:00:00&
-         end=2017-11-31 23:59:59
+         end=2017-11-31 23:59:59&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
      ```
 
    + 成功
@@ -635,8 +568,6 @@
          "status":"success",
          "data": {
            "totalPage":"10",
-           "totalTBetCount":"10000",
-           "totalBenefit":{10000,5000,1000},
            "detail":[
            {
               "publicKey":"3de5b29aac97c072f5822dc99c5637d6",
@@ -682,7 +613,558 @@
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }
      ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+## <span>會員注單明細網址</span>
+   **API Name : player-report**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | player | 玩家帳號 | string | Y |  |
+   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+player+begin+end+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | url | 連結網址 | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/player-report?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         player=ifalo001&
+         begin=2017-10-31 00:00:00&
+         end=2017-11-31 23:59:59&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+           "url":"http://xxx.xxx.xxx/xxx"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+
+## <span>遊戲開關查詢</span>
+   **API Name : game-mode**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | mode | [遊戲狀態](#遊戲狀態) | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/game-mode?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+       "status":"success",
+       "data": {
+         "mode":"1"
+       },
+       "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+## <span>遊戲開關設定</span>
+   **API Name : game-mode**</br>
+   **Method : PUT**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | mode | [遊戲狀態](#遊戲狀態) | string | Y |  |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+mode+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | mode | [遊戲狀態](#遊戲狀態) | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     PUT /keno-api/agent/game-mode?
+         mode=1&
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+           "mode":"1"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
 -----
+## <span>會員等級範本查詢</span>
+   **API Name : stake-list**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | \exampleType | 範本類別 | string |  |
+   | \defaultBet | 底注 | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/stake-limit-list?
+     hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": [
+           {
+               "exampleType":"A",
+               "defaultBet":"2"
+           },
+           {
+               "exampleType":"B",
+               "defaultBet":"5"
+           },
+           {
+               "exampleType":"C",
+               "defaultBet":"10"
+           }
+         ],
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+## <span>會員等級設定</span>
+   **API Name : stake-limit-player**</br>
+   **Method : PUT**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | account | 玩家帳號 | string | Y |  |
+   | exampleType | 注區範本 | string | Y |  |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+exampleType+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | account | 玩家帳號 | string |  |
+   | exampleType | 範本類別 | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     PUT /keno-api/agent/stake-limit-player?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001&
+         exampleType=A&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+            "account":"ifalo001",
+            "exampleType":"A"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+
+## <span>會員等級查詢</span>
+   **API Name : stake-limit-player**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | account | 玩家帳號 | string | Y |  |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | account | 玩家帳號 | string |  |
+   | exampleType | 範本類別 | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/stake-limit-player?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+            "account":"ifalo001",
+            "exampleType":"A"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+
+## <span>會員帳號模式設定</span>
+   **API Name : mode**</br>
+   **Method : PUT**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+   | mode | 模式 | string | Y | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+mode+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | \account | 玩家帳號 | string |  |
+   | \mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     PUT /keno-api/agent/mode?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001,ifalo002&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": [
+           {
+              "account":"ifalo001",
+              "mode":"0"
+           },
+           {
+              "account":"ifalo002",
+              "mode":"1"
+           },
+         ],
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+## <span>會員帳號模式查詢</span>
+   **API Name : mode**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | publicKey | 平台公鑰 | string | Y |  |
+   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | \account | 玩家帳號 | string |  |
+   | \mode | 模式 | string |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/mode?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001,ifalo002&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": [
+           {
+              "account":"ifalo001",
+              "mode":"0"
+           },
+           {
+              "account":"ifalo002",
+              "mode":"1"
+           },
+         ],
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+
 ## <span>附表</span>
 ### <span>支援貨幣</span>
 | 代碼 | 說明 |
@@ -690,3 +1172,10 @@
 | TWD | 台幣 |
 | CNY | 人民幣 |
 | USD | 美金 |
+
+### <span>遊戲狀態</span>
+| 遊戲狀態 | 說明 |
+|--|----|
+| 0 | 關閉 |
+| 1 | 開啟 |
+| 2 | 維護 |

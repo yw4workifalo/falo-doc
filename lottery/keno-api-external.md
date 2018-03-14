@@ -507,7 +507,7 @@
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y |
+   | account | 玩家帳號 | string | N | 空白表示無區分玩家區間總額
    | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
@@ -515,12 +515,21 @@
 
    #### **` hash = md5(account+startAt+endAt+privateKey)`**
 
-   ### 輸出參數
+   ### 輸出參數(有帳號)
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    | -- | ---- | ----------- | -- |
    | account | 玩家帳號 | string |
    | agentUID | 代理商編號 | string |
    | agentName | 代理商名稱 | string |
+   | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
+   | betNumber | 總注數 | string |
+   | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001
+   | winBonus | 輸贏總金額 | string | 位數限制:(19,4) ex:1000.0001
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 輸出參數(無帳號)
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   | -- | ---- | ----------- | -- |
    | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
    | betNumber | 總注數 | string |
    | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001

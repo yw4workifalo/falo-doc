@@ -1542,7 +1542,7 @@
     | -1 | player not found |
 
 
-    #### Response 結果
+    ##### 回傳結果
     成功
 
     ```javascript
@@ -1560,28 +1560,27 @@
     ```
 
     失敗
+	    
+	   ```javascript
+	   {
+	        "status":"error",
+	        "error":{
+	            "code":11,"message":"mode setting is invalid"
+	        }
+	    }
+	   ```
 
-   ```javascript
-   {
-        "status":"error",
-        "error":{
-            "code":16,"message":"mode setting is invalid"
-        }
-    }
-   ```
-    
-    
-    #### 錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
-    |:--------:|:--------:|
-    | 1  | {parameter} is required   |
-    | 2  | key is invalid            |
-    | 3  | hash is invalid           |
-    | 4 | player not found  |        
-    | 5  | {method} is not allowed   |
-    |  7  | internal server error |
-    | 11 | {parameter} is invalid   |
+	
+	#### 錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+	    
+	| 錯誤代碼 | 錯誤說明 |     
+	|:--------:|:--------:|
+	| 1  | {parameter} is required   |
+	| 2  | key is invalid            |
+	| 3  | hash is invalid           |
+	| 5  | {method} is not allowed   |
+	|  7  | internal server error |
+	| 11 | {parameter} is invalid   |
 
 
 14. ### 限注查詢

@@ -1520,39 +1520,56 @@
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(accounts+mode+secret)**
+    
+    ---
 
-    ##### 回傳結果
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  mode   | 帳號模式 |  smallint  |
+    |  result | 多玩家處理狀況 |  string  |
+
+    #### result 多玩家處理狀況
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    | status| [玩家設定結果](#玩家設定結果)|smallint  |
+
+    #### <span id="set-mode-status">玩家設定結果</span>
+    | 狀態代碼 | status                  |
+    |---------- |-------------------------  |
+    | 0 | success |
+    | -1 | player not found |
+
+    ---
+
+    ### Response 結果
     成功
 
     ```javascript
-    {  
-       "status":"success",
-       "data":[  
-          {  
-             "accounts":"haha0738@ifalo.com.tw",
-             "mode":1
-          }
-       ]
+    {
+        "status":"success",
+        "data":{
+            "mode":1,
+            "result":[
+                {"account":"test1","status":-1},
+                {"account":"test666","status":0},
+                {"account":"test2","status":-1}
+            ]
+        }
     }
     ```
+
     失敗
 
-    ```javascript
-	{  
-	   "status":"error",
-	   "error":{  
-	      "code":4,
-	      "message":"player not found"
-	   }
-	}
-    ```
-    
-     回傳參數說明
-    
-    | 參數 | 型態 | 說明 |
-    |:---:|:---:|:---:|
-    | accounts |string(20)| 玩家帳號 |
-    | mode |int| 玩家模式([詳細說明](#玩家模式說明)) |
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code":16,"message":"mode setting is invalid"
+        }
+    }
+   ```
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     

@@ -30,7 +30,9 @@
 ● [設定玩家注區範本](#設定玩家注區範本)<br>
 ● [查詢玩家注區範本](#查詢玩家注區範本)<br>
 ● [修改退水值](#修改退水值)<br>
-● [查詢退水值](#查詢退水值)<br>
+● [查詢退水值](#查詢退水值)<br><!--
+● [設定代理商賠率](#設定代理商賠率)<br>
+● [查詢代理商賠率](#查詢代理商賠率)<br>-->
 ● [手機串接](#手機串接)<br>
 
 ------
@@ -513,7 +515,7 @@
    | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
    | hash | 驗證參數 | string | Y | md5 |
 
-   #### **` hash = md5(account+startAt+endAt+privateKey)`**
+   #### **` hash = md5(startAt+endAt+privateKey)`**
 
    ### 輸出參數(有帳號)
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
@@ -2074,7 +2076,7 @@
   ## 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | |
+  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
   | lotteryType | [彩種編號](#彩種編號) | string | Y | |
   | refund | 退水值 | string | Y | 0 ~ 150 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
@@ -2105,7 +2107,7 @@
   + 調用方法
     ```
       PUT /keno-api/player/refund?
-          account=ifalo&
+          account=ifalo001,ifalo002&
           refund=15
           lotteryType=20001
           key=3de5b29aac97c072f5824dc99c5637d6&
@@ -2116,11 +2118,18 @@
     ```javascript
     {
         "status":"success",
-        "data":{
-            "account":"ifalo",
+        "data":[
+          {
+            "account":"ifalo001",
             "lotteryType":"20001",
             "refund":"15"
-        },
+          },
+          {
+            "account":"ifalo002",
+            "lotteryType":"20001",
+            "refund":"15"
+          }
+        ],
         "uuquid":"01212c3b9e1eac371776a8e932289906"
     }
     ```
@@ -2138,14 +2147,13 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
-
 ## <span>查詢退水值</span>
   **API Name : refund**</br>
   **Method : GET**
   ### 輸入參數
   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
   | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | |
+  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
   | lotteryType | [彩種編號](#彩種編號) | string | Y | |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
   | hash | 驗證參數 | string | Y | md5 |
@@ -2175,7 +2183,7 @@
   + 調用方法
     ```
       PUT /keno-api/player/refund?
-          account=ifalo&
+          account=ifalo001,ifalo002&
           lotteryType=20001
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -2185,10 +2193,81 @@
     ```javascript
     {
         "status":"success",
-        "data":{
-           "account":"ifalo",
-           "lotteryType":"20001",
-           "refund":"15"
+        "data":[
+          {
+            "account":"ifalo001",
+            "lotteryType":"20001",
+            "refund":"15"
+          },
+          {
+            "account":"ifalo002",
+            "lotteryType":"20001",
+            "refund":"15"
+          }
+        ],
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+           "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+<div align="right"><a href="#top">Top</a></div>
+
+<!--
+------
+## <span>設定代理商賠率</span>
+  **API Name : odds**</br>
+  **Method : PUT**
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | odds | 賠率 | string | Y | |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(odds+privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | odds | 賠率 | string | |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+      PUT /keno-api/player/odds?
+          odds=40
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data": {
+            "odds":"40"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
     }
@@ -2208,7 +2287,67 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
+## <span>查詢代理商賠率</span>
+  **API Name : odds**</br>
+  **Method : GET**
+  ### 輸入參數
+  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+  | -- | ---- | ----------- | ----------- | -- |
+  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+  | hash | 驗證參數 | string | Y | md5 |
 
+  #### **`hash = md5(privateKey)`**
+
+  ### 輸出參數
+  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+  | -- | ---- | ----------- | -- |
+  | odds | 賠率 | string | |
+  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+      GET /keno-api/player/odds?
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data": {
+            "odds":"40"
+        },
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+           "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+<div align="right"><a href="#top">Top</a></div>
+-->
+-----
 ## <span>手機串接</span>
   **API Name :**</br>
   **Method :**

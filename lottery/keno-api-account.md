@@ -4,8 +4,8 @@
 ● [新增平台商](#新增平台商)<br>
 ● [刪除平台商](#刪除平台商)<br>
 ● [更改密鑰 ](#更改密鑰)<br>
-● [平台報表查詢](#平台報表查詢)<br>
-● [產品總帳查詢](#產品總帳查詢)<br>
+● [帳務報表](#帳務報表)<br><!--
+● [產品總帳查詢](#產品總帳查詢)<br>-->
 ● [總會員出入明細](#總會員出入明細)<br>
 ● [會員注單查詢](#會員注單查詢)<br>
 ● [會員注單明細網址](#會員注單明細網址)<br>
@@ -209,7 +209,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
-## <span>平台報表查詢</span>
+## <span>帳務報表</span>
    **API Name : platform-report-summary**</br>
    **Method : GET**
    ### 輸入參數
@@ -312,6 +312,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
+<!--
 ## <span>產品總帳查詢</span>
    **API Name : platform-report**</br>
    **Method : GET**
@@ -409,7 +410,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 -----
-
+-->
 ## <span>總會員出入明細</span>
    **API Name : player-log-report**</br>
    **Method : GET**
@@ -812,7 +813,7 @@
 
 -----
 ## <span>會員等級範本查詢</span>
-   **API Name : stake-list**</br>
+   **API Name : stake-limit-list**</br>
    **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -884,7 +885,7 @@
 
 ------
 ## <span>會員等級設定</span>
-   **API Name : stake-limit-player**</br>
+   **API Name : stake-limit**</br>
    **Method : PUT**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -918,7 +919,7 @@
    ### 範例
    + 調用方法
      ```
-     PUT /keno-api/agent/stake-limit-player?
+     PUT /keno-api/agent/stake-limit?
          publicKey=3de5b29aac97c072f5822dc99c5637d6&
          account=ifalo001&
          exampleType=A&
@@ -953,7 +954,7 @@
 -----
 
 ## <span>會員等級查詢</span>
-   **API Name : stake-limit-player**</br>
+   **API Name : stake-limit**</br>
    **Method : GET**
    ### 輸入參數
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
@@ -986,7 +987,7 @@
    ### 範例
    + 調用方法
      ```
-     GET /keno-api/agent/stake-limit-player?
+     GET /keno-api/agent/stake-limit?
          publicKey=3de5b29aac97c072f5822dc99c5637d6&
          account=ifalo001&
          hash=26f6b1074e1c9e80e9b613bf79a923a6

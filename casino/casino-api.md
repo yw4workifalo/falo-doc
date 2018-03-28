@@ -1697,7 +1697,7 @@
 3. ## <span id="player-credit-reset">重設信用玩家額度</span>
 
     ```
-    PUT /casino-api/credit/reset?
+    PUT /casino-api/player/credit/reset?
         key=<key>&
         callback=<callback>&
         hash=<hash>
@@ -1761,7 +1761,7 @@
 3. ## <span id="player-credit-reset">重設指定信用玩家額度</span>
 
     ```
-    PUT /casino-api/credit/multi-reset?
+    PUT /casino-api/player/credit/multi-reset?
         key=<key>&
         groupId=<groupId>&
         callback=<callback>&

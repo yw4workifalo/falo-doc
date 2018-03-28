@@ -3,14 +3,14 @@
 ### API數量：**34**
 -------
 1. [註冊帳號](#註冊帳號)
-1. [取得玩家登入網址](#取得玩家登入網址)
-1. [查詢玩家](#查詢玩家)
-1. [修改玩家暱稱](#修改玩家暱稱)
-1. [設定玩家帳號模式](#設定玩家帳號模式)
-1. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
-1. [設定玩家限輸](#設定玩家限輸)
-1. [設定玩家限贏](#設定玩家限贏)
-2. [玩家限注查詢](#玩家限注查詢)
+2. [取得玩家登入網址](#取得玩家登入網址)
+3. [查詢玩家](#查詢玩家)
+4. [修改玩家暱稱](#修改玩家暱稱)
+5. [設定玩家帳號模式](#設定玩家帳號模式)
+6. [設定玩家是否啟用遊戲](#設定玩家是否啟用遊戲)
+7. [設定玩家限輸](#設定玩家限輸)
+8. [設定玩家限贏](#設定玩家限贏)
+9. [玩家限注查詢](#玩家限注查詢)
 1. [玩家限注回復](#玩家限注回復)
 1. [玩家額度轉出入](#玩家額度轉出入)
 1. [玩家轉帳狀態查詢](#玩家轉帳狀態查詢)
@@ -2736,7 +2736,7 @@
     ```
     PUT /casino-api/player/refund?
         key=<key>&
-        account=<account>&
+        accounts=<accounts>&
         tableType=<tableType>&
         refund=<refund>&
         hash=<hash>
@@ -2746,20 +2746,28 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  |     必填    |
     |  tableType | [退水遊戲類別](#退水遊戲類別) |  smallint  |     必填    |
     |  refund | 退水設定值 0 ~ 150 |  integer  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + tableType + refund + secret)`**
+    #### **`hash = md5(accounts + tableType + refund + secret)`**
     ---
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號|  string  |
     |  tableType | [退水遊戲類別](#退水遊戲類別)  |  smallint  |
     |  refund | 退水設定值 |  integer  |
-
+    #### result 多玩家處理狀況
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號|  string  |
+    |  status | 玩家設定結果|  smallint  |
+    #### 玩家設定結果
+    | 狀態代碼 | status| 
+    |:--------:|:--------:|
+    |  0 | success | 
+    |  -1 | player not found|
     ---
 
     ### Response 結果
@@ -2769,9 +2777,13 @@
     {
         "status":"success",
         "data":{
-            "account":"test001",
             "tableType":1,
-            "refund":120
+            "refund":120,
+            "result":[
+            	{"account":"test1","status":-1},
+            	{"account":"test666","status":0},
+            	{"account":"test2","status":-1}
+            ]
         }
     }
     ```

@@ -428,6 +428,7 @@
    | historyList \ betStatus | 注單狀態 | string | [注單狀態](#注單狀態) |
    | historyList \ currency | 貨幣 | string | |
    | historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
+   | historyList \ betTime | 下注時間 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -478,9 +479,10 @@
                  "betAmount":"200.0000",
                  "winBonus":"0.0000",
                  "ip":"210.71.170.48",
-                 "betStatus":"已結算",
+                 "betStatus":"1",
                  "currency":"台幣",
-                 "balance":"9092680.0800"
+                 "balance":"9092680.0800",
+                 "betTime":"2017-08-25 16:31:24"
                }
            ],
            "uuquid":"01212c3b9e1eac371776a8e932289906"
@@ -2401,9 +2403,9 @@
 ### <span>注單狀態</span>
 | 注單狀態 | 說明 |
 | -- | ---- |
-| 0 | 未結算 |
-| 1 | 已結算 |
+| 0 | 一般單未結算 |
+| 1 | 一般單已結算 |
 | 2 | 撤單 |
-| 3 | 追號 |
-| 4 | 追號中獎停追 |
-| 5 | 金額不足 |
+| 3 | 追號單未結算 |
+| 4 | 追號餘額不足已結算 |
+| 5 | 追號超過限輸限贏已結算 |

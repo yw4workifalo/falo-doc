@@ -431,6 +431,9 @@
    | historyList \ currency | 貨幣 | string | |
    | historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
    | historyList \ betTime | 下注時間 | string | |
+   | historyList \ updateTime | 更新時間(開獎時間) | string | |
+   | historyList \ drawingNumber | 開獎號碼 | string | |
+   | historyList \ defaultBet | 底注 | string | 單位:元 範例:0.1 = 1角 |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -484,7 +487,10 @@
                  "betStatus":"1",
                  "currency":"台幣",
                  "balance":"9092680.0800",
-                 "betTime":"2017-08-25 16:31:24"
+                 "betTime":"2017-08-25 16:31:24",
+                 "updateTime":"2017-08-25 16:35:24",
+                 "drawingNumber":"1,2,3,4,5",
+                 "defaultBet":"2"
                }
            ],
            "uuquid":"01212c3b9e1eac371776a8e932289906"

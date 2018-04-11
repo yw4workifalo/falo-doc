@@ -434,6 +434,7 @@
    | historyList \ updateTime | 更新時間(開獎時間) | string | |
    | historyList \ drawingNumber | 開獎號碼 | string | |
    | historyList \ defaultBet | 底注 | string | 單位:元 範例:0.1 = 1角 |
+   | historyList \ percent | 佔成 | string | |
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼

@@ -16,6 +16,7 @@
 ● [會員等級查詢](#會員等級查詢)<br>
 ● [會員帳號模式設定](#會員帳號模式設定)<br>
 ● [會員帳號模式查詢](#會員帳號模式查詢)<br>
+● [遊戲玩法查詢](#遊戲玩法查詢)<br>
 
 ------
 ## <span>新增平台商</span>
@@ -418,6 +419,7 @@
    | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
    |----|----|----|----|----|
    | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+   | account | 玩家帳號 | string | Y | 空白表示查全部 |
    | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
    | page | 頁數 | string | Y | 空白代表第1頁 |
@@ -430,6 +432,8 @@
    | 參數名稱 | 參數說明 | 參數型態 | 說明 |
    |--|----|----------|--|
    | totalPage | 全部頁數 | string |  |
+   | totalCount | 總筆數 | string |  |
+   | totalCalc | 總盈虧 | string |  |
    | detail | 出入明細 | string |  |
    | detail\publicKey | 平台公鑰 | string | 玩家依公鑰對應之平台 |
    | detail\playerAccount | 玩家帳號 | string |  |
@@ -470,6 +474,8 @@
          "status":"success",
          "data": {
            "totalPage":"200",
+           "totalCount":"10000",
+           "totalCalc":"-20000"
            "detail":[
                {
                  "publicKey":"3de5b29aac97c072f5822dc99c5637d6",
@@ -1146,6 +1152,86 @@
               "account":"ifalo002",
               "mode":"1"
            },
+         ],
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+## <span>遊戲玩法查詢</span>
+   **API Name : gameList**</br>
+   **Method : GET**
+   ### 輸入參數
+   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+   |----|----|----|----|----|
+   | key | 公鑰 | string | Y | 專屬公鑰 |
+   | hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+privateKey)`**
+
+   ### 輸出參數
+   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
+   |--|----|----------|--|
+   | \ | 列表 | array |  |
+   | \lotteryNo | 彩種編號 | string |  |
+   | \lotteryName | 彩種名稱 | string |  |
+   | \lotteryGame | 玩法列表 | array |  |
+   | \lotteryGame\groupName | 玩法群組名稱 | array |  |
+   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/gameList?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": [
+           {
+            "lotteryNo":"10001",
+            "lotteryName":"重慶時時彩",
+            "lotteryGame":{
+              "100":"五星直選複式",
+              "200":"三星直選複式"
+             }
+           },
+           {
+            "lotteryNo":"10002",
+            "lotteryName":"北京PK10時時彩",
+            "lotteryGame":{
+              "100":"五星直選複式",
+              "200":"三星直選複式"
+             }
+           }
          ],
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }

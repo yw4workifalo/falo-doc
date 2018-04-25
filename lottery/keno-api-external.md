@@ -67,7 +67,7 @@
    | -- | -- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位
    | 2 | invalid key  | 金鑰無效
-   | 4 | {parameter} not found | 欄位參數值無效
+   | 4 | player not found | 玩家未找到
    | 5 | method is not allowed  | 使用之Http方法不允許
    | 6 | function not found  | API不存在
    | 7 | internal server error  | 服務器內部錯誤
@@ -139,7 +139,7 @@
    | --| ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -204,7 +204,7 @@
    | --| ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -270,7 +270,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -342,7 +342,7 @@
    | --| ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -442,7 +442,7 @@
    | :--| ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -554,7 +554,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -635,7 +635,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -711,7 +711,7 @@
    |--| ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -783,7 +783,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -856,7 +856,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -924,7 +924,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -992,7 +992,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -1066,7 +1066,7 @@
    | -- | ---- | ----------- |
    | 1 | {parameter} is required  | 缺少參數欄位 |
    | 2 | invalid key  | 金鑰無效 |
-   | 4 | {parameter} not found | 欄位參數值無效 |
+   | 4 | player not found | 玩家未找到 |
    | 5 | method is not allowed  | 使用之Http方法不允許 |
    | 6 | function not found  | API不存在 |
    | 7 | internal server error  | 服務器內部錯誤 |
@@ -1143,7 +1143,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1216,7 +1216,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1285,7 +1285,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1358,7 +1358,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1423,7 +1423,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1490,7 +1490,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1556,7 +1556,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效
+  | 4 | player not found | 玩家未找到
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1624,7 +1624,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1698,7 +1698,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位
   | 2 | invalid key  | 金鑰無效
-  | 4 | {parameter} not found | 欄位參數值無效
+  | 4 | player not found | 玩家未找到
   | 5 | method is not allowed  | 使用之Http方法不允許
   | 6 | function not found  | API不存在
   | 7 | internal server error  | 服務器內部錯誤
@@ -1764,7 +1764,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位
   | 2 | invalid key  | 金鑰無效
-  | 4 | {parameter} not found | 欄位參數值無效
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許
   | 6 | function not found  | API不存在
   | 7 | internal server error  | 服務器內部錯誤
@@ -1832,7 +1832,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1913,7 +1913,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -1973,7 +1973,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在
   | 7 | internal server error  | 服務器內部錯誤
@@ -2037,7 +2037,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -2080,7 +2080,7 @@
 
 ------
 
-## <span>查詢玩家注區範本</span>
+## <span>注區範本</span>
   **API Name : stake-limit**</br>
   **Method : GET**
   ### 輸入參數
@@ -2103,7 +2103,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -2178,7 +2178,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -2254,7 +2254,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -2328,7 +2328,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |
@@ -2390,7 +2390,7 @@
   | -- | ---- | ----------- |
   | 1 | {parameter} is required  | 缺少參數欄位 |
   | 2 | invalid key  | 金鑰無效 |
-  | 4 | {parameter} not found | 欄位參數值無效 |
+  | 4 | player not found | 玩家未找到 |
   | 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在 |
   | 7 | internal server error  | 服務器內部錯誤 |

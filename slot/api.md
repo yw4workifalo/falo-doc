@@ -2848,7 +2848,7 @@
 	```
 	PUT player/credit?
 		key=<key>&
-		account=<account>&
+		accounts=<accounts>&
 		credit=<credit>&
 		hash=<hash>
 	```
@@ -2857,7 +2857,7 @@
 	bash
 	
 	```bash
-	CURL -X PUT -d account=test01 -d credit=100000 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+	CURL -X PUT -d accounts=test01,test02 -d credit=100000 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
  		-G http://poker.app/api/v2/slot/player/credit
 	```
 	

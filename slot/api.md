@@ -2868,7 +2868,7 @@
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
 	$url = 'http://poker.app/api/v2/slot/player/credit';
 	$data = [
-		'account'=>'test01',
+		'accounts'=>'test01,test02',
 		'credit'=>'100000',
 	];
 	//產生hash
@@ -2893,24 +2893,63 @@
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  account | 玩家帳號 |  string(20)  |     必填，4-20個字元    | Y |
+    |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
 	|credit  | 玩家額度|  decimal(19, 4)  |   要設定的信用額度 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(account + credit + secret)**
+	**hash = md5(accounts + credit + secret)**
+	
+	
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+	 | credit | decimal(19, 4) |目前設定的信用額度 |
+    |  result | 多玩家處理狀況 |  string  |
+
+    ##### result 多玩家處理狀況
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  account | 玩家帳號 |  string  |
+    | status| [玩家設定結果](#玩家設定結果)|smallint  |
+
+    ##### <span id="set-mode-status">玩家設定結果</span>
+    | 狀態代碼 | status                  |
+    |---------- |-------------------------  |
+    | 0 | success |
+    | -1 | player not found |
+    | -2 | The credit reset action is pending |
+    | -3 | internal server error |
+    	
 
 	##### 回傳結果
 
      成功
 
       ```javascript
-      {  
-      "status":"success",
-      "data":{  
-           "account":"test01",
-           "credit":100000,
-        }
-      }
+	{
+		"status": "success",
+		"data": {
+			"credit": 12222,
+			"result": [
+				{
+					"account": "web_wei",
+					"status": -1
+				},
+				{
+					"account": "testtt12",
+					"status": -2
+				},
+				{
+					"account": "fd0_wei",
+					"status": 0
+				},
+				{
+					"account": "testtt1",
+					"status": 0
+				}
+			]
+		}
+	}
       ```
 
     失敗
@@ -2919,18 +2958,11 @@
 	{  
        "status":"error",
        "error":{  
-          "code":4,
-          "message":"player not found"
+          "code":30,
+          "message":"the cash type is invalid"
        }
     }
 	```
-	
-    回傳參數說明    
-    
-	|參數|型態|說明|
-	|:---:|:---:|:---:|
-	|  account|  string(20)  | 玩家帳號 |
-	| credit | decimal(19, 4) |目前設定的信用額度 |
 
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
@@ -2939,13 +2971,12 @@
 	|:--------:|:--------:|
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
-	| 3  | hash is invalid           |
-	| 4 | player not found  |    		
+	| 3  | hash is invalid           |  	
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
-	| 30 | the cash type is invalid | 只適用信用用戶 |
-	| 	34 | The credit reset action is pending | 
+	| 30 | the cash type is invalid | 
+	
 
 20. ### 查詢信用玩家額度
 

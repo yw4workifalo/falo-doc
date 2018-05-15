@@ -41,26 +41,26 @@
    **API Name : register**</br>
    **Method : POST**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | account | 帳號 | string | Y | 長度最短4，最長20 |
-   | nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
-   | currency | 貨幣 | string | N | [玩家貨幣類型](#支援貨幣)，不指定以代理商為準 |
-   | maxbetlimit | 單次最大下注額 | string | Y |
-   | limitwin | 限贏 | string | Y | 0表示無限制 |
-   | limitlose | 限輸 | string | Y | 0表示無限制 |
-   | memberType | 帳務類型 | string | Y | 1:現金制、2:信用制 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| account | 帳號 | string | Y | 長度最短4，最長20 |
+| nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
+| currency | 貨幣 | string | N | [玩家貨幣類型](#支援貨幣)，不指定以代理商為準 |
+| limitwin | 限贏 | string | Y | 0表示無限制 |
+| limitlose | 限輸 | string | Y | 0表示無限制 |
+| memberType | 帳務類型 | string | N | 1:現金制、2:信用制 沒輸入預設是2:信用制|
+| groupId | 回復類型 | string | N | 0:無、1:日回復、2:週回復 不指定預設是0:無|
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
-   #### **` hash = md5(account+nickname+maxbetlimit+limitwin+limitlose+memberType+privateKey)`**
+   #### **` hash = md5(account+nickname+limitwin+limitlose+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | account | 玩家帳號  | string  | |
-   | nickname | 玩家暱稱 | string | |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| account | 玩家帳號  | string  | |
+| nickname | 玩家暱稱 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -120,32 +120,32 @@
    **API Name : auth**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 長度最短4，最長20 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
    #### **`  hash = md5(account+privateKey) `**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | --| ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
-   | login | 登入網址 | string |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| --| ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| login | 登入網址 | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | --| ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 服務器內部錯誤 |
-   | 25 | locked_and_can_not_login | 帳號或上層被鎖 |
-   | 52 | Trial_account_expired | 試玩帳號限期已過 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| --| ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 服務器內部錯誤 |
+| 25 | locked_and_can_not_login | 帳號或上層被鎖 |
+| 52 | Trial_account_expired | 試玩帳號限期已過 |
 
    ### 範例
    + 調用方法
@@ -186,31 +186,31 @@
    **API Name : authtest**</br>
    **Method : POST**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
    #### **`  hash = md5(privateKey) `**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | --| ---- | ----------- | -- |
-   | account | 會員帳號 | string |
-   | login | 登入網址 | string |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| --| ---- | ----------- | -- |
+| account | 會員帳號 | string |
+| login | 登入網址 | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | --| ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 服務器內部錯誤 |
-   | 25 | locked_and_can_not_login | 帳號或上層被鎖 |
-   | 52 | Trial_account_expired | 試玩帳號限期已過 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| --| ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 服務器內部錯誤 |
+| 25 | locked_and_can_not_login | 帳號或上層被鎖 |
+| 52 | Trial_account_expired | 試玩帳號限期已過 |
 
    ### 範例
    + 調用方法
@@ -248,12 +248,12 @@
    **API Name : nickname**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
-   | nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 長度最短4，最長20 |
+| nickname | 玩家暱稱 | string | Y | 長度最短4，最長20 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+nickname+privateKey)`**
 
@@ -266,17 +266,17 @@
 
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
-   | 31 | account_not_exist | 帳號不存在 |
-   | 32 | prohibited to modify their own members | 禁止修改非自己的玩家 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+| 31 | account_not_exist | 帳號不存在 |
+| 32 | prohibited to modify their own members | 禁止修改非自己的玩家 |
 
   ###範例
   + 調用方法
@@ -317,36 +317,36 @@
    **API Name : info**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 長度最短4，最長20 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 長度最短4，最長20 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
-   | nickname | 玩家暱稱 | string |
-   | credit | 玩家餘額 | float | 位數格式:(19,4) ex:1000.0001 |
-   | enable | 是否啟用 | int | 凍結狀態(0:正常，1:鎖單無法下注，2:封鎖無法登入) |
-   | limitWin | 限贏 | float | 0表示無限制 |
-   | limitLose | 限輸 | float | 0表示無限制 |
-   | isOnline | 是否在線 | boolean | 玩家是否在線 |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| nickname | 玩家暱稱 | string |
+| credit | 玩家餘額 | float | 位數格式:(19,4) ex:1000.0001 |
+| enable | 是否啟用 | int | 凍結狀態(0:正常，1:鎖單無法下注，2:封鎖無法登入) |
+| limitWin | 限贏 | float | 0表示無限制 |
+| limitLose | 限輸 | float | 0表示無限制 |
+| isOnline | 是否在線 | boolean | 玩家是否在線 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | --| ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| --| ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -394,61 +394,62 @@
    **Method : GET**
    * 一頁至多輸出1000筆
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | N | 傳遞空值,為查詢區間段所有下注玩家的注單 |
-   | startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
-   | endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
-   | now | 第?頁 | string | N | 空值代表第1頁 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | N | 傳遞空值,為查詢區間段所有下注玩家的注單 |
+| startAt | 開始時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
+| endAt | 結束時間 | string | Y | 0 代表不限制，至多查詢七天內的資料<br>格式：YYYY-MM-dd hh:mm:ss |
+| now | 第?頁 | string | N | 空值代表第1頁 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+startAt+endAt+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | --| ---- | ----------- | -- |
-   | count | 下注筆數 | string | |
-   | totalPage | 總頁數 | string | |
-   | historyList | 歷史紀錄 | array | |
-   | historyList \ orderID | 下注單號 | string | |
-   | historyList \ memberUID | 玩家編號 | string | |
-   | historyList \ memberAccount | 玩家帳號 | string | |
-   | historyList \ agentUID | 代理商編號 | string | |
-   | historyList \ agentName | 代理商名稱 | string | |
-   | historyList \ lotteryName | 彩票名稱 | string | |
-   | historyList \ drawingNo | 開獎期別 | string | |
-   | historyList \ groupName | 玩法群組名稱 | string | |
-   | historyList \ gameName | 玩法名稱 | string | |
-   | historyList \ betData | 下注號碼 | string | |
-   | historyList \ betNumber | 注數 | int | |
-   | historyList \ odd | 賠率 | string | |
-   | historyList \ multiple | 倍數 | string | |
-   | historyList \ betAmount | 下注總額 | string | 位數格式:(19,4) ex:1000.0001 |
-   | historyList \ winBonus | 中獎金額 | string | 位數格式:(19,4) ex:1000.0001 |
-   | historyList \ ip | 下注IP | string | |
-   | historyList \ betStatus | 注單狀態 | string | [注單狀態](#注單狀態) |
-   | historyList \ currency | 貨幣 | string | |
-   | historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
-   | historyList \ betTime | 下注時間 | string | |
-   | historyList \ updateTime | 更新時間(開獎時間) | string | |
-   | historyList \ drawingNumber | 開獎號碼 | string | |
-   | historyList \ defaultBet | 底注 | string | 單位:元 範例:0.1 = 1角 |
-   | historyList \ percent | 佔成 | string | |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| --| ---- | ----------- | -- |
+| count | 下注筆數 | string | |
+| totalPage | 總頁數 | string | |
+| historyList | 歷史紀錄 | array | |
+| historyList \ orderID | 下注單號 | string | |
+| historyList \ memberUID | 玩家編號 | string | |
+| historyList \ memberAccount | 玩家帳號 | string | |
+| historyList \ agentUID | 代理商編號 | string | |
+| historyList \ agentName | 代理商名稱 | string | |
+| historyList \ lotteryName | 彩票名稱 | string | |
+| historyList \ drawingNo | 開獎期別 | string | |
+| historyList \ groupName | 玩法群組名稱 | string | |
+| historyList \ gameName | 玩法名稱 | string | |
+| historyList \ betData | 下注號碼 | string | |
+| historyList \ betNumber | 注數 | int | |
+| historyList \ odd | 賠率 | string | |
+| historyList \ multiple | 倍數 | string | |
+| historyList \ betAmount | 下注總額 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ winBonus | 中獎金額 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ refundFee | 退水 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ ip | 下注IP | string | |
+| historyList \ betStatus | 注單狀態 | string | [注單狀態](#注單狀態) |
+| historyList \ currency | 貨幣 | string | |
+| historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ betTime | 下注時間 | string | |
+| historyList \ updateTime | 更新時間(開獎時間) | string | |
+| historyList \ drawingNumber | 開獎號碼 | string | |
+| historyList \ defaultBet | 底注 | string | 單位:元 範例:0.1 = 1角 |
+| historyList \ percent | 佔成 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | :--| ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
-   | 33 | time is over limit | 日期相隔不得大於7天 |
-   | 34 | the start date is greater than the end time | 開始日期不能大於結束日期 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| :--| ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+| 33 | time is over limit | 日期相隔不得大於7天 |
+| 34 | the start date is greater than the end time | 開始日期不能大於結束日期 |
 
    ### 範例
    + 調用方法
@@ -529,11 +530,11 @@
    #### **` hash = md5(startAt+endAt+privateKey)`**
 
    ### 輸出參數(有帳號)
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
-   | agentUID | 代理商編號 | string |
-   | agentName | 代理商名稱 | string |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| agentUID | 代理商編號 | string |
+| agentName | 代理商名稱 | string |
    | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
    | betNumber | 總注數 | string |
    | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001
@@ -550,17 +551,17 @@
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
-   | 33 | time is over limit | 日期相隔不得大於7天 |
-   | 34 | the start date is greater than the end time | 開始日期不能大於結束日期 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+| 33 | time is over limit | 日期相隔不得大於7天 |
+| 34 | the start date is greater than the end time | 開始日期不能大於結束日期 |
 
    ### 範例
    + 調用方法
@@ -608,13 +609,13 @@
    **API Name : transfer**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | --| ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | |
-   | credit | 轉出入額度 | string | Y | 位數限制:±(19,4) ex:+1000.0001<br>正數為轉入，負數為轉出 |
-   | orderNo | 平台交易編號 | string | Y | 介接平台產生，核對帳務 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| --| ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | |
+| credit | 轉出入額度 | integer | Y | 位數限制:±(10) ex:+1000<br>正數為轉入，負數為轉出 |
+| orderNo | 平台交易編號 | string | Y | 介接平台產生，核對帳務 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+credit+orderNo+privateKey)`**
 
@@ -631,15 +632,15 @@
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 | |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -685,11 +686,11 @@
    **API Name : transfer-status**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | transactionNo | 交易編號 | string | Y |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| transactionNo | 交易編號 | string | Y |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(transactionNo+privateKey)`**
 
@@ -763,11 +764,11 @@
    **API Name : kick-multiple**</br>
    **Method : DELETE**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+privateKey)`**
 
@@ -779,15 +780,15 @@
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -835,32 +836,32 @@
    **API Name : lose**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | |
-   | limit | 限輸額度 | string | Y | 整數格式，0表示無限制 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | |
+| limit | 限輸額度 | string | Y | 整數格式，0表示無限制 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **`hash = md5(account+limit+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string | |
-   | limit | 限輸額度 | string | |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | |
+| limit | 限輸額度 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -870,7 +871,7 @@
           limit=0&
           key=3de5b29aac97c072f5822dc99c5337d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
-      ```
+     ```
 
    + 成功
      ```javascript
@@ -903,32 +904,32 @@
    **API Name : win**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | |
-   | limit | 限贏額度 | string | Y | 整數格式，0表示無限制 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | |
+| limit | 限贏額度 | string | Y | 整數格式，0表示無限制 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **`hash = md5(account+limit+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string | |
-   | limit | 限贏額度 | string | |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | |
+| limit | 限贏額度 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -972,31 +973,31 @@
    **API Name : recover**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 多個代理用","隔開 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個代理用","隔開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    **`hash = md5(account+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string | 多個代理用","隔開 |
-   | status | 玩家帳號 | string | 回復狀態，1：成功、0：失敗 |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | 多個代理用","隔開 |
+| status | 玩家帳號 | string | 回復狀態，1：成功、0：失敗 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -1044,33 +1045,33 @@
    **API Name : limit**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   | -- | ---- | ----------- | ----------- | -- |
-   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **`hash = md5(account+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   | -- | ---- | ----------- | -- |
-   | account | 玩家帳號 | string |
-   | winCredit | 目前輸贏 | string |
-   | winLimit | 限贏 | string |
-   | loseLimit | 限輸 | string |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| winCredit | 目前輸贏 | string |
+| winLimit | 限贏 | string |
+| loseLimit | 限輸 | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
-   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-   | -- | ---- | ----------- |
-   | 1 | {parameter} is required  | 缺少參數欄位 |
-   | 2 | invalid key  | 金鑰無效 |
-   | 4 | player not found | 玩家未找到 |
-   | 5 | method is not allowed  | 使用之Http方法不允許 |
-   | 6 | function not found  | API不存在 |
-   | 7 | internal server error  | 服務器內部錯誤 |
-   | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
    ### 範例
    + 調用方法
@@ -1122,32 +1123,32 @@
   **Method : PUT**</br>
   + 限信用平台使用
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-  | callback | 執行完後通知平台 url	| string |  |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| callback | 執行完後通知平台 url	| string |  |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(account+callback+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |
-  | status | 回復狀態 | string | 回復狀態，1：成功、0：失敗 |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| status | 回復狀態 | string | 回復狀態，1：成功、0：失敗 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -1195,32 +1196,32 @@
   **API Name : credit**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-  | creditLimit | 最高額度 | string | Y | |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| creditLimit | 最高額度 | string | Y | |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string | |
-  | creditLimit | 最高額度 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | |
+| creditLimit | 最高額度 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -1265,9 +1266,9 @@
   **API Name : credit**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
   | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生)
   | hash | 驗證參數 | string | Y | md5
 
@@ -1278,6 +1279,7 @@
   | -- | ---- | ----------- | -- |
   | account | 玩家帳號 | string | |
   | creditLimit | 最高額度 | string | |
+  | currentCredit | 剩餘信用額度 | string ||
   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
@@ -1338,37 +1340,37 @@
   **Method : POST**</br>
   + 限信用平台使用
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | groudId | 群組類型 | string | Y | 1:日回復、2:周回復 |
-  | callback | 執行完後通知平台 url	| string |  |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| groupId | 群組類型 | string | Y | 1:日回復、2:周回復 |
+| callback | 執行完後通知平台 url	| string |  |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(groudId+callback+privateKey)`**
+  #### **`hash = md5(groupId+callback+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | groudId | 群組類型 | string |  |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| groupId | 群組類型 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
     ```
     POST /keno-api/player/credit-reset-group?
-         groudId=1&
+         groupId=1&
          callback=http://www.platform.com/api
          key=3de5b29aac97c272f5822dc99c5637d6&
          hash=26f6b1074e1c9e80e9b613bf79a923a6
@@ -1378,7 +1380,7 @@
     ```javascript
     {
         "status":"success",
-        "data":{"groudId":"1"},
+        "data":{"groupId":"1"},
         "uuquid":"01212c3b9e1eac371776a8e932289906"
     }
     ```
@@ -1402,39 +1404,39 @@
   **Method : PUT**</br>
   + 限信用平台使用
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號	| string |  |
-  | groudId | 群組類型 | string | Y | 1:日回復、2:周回復 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號	| string |  |
+| groupId | 群組類型 | string | Y | 1:日回復、2:周回復 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(account+groudId+privateKey)`**
+  #### **`hash = md5(account+groupId+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |  |
-  | groudId | 群組類型 | string |  |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |  |
+| groupId | 群組類型 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
     ```
     PUT /keno-api/player/credit-reset-group?
          account=ifalo001&
-         groudId=1&
+         groupId=1&
          key=3de5b29aac97c272f5822dc99c5637d6&
          hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```
@@ -1445,7 +1447,7 @@
         "status":"success",
         "data":{
           "account":"ifalo001"
-          "groudId":"1"
+          "groupId":"1"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
     }
@@ -1470,31 +1472,31 @@
   **Method : GET**</br>
   + 限信用平台使用
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號	| string |  |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號	| string |  |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |  |
-  | groudId | 群組類型 | string |  |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |  |
+| groupId | 群組類型 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -1511,7 +1513,7 @@
         "status":"success",
         "data":{
           "account":"ifalo001"
-          "groudId":"1"
+          "groupId":"1"
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
     }
@@ -1535,21 +1537,21 @@
   **API Name : mode**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 代理帳號 | string | Y | 多個玩家用","隔開 |
-  | mode | 模式 | string | Y | 0:正常，1:鎖單無法下注，2:封鎖無法登入 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 代理帳號 | string | Y | 多個玩家用","隔開 |
+| mode | 模式 | string | Y | 0:正常，1:鎖單無法下注，2:封鎖無法登入 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   **`hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string | |
-  | mode | 模式 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | |
+| mode | 模式 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1604,11 +1606,11 @@
   **API Name : mode**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | --| ---- | ----------- | ----------- | -- |
-  | account | 代理帳號 | string | Y | 多個玩家用","隔開 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| --| ---- | ----------- | ----------- | -- |
+| account | 代理帳號 | string | Y | 多個玩家用","隔開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(account+privateKey)`**
 
@@ -1637,7 +1639,7 @@
             account=ifalo001,ifalo002&
             key=3de5b29aac97c072f5824dc99c5637d6&
             hash=26f6b1074e1c9e80e9b613bf79a923a6
-      ```
+    ```
 
   + 成功
     ```javascript
@@ -1676,22 +1678,22 @@
   **API Name : profit-percent**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y |
-  | lotteryType | [彩種編號](#彩種編號) | string | Y | |
-  | percent | 玩家佔成 | string | Y | 0.00 ~ 1.00 (1.00代表100%) |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y |
+| lotteryType | [彩種編號](#彩種編號) | string | Y | |
+| percent | 玩家佔成 | string | Y | 0.00 ~ 1.00 (1.00代表100%) |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(account+lotteryType+percent+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |
-  | percent | 玩家佔成 | string | 以小數表示 |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| percent | 玩家佔成 | string | 以小數表示 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1744,20 +1746,20 @@
   **API Name : profit-percent**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |
-  | percent | 玩家佔成依[彩種編號](#彩種編號) | string | ["彩種編號":"佔成"] |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| percent | 玩家佔成依[彩種編號](#彩種編號) | string | ["彩種編號":"佔成"] |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1813,30 +1815,30 @@
   **API Name : stake-limit-list**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | exampleType | 注區範本 | string |
-  | defaultBet | 底注 | string |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| exampleType | 注區範本 | string |
+| defaultBet | 底注 | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -1894,30 +1896,30 @@
   **API Name : stake-limit-platform**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | exampleType | 範本類別 | string | Y | 注區範本 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| exampleType | 範本類別 | string | Y | 注區範本 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(exampleType+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | exampleType | 範本類別 | string |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| exampleType | 範本類別 | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -1955,26 +1957,26 @@
   **API Name : stake-limit-platform**</br>  
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **` hash = md5(privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | exampleType |  | string |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| exampleType |  | string |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
   | 6 | function not found  | API不存在
   | 7 | internal server error  | 服務器內部錯誤
   | 15 | data format error  | 資料格式有誤
@@ -2016,32 +2018,32 @@
   **API Name : stake-limit**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | |
-  | exampleType |  | string | Y | |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | |
+| exampleType |  | string | Y | |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(account+exampleType+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string | |
-  | exampleType | 範本類別 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string | |
+| exampleType | 範本類別 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -2051,7 +2053,7 @@
           exampleType=A&
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
-     ```
+    ```
 
   + 成功
     ```javascript
@@ -2084,30 +2086,30 @@
   **API Name : stake-limit**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(account+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | exampleType | 注區範本 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| exampleType | 注區範本 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ## 範例
   + 調用方法
@@ -2155,42 +2157,39 @@
   **API Name : refund**</br>
   **Method : PUT**
   ## 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-  | lotteryType | [彩種編號](#彩種編號) | string | Y | |
-  | refund | 退水值 | string | Y | 0 ~ 150 |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| data/account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| data/lotteryType | [彩種編號](#彩種編號) | string | Y | |
+| data/refund | 退水值 | string | Y | 0 ~ 150 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
-  #### **`hash = md5(account+lotteryType+refund+privateKey)`**
+  #### **`hash = md5(data+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |
-  | lotteryType | [彩種編號](#彩種編號) | string | |
-  | refund | 退水值 | string | 0 ~ 150 |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| data/account | 玩家帳號 | string |
+| data/lotteryType | [彩種編號](#彩種編號) | string | |
+| data/refund | 退水值 | string | 0 ~ 150 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
     ```
-      PUT /keno-api/player/refund?
-          account=ifalo001,ifalo002&
-          refund=15
-          lotteryType=20001
+      PUT /keno-api/player/refund?data= [{ "account":"ifalo001","lotteryType":"20001","refund":"15"},{"account":"ifalo002","lotteryType":"20002","refund":"25"}]&
           key=3de5b29aac97c072f5824dc99c5637d6&
           hash=26f6b1074e1c9e80e9b613bf79a923a6
     ```
@@ -2232,33 +2231,33 @@
   **API Name : refund**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-  | lotteryType | [彩種編號](#彩種編號) | string | Y | |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| lotteryType | [彩種編號](#彩種編號) | string | Y | |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(account+lotteryType+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | account | 玩家帳號 | string |
-  | lotteryType | [彩種編號](#彩種編號) | string | |
-  | refund | 退水值 | string | 0 ~ 150 |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| account | 玩家帳號 | string |
+| lotteryType | [彩種編號](#彩種編號) | string | |
+| refund | 退水值 | string | 0 ~ 150 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -2309,30 +2308,30 @@
   **API Name : odds**</br>
   **Method : PUT**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | odds | 賠率 | string | Y | |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| odds | 賠率 | string | Y | |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(odds+privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | odds | 賠率 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| odds | 賠率 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -2372,29 +2371,29 @@
   **API Name : odds**</br>
   **Method : GET**
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
-  | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
 
   #### **`hash = md5(privateKey)`**
 
   ### 輸出參數
-  | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-  | -- | ---- | ----------- | -- |
-  | odds | 賠率 | string | |
-  | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| odds | 賠率 | string | |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
   ### 錯誤碼
-  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
-  | -- | ---- | ----------- |
-  | 1 | {parameter} is required  | 缺少參數欄位 |
-  | 2 | invalid key  | 金鑰無效 |
-  | 4 | player not found | 玩家未找到 |
-  | 5 | method is not allowed  | 使用之Http方法不允許 |
-  | 6 | function not found  | API不存在 |
-  | 7 | internal server error  | 服務器內部錯誤 |
-  | 15 | data format error  | 資料格式有誤 |
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
 
   ### 範例
   + 調用方法
@@ -2434,10 +2433,10 @@
   **Method :**
 
   ### 輸入參數
-  | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-  | -- | ---- | ----------- | ----------- | -- |
-  | loginURL | 玩家登入網址 | string | Y | 從取得玩家登入API取得 |
-  | platormURL | 返回平台網址 | string | Y | 遊戲APP返回平台使用 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| loginURL | 玩家登入網址 | string | Y | 從取得玩家登入API取得 |
+| platormURL | 返回平台網址 | string | Y | 遊戲APP返回平台使用 |
 
   ### 範例
   + 調用方法

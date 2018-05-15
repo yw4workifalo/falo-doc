@@ -1560,7 +1560,7 @@
     ```
     PUT /casino-api/player/credit?
         key=<key>&
-        account=<account>&
+        accounts=<accounts>&
         credit=<credit>&
         hash=<hash>
     ```
@@ -1572,17 +1572,30 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  |     必填    |
     |  credit | 額度 |  decimal(19,4)  |     必填    |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(account + credit + secret)`**
+    #### **`hash = md5(accounts + credit + secret)`**
     ---
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    |  account | 玩家帳號|  string  |
     |  credit | 額度|  decimal(19,4)  |
+    |  account | 玩家帳號|  string  |
+ 
+    #### 玩家設定結果
+    | 狀態代碼 | status| 
+    |:--------:|:--------:|
+    |  0 | Success | 
+    |  1 | Transfer Error |
+    |  2 | Transfer Error Retry Ten Counts |
+    |  6 | Transfer Insert Failed |
+    |  104 | Set Credit Is Not Enough |
+    |  105 | Player Not Found |
+    |  127 | Player Is Online |
+    |  128 | Player Has Not Checkout BetForm |
+    |  133 | Reset Group Is Pending |
 
     ---
 
@@ -1592,9 +1605,11 @@
     ```javascript
     {
         "status":"success",
+        "credit":"65000",
         "data":{
-            "account":"a1234",
-            "credit":4101.0000
+            {"account":"a1234","status":0}
+            {"account":"test1","status":-1}
+            {"account":"a1234","status":0}
         }
     }
     ```
@@ -1605,8 +1620,8 @@
    {
         "status":"error",
         "error":{
-            "code":4,
-            "message":"player not found"
+            "code":10,
+            "message":"service not available"
         }
     }
    ```
@@ -1652,7 +1667,7 @@
     |:--------:|:--------:|:--------:|
     |  account | 玩家帳號|  string  |
     |  credit | 額度|  decimal(19,4)  |
-     |  currentCredit | 額度|  decimal(19,4)  |
+    |  currentCredit | 額度|  decimal(19,4)  |
 
     ---
 

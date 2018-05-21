@@ -1588,14 +1588,7 @@
     | 狀態代碼 | status| 
     |:--------:|:--------:|
     |  0 | Success | 
-    |  1 | Transfer Error |
-    |  2 | Transfer Error Retry Ten Counts |
-    |  6 | Transfer Insert Failed |
-    |  104 | Set Credit Is Not Enough |
-    |  105 | Player Not Found |
-    |  127 | Player Is Online |
-    |  128 | Player Has Not Checkout BetForm |
-    |  133 | Reset Group Is Pending |
+    |  -1 | Player Not Found |
 
     ---
 

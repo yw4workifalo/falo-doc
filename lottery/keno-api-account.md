@@ -1269,15 +1269,15 @@
    ### 輸出參數
 | 參數名稱 | 參數說明 | 參數型態 | 說明 |
 |--|----|----------|--|
-| \ | 列表 | array |  |
-| \account | 帳號 | string |  |
-| \nickName | 暱稱 | string |  |
-| \PlatformName | 平台名稱 | string |  |
-| \gameName | 遊戲 | string | 空白表示不在任何遊戲上面 |
-| \nowChip  | 現在籌碼 | string |  |
-| \Machine  | 機台 | string | 空白表示無機台,如彩票,黃金期權應是空白|
+| \detail | 列表 | array |  |
+| \detail\account | 帳號 | string |  |
+| \detail\nickName | 暱稱 | string |  |
+| \detail\PlatformName | 平台名稱 | string |  |
+| \detail\gameName | 遊戲 | string | 空白表示不在任何遊戲上面 |
+| \detail\nowChip  | 現在籌碼 | string |  |
+| \detail\Machine  | 機台 | string | 空白表示無機台,如彩票,黃金期權應是空白|
 | totalPage | 總頁數 | string |  |
-| nowPage  | 現在頁數 | string |  | 
+| nowPage  | 現在頁數 | string |  |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -1302,6 +1302,7 @@
      {
          "status":"success",
          "data": [
+         detail[
            {
             "account":"linand",
             "nickName":"鋼鐵人",
@@ -1317,7 +1318,7 @@
             "gameName":"重慶時時彩",
             "nowChip":"1100000.0000",
             "Machine":""
-           },
+           }],
            totalPage : "1000",
            nowPage :"2"
          ],

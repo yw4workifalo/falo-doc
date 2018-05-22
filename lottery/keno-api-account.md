@@ -17,27 +17,29 @@
 ● [會員帳號模式設定](#會員帳號模式設定)<br>
 ● [會員帳號模式查詢](#會員帳號模式查詢)<br>
 ● [遊戲玩法查詢](#遊戲玩法查詢)<br>
+● [在線人數](#在線人數)<br>
+
 
 ------
 ## <span>新增平台商</span>
    **API Name : platform**</br>
    **Method : POST**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | account | 平台商帳號 | string | Y | 長度最短4，最長20 |
-   | name | 平台商名稱 | string | Y | 長度最短4，最長20 |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| account | 平台商帳號 | string | Y | 長度最短4，最長20 |
+| name | 平台商名稱 | string | Y | 長度最短4，最長20 |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(account+name+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | publicKey | 平台公鑰	 | string  | 重新產生各代理商私鑰(遊戲系統產生) |
-   | privateKey | 平台私鑰 | string | 重新各代理商私鑰(遊戲系統產生) |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| publicKey | 平台公鑰	 | string  | 重新產生各代理商私鑰(遊戲系統產生) |
+| privateKey | 平台私鑰 | string | 重新各代理商私鑰(遊戲系統產生) |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -90,18 +92,18 @@
    **API Name : platform**</br>
    **Method : DELETE**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -151,19 +153,19 @@
    **API Name : modify-secret**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | privateKey | 平台商私鑰 | string | 重新產生平台商私鑰(遊戲系統產生) |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| privateKey | 平台商私鑰 | string | 重新產生平台商私鑰(遊戲系統產生) |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -214,31 +216,31 @@
    **API Name : platform-report-summary**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | N | 依"＠"區隔多組key |
-   | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | N | 依"＠"區隔多組key |
+| begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+begin+end+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | detail\ | 報表資訊 | array |  |
-   | detail\platformName | 平台帳號 | string |  |
-   | detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
-   | detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\currency | 幣別 | string |  |
-   | detail\lottery | 彩票編號 | string |  |
-   | detail\gameGroup | 玩法群組編號 | string |  |
-   | detail\tBetCount | 下注總筆數 | string |  |
-   | detail\tBet | 下注總額度 | string | 依幣別 |
-   | detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| detail\ | 報表資訊 | array |  |
+| detail\platformName | 平台帳號 | string |  |
+| detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
+| detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\currency | 幣別 | string |  |
+| detail\lottery | 彩票編號 | string |  |
+| detail\gameGroup | 玩法群組編號 | string |  |
+| detail\tBetCount | 下注總筆數 | string |  |
+| detail\tBet | 下注總額度 | string | 依幣別 |
+| detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -318,29 +320,29 @@
    **API Name : platform-report**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
-   | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+| begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+begin+end+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | detail\ | 報表資訊 | array |  |
-   | detail\platformName | 平台帳號 | string |  |
-   | detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
-   | detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\currency | 幣別 | string |  |
-   | detail\tBetCount | 下注總筆數 | string |  |
-   | detail\tBet | 下注總額度 | string | 依幣別 |
-   | detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| detail\ | 報表資訊 | array |  |
+| detail\platformName | 平台帳號 | string |  |
+| detail\publicKey | 平台筆公鑰 | string | 玩家依公鑰對應之平台 |
+| detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\currency | 幣別 | string |  |
+| detail\tBetCount | 下注總筆數 | string |  |
+| detail\tBet | 下注總額度 | string | 依幣別 |
+| detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -416,35 +418,35 @@
    **API Name : player-log-report**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
-   | account | 玩家帳號 | string | Y | 空白表示查全部 |
-   | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | page | 頁數 | string | Y | 空白代表第1頁 |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+| account | 玩家帳號 | string | Y | 空白表示查全部 |
+| begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| page | 頁數 | string | Y | 空白代表第1頁 |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+begin+end+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | totalPage | 全部頁數 | string |  |
-   | totalCount | 總筆數 | string |  |
-   | totalCalc | 總盈虧 | string |  |
-   | detail | 出入明細 | string |  |
-   | detail\publicKey | 平台公鑰 | string | 玩家依公鑰對應之平台 |
-   | detail\playerAccount | 玩家帳號 | string |  |
-   | detail\nickname | 玩家暱稱 | string |  |
-   | detail\currency | 幣別 | string |  |
-   | detail\loginTime | 登入時間 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\logoutTime | 登出時間 | string | 格式：YYYY-MM-dd hh:mm:ss |
-   | detail\ain | 登入後餘額 | string |  |
-   | detail\bout | 登出後餘 | string |  |
-   | detail\calc | 盈虧 | string | 負號（"-"）表示虧損 |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| totalPage | 全部頁數 | string |  |
+| totalCount | 總筆數 | string |  |
+| totalCalc | 總盈虧 | string |  |
+| detail | 出入明細 | string |  |
+| detail\publicKey | 平台公鑰 | string | 玩家依公鑰對應之平台 |
+| detail\playerAccount | 玩家帳號 | string |  |
+| detail\nickname | 玩家暱稱 | string |  |
+| detail\currency | 幣別 | string |  |
+| detail\loginTime | 登入時間 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\logoutTime | 登出時間 | string | 格式：YYYY-MM-dd hh:mm:ss |
+| detail\ain | 登入後餘額 | string |  |
+| detail\bout | 登出後餘 | string |  |
+| detail\calc | 盈虧 | string | 負號（"-"）表示虧損 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -521,31 +523,31 @@
    **API Name : player-bet-report**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | player | 玩家帳號 | string | Y | 依","區隔多組，不填表示全部 |
-   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | page | 頁數 | string | N | 空白代表第1頁 |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| player | 玩家帳號 | string | Y | 依","區隔多組，不填表示全部 |
+| begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| page | 頁數 | string | N | 空白代表第1頁 |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+player+begin+end+page+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | totalPage | 總頁數 | string |  |
-   | detail\ | 報表資訊 | array |  |
-   | detail\publicKey | 平台公鑰 | string |  |
-   | detail\platformName | 平台帳號 | string |  |
-   | detail\player | 玩家帳號 | string |  |
-   | detail\currency | 幣別 | string |  |
-   | detail\tBetCount | 下注總筆數 | string |  |
-   | detail\tBet | 下注總額度 | string |  |
-   | detail\benefit | 輸贏 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| totalPage | 總頁數 | string |  |
+| detail\ | 報表資訊 | array |  |
+| detail\publicKey | 平台公鑰 | string |  |
+| detail\platformName | 平台帳號 | string |  |
+| detail\player | 玩家帳號 | string |  |
+| detail\currency | 幣別 | string |  |
+| detail\tBetCount | 下注總筆數 | string |  |
+| detail\tBet | 下注總額度 | string |  |
+| detail\benefit | 輸贏 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -627,22 +629,22 @@
    **API Name : player-report**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | player | 玩家帳號 | string | Y |  |
-   | begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| player | 玩家帳號 | string | Y |  |
+| begin | 查詢區間開始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+player+begin+end+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | url | 連結網址 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| url | 連結網址 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -696,19 +698,19 @@
    **API Name : game-mode**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | mode | [遊戲狀態](#遊戲狀態) | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| mode | [遊戲狀態](#遊戲狀態) | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -758,20 +760,20 @@
    **API Name : game-mode**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | mode | [遊戲狀態](#遊戲狀態) | string | Y |  |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| mode | [遊戲狀態](#遊戲狀態) | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+mode+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | mode | [遊戲狀態](#遊戲狀態) | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| mode | [遊戲狀態](#遊戲狀態) | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -822,19 +824,19 @@
    **API Name : stake-limit-list**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | \exampleType | 範本類別 | string |  |
-   | \defaultBet | 底注 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| \exampleType | 範本類別 | string |  |
+| \defaultBet | 底注 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -894,22 +896,22 @@
    **API Name : stake-limit**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | account | 玩家帳號 | string | Y |  |
-   | exampleType | 注區範本 | string | Y |  |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y |  |
+| exampleType | 注區範本 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+account+exampleType+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | account | 玩家帳號 | string |  |
-   | exampleType | 範本類別 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| account | 玩家帳號 | string |  |
+| exampleType | 範本類別 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -963,21 +965,21 @@
    **API Name : stake-limit**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | account | 玩家帳號 | string | Y |  |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+account+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | account | 玩家帳號 | string |  |
-   | exampleType | 範本類別 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| account | 玩家帳號 | string |  |
+| exampleType | 範本類別 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1030,22 +1032,22 @@
    **API Name : mode**</br>
    **Method : PUT**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-   | mode | 模式 | string | Y | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| mode | 模式 | string | Y | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+account+mode+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | \account | 玩家帳號 | string |  |
-   | \mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| \account | 玩家帳號 | string |  |
+| \mode | 模式 | string | 0:正常，1:鎖單無法下注，2:封鎖無法登入，並踢除其餘玩家 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1103,21 +1105,21 @@
    **API Name : mode**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | publicKey | 平台公鑰 | string | Y |  |
-   | account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+account+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | \account | 玩家帳號 | string |  |
-   | \mode | 模式 | string |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| \account | 玩家帳號 | string |  |
+| \mode | 模式 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1175,22 +1177,22 @@
    **API Name : gameList**</br>
    **Method : GET**
    ### 輸入參數
-   | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
-   |----|----|----|----|----|
-   | key | 公鑰 | string | Y | 專屬公鑰 |
-   | hash | 驗證參數 | string | Y | md5 |
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
 
    #### **` hash = md5(publicKey+privateKey)`**
 
    ### 輸出參數
-   | 參數名稱 | 參數說明 | 參數型態 | 說明 |
-   |--|----|----------|--|
-   | \ | 列表 | array |  |
-   | \lotteryNo | 彩種編號 | string |  |
-   | \lotteryName | 彩種名稱 | string |  |
-   | \lotteryGame | 玩法列表 | array |  |
-   | \lotteryGame\groupName | 玩法群組名稱 | array |  |
-   | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| \ | 列表 | array |  |
+| \lotteryNo | 彩種編號 | string |  |
+| \lotteryName | 彩種名稱 | string |  |
+| \lotteryGame | 玩法列表 | array |  |
+| \lotteryGame\groupName | 玩法群組名稱 | array |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
    | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
@@ -1231,6 +1233,87 @@
               "100":"五星直選複式",
               "200":"三星直選複式"
              }
+           }
+         ],
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+## <span>在線人數</span>
+   **API Name : onlineUsers**</br>
+   **Method : GET**
+   ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+privateKey)`**
+
+   ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| \ | 列表 | array |  |
+| \account | 帳號 | string |  |
+| \nickName | 暱稱 | string |  |
+| \PlatformName | 平台名稱 | string |  |
+| \gameName | 遊戲 | string | 空白表示不在任何遊戲上面 |
+| \nowChip  | 現在籌碼 | string |  |
+| \Machine  | 機台 | string | 空白表示無機台,如彩票,黃金期權應是空白| 
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/onlineUsers?publicKey=3de5b29aac97c072f5822dc99c5637d6&    hash=26f6b1074e1c9e80e9b613bf79a923a6&key=3de5b29aac97c072f5822dc99c5637d6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": [
+           {
+            "account":"linand",
+            "nickName":"鋼鐵人",
+            "PlatformName":"現金網",
+            "gameName":"北京賽車",
+            "nowChip":"1000000.0000",
+            "Machine":""
+           },
+           {
+            "account":"linandag",
+            "nickName":"雷神索爾",
+            "PlatformName":"現金網",
+            "gameName":"重慶時時彩",
+            "nowChip":"1100000.0000",
+            "Machine":""
            }
          ],
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"

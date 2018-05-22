@@ -19,7 +19,6 @@
 ● [遊戲玩法查詢](#遊戲玩法查詢)<br>
 ● [在線人數](#在線人數)<br>
 
-
 ------
 ## <span>新增平台商</span>
    **API Name : platform**</br>
@@ -1260,6 +1259,8 @@
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 |----|----|----|----|----|
 | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
+| now | 頁數 | string | Y |  |
+| page| 單頁幾筆 | string | Y | 預設100 |
 | key | 公鑰 | string | Y | 專屬公鑰 |
 | hash | 驗證參數 | string | Y | md5 |
 
@@ -1274,7 +1275,9 @@
 | \PlatformName | 平台名稱 | string |  |
 | \gameName | 遊戲 | string | 空白表示不在任何遊戲上面 |
 | \nowChip  | 現在籌碼 | string |  |
-| \Machine  | 機台 | string | 空白表示無機台,如彩票,黃金期權應是空白| 
+| \Machine  | 機台 | string | 空白表示無機台,如彩票,黃金期權應是空白|
+| totalPage | 總頁數 | string |  |
+| nowPage  | 現在頁數 | string |  | 
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -1314,7 +1317,9 @@
             "gameName":"重慶時時彩",
             "nowChip":"1100000.0000",
             "Machine":""
-           }
+           },
+           totalPage : "1000",
+           nowPage :"2"
          ],
          "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
      }

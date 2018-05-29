@@ -424,18 +424,18 @@
 | historyList \ betNumber | 注數 | int | |
 | historyList \ odd | 賠率 | string | |
 | historyList \ multiple | 倍數 | string | |
-| historyList \ betAmount | 下注總額 | string | 位數格式:(19,4) ex:1000.0001 |
-| historyList \ winBonus | 中獎金額 | string | 位數格式:(19,4) ex:1000.0001 |
-| historyList \ refundFee | 退水 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ betAmount | 下注總額 | string | 位數格式:(19,2) ex:1000.01 |
+| historyList \ winBonus | 中獎金額 | string | 位數格式:(19,2) ex:1000.01 |
+| historyList \ refundFee | 退水 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ ip | 下注IP | string | |
 | historyList \ betStatus | 注單狀態 | string | [注單狀態](#注單狀態) |
 | historyList \ currency | 貨幣 | string | |
-| historyList \ balance | 餘額 | string | 位數格式:(19,4) ex:1000.0001 |
+| historyList \ balance | 餘額 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ betTime | 下注時間 | string | |
 | historyList \ updateTime | 更新時間(開獎時間) | string | |
 | historyList \ drawingNumber | 開獎號碼 | string | |
-| historyList \ defaultBet | 底注 | string | 單位:元 範例:0.1 = 1角 |
-| historyList \ percent | 佔成 | string | |
+| historyList \ defaultBet | 底注 | string | 位數格式:(19,2) ex:1000.01 |
+| historyList \ percent | 佔成 | string | 位數格式:(19,2) ex:1000.01 |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -537,8 +537,8 @@
 | agentName | 代理商名稱 | string |
    | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
    | betNumber | 總注數 | string |
-   | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001
-   | winBonus | 輸贏總金額 | string | 位數限制:(19,4) ex:1000.0001
+   | betAmount | 總下注額 | string | 位數限制:(19,2) ex:1000.01
+   | winBonus | 輸贏總金額 | string | 位數限制:(19,2) ex:1000.01
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 輸出參數(無帳號)
@@ -546,8 +546,8 @@
    | -- | ---- | ----------- | -- |
    | currency | 貨幣 | string | [玩家貨幣類型](#支援貨幣)
    | betNumber | 總注數 | string |
-   | betAmount | 總下注額 | string | 位數限制:(19,4) ex:1000.0001
-   | winBonus | 輸贏總金額 | string | 位數限制:(19,4) ex:1000.0001
+   | betAmount | 總下注額 | string | 位數限制:(19,2) ex:1000.01
+   | winBonus | 輸贏總金額 | string | 位數限制:(19,2) ex:1000.01
    | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼

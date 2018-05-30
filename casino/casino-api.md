@@ -45,14 +45,14 @@
 
 ### API For Web 數量：**8**
 -------
-1. [下注記錄網頁](#1.下注記錄網頁)
-2. [規則網頁](#2.規則網頁)
-3. [jackpot網頁](#3.jackpot網頁)
-4. [版本檢查](#4.版本檢查)
-5. [取得servre狀態](#5.取得server狀態)
-6. [登入 (取得server需要的登入token)](#6.登入)
-7. [app直接登入 (dToken交換)](#7.app直接登入)
-8. [體驗帳號(url和Token)](#8.體驗帳號)
+1. [下注記錄網頁](#下注記錄網頁)
+2. [規則網頁](#規則網頁)
+3. [jackpot網頁](#jackpot網頁)
+4. [版本檢查](#版本檢查)
+5. [取得servre狀態](#取得server狀態)
+6. [登入 (取得server需要的登入token)](#登入)
+7. [app直接登入 (dToken交換)](#app直接登入)
+8. [體驗帳號(url和Token)](#體驗帳號)
 
 
 
@@ -3276,260 +3276,258 @@
     | 51 | record id:{recordI} is not exist|
 
 ----
-# 1.下注紀錄網頁
+1. #### <span id="player-report">下注紀錄網頁</span>
 
+	## 使用說明
+	### api: 
+	/player/report
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|token |dToken (手機專用持久性的token，可於登入後取得。)|
+	
+	### 例: 
+	
+	````
+	http://casino-api-stage.greatvirtue.com.tw/player/report?token = skfabfha....
+	````
 
-## 使用說明
-### api: 
-/player/report
+2. #### <span id="game-rule">規則網頁</span>
+	## 使用說明
+	### api: 
+	/game/rule
+	
+	### 參數:
+	
+	|name	|description |
+	|----|----|
+	|cashType |1 = 信用, 2 = 現金|
+	
+	### 例: 
+	````
+	http://casino-api-stage.greatvirtue.com.tw/game/rule?cashType=1
+	````
 
-### 參數:
+3. #### <span id="jackpot">jackpot網頁</span>
+	快速查看JP的規則
+	## 使用說明
+	### api: 
+	/game/jackpot
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|appBack |回到app的schreme URL，例如：pharao-casino-mobile:// |
+	
+	### 例: 
+	````
+	http://casino-api-stage.greatvirtue.com.tw/game/jackpot
+	````
 
-|name |description |
-|----|----|
-|token |dToken (手機專用持久性的token，可於登入後取得。)|
+4. #### <span id="version-check">版本檢查</span>
+	判斷是否更新App
+	##使用說明
+	###api:
+	/app-api/version-check
+	
+	### 參數:
+	參數需加密
+	
+	|name |description |
+	|----|----|
+	|gametype |CASINO = 1|
+	|sourcetype | ANDROID = 1, IOS = 2 |
+	|version |目前版本號 |
+	
+	### 回傳值
+	````
+	{
+	    "ReturnCode": 代碼,
+	    "ReturnMessage": 回傳訊息
+	}
+	
+	例.成功
+	{
+	    "ReturnCode": 2,
+	    "ReturnMessage": "查詢成功，不須更新"
+	}
+	
+	````
+	### ReturnCode
+	
+	|code |description |
+	|----|----| 
+	|2 |查詢成功，不須更新| 
+	|1 |必須更新|
 
-### 例: 
+5. #### <span id="maintain-check">取得server狀態</span>
+	## 使用說明
+	玩家的規則的網址 
+	### api: 
+	/app-api/maintain-check
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|version | 版本號，例如:2.1.2 |
+	
+	### 回傳值
+	
+	````
+	{
+	    "ReturnCode": 代碼,
+	    "ReturnMessage":  server 目前的狀態描述
+	}
+	````
+	
+	ReturnCode
+	
+	|code |description |
+	|----|----|
+	|-2 |查詢失敗|
+	|0 |Server運行中 | 
+	|2 |POST is not allowed|	
 
-````
-http://casino-api-stage.greatvirtue.com.tw/player/report?token = skfabfha....
-````
+6. #### <span id="app-login">登入 (取得server需要的登入token)</span>
+	取得 dToken 及 登入 game server 所需的token
+	## 使用說明
+	
+	### api: 
+	/casino-api/app-login
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	| /game/jackpot |cashType |
+	
+	### 回傳值
+	
+	````
+	參數說明
+	{
+	    "username": 玩家名稱,
+	    "token": 可登入Game Server的Token,
+	    "PlatFormId": PlatFormId,
+	    "dToken": 手機專用持久性的token。
+	}
+	
+	例:成功
+	{
+	    "username": "rick",
+	    "token": "e1bcd68b7f7604847e386ec69f43b856",
+	    "PlatFormId": 1,
+	    "dToken": "eyJpdiI6InI3RVwvNVlkaDBCSmZ0Qjg1bVBRMU5nPT0iLCJ2YWx1ZSI6ImhvMGtHdHhkYXFaaWtHbjM5NW04Qmp6Ukw1Zjh4YkJZclhWQ0NVSk5MQmdEWTUyTjZwb1M1THc4aE9TVTJka1J4YVd6d1daTHFuWk9KVU9ZNG1mamFUMm5SXC94TEtaNVwvUGpUNHl2RXZ2MGs9IiwibWFjIjoiZmE2YWMwNzVkMWU0ZmRhZjA3OTQwMTk2Y2Q0ZDMxOTIzNTRhYmFjMzc1YTA1ZmM3NGQ5ZTRlNzUzODRlMzhhNiJ9"
+	}
+	 
+	例:失敗
+	{
+	    "ReturnCode": -2,
+	    "ReturnMessage": "查詢失敗"
+	}
+	````
+	
+	ReturnCode
+	
+	|code |description |
+	|----|----|
+	|-4 |token 錯誤 (新)|
+	|-2 |查詢失敗|
+	|2 |POST is not allowed|
 
-# 2.規則網頁
-## 使用說明
-### api: 
-/game/rule
+7. #### <span id="app-direct-login-game">app直接登入</span>
+	用 dToken 交換 登入 game server 所需的token
+	## 使用說明
+	### api: 
+	/app-api/direct-login-game
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|dToken |cashType |
+	
+	### 回傳值
+	
+	````
+	參數說明
+	{
+	    "username": 玩家名稱,
+	    "token": 可登入Game Server的Token,
+	    "PlatFormId": ?,
+	    "dToken": 手機專用持久性的token。
+	}
+	
+	例:成功
+	{
+	    "username": "rick",
+	    "token": "e1bcd68b7f7604847e386ec69f43b856",
+	    "PlatFormId": 1,
+	    "dToken": "eyJpdiI6InI3RVwvNVlkaDBCSmZ0Qjg1bVBRMU5nPT0iLCJ2YWx1ZSI6ImhvMGtHdHhkYXFaaWtHbjM5NW04Qmp6Ukw1Zjh4YkJZclhWQ0NVSk5MQmdEWTUyTjZwb1M1THc4aE9TVTJka1J4YVd6d1daTHFuWk9KVU9ZNG1mamFUMm5SXC94TEtaNVwvUGpUNHl2RXZ2MGs9IiwibWFjIjoiZmE2YWMwNzVkMWU0ZmRhZjA3OTQwMTk2Y2Q0ZDMxOTIzNTRhYmFjMzc1YTA1ZmM3NGQ5ZTRlNzUzODRlMzhhNiJ9"
+	}
+	
+	例:失敗
+	{
+	    "ReturnCode": -2,
+	    "ReturnMessage": "查詢失敗"
+	}
+	````
+	
+	ReturnCode
+	
+	|code |description |
+	|----|----|
+	|-3 |dToken 錯誤 (新)|
+	|-2 |查詢失敗|
+	|2 |POST is not allowed|
 
-### 參數:
-
-|name	|description |
-|----|----|
-|cashType |1 = 信用, 2 = 現金|
-
-### 例: 
-````
-http://casino-api-stage.greatvirtue.com.tw/game/rule?cashType=1
-````
-
-# 3.jackpot網頁
-快速查看JP的規則
-## 使用說明
-### api: 
-/game/jackpot
-
-### 參數:
-
-|name |description |
-|----|----|
-|appBack |回到app的schreme URL，例如：pharao-casino-mobile:// |
-
-### 例: 
-````
-http://casino-api-stage.greatvirtue.com.tw/game/jackpot
-````
-# 4.版本檢查
-判斷是否更新App
-##使用說明
-###api:
-/app-api/version-check
-
-### 參數:
-參數需加密
-
-|name |description |
-|----|----|
-|gametype |CASINO = 1|
-|sourcetype | ANDROID = 1, IOS = 2 |
-|version |目前版本號 |
-
-### 回傳值
-````
-{
-    "ReturnCode": 代碼,
-    "ReturnMessage": 回傳訊息
-}
-
-例.成功
-{
-    "ReturnCode": 2,
-    "ReturnMessage": "查詢成功，不須更新"
-}
-
-````
-### ReturnCode
-
-|code |description |
-|----|----| 
-|2 |查詢成功，不須更新| 
-|1 |必須更新|
-
-
-# 5.取得servre狀態
-## 使用說明
-玩家的規則的網址 
-### api: 
-/app-api/maintain-check
-
-### 參數:
-
-|name |description |
-|----|----|
-|version | 版本號，例如:2.1.2 |
-
-### 回傳值
-
-````
-{
-    "ReturnCode": 代碼,
-    "ReturnMessage":  server 目前的狀態描述
-}
-````
-
-ReturnCode
-
-|code |description |
-|----|----|
-|-2 |查詢失敗|
-|0 |Server運行中 | 
-|2 |POST is not allowed|
-
-# 6.登入 (取得server需要的登入token)
-取得 dToken 及 登入 game server 所需的token
-## 使用說明
-
-### api: 
-/casino-api/app-login
-
-### 參數:
-
-|name |description |
-|----|----|
-| /game/jackpot |cashType |
-
-### 回傳值
-
-````
-參數說明
-{
-    "username": 玩家名稱,
-    "token": 可登入Game Server的Token,
-    "PlatFormId": PlatFormId,
-    "dToken": 手機專用持久性的token。
-}
-
-例:成功
-{
-    "username": "rick",
-    "token": "e1bcd68b7f7604847e386ec69f43b856",
-    "PlatFormId": 1,
-    "dToken": "eyJpdiI6InI3RVwvNVlkaDBCSmZ0Qjg1bVBRMU5nPT0iLCJ2YWx1ZSI6ImhvMGtHdHhkYXFaaWtHbjM5NW04Qmp6Ukw1Zjh4YkJZclhWQ0NVSk5MQmdEWTUyTjZwb1M1THc4aE9TVTJka1J4YVd6d1daTHFuWk9KVU9ZNG1mamFUMm5SXC94TEtaNVwvUGpUNHl2RXZ2MGs9IiwibWFjIjoiZmE2YWMwNzVkMWU0ZmRhZjA3OTQwMTk2Y2Q0ZDMxOTIzNTRhYmFjMzc1YTA1ZmM3NGQ5ZTRlNzUzODRlMzhhNiJ9"
-}
- 
-例:失敗
-{
-    "ReturnCode": -2,
-    "ReturnMessage": "查詢失敗"
-}
-````
-
-ReturnCode
-
-|code |description |
-|----|----|
-|-4 |token 錯誤 (新)|
-|-2 |查詢失敗|
-|2 |POST is not allowed|
-
-# 7.app直接登入 ()
-用 dToken 交換 登入 game server 所需的token
-## 使用說明
-### api: 
-/app-api/direct-login-game
-
-### 參數:
-
-|name |description |
-|----|----|
-|dToken |cashType |
-
-### 回傳值
-
-````
-參數說明
-{
-    "username": 玩家名稱,
-    "token": 可登入Game Server的Token,
-    "PlatFormId": ?,
-    "dToken": 手機專用持久性的token。
-}
-
-例:成功
-{
-    "username": "rick",
-    "token": "e1bcd68b7f7604847e386ec69f43b856",
-    "PlatFormId": 1,
-    "dToken": "eyJpdiI6InI3RVwvNVlkaDBCSmZ0Qjg1bVBRMU5nPT0iLCJ2YWx1ZSI6ImhvMGtHdHhkYXFaaWtHbjM5NW04Qmp6Ukw1Zjh4YkJZclhWQ0NVSk5MQmdEWTUyTjZwb1M1THc4aE9TVTJka1J4YVd6d1daTHFuWk9KVU9ZNG1mamFUMm5SXC94TEtaNVwvUGpUNHl2RXZ2MGs9IiwibWFjIjoiZmE2YWMwNzVkMWU0ZmRhZjA3OTQwMTk2Y2Q0ZDMxOTIzNTRhYmFjMzc1YTA1ZmM3NGQ5ZTRlNzUzODRlMzhhNiJ9"
-}
-
-例:失敗
-{
-    "ReturnCode": -2,
-    "ReturnMessage": "查詢失敗"
-}
-````
-
-ReturnCode
-
-|code |description |
-|----|----|
-|-3 |dToken 錯誤 (新)|
-|-2 |查詢失敗|
-|2 |POST is not allowed|
-
-
-# 8.體驗帳號及url (創帳號、取得url、token)
-每次呼叫api會產生一個一次性帳號，並回傳登入url和token
-## 使用說明
-### api: 
-/app-api/direct-login-game
-
-### 參數:
-
-|name	|description |
-|----|----|
-|cashType |1 = 現金, 2 = 信用|
-
-### 回傳值
-
-````
-參數說明
-{
-    "account": 體驗帳號,
-    "loginUrl": 遊戲大廳網址,
-    "token": 可登入Game Server的Token
-}
-
-例:成功
-{
-	"status":"success",
-    "account": "xxxxxyyyyyVisitor2",
-    "loginUrl": "http://casino-api-stage.greatvirtue.com.tw/casino-api/player/login?token=eyJpdiI6IjZLVEFCOXl4ekp6c0YyZjF4SjVMWHc9P",
-    "token": "eyJpdiI6IjZLVEFCOXl4ekp6c0YyZjF4SjVMWHc9P"
-}
-
-例:失敗
-{
-	"status":"error",
-	"error":{"code":1,"message":"cashType is required"}
-}
-````
-
-ReturnCode
-
-|code |description |
-|----|----|
-|1 |cashType is required|
-|38|The cashtype is invalid|
+8. #### <span id="test-account">體驗帳號及url</span>
+	每次呼叫api會產生一個一次性帳號，並回傳登入url和token
+	## 使用說明
+	### api: 
+	/app-api/direct-login-game
+	
+	### 參數:
+	
+	|name	|description |
+	|----|----|
+	|cashType |1 = 現金, 2 = 信用|
+	
+	### 回傳值
+	
+	````
+	參數說明
+	{
+	    "account": 體驗帳號,
+	    "loginUrl": 遊戲大廳網址,
+	    "token": 可登入Game Server的Token
+	}
+	
+	例:成功
+	{
+		"status":"success",
+	    "account": "xxxxxyyyyyVisitor2",
+	    "loginUrl": "http://casino-api-stage.greatvirtue.com.tw/casino-api/player/login?token=eyJpdiI6IjZLVEFCOXl4ekp6c0YyZjF4SjVMWHc9P",
+	    "token": "eyJpdiI6IjZLVEFCOXl4ekp6c0YyZjF4SjVMWHc9P"
+	}
+	
+	例:失敗
+	{
+		"status":"error",
+		"error":{"code":1,"message":"cashType is required"}
+	}
+	````
+	
+	ReturnCode
+	
+	|code |description |
+	|----|----|
+	|1 |cashType is required|
+	|38|The cashtype is invalid|
 
 
 

@@ -45,14 +45,14 @@
 
 ### API For Web 數量：**8**
 -------
-1. [下注記錄網頁](#下注記錄網頁)
+1. [下注記錄網頁](#下注紀錄網頁)
 2. [規則網頁](#規則網頁)
 3. [jackpot網頁](#jackpot網頁)
 4. [版本檢查](#版本檢查)
 5. [取得servre狀態](#取得server狀態)
-6. [登入 (取得server需要的登入token)](#登入)
+6. [登入 (取得server需要的登入token)](#登入(取得server需要的登入token))
 7. [app直接登入 (dToken交換)](#app直接登入)
-8. [體驗帳號(url和Token)](#體驗帳號)
+8. [體驗帳號(url和Token)](#體驗帳號及url)
 
 
 
@@ -3392,7 +3392,7 @@
 	|0 |Server運行中 | 
 	|2 |POST is not allowed|	
 
-6. #### <span id="app-login">登入 (取得server需要的登入token)</span>
+6. #### <span id="app-login">登入(取得server需要的登入token)</span>
 	取得 dToken 及 登入 game server 所需的token
 	## 使用說明
 	
@@ -3489,7 +3489,10 @@
 	每次呼叫api會產生一個一次性帳號，並回傳登入url和token
 	## 使用說明
 	### api: 
-	/app-api/direct-login-game
+	```
+	GET /casino-api/player/visitor?
+    cashType=<cashType>
+	```
 	
 	### 參數:
 	

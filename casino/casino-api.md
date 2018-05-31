@@ -3490,15 +3490,8 @@
 	## 使用說明
 	### api: 
 	```
-	GET /casino-api/player/visitor?
-    cashType=<cashType>
+	GET /app-api/visitor
 	```
-	
-	### 參數:
-	
-	|name	|description |
-	|----|----|
-	|cashType |1 = 現金, 2 = 信用|
 	
 	### 回傳值
 	
@@ -3520,17 +3513,9 @@
 	
 	例:失敗
 	{
-		"status":"error",
-		"error":{"code":1,"message":"cashType is required"}
+	    "ReturnCode": -2,
+	    "ReturnMessage": "查詢失敗"
 	}
 	````
-	
-	ReturnCode
-	
-	|code |description |
-	|----|----|
-	|1 |cashType is required|
-	|38|The cashtype is invalid|
-
 
 

@@ -36,8 +36,8 @@
 | detail\begin | 區間起始 | string | 格式：YYYY-MM-dd hh:mm:ss |
 | detail\end | 區間結束 | string | 格式：YYYY-MM-dd hh:mm:ss |
 | detail\currency | 幣別 | string |  |
-| detail\lottery | 彩票編號 | string |  |
-| detail\gameGroup | 玩法群組編號 | string |  |
+| detail\lottery | 主玩法 | string | 彩票可能是彩種編號,其他遊戲依自己的主玩法 |
+| detail\gameGroup | 次玩法 | string | 彩票可能是玩法群組編號,其他遊戲如果沒有空白表示  |
 | detail\tBetCount | 下注總筆數 | string |  |
 | detail\aBet | 下注總額度 | string | 依幣別 |
 | detail\tBet | 下注有效總額度 | string | 依幣別 |

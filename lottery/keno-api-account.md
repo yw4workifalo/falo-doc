@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-# 彩票系統介接帳務系統API範本
+# 介接帳務系統API範本
 ● [帳務報表](#帳務報表)<br>
 ● [總會員出入明細](#總會員出入明細)<br>
 ● [會員注單查詢](#會員注單查詢)<br>
@@ -13,6 +13,9 @@
 ● [額度轉出入明細](#額度轉出入明細)<br>
 ● [會員額度查詢](#會員額度查詢)<br>
 ● [查詢玩家](#查詢玩家)<br>
+● [會員盤口退水限注查詢](#會員盤口退水限注查詢)<br>
+● [會員盤口查詢](#會員盤口查詢)<br>
+● [會員盤口設定](#會員盤口設定)<br>
 
 ------
 ##<span>帳務報表</span>
@@ -738,7 +741,7 @@
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 |----|----|----|----|----|
 | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
-| account   | 會員名稱 | string | N | 帶入查此會員,無帶入查publicKey全部會員 | 
+| account   | 會員名稱 | string | N | 帶入查此會員,無帶入查publicKey全部會員 |
 | begin | 查詢區間起始 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
 | end | 查詢區間結束 | string | Y | 格式：YYYY-MM-dd hh:mm:ss |
 | now | 頁數 | string | Y |  |
@@ -827,7 +830,7 @@
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 |----|----|----|----|----|
 | publicKey | 平台公鑰 | string | Y | 依"＠"區隔多組key |
-| account   | 會員名稱 | string | N | 帶入查此會員,無帶入查publicKey全部會員 | 
+| account   | 會員名稱 | string | N | 帶入查此會員,無帶入查publicKey全部會員 |
 | now | 頁數 | string | Y |  |
 | page| 單頁幾筆 | string | Y | 預設100 |
 | key | 公鑰 | string | Y | 專屬公鑰 |
@@ -973,6 +976,202 @@
 
 ------
 
+## <span>會員盤口退水限注查詢</span>
+   **API Name : classList**</br>
+   **Method : GET**
+   ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(privateKey)`**
+
+   ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| detail\ | 盤口退水與限注設定 | array |格式依各遊戲需求改變|
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| --| ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/agent/classList?key=3de5b29aac97c072f5222dc99c5637d6&
+     hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+   + 成功
+     ```javascript
+     {
+        "status":"success",
+        "data":
+        {
+         "detail":array,
+        }
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+       "status":"error",
+       "error": {
+         "code":15,
+         "message":"data format error"
+       },
+       "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+## <span>會員盤口設定</span>
+   **API Name : class**</br>
+   **Method : PUT**
+   ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y |  |
+| class | 盤口範本 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+class+privateKey)`**
+
+   ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| account | 玩家帳號 | string |  |
+| class | 盤口範本 | string |  |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     PUT /keno-api/player/class?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001&
+         class=A&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+            "account":"ifalo001",
+            "class":"A"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
+
+## <span>會員盤口查詢</span>
+   **API Name : classMember**</br>
+   **Method : GET**
+   ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+|----|----|----|----|----|
+| publicKey | 平台公鑰 | string | Y |  |
+| account | 玩家帳號 | string | Y |  |
+| key | 公鑰 | string | Y | 專屬公鑰 |
+| hash | 驗證參數 | string | Y | md5 |
+
+   #### **` hash = md5(publicKey+account+privateKey)`**
+
+   ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+|--|----|----------|--|
+| account | 玩家帳號 | string |  |
+| ClassPath | 盤口範本 | string |  |
+|ClassList | 盤口內容 | array|依各家格式|
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+   ### 錯誤碼
+   | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+   | -- | -- | ----------- |
+   | 1 | {parameter} is required  | 缺少參數欄位
+   | 2 | invalid key  | 金鑰無效
+   | 4 | {parameter} not found | 欄位參數值無效
+   | 5 | method is not allowed  | 使用之Http方法不允許
+   | 6 | function not found  | API不存在
+   | 7 | internal server error  | 服務器內部錯誤
+   | 15 | data format error  | 資料格式錯誤
+
+   ### 範例
+   + 調用方法
+     ```
+     GET /keno-api/player/classMember?
+         publicKey=3de5b29aac97c072f5822dc99c5637d6&
+         account=ifalo001&
+         hash=26f6b1074e1c9e80e9b613bf79a923a6
+     ```
+
+   + 成功
+     ```javascript
+     {
+         "status":"success",
+         "data": {
+            "account":"ifalo001",
+            "ClassPath":"A",
+            "ClassList":array,
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+
+   + 失敗
+     ```javascript
+     {
+        "status":"error",
+         "error": {
+           "code":7,
+           "message":"internal server error"
+         },
+         "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+     }
+     ```
+<div align="right"><a href="#top">Top</a></div>
+
+-----
 ## <span>附表</span>
 ### <span>支援貨幣</span>
 | 代碼 | 說明 |
@@ -987,3 +1186,11 @@
 | 0 | 關閉 |
 | 1 | 開啟 |
 | 2 | 維護 |
+
+###<span>盤口範本</span>
+| 盤口 | 說明 |
+|--|----|
+| A | A盤口 |
+| B | B盤口 |
+| C | C盤口 |
+| D | D盤口 |

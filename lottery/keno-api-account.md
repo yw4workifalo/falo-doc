@@ -8,14 +8,14 @@
 ● [遊戲開關查詢](#遊戲開關查詢)<br>
 ● [遊戲開關設定](#遊戲開關設定)<br>
 ● [會員等級範本查詢](#會員等級範本查詢)<br>
-● [會員等級設定](#會員等級設定)<br>
+<!--● [會員等級設定](#會員等級設定)<br>-->
 ● [會員等級查詢](#會員等級查詢)<br>
 ● [額度轉出入明細](#額度轉出入明細)<br>
 ● [會員額度查詢](#會員額度查詢)<br>
 ● [查詢玩家](#查詢玩家)<br>
 ● [會員盤口退水限注查詢](#會員盤口退水限注查詢)<br>
 ● [會員盤口查詢](#會員盤口查詢)<br>
-● [會員盤口設定](#會員盤口設定)<br>
+<!--● [會員盤口設定](#會員盤口設定)<br>-->
 
 <div align="right"><a href="#top">Top</a></div>
 
@@ -601,7 +601,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
-## <span>會員等級設定</span>
+<!--## <span>會員等級設定</span>
    **API Name : stake-limit**</br>
    **Method : PUT**
    ### 輸入參數
@@ -669,7 +669,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 -----
-
+-->
 ## <span>會員等級查詢</span>
    **API Name : stake-limit**</br>
    **Method : GET**
@@ -1037,7 +1037,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 ------
-## <span>會員盤口設定</span>
+<!--## <span>會員盤口設定</span>
    **API Name : class**</br>
    **Method : PUT**
    ### 輸入參數
@@ -1105,7 +1105,7 @@
 <div align="right"><a href="#top">Top</a></div>
 
 -----
-
+-->
 ## <span>會員盤口查詢</span>
    **API Name : classMember**</br>
    **Method : GET**

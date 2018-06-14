@@ -17,8 +17,10 @@
 ● [會員盤口查詢](#會員盤口查詢)<br>
 ● [會員盤口設定](#會員盤口設定)<br>
 
+<div align="right"><a href="#top">Top</a></div>
+
 ------
-##<span>帳務報表</span>
+## <span>帳務報表</span>
    **API Name : platform-report-summary**</br>
    **Method : GET**
    ### 輸入參數

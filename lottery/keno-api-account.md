@@ -39,7 +39,8 @@
 | detail\lottery | 彩票編號 | string |  |
 | detail\gameGroup | 玩法群組編號 | string |  |
 | detail\tBetCount | 下注總筆數 | string |  |
-| detail\tBet | 下注總額度 | string | 依幣別 |
+| detail\aBet | 下注總額度 | string | 依幣別 |
+| detail\tBet | 下注有效總額度 | string | 依幣別 |
 | detail\tPL | 總輸贏 | string | "-"表示虧（虛貨） |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
@@ -79,6 +80,7 @@
                  "lottery":"10002",
                  "gameGroup":"104",
                  "tBetCount":"3000",
+                 "aBet":"2000",
                  "tBet":"2000",
                  "tPL":"20000",
                  "uuid":"a6f5fe8f3cfa4abf8f12e903d27e9414"
@@ -92,6 +94,7 @@
                  "lottery":"10002",
                  "gameGroup":"104",
                  "tBetCount":"3000",
+                 "aBet":"2000",
                  "tBet":"2000",
                  "tPL":"20000",
                  "uuid":"f56a62934dc44d6fa8ae5606923868e9"

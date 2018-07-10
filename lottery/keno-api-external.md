@@ -436,7 +436,7 @@
 | historyList \ drawingNumber | 開獎號碼 | string | |
 | historyList \ defaultBet | 底注 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ percent | 佔成 | string | 位數格式:(19,2) ex:1000.01 |
-| historyList \ billingDate | 結帳日 |string |  |
+| historyList \ billingDate | 歸帳日 |string |  |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼
@@ -493,7 +493,9 @@
                  "betTime":"2017-08-25 16:31:24",
                  "updateTime":"2017-08-25 16:35:24",
                  "drawingNumber":"1,2,3,4,5",
-                 "defaultBet":"2"
+                 "defaultBet":"2",
+                 "percent":"1",
+                 "billingDate" :"2017-08-26"  
                }
            ],
            "uuquid":"01212c3b9e1eac371776a8e932289906"

@@ -436,6 +436,7 @@
 | historyList \ drawingNumber | 開獎號碼 | string | |
 | historyList \ defaultBet | 底注 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ percent | 佔成 | string | 位數格式:(19,2) ex:1000.01 |
+| historyList \ billingDate | 結帳日 |string |  |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
    ### 錯誤碼

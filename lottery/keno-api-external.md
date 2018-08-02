@@ -424,7 +424,8 @@
 | historyList \ betNumber | 注數 | int | |
 | historyList \ odd | 賠率 | string | |
 | historyList \ multiple | 倍數 | string | |
-| historyList \ betAmount | 下注總額 | string | 位數格式:(19,2) ex:1000.01 |
+| historyList \ betAmount | 下注總額 | string | 位數格式:(19,2) ex:1000.01|
+| historyList \ validbetAmount | 有效下注總額 | string | 位數格式:(19,2) ex:1000.01,當為撤單或是和局時,此總額為0,表示不計算|
 | historyList \ winBonus | 中獎金額 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ refundFee | 退水 | string | 位數格式:(19,2) ex:1000.01 |
 | historyList \ ip | 下注IP | string | |
@@ -485,6 +486,7 @@
                  "odd":"1.99",
                  "multiple":"100",
                  "betAmount":"200.0000",
+                 "validbetAmount":"200.0000",
                  "winBonus":"0.0000",
                  "ip":"210.71.170.48",
                  "betStatus":"1",

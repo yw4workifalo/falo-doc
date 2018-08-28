@@ -1214,19 +1214,32 @@
 | 參數名稱 | 參數說明 | 參數型態 | 說明 |
 | -- | ---- | ----------- | -- |
 | account | 玩家帳號 | string | |
-| creditLimit | 最高額度 | string | |
+| status | 設定狀態 | string | |
 | uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
 
+
+
+#### 玩家設定結果
+
+| 狀態代碼 | status           |
+| -------- | ---------------- |
+| 0        | Success          |
+| -1       | Player Not Found |
+| -2       | Not Enough Credit|
+
   ### 錯誤碼
+
 | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
 | -- | ---- | ----------- |
 | 1 | {parameter} is required  | 缺少參數欄位 |
 | 2 | invalid key  | 金鑰無效 |
-| 4 | player not found | 玩家未找到 |
 | 5 | method is not allowed  | 使用之Http方法不允許 |
 | 6 | function not found  | API不存在 |
 | 7 | internal server error  | 服務器內部錯誤 |
 | 15 | data format error  | 資料格式有誤 |
+| 55 | API limit the number of pens, more than the maximum number of pens                   |API限制筆數,超過最大筆數 |
+| 58 | Non own membership | 非自己所屬會員 |
+| 46 |Not a credit member |不是信用制會員,無法回復或設定 |
 
   ### 範例
   + 調用方法
@@ -1242,10 +1255,11 @@
     ```javascript
     {
         "status":"success",
+        "credit":"100000",
         "data":[
           {
              "account":"ifalo001",
-             "creditLimit":"100000"
+             "status":"0"
           }
         ],
         "uuquid":"01212c3b9e1eac371776a8e932289906"

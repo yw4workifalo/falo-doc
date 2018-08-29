@@ -1601,6 +1601,7 @@
     |:--------:|:--------:|
     |  0 | Success | 
     |  -1 | Player Not Found |
+    |  -2 | Not Enough Credit |
 
     ---
 

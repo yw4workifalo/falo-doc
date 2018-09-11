@@ -2919,6 +2919,7 @@
     | -1 | player not found |
     | -2 | The credit reset action is pending |
     | -3 | internal server error |
+    | -4 | Not Enough Credit |
     	
 
 	##### 回傳結果

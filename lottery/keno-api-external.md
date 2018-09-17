@@ -2594,18 +2594,18 @@
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 | -- | ---- | ----------- | ----------- | -- |
 | loginURL | 玩家登入網址 | string | Y | 從取得玩家登入API取得 |
-| platormURL | 返回平台網址 | string | Y | 遊戲APP返回平台使用 |
+| platformURL | 返回平台網址 | string | Y | 遊戲APP返回平台使用 |
 
   ### 範例
   + 調用方法
     ```
     台灣版
     tw-pharao-keno-game://launch-game?
-         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platormURL=http://pha888.com.tw
+         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platformURL=http://pha888.com.tw
 
     大陸版
     cn-pharao-keno-game://launch-game?
-         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platormURL=http://pha888.com.tw
+         loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platformURL=http://pha888.com.tw
     ```
 <div align="right"><a href="#top">Top</a></div>
 

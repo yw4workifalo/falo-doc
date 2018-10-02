@@ -56,8 +56,8 @@
 |---------- |-------------------------  |
 | 武士道  (Spirit Of Samurai)       | 1   | 
 | 金錢貓  (Golden Cat)       | 2   | 
-| 百鬼夜行  (Demon)  (未上線)     | 3   | 
-| 美人魚  (Mermaid)  (未上線)     | 4   | 
+| 百鬼夜行  (Demon)      | 3   | 
+| 美人魚  (Mermaid)       | 4   | 
 
 ## 玩家模式說明
 
@@ -2065,7 +2065,9 @@
 					"createdAt":"2017-05-15 13:47:57",
 					"updatedAt":"2017-06-06 14:30:12",
 					"billingDate":"2017-05-15",
-					"platformType":"Android"
+					"platformType":"Android",
+					"treasure": "0.0000",
+					"redBagOdd": null
          		},
 				{   	//未改單的情況
 					"id":3011,
@@ -2081,7 +2083,9 @@
 					"createdAt":"2017-06-06 14:30:12",
 					"updatedAt":"2017-06-06 14:30:12",
 					"billingDate":"2017-06-06",
-					"platformType":"Android"
+					"platformType":"Android",
+					"treasure": "0.0000",
+					"redBagOdd": null
 				},
              ...............
           ]
@@ -2132,6 +2136,8 @@
     | updatedAt | string | 更新時間 |    
     | billingDate | string | 結帳日 | 
     | platformType  | string | 裝置代碼 |
+    | treasure | decimal(19, 4) | 聚寶盆獎金 |
+    | redBagOdd | decimal(19, 4) | 小紅包賠率 |
     
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))

@@ -38,7 +38,6 @@
     ### Response 參數說明
     | 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
-    |  agent_id 	| 平台ID		|  string  | 
     |  account 	| 玩家帳號 	| string |
     |  name   		| 玩家名稱 	|  string  |
     |  wallet   	| 結算餘額 	|  decimal(20,8)  |
@@ -54,7 +53,6 @@
     {
         "status":"success",
         "data":{
-        	"agent_id : 1",
           	"account":"aa1234",
           	"name":"aa99asdf",
            	"wallet":"0.01345888",
@@ -91,31 +89,31 @@
     |  account | 玩家帳號 |  string  |     必填    |
     
     ---
+    
     ### Response 參數說明
     
-  | 參數名稱 		| 參數說明 	| 參數型態 |     
+  	| 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
-    |  agent_id 	| 平台ID		|  string  | 
     |  account 	| 玩家帳號 	| string |
     |  name   		| 玩家名稱 	|  string  |
     |  wallet   	| 結算餘額 	|  decimal(20,8)  |
-    |  interest_rate | 利率 	|  double  |
+    |  interest_rate | 利率 	|  double  | 
 
     ---
 
-    ### Response 結果
-    
+	### Response 結果
+
+   
     成功
 
     ```javascript
     {
         "status":"success",
         "data":{
-        	"agent_id : 1",
           	"account":"aa1234",
           	"name":"aa99asdf",
            	"wallet":"0.01345888",
-           	"interest_rate":0.18
+           	"interest_rate":"0.18"
         }
     }
     ```
@@ -155,7 +153,6 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    |  agent   | 平台ID |  string  | 
     |  account | 玩家帳號 |  string  | 
     |  interest_rate | 利率 | double  | 
 
@@ -169,7 +166,6 @@
     {
         "status":"success",
         "data":{
-        	"agent_id : 1",
           	"account":"aa1234",
            	"interest_rate":0.18
         }
@@ -363,7 +359,6 @@
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    |  agent 	| 平台		|  string  | 
     | account | 玩家帳號 | string |
     |  total_interest | 即時本金利率 | double  | 
     

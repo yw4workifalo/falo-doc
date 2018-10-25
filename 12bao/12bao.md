@@ -47,6 +47,7 @@
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -91,14 +92,19 @@
     
     ---
     ### Response 參數說明
-    | 參數名稱 | 參數說明 | 參數型態 |     
-    |:--------:|:--------:|:--------:|
-    |  loginUrl | 遊戲登入網址|  string  | 
-    | token | 登入用 token | string |
+    
+  | 參數名稱 		| 參數說明 	| 參數型態 |     
+    |:--------:	|:--------:|:--------:|
+    |  agent_id 	| 平台ID		|  string  | 
+    |  account 	| 玩家帳號 	| string |
+    |  name   		| 玩家名稱 	|  string  |
+    |  wallet   	| 結算餘額 	|  decimal(20,8)  |
+    |  interest_rate | 利率 	|  double  |
 
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -144,16 +150,19 @@
     |  interest_rate | 利率 | double  |   必填   |
     
     ---
+    
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-  |  agent   | 平台ID |  string  | 
+    |  agent   | 平台ID |  string  | 
     |  account | 玩家帳號 |  string  | 
     |  interest_rate | 利率 | double  | 
 
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -198,15 +207,18 @@
     |  billing_date | 結算日 | string  |   必填，格式 2017-01-01   |
     
     ---
+    
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account 	| 玩家帳號 | string |
     | wallet 	| 轉出本金 | string |
     | interest	| 利率 	 | integer  |
+    
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -246,14 +258,17 @@
     |  agent   | 平台 |  string  | 由API端提供 |
     
     ---
+    
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
     |  interest_rate | 平台利率 | double  | 
+    
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -293,14 +308,17 @@
     |  interest_rate | 欲修改利率 | double  | 必填 |
     
     ---
+    
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
     |  interest_rate | 已修改平台利率 | double  | 
+    
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript
@@ -341,15 +359,18 @@
     |  account | 玩家帳號 |  string  |     必填    |
     
     ---
+    
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
     | account | 玩家帳號 | string |
     |  total_interest | 即時本金利率 | double  | 
+    
     ---
 
     ### Response 結果
+    
     成功
 
     ```javascript

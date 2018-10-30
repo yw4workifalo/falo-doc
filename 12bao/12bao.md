@@ -209,6 +209,16 @@
         account=<account>&
         billing_date=<billing_date>
     ```
+    ### Response 舊版參數說明
+    
+    | 參數名稱 | 參數說明 | 
+    |:--------:|:--------:|
+    |  bch_id   | 平台ID | 
+    |  account | 玩家帳號 | 
+    |  start | 開始時間 | 
+    |  end | 結束時間 |
+    |  perpage | 筆數 | 
+    |  page | 頁數 |
     
     ### Request 參數說明
     
@@ -216,7 +226,10 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |  必填    |
-    |  billing_date | 結算日 | string  |   必填，格式 2017-01-01   |
+    |  starting_at | 開始時間 |  string  | 必填    |
+    |  closing_at | 結束時間 |  string  | 必填    |
+    |  count | 筆數 |  string  | 選填    |
+    |  page | 頁數 |  string  | 選填    |
     
     ---
     
@@ -496,8 +509,8 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
-    |  count | 筆數 |  string  | 必填    |
-    |  page | 頁數 |  string  | 必填    |
+    |  count | 筆數 |  string  | 選填    |
+    |  page | 頁數 |  string  | 選填    |
     
     ---
     
@@ -523,15 +536,30 @@
     {
         "status":"success",
         "data":{
-          	"account": "aasdf99",
-          	"amount": "80000",
-          	"wallet": "320000.000000000",
-          	"interest": "0.62506342",
-           	"total_interest": "54.03239322",
-           	"starting_at": "2018-10-30 13:52:31"
-           	"closing_at": "2018-10-30 13:52:31"
-           	"billing_date": "2018-10-30"
-        }
+     "current_page": 1,
+            "data": [
+                {
+                    "user_id": 1,
+                    "amount": "0.00000000",
+                    "wallet": "0.33000000",
+                    "interest": "0.00000000",
+                    "starting_at": "2018-10-29 00:00:00",
+                    "closing_at": "2018-10-29 00:00:00",
+                    "billing_date": "2018-10-28",
+                    "transfer_type": "System"
+                }
+            ],
+            "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
+            "from": 1,
+            "last_page": 1,
+            "last_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
+            "next_page_url": null,
+            "path": "http://127.0.0.1:8000/api/v1/user/transfer-report",
+            "per_page": "20",
+            "prev_page_url": null,
+            "to": 1,
+            "total": 1
+        }        }
     }
     ```
 

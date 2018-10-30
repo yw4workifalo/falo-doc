@@ -9,6 +9,7 @@
 5. [修改各平台利率](修改各平台利率)
 6. [取得會員目前本金利息](取得會員目前本金利息)
 7. [轉帳](轉帳)
+8. [轉帳明細](轉帳明細)
 
 ### *錯誤代碼*
 
@@ -426,6 +427,77 @@
     |  agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |  value | 轉出入金額 |  string  |     必填    |
+    
+    ---
+    
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    | account | 玩家帳號 | string |
+    | value | 轉出入金額 | string |
+    | wallet | 轉出入前本金金額| string |
+    | interest | 本次交易產生利息| string |
+    |  total_interest | 即時今日本金利息 | double  | 
+    | starting_at | 計息開始時間(格式:2018-10-30 10:00:00) | string |
+    | closing_at | 計息結束時間(格式:2018-10-30 10:00:00) | string |
+    | billing_date | 歸帳日(格式:2018-10-30) | string |
+    
+    ---
+
+    ### Response 結果
+    
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+          	"account": "aasdf99",
+          	"amount": "80000",
+          	"wallet": "320000.000000000",
+          	"interest": "0.62506342",
+           	"total_interest": "54.03239322",
+           	"starting_at": "2018-10-30 13:52:31"
+           	"closing_at": "2018-10-30 13:52:31"
+           	"billing_date": "2018-10-30"
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code": 202,
+        	"message": "The user kevinfalo22 not exists"
+        }
+    }
+   ```
+
+8. ## <span id="transfer-report">轉帳報表</span>
+
+    ```
+    post /v1/user/transfer-report?
+        agent=<agent>&
+        account=<account>&
+        starting_at=<starting_at>&
+        closing_at=<closing_at>&
+        count=<count>&
+        page=<page>
+    ```
+    
+    ### Request 參數說明
+   
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  starting_at | 開始時間 |  string  | 必填    |
+    |  closing_at | 結束時間 |  string  | 必填    |
+    |  count | 筆數 |  string  | 必填    |
+    |  page | 頁數 |  string  | 必填    |
     
     ---
     

@@ -42,17 +42,17 @@
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  bchGuid   | 平台guid |  string  | 由API端提供 |
+    |  *bchGuid   | 平台guid |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  interest   | 利率 |  string  |   必填    |
+    |  *interest   | 利率 |  string  |   必填    |
     
     ### Request 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  *agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  name   | 玩家名稱 |  string  |     必填    |
+    |  *name   | 玩家名稱 |  string  |     必填    |
    
     
     #### **`token = JWT::encode($request->toArray(), platform_private.key, RS256)`**
@@ -68,9 +68,9 @@
     |interest |本日利率 | 
     |created_timestamp |建立時間 |
     |timestamp |更新時間 | 
-    |last_compute |最後交易時間 | 
-    |income_second |計息秒數 | 	|income_time |計息時間 | 
-    |yesterday_income |昨日產生利息 | 
+    | *last_compute |最後交易時間 | 
+    | *income_second |計息秒數 | 	| *income_time |計息時間 | 
+    | *yesterday_income |昨日產生利息 | 
 
     
     ### Response 參數說明
@@ -130,14 +130,14 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  bchGuid   | 平台GUID |  string  | 由API端提供 |
+    |  *bchGuid   | 平台GUID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     
     ### Request 參數說明
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  *agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     
     ---
@@ -147,13 +147,13 @@
     | 參數名稱 		| 參數說明 	|    
     |:--------:	|:--------:|
     | wallet |本金 | 
-    |income |本日產生利息 | 
-    |interest |本日利率 | 
-    |created_timestamp |建立時間 |
-    |timestamp |更新時間 | 
-    |last_compute |最後交易時間 | 
-    |income_second |計息秒數 | 	|income_time |計息時間 | 
-    |yesterday_income |昨日產生利息 | 
+    | *income |本日產生利息 | 
+    | *interest |本日利率 | 
+    | *created_timestamp |建立時間 |
+    | *timestamp |更新時間 | 
+    | *last_compute |最後交易時間 | 
+    | *income_second |計息秒數 | 	| *income_time |計息時間 | 
+    | *yesterday_income |昨日產生利息 | 
     
     ### Response 參數說明
     

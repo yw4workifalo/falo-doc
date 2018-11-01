@@ -228,8 +228,8 @@
     |  account | 玩家帳號 |  string  |  必填    |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
-    |  count | 筆數 |  string  | 選填    |
-    |  page | 頁數 |  string  | 選填    |
+    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
     
     ---
     
@@ -517,8 +517,8 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
-    |  count | 筆數 |  string  | 選填    |
-    |  page | 頁數 |  string  | 選填    |
+    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
     
     ---
     

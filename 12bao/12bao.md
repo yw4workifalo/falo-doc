@@ -19,8 +19,8 @@
 2. 帳戶明細 => 2.[查詢帳戶明細](#查詢帳戶明細)
 3. 修改利率 => 5.[修改平台利率](#修改平台利率)
 4. 充值 => 7.[轉帳](#轉帳)
-5. 錢包明細 => 8.[轉帳明細](#轉帳明細)
-6. 利息明細 => 8.[轉帳明細](#轉帳明細)
+5. 錢包明細 => 9. [錢包明細](#錢包明細)
+6. 利息明細 => 10. [利息明細](#利息明細)
 7. 取得目前本金利息 => 6.[取得會員目前本金利息](#取得會員目前本金利息)
 8. 統計報表 => 3.[查詢會員結算注單](#查詢會員結算注單)
 9. 默認利息 => 4.[查詢平台利率](#查詢平台利率)
@@ -126,8 +126,11 @@
            	"income":"5.01345888",
            	"interest":"0.88",
            	"yesterday_income" : 0,
-           	"created_at":"2018-10-25 14:39:00",
-           	"updated_at":"2018-10-25 14:39:00"
+            "created_timestamp": 1542086854,
+	        "timestamp": 1542086854,
+	        "last_compute": 1542086854,
+	        "income_second": "0.00000000",
+	        "income_time": "0"
         }
     }
     ```
@@ -209,12 +212,15 @@
         "status":"success",
         "data":{
           	"account":"aa1234",
-          	"name":"aa1234",
-           	"wallet":"50000.00000000",
-           	"interest":"5.01345888",
-           	"interest_rate":"0.88",
-           	"created_at":"2018-10-25 14:39:00",
-           	"updated_at":"2018-10-25 14:39:00"
+           "wallet": 0,
+	        "income": 0,
+	        "interest": 18,
+	        "yesterday_income": 0,
+	        "created_timestamp": 1542086854,
+	        "timestamp": 1542086854,
+	        "last_compute": 1542086893,
+	        "income_second": "0.00000000",
+	        "income_time": "0"
         }
     }
     ```
@@ -236,7 +242,7 @@
     ```
     GET /v1/user/settlement?
         agent=<agent>&
-        account=<account>&
+        accounts=<accounts>&
         billing_date=<billing_date>
     ```
     ### Response 舊版參數說明
@@ -255,7 +261,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |  必填    |
+    |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號  |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
     |  count | 筆數 |  string  | 選填筆數，預設20筆 |
@@ -268,10 +274,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account 	| 玩家帳號 | string |
-    | wallet 	| 轉出本金 | string |
-    | interest	| 利率 	 | integer  |
+    | recharge_in 	| 轉入本金 | string |
+    | recharge_out	| 轉出本金 | integer  |
+    | get_income_total | 利息收入 | double |
     | created_at | 建立時間 | string |
-    | updated_at | 更新時間 | string |
+    | income | 前一日餘額 | string |
     
     ---
 
@@ -281,14 +288,38 @@
 
     ```javascript
     {
-        "status":"success",
-        "data":{
-          	"account":"aa1234",
-          	"wallet" : 50344,
-           	"interest":54,
-           	"created_at": "2018-10-26 00:00:00",
-            "updated_at": "2018-10-26 00:00:00"
-        }
+    "status": "success",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "account": "kevinfalo994",
+                "recharge_in": "7222221.99574390",
+                "recharge_out": 7224504,
+                "get_income_total": "2283.99574388",
+                "created_at": "2018-11-14 00:00:00",
+                "income": "0.99574390"
+            },
+            {
+                "account": "kevinfalo333",
+                "recharge_in": "1666665.60712820",
+                "recharge_out": 1666969,
+                "get_income_total": "304.60712816",
+                "created_at": "2018-11-14 00:00:00",
+                "income": "0.60712820"
+            }
+        ],
+        "first_page_url": "http://127.0.0.1:8000/api/v1/user/settlement?page=1",
+        "from": 1,
+        "last_page": 1,
+        "last_page_url": "http://127.0.0.1:8000/api/v1/user/settlement?page=1",
+        "next_page_url": null,
+        "path": "http://127.0.0.1:8000/api/v1/user/settlement",
+        "per_page": "20",
+        "prev_page_url": null,
+        "to": 2,
+        "total": 2
+    }
     }
     ```
 
@@ -452,13 +483,35 @@
 
     ```javascript
     {
-        "status":"success",
-        "data":{
-          	"account": "kevinfalo993",
-        		"wallet": "19999998.00000000",
-        		"income": "11.01598063",
-        		"total": "20000009.01598063"
-        }
+        "status": "success",
+    	"data": {
+        	"current_page": 1,
+        	"data": [
+	            {
+	                "account": "kevinfalo993",
+	                "billing_date": "2018-11-13",
+	                "income": "11.01598063",
+	                "wallet": "19999998.00000000",
+	                "total": "20000009.01598063"
+	            },
+	            {
+	                "account": "kevinfalo994",
+	                "billing_date": "2018-11-13",
+	                "income": "0.00000000",
+	                "wallet": "9999999.00000000",
+	                "total": "9999999.00000000"
+	            }
+	        ],
+        "first_page_url": "http://127.0.0.1:8000/api/v1/user/interest/amount?page=1",
+        "from": 1,
+        "last_page": 1,
+        "last_page_url": "http://127.0.0.1:8000/api/v1/user/interest/amount?page=1",
+        "next_page_url": null,
+        "path": "http://127.0.0.1:8000/api/v1/user/interest/amount",
+        "per_page": "20",
+        "prev_page_url": null,
+        "to": 2,
+        "total": 2
     }
     ```
 
@@ -499,16 +552,21 @@
     ### Response 參數說明
     
     | 參數名稱 | 參數說明 | 參數型態 |     
-    |:--------:|:--------:|:--------:|
+    |:--------:|:--------:|:--------:|   
+    | type | 轉帳類型：1轉入、2轉出 | string |
     | account | 玩家帳號 | string |
     | value | 轉出入金額 | string |
-    | wallet | 轉出入前本金金額| string |
-    | interest | 本次交易產生利息| string |
-    |  total_interest | 即時今日本金利息 | double  | 
-    | starting_at | 計息開始時間(格式:2018-10-30 10:00:00) | string |
-    | closing_at | 計息結束時間(格式:2018-10-30 10:00:00) | string |
-    | billing_date | 歸帳日(格式:2018-10-30) | string |
-    | type | 轉帳類型，格式為System、Normal | string |
+    | before_value | 轉出入前本金金額| string |
+    | after_value | 轉出入後本金金額| string |
+    | created_timestamp | 交易時間 | string | 
+    
+    ---
+    
+    ### <span id="enable">轉帳類型</span>
+    | 代碼  | 類型                  | 
+    |----------|-------------------------  |
+    | 1        | 轉入、存款   | 
+    | 2        | 轉出、提款   | 
     
     ---
 
@@ -520,14 +578,13 @@
     {
         "status":"success",
         "data":{
-          	"account": "aasdf99",
-          	"amount": "80000",
-          	"wallet": "320000.000000000",
-          	"interest": "0.62506342",
-           	"total_interest": "54.03239322",
-           	"starting_at": "2018-10-30 13:52:31"
-           	"closing_at": "2018-10-30 13:52:31"
-           	"billing_date": "2018-10-30"
+          	"id": 28,
+	        "type": 2,
+	        "account": "kevinfalo994",
+	        "value": "-5555555",
+	        "before_value": "12222221.00000000",
+	        "after_value": "6666666.00000000",
+	        "created_timestamp": 1542087778
         }
     }
     ```
@@ -549,7 +606,7 @@
     ```
     post /v1/user/transfer-report?
         agent=<agent>&
-        account=<account>&
+        accounts=<accounts>&
         starting_at=<starting_at>&
         closing_at=<closing_at>&
         count=<count>&
@@ -561,7 +618,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  |     必填    |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
     |  count | 筆數 |  string  | 選填筆數，預設20筆 |
@@ -636,7 +693,7 @@
     ```
     post /v1/user/transfer/wallet-report?
         agent=<agent>&
-        account=<account>&
+        accounts=<accounts>&
         starting_at=<starting_at>&
         closing_at=<closing_at>&
         count=<count>&
@@ -648,7 +705,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號 |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
     |  count | 筆數 |  string  | 選填筆數，預設20筆 |
@@ -771,7 +828,7 @@
     ```
     post /v1/user/transfer/interest-report?
         agent=<agent>&
-        account=<account>&
+        accounts=<accounts>&
         starting_at=<starting_at>&
         closing_at=<closing_at>&
         count=<count>&
@@ -784,7 +841,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號    |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
     |  count | 筆數 |  string  | 選填筆數，預設20筆 |

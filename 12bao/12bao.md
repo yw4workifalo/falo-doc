@@ -10,6 +10,8 @@
 6. [取得會員目前本金利息](#取得會員目前本金利息)
 7. [轉帳](#轉帳)
 8. [轉帳明細](#轉帳明細)
+9. [錢包明細](#錢包明細)
+10. [利息明細](#利息明細)
 
 ## 餘額寶新舊API比照
 舊版API => 新版API
@@ -73,7 +75,6 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  *agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-    |  *name   | 玩家名稱 |  string  |     必填    |
    
     
     #### **`token = JWT::encode($request->toArray(), platform_private.key, RS256)`**
@@ -85,26 +86,30 @@
     | 參數名稱 		| 參數說明 	|    
     |:--------:	|:--------:|
     | wallet |本金 | 
-    |income |本日產生利息 | 
-    |interest |本日利率 | 
-    |created_timestamp |建立時間 |
-    |timestamp |更新時間 | 
-    | *last_compute |最後交易時間 | 
-    | *income_second |計息秒數 | 	| *income_time |計息時間 | 
-    | *yesterday_income |昨日產生利息 | 
+    | income |本日產生利息 | 
+    | interest |本日利率 | 
+    | created_timestamp |建立時間 |
+    | timestamp |更新時間 | 
+    | last_compute |最後交易時間 | 
+    | income_second |每秒產生利息 | 
+    | income_time |計息時間 | 
+    | yesterday_income |昨日產生利息 | 
 
     
     ### Response 參數說明
+    
     | 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
-    |  account 	| 玩家帳號 	| string |
-    |  name   		| 玩家名稱 	|  string  |
-    |  wallet   	| 本金 	|  decimal(20,8)  |
-    |  interest  | 本日產生利息 | decimal(20,8) |
-    | interest_rate | 本日利率 | double |
-    | created_at | 建立時間 | date |
-    | updated_at | 更新時間 | date |
-  
+    | account 	| 玩家帳號 	| string |
+    | wallet   	| 本金 	|  decimal(20,8)  |
+    | income  | 本日產生利息 | decimal(20,8) |
+    | interest | 本日利率 | double |
+    | yesterday_income | 昨日產生利息 | double |
+    | created_timestamp | 建立時間 | date |
+    | timestamp | 更新時間 | date |
+    | last_compute |最後一筆交易時間 | date |
+    | income_second |每秒產生利息 | double |
+    | income_time |計息時間 | double |
 
     ---
 
@@ -117,10 +122,10 @@
         "status":"success",
         "data":{
           	"account":"aa1234",
-          	"name":"aa1234",
            	"wallet":"50000.00000000",
-           	"interest":"5.01345888",
-           	"interest_rate":"0.88",
+           	"income":"5.01345888",
+           	"interest":"0.88",
+           	"yesterday_income" : 0,
            	"created_at":"2018-10-25 14:39:00",
            	"updated_at":"2018-10-25 14:39:00"
         }
@@ -168,13 +173,14 @@
     | 參數名稱 		| 參數說明 	|    
     |:--------:	|:--------:|
     | wallet |本金 | 
-    | *income |本日產生利息 | 
-    | *interest |本日利率 | 
-    | *created_timestamp |建立時間 |
-    | *timestamp |更新時間 | 
+    | income |本日產生利息 | 
+    | interest |本日利率 | 
+    | created_timestamp |建立時間 |
+    | timestamp |更新時間 | 
     | *last_compute |最後交易時間 | 
-    | *income_second |計息秒數 | 	| *income_time |計息時間 | 
-    | *yesterday_income |昨日產生利息 | 
+    | *income_second |每秒產生利息 | 
+    | *income_time |計息時間 | 
+    | *yesterday_income |昨日產生利息 |
     
     ### Response 參數說明
     
@@ -185,8 +191,11 @@
     |  wallet   	| 本金 	|  decimal(20,8)  |
     |  interest  | 本日產生利息 | decimal(20,8) |
     | interest_rate | 本日利率 | double |
-    | created_at | 建立時間 | date |
-    | updated_at | 更新時間 | date |
+    | created_timestamp | 建立時間 | date |
+    | timestamp | 更新時間 | date |
+    | last_compute |最後一筆交易時間 | date |
+    | income_second |每秒產生利息 | double |
+    | income_time |計息時間 | double |
 
     ---
 
@@ -255,6 +264,7 @@
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account 	| 玩家帳號 | string |
@@ -315,6 +325,7 @@
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
@@ -370,6 +381,7 @@
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
@@ -406,9 +418,11 @@
 6. ## <span id="get-account-realtime-interest">取得會員目前本金利息</span>
 
     ```
-    get /v1/user/interest/amount?
+    post /v1/user/interest/amount?
         agent=<agent>&
-        account=<account>
+        count=<count>&
+        page=<page>
+
     ```
     
     ### Request 參數說明
@@ -416,15 +430,19 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
+    |  count | 筆數 |  string  | 選填，筆數，預設50筆 |
+    |  page | 頁數 |  string  | 選填，頁數：預設第1頁   |
     
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account | 玩家帳號 | string |
-    |  total_interest | 即時本金利息 | double  | 
+    | wallet | 錢包金額 | string |
+    | income | 利息收入 | string |
+    | total | 本金+利息 | string |
     
     ---
 
@@ -436,8 +454,10 @@
     {
         "status":"success",
         "data":{
-          	"account": "aasdf99",
-           	"total_interest": 54.03239322
+          	"account": "kevinfalo993",
+        		"wallet": "19999998.00000000",
+        		"income": "11.01598063",
+        		"total": "20000009.01598063"
         }
     }
     ```
@@ -459,9 +479,10 @@
 
     ```
     post /v1/user/transfer?
-        agent=<agent>&
+        bchGuid=<bchGuid>&
         account=<account>&
-        value=<value>
+        value=<value>&
+        
     ```
     
     ### Request 參數說明
@@ -472,9 +493,11 @@
     |  account | 玩家帳號 |  string  |     必填    |
     |  value | 轉出入金額 |  string  |     必填    |
     
+    
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account | 玩家帳號 | string |
@@ -485,6 +508,7 @@
     | starting_at | 計息開始時間(格式:2018-10-30 10:00:00) | string |
     | closing_at | 計息結束時間(格式:2018-10-30 10:00:00) | string |
     | billing_date | 歸帳日(格式:2018-10-30) | string |
+    | type | 轉帳類型，格式為System、Normal | string |
     
     ---
 
@@ -546,6 +570,7 @@
     ---
     
     ### Response 參數說明
+    
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account | 玩家帳號 | string |
@@ -605,4 +630,277 @@
         }
     }
    ```
+
+9. ## <span id="wallet-report">錢包明細</span>
+
+    ```
+    post /v1/user/transfer/wallet-report?
+        agent=<agent>&
+        account=<account>&
+        starting_at=<starting_at>&
+        closing_at=<closing_at>&
+        count=<count>&
+        page=<page>
+    ```
+    
+    ### Request 參數說明
+   
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  starting_at | 開始時間 |  string  | 必填    |
+    |  closing_at | 結束時間 |  string  | 必填    |
+    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
+    
+    ---
+    
+    ### Response 參數說明
+    
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    | id | 交易ID | number |
+    | account | 玩家帳號 | string |
+    | type | 轉帳類型 | string |
+    | value | 轉出入金額 | string |
+    | before_value | 轉出入前本金金額| string |
+    | after_value | 轉入後本金金額 | string |
+    | created_timestamp | 計息開始時間(格式timestamp:1524007559) | string |
+    | current_page | 目前頁數 | string |
+    | per_page | 每頁筆數 | string |
+    | total | 總筆數 | string |
+    | last_page | 最後一頁頁數 | string |
+    
+    ---
+    
+    ### <span id="enable">交易類型</span>
+    | 代碼  | 類型                  | 
+    |----------|-------------------------  |
+    | 0        | Normal 一般玩家轉出入   | 
+    | 1        | System 系統轉帳   | 
+    
+    ---
+
+    ### Response 結果
+    
+    成功
+
+    ```javascript
+    {
+    "status": "success",
+    "data": [
+        {
+            "current_page": 1,
+            "data": [
+                {
+                    "id": 61,
+                    "account": "testAcc3",
+                    "type": 1,
+                    "value": "50000.00000000",
+                    "before_value": "0.00000000",
+                    "after_value": 50000,
+                    "created_timestamp": "2018-10-25 00:30:00"
+                },
+                {
+                    "id": 62,
+                    "account": "testAcc3",
+                    "type": 1,
+                    "value": "-500.00000000",
+                    "before_value": "50000.00000000",
+                    "after_value": 49500,
+                    "created_timestamp": "2018-10-25 01:30:00"
+                }
+            ],
+            "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
+            "from": 1,
+            "last_page": 2,
+            "last_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "next_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "path": "http://127.0.0.1:8000/api/v1/user/transfer-report",
+            "per_page": "20",
+            "prev_page_url": null,
+            "to": 20,
+            "total": 23
+        },
+        {
+            "current_page": 1,
+            "data": [
+                {
+                    "id": 101,
+                    "account": "testAcc5",
+                    "type": 1,
+                    "value": "50000.00000000",
+                    "before_value": "0.00000000",
+                    "after_value": 50000,
+                    "created_timestamp": "2018-10-25 00:30:00"
+                }
+            ],
+            "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
+            "from": 1,
+            "last_page": 2,
+            "last_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "next_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "path": "http://127.0.0.1:8000/api/v1/user/transfer-report",
+            "per_page": "20",
+            "prev_page_url": null,
+            "to": 20,
+            "total": 23
+        }
+    ]
+}
+
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code": 202,
+        	"message": "The user kevinfalo22 not exists"
+        }
+    }
+   ```
+   
+   ---
+
+10. ## <span id="interest-report">利息明細</span>
+
+    ```
+    post /v1/user/transfer/interest-report?
+        agent=<agent>&
+        account=<account>&
+        starting_at=<starting_at>&
+        closing_at=<closing_at>&
+        count=<count>&
+        page=<page>
+    ```
+
+    
+    ### Request 參數說明
+   
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  account | 玩家帳號 |  string  |     必填    |
+    |  starting_at | 開始時間 |  string  | 必填    |
+    |  closing_at | 結束時間 |  string  | 必填    |
+    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
+    
+    ---
+    
+    ### Response 參數說明
+    
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    | id | 交易ID | number |
+    | account | 玩家帳號 | string |
+    | type | 轉帳類型 | string |
+    | value | 本次產生利息 | string |
+    | before_value | 交易前利息總和 | string |
+    | after_value | 交易後利息總和 | string |
+    | created_timestamp | 計息開始時間(格式timestamp:1524007559) | string |
+    | current_page | 目前頁數 | string |
+    | per_page | 每頁筆數 | string |
+    | total | 總筆數 | string |
+    | last_page | 最後一頁頁數 | string |
+    
+    ---
+    
+    ### <span id="enable">交易類型</span>
+    | 代碼  | 類型                  | 
+    |----------|-------------------------  |
+    | 0        | Normal 一般玩家轉出入   | 
+    | 1        | System 系統轉帳   | 
+    
+    ---
+
+    ### Response 結果
+    
+    成功
+
+    ```javascript
+    {
+    "status": "success",
+    "data": [
+     		{
+            "current_page": 1,
+            "data": [],
+            "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer/interest-report?page=1",
+            "from": null,
+            "last_page": 1,
+            "last_page_url": "http://127.0.0.1:8000/api/v1/user/transfer/interest-report?page=1",
+            "next_page_url": null,
+            "path": "http://127.0.0.1:8000/api/v1/user/transfer/interest-report",
+            "per_page": "20",
+            "prev_page_url": null,
+            "to": null,
+            "total": 0
+        },
+        {
+            "current_page": 1,
+            "data": [
+                {
+                    "id": 1,
+                    "account": "testAcc6",
+                    "type": "1",
+                    "value": "0.00000000",
+                    "before_value": "0.00000000",
+                    "after_value": "0",
+                    "created_timestamp": 1542007556
+                },
+                {
+                    "id": 2,
+                    "account": "testAcc6",
+                    "type": "1",
+                    "value": "0.20928461",
+                    "before_value": "0.00000000",
+                    "after_value": "0.20928461",
+                    "created_timestamp": 1542007556
+                },
+                {
+                    "id": 3,
+                    "account": "testAcc6",
+                    "type": "1",
+                    "value": "0.41856922",
+                    "before_value": "0.20928461",
+                    "after_value": "0.62785383",
+                    "created_timestamp": 1542007557
+                }
+            ],
+            "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
+            "from": 1,
+            "last_page": 2,
+            "last_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "next_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=2",
+            "path": "http://127.0.0.1:8000/api/v1/user/transfer-report",
+            "per_page": "20",
+            "prev_page_url": null,
+            "to": 20,
+            "total": 23
+        }
+    ]
+}
+
+    ```
+
+    失敗
+
+   ```javascript
+   {
+        "status":"error",
+        "error":{
+            "code": 202,
+        	"message": "The user kevinfalo22 not exists"
+        }
+    }
+   ```
+
+
+
+
+
 

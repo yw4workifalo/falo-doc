@@ -189,11 +189,11 @@
     
   	| 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
-    |  account 	| 玩家帳號 	| string |
-    |  name   		| 玩家名稱 	|  string  |
-    |  wallet   	| 本金 	|  decimal(20,8)  |
-    |  interest  | 本日產生利息 | decimal(20,8) |
-    | interest_rate | 本日利率 | double |
+    | account 	| 玩家帳號 	| string |
+    | wallet   	| 本金 	|  decimal(20,8)  |
+    | income  | 本日產生利息 | decimal(20,8) |
+    | interest | 本日利率 | double |
+    | yesterday_income | 昨日產生利息 | double |
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |
     | last_compute |最後一筆交易時間 | date |

@@ -1,7 +1,6 @@
 # 12bao API Document
   
 ## API列表
-
 1. [創建帳號](#創建帳號)
 2. [查詢帳戶明細](#查詢帳戶明細)
 3. [查詢會員結算注單](#查詢會員結算注單)
@@ -14,6 +13,7 @@
 10. [利息明細](#利息明細)
 
 ## 餘額寶新舊API比照
+
 舊版API => 新版API
 1. 創帳號 => 1.[創建帳號](#創建帳號)
 2. 帳戶明細 => 2.[查詢帳戶明細](#查詢帳戶明細)
@@ -50,6 +50,11 @@
 | 204  | user_update_interest_failed | 會員更新利率失敗 |
 | 205  | user_wallet_not_enoutgh | 此會員帳戶餘額不足 |
 
+## JWT Authentication 
+
+**`token = JWT::encode($request->toArray(), platform_private.key, RS256)`**
+
+
 ## *API 使用*
 
 1. ## <span id="create-account">創建帳號</span>
@@ -76,7 +81,7 @@
     |  account | 玩家帳號 |  string  |     必填    |
    
     
-    #### **`token = JWT::encode($request->toArray(), platform_private.key, RS256)`**
+    
     
     ---
     
@@ -451,7 +456,7 @@
 6. ## <span id="get-account-realtime-interest">取得會員目前本金利息</span>
 
     ```
-    post /api/v1/user/interest/amount?
+    GET /api/v1/user/interest/amount?
         agent=<agent>&
         count=<count>&
         page=<page>
@@ -534,7 +539,7 @@
 7. ## <span id="user-transfer">轉帳</span>
 
     ```
-    post /api/v1/user/transfer?
+    POST /api/v1/user/transfer?
         agent=<agent>&
         account=<account>&
         value=<value>&
@@ -607,7 +612,7 @@
 8. ## <span id="transfer-report">轉帳明細</span>
 
     ```
-    post /api/v1/user/transfer-report?
+    POST /api/v1/user/transfer-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&
@@ -694,7 +699,7 @@
 9. ## <span id="wallet-report">錢包明細</span>
 
     ```
-    post /api/v1/user/transfer/wallet-report?
+    POST /api/v1/user/transfer/wallet-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&
@@ -826,7 +831,7 @@
 10. ## <span id="interest-report">利息明細</span>
 
     ```
-    post /api/v1/user/transfer/interest-report?
+    POST /api/v1/user/transfer/interest-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&

@@ -55,10 +55,9 @@
 1. ## <span id="create-account">創建帳號</span>
 
     ```
-    POST /v1/user/create?
+    POST /api/v1/user/create?
         agent=<agent>&
-        account=<account>&
-        name=<name>
+        account=<account>
     ```
     
     ### Request 舊版參數說明
@@ -150,7 +149,7 @@
 2. ## <span id="player-info">查詢帳戶明細</span>
 
     ```
-    GET /v1/show-user?
+    GET /api/v1/user/show?
         agent=<agent>&
         account=<account>
     ```
@@ -197,8 +196,8 @@
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |
     | last_compute |最後一筆交易時間 | date |
-    | income_second |每秒產生利息 | double |
-    | income_time |計息時間 | double |
+    | income_second |目前本金每秒可產生利息 | double |
+    | income_time |計息時間(秒) | double |
 
     ---
 
@@ -212,15 +211,15 @@
         "status":"success",
         "data":{
           	"account":"aa1234",
-           "wallet": 0,
-	        "income": 0,
+           "wallet": "30000.00000000",
+	        "income": "0.00072298",
 	        "interest": 18,
-	        "yesterday_income": 0,
+	        "yesterday_income": 15.15517503,
 	        "created_timestamp": 1542086854,
 	        "timestamp": 1542086854,
 	        "last_compute": 1542086893,
-	        "income_second": "0.00000000",
-	        "income_time": "0"
+	        "income_second": "0.00036149",
+	        "income_time": "2"
         }
     }
     ```
@@ -240,10 +239,13 @@
 3. ## <span id="settlement-report">查詢會員結算注單</span>
 
     ```
-    GET /v1/user/settlement?
+    GET /api/v1/user/settlement?
         agent=<agent>&
         accounts=<accounts>&
-        billing_date=<billing_date>
+        starting_at=<starting_at>&
+        closing_at=<closing_at>&
+        count=<count>&
+        page=<page>
     ```
     ### Response 舊版參數說明
     
@@ -262,10 +264,10 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台ID |  string  | 由API端提供 |
     |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號  |
-    |  starting_at | 開始時間 |  string  | 必填    |
-    |  closing_at | 結束時間 |  string  | 必填    |
-    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
-    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
+    |  starting_at | 開始時間(2018-10-01 00:00:00) |  string  | 必填    |
+    |  closing_at | 結束時間(2018-11-30 00:00:00) |  string  | 必填    |
+    |  count | 筆數 |  string  | 選填，筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填，頁數：預設第1頁   |
     
     ---
     
@@ -338,7 +340,7 @@
 4. ## <span id="platform-interest">查詢平台利率</span>
 
     ```
-    GET /v1/platform/interest?
+    GET /api/v1/platform/interest?
         agent=<agent>
     ```
     
@@ -393,7 +395,7 @@
 5. ## <span id="modify-platform-interest">修改平台利率</span>
 
     ```
-    POST /v1/platform/interest?
+    POST /api/v1/platform/interest?
         agent=<agent>
     ```
     
@@ -449,7 +451,7 @@
 6. ## <span id="get-account-realtime-interest">取得會員目前本金利息</span>
 
     ```
-    post /v1/user/interest/amount?
+    post /api/v1/user/interest/amount?
         agent=<agent>&
         count=<count>&
         page=<page>
@@ -471,9 +473,10 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account | 玩家帳號 | string |
-    | wallet | 錢包金額 | string |
-    | income | 利息收入 | string |
-    | total | 本金+利息 | string |
+    | billing_date | 歸帳日 | string |
+    | income | 利息收入總和 | string |
+    | wallet | 錢包本金 | string |
+    | total  | 本金+利息 | string |
     
     ---
 
@@ -531,11 +534,10 @@
 7. ## <span id="user-transfer">轉帳</span>
 
     ```
-    post /v1/user/transfer?
-        bchGuid=<bchGuid>&
+    post /api/v1/user/transfer?
+        agent=<agent>&
         account=<account>&
         value=<value>&
-        
     ```
     
     ### Request 參數說明
@@ -553,6 +555,7 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|   
+    | id   | 交易ID | number |
     | type | 轉帳類型：1轉入、2轉出 | string |
     | account | 玩家帳號 | string |
     | value | 轉出入金額 | string |
@@ -604,7 +607,7 @@
 8. ## <span id="transfer-report">轉帳明細</span>
 
     ```
-    post /v1/user/transfer-report?
+    post /api/v1/user/transfer-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&
@@ -691,7 +694,7 @@
 9. ## <span id="wallet-report">錢包明細</span>
 
     ```
-    post /v1/user/transfer/wallet-report?
+    post /api/v1/user/transfer/wallet-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&
@@ -708,8 +711,8 @@
     |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號 |
     |  starting_at | 開始時間 |  string  | 必填    |
     |  closing_at | 結束時間 |  string  | 必填    |
-    |  count | 筆數 |  string  | 選填筆數，預設20筆 |
-    |  page | 頁數 |  string  | 選填頁數：預設第1頁   |
+    |  count | 筆數 |  string  | 選填，筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填，頁數：預設第1頁   |
     
     ---
     
@@ -717,7 +720,6 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    | id | 交易ID | number |
     | account | 玩家帳號 | string |
     | type | 轉帳類型 | string |
     | value | 轉出入金額 | string |
@@ -751,7 +753,6 @@
             "current_page": 1,
             "data": [
                 {
-                    "id": 61,
                     "account": "testAcc3",
                     "type": 1,
                     "value": "50000.00000000",
@@ -760,7 +761,6 @@
                     "created_timestamp": "2018-10-25 00:30:00"
                 },
                 {
-                    "id": 62,
                     "account": "testAcc3",
                     "type": 1,
                     "value": "-500.00000000",
@@ -826,7 +826,7 @@
 10. ## <span id="interest-report">利息明細</span>
 
     ```
-    post /v1/user/transfer/interest-report?
+    post /api/v1/user/transfer/interest-report?
         agent=<agent>&
         accounts=<accounts>&
         starting_at=<starting_at>&
@@ -853,7 +853,6 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    | id | 交易ID | number |
     | account | 玩家帳號 | string |
     | type | 轉帳類型 | string |
     | value | 本次產生利息 | string |
@@ -901,7 +900,6 @@
             "current_page": 1,
             "data": [
                 {
-                    "id": 1,
                     "account": "testAcc6",
                     "type": "1",
                     "value": "0.00000000",
@@ -910,7 +908,6 @@
                     "created_timestamp": 1542007556
                 },
                 {
-                    "id": 2,
                     "account": "testAcc6",
                     "type": "1",
                     "value": "0.20928461",
@@ -919,7 +916,6 @@
                     "created_timestamp": 1542007556
                 },
                 {
-                    "id": 3,
                     "account": "testAcc6",
                     "type": "1",
                     "value": "0.41856922",

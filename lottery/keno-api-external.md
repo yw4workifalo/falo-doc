@@ -35,6 +35,7 @@
 ● [設定代理商賠率](#設定代理商賠率)<br>-->
 ● [設定玩家盤口](#設定玩家盤口)<br>
 ● [查詢平台盤口與各盤口退水及限注規範](#查詢平台盤口與各盤口退水及限注規範)<br>
+● [查詢平台是否有維護](#查詢平台是否有維護)<br>
 ● [手機串接](#手機串接)<br>
 
 ------
@@ -2585,7 +2586,78 @@
     ```
 <div align="right"><a href="#top">Top</a></div>
 
------
+------
+
+## <span>查詢平台是否有維護</span>
+  **API Name : maintain**</br>
+  **Method : GET**
+  ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| startAt | 起始時間 | string | N  | 選填，格式 2017-01-01 12:00:10 |
+| endAt | 結束時間 | string | N | 選填，格式 2017-01-01 13:00:10 |
+| key | 公鑰 | string | Y | 必填 |
+| hash | 驗證參數 | string | Y | md5|
+
+  #### **` hash = md5(privateKey)`**
+
+  ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| active| 是否啟用 | string |1:是,0:否 |
+| startAt| 起始時間 | string | 2017-01-01 12:00:10 |
+| endAt| 結束時間 | string | 2017-01-01 13:00:10 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+  | 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+  | -- | ---- | ----------- |
+  | 1 | {parameter} is required  | 缺少參數欄位 |
+  | 2 | invalid key  | 金鑰無效 |
+  | 4 | player not found | 玩家未找到 |
+  | 5 | method is not allowed  | 使用之Http方法不允許 |
+  | 6 | function not found  | API不存在 |
+  | 7 | internal server error  | 服務器內部錯誤 |
+  | 15 | data format error  | 資料格式有誤 |
+  | 73 | Maintain is not exist  | 沒有該維護時間 |
+
+  ### 範例
+  + 調用方法
+    ```
+    GET /keno-api/agent/maintain?
+        startAt=2018-11-12 06:00:00&
+        endAt =2018-11-12 09:00:00&
+        key=3de5b29aac97c072f5822dc99c5633d6&
+        hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+      "status":"success",
+      "data":{
+           "active":"0",
+           "startAt":" 2018-11-01 00:00:00",
+           "endAt":" 2018-11-28 00:00:00",
+        },
+      "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+
+  + 失敗
+    ```javascript
+    {
+      "status":"error",
+      "error": {
+         "code":7,
+          "message":"internal server error"
+      },
+      "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
 ## <span>手機串接</span>
   **API Name :**</br>
   **Method :**

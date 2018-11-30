@@ -402,6 +402,7 @@
     ```
     POST /api/v1/platform/interest?
         agent=<agent>
+        interest_rate=<interest_rate>
     ```
     
     ### 平台利率設定、查詢說明

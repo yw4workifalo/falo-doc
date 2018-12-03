@@ -52,12 +52,12 @@
 ![流程圖](https://cacoo.com/diagrams/WaDYppQPnrwiv0ot-28811.png?t=1501038793649 "API 登入 流程圖")
 
 ## GameType
-| 遊戲名稱  | GameType                  | 
+| 遊戲名稱  | GameType                  |
 |---------- |-------------------------  |
-| 武士道  (Spirit Of Samurai)       | 1   | 
-| 金錢貓  (Golden Cat)       | 2   | 
-| 百鬼夜行  (Demon)      | 3   | 
-| 美人魚  (Mermaid)       | 4   | 
+| 武士道  (Spirit Of Samurai)       | 1   |
+| 金錢貓  (Golden Cat)       | 2   |
+| 百鬼夜行  (Demon)      | 3   |
+| 美人魚  (Mermaid)       | 4   |
 
 ## 玩家模式說明
 
@@ -69,32 +69,32 @@
 
 ## 支援貨幣
 
- |代碼|說明|
- |:-:|:-:|
- |TWD|台幣|
- |CNY|人民幣|
+|代碼|說明|
+|:-:|:-:|
+|TWD|台幣|
+|CNY|人民幣|
 
 ## 支援語系
 
- |代碼|說明|
- |:-:|:-:|
- | zh_TW |繁體中文|
- | zh_CN |簡體中文|
- 
+|代碼|說明|
+|:-:|:-:|
+| zh_TW |繁體中文|
+| zh_CN |簡體中文|
+
 ## 支援裝置
 
- |代碼|說明|
- |:-:|:-:|
- | Web | 網頁電腦版 |
- | Android | Android App | 
- | IOS | IOS App |  
- 
+|代碼|說明|
+|:-:|:-:|
+| Web | 網頁電腦版 |
+| Android | Android App |
+| IOS | IOS App |
+
 ## 信用群組編號
- |代碼|說明|
- |:-:|:-:|
- |0|不回復|
- |1|日|
- |2|週|
+|代碼|說明|
+|:-:|:-:|
+|0|不回復|
+|1|日|
+|2|週|
 
 ## 錯誤代碼
 
@@ -112,19 +112,19 @@
 | 10        | service not available   | 無法使用遊戲服務       |
 | 11        | \{parameter\} is invalid   | 參數不合法       |
 | 12 		  | gameType not found | 無此遊戲存在 |
-| 13 | account length between 4 - 20 | 帳號至少4位元以上 | 
-| 14 | nickname length between 1- 20 | 暱稱至少1位元以上 | 
-| 15 | enable setting is invalid | 玩家啟用設定值必須為整數 | 
-| 16 | mode setting is invalid | 玩家帳號模式設定值必須為整數 | 
-| 17 | transfer in error | 額度轉入失敗 | 
-| 18 | transfer out error | 額度轉出失敗 | 
-| 19 | player credit is not enough | 玩家籌碼不足 | 
-| 20 | account:{account} has been used | 此帳號已被使用 | 
-| 21 | bet accounts processing | 帳務結算中不可額度轉出入 | 
-| 22 | {param} must be a unsigned int | {param}設定值必須為正整數 | 
-| 23 | [startAt or endAt] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 | 
-| 24 | {transferId} is not exist | 此筆交易單不存在 | 
-| 25 | transfer id credit can not be empty | 交易的ID不可為空 | 
+| 13 | account length between 4 - 20 | 帳號至少4位元以上 |
+| 14 | nickname length between 1- 20 | 暱稱至少1位元以上 |
+| 15 | enable setting is invalid | 玩家啟用設定值必須為整數 |
+| 16 | mode setting is invalid | 玩家帳號模式設定值必須為整數 |
+| 17 | transfer in error | 額度轉入失敗 |
+| 18 | transfer out error | 額度轉出失敗 |
+| 19 | player credit is not enough | 玩家籌碼不足 |
+| 20 | account:{account} has been used | 此帳號已被使用 |
+| 21 | bet accounts processing | 帳務結算中不可額度轉出入 |
+| 22 | {param} must be a unsigned int | {param}設定值必須為正整數 |
+| 23 | [startAt or endAt] value must be datetime Example:2016-01-01 00:00:00 | 查詢玩家注單,時間參數必須使用規定格式 |
+| 24 | {transferId} is not exist | 此筆交易單不存在 |
+| 25 | transfer id credit can not be empty | 交易的ID不可為空 |
 | 26 | transfer id:（平台方TransferID）has been used | 此交易單已被使用 |
 | 27 | transfer in or out can not be 0 | 額度轉出入設定值不可為0 |
 | 28 | transfer pending | 訂單交易中 |
@@ -155,16 +155,16 @@
     ```
 
     ##### Request 範例
-    
-	bash
-	
+
+    bash
+
     ```bash
     CURL -X POST -d account=test02 -d nickname=test -d currency=TWD -d key=57d0bc61dffff -d hash=28676265eba1bf74a397887e5b7df167 \ 
     -G http://poker.app/api/v2/slot/player/register
     ```
-    
+
     php
-    
+
     ```php
     $key = '57d0bc61dffff';
     $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
@@ -180,7 +180,7 @@
         $hash .= $v;
     }
     $hash .= $secret;
-
+    
     $hash = md5($hash);
     $data['key'] = $key;
     $data['hash'] = $hash;
@@ -207,7 +207,7 @@
 
     ##### 回傳結果
     成功
-    
+
     ```javascript
     {  
        "status":"success",
@@ -219,11 +219,11 @@
        }
     }
     ```
-    
+
     失敗
-    
+
     ```javascript
-   {  
+       {  
        "status":"error",
        "error":{  
           "code":102,
@@ -231,19 +231,19 @@
        }
     }
     ```
-    
+
     回傳參數說明
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account| string(20) | 帳號|
     |nickname| string(20) | 玩家暱稱 |
     |currency| string(10) | 玩家設定貨幣 |
-    |id| integer | 遊戲方玩家編號 | 
-    
+    |id| integer | 遊戲方玩家編號 |
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
@@ -253,9 +253,8 @@
     | 11 | {parameter} is invalid   |
     | 13 | account length between 4 - 20  |
     | 14 | nickname length between 1- 20  |
-    | 20 | account:{account} has been used | 此帳號已被使用 | 
+    | 20 | account:{account} has been used | 此帳號已被使用 |
     | 102 | The currency what you set is not supported |
-    
 
 1. ### 修改暱稱
 
@@ -352,12 +351,12 @@
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4  | player not found          |     
+    | 4  | player not found          |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -415,10 +414,10 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |Y|
-    |  account | 玩家帳號 |  string  |     必填    | Y| 
+    |  account | 玩家帳號 |  string  |     必填    | Y|
     |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) 直接進入遊戲| N |
     |  language | 語系代碼 |  string  |     選填 [支援語系](#支援語系) | N |
-    |   platformType   | 裝置代碼 |  string  |     選填 [支援裝置](#支援裝置)    |N|    
+    |   platformType   | 裝置代碼 |  string  |     選填 [支援裝置](#支援裝置)    |N|
     |   hash   | 驗證參數 |  string  |     必填    |Y|
 
     **hash = md5(account + secret)**
@@ -458,19 +457,19 @@
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4  | player not found          |    
+    | 4  | player not found          |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 103 | The language is not supported |   
-	| 104 | The platform type is not supported | 	 
+	| 103 | The language is not supported |
+	| 104 | The platform type is not supported |
 
-4. ### 查詢玩家
+3. ### 查詢玩家
 
     ```
     GET player/info?
@@ -478,16 +477,16 @@
         account=<account>&
         hash=<hash>
     ```
-    
+
     ##### Request 範例
-	
-	bash
-	
+
+    bash
+
     ```bash
     CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
       -G http://poker.app/api/v2/slot/player/info
     ```
-    
+
     php
 
     ```php
@@ -504,14 +503,14 @@
         $hash .= $v;
     }
     $hash .= $secret;
-
+    
     $hash = md5($hash);
     $data['key'] = $key;
     $data['hash'] = $hash;
     $ch = curl_init($url.'?'.http_build_query($data));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-
+    
     $response = curl_exec($ch);
     echo $response;
     ```
@@ -544,7 +543,8 @@
           "limitWin":"100000.0000",
           "limitLose":"100000.0000",
           "isOnline":false,
-          "currency":"TWD"
+          "currency":"TWD",
+          "winchips": "0.0000"
        }
     }
     ```
@@ -560,7 +560,7 @@
     }
     ```
     回傳參數說明
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |id|int|序號|
@@ -573,21 +573,21 @@
     |limitLose|decimal(19, 4)|限輸 0為無限制|
     |isOnline|boolean|玩家是否在上線|
     |currency|string| 玩家設定貨幣 |
-    
+    |winchips|decimal(19, 4)| 玩家輸贏累計金額 |
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4  | player not found          |        
+    | 4  | player not found          |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 
-    
-5. ### 取得玩家遊戲紀錄
+4. ### 取得玩家遊戲紀錄
 
     ```
     GET player/bet/report/session?
@@ -597,43 +597,43 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-    
+
     ##### Request 範例
-    
+
     bash
-    
+
     ```bash
     CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
     	-G http://poker.app/api/v2/slot/player/bet/report/session
     ```
-    
+
     php
-    
+
     ```php
     $key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/bet/report/session';
-	$data = [
-		'account'=>'test',
-		'startAt'=>'0',
-		'endAt'=>'0'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-	$response = curl_exec($ch);
-	echo $response;
-	```
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/bet/report/session';
+    $data = [
+    	'account'=>'test',
+    	'startAt'=>'0',
+    	'endAt'=>'0'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
 
     ##### 參數說明
 
@@ -652,32 +652,32 @@
 
     ```javascript
     {  
-	   "status":"success",
-	   "data":[  
-		{  
-		   "id":8,
-		   "userId":53,
-		   "initialCredit":"985519.0000",
-		   "sumOfBet":"0.0000",
-		   "sumOfWinCredit":"0.0000",
-		   "finalCredit":"985519.0000",
-		   "ip":"192.168.11.1",
-		   "loginAt":"2017-07-13 11:16:13",
-		   "logoutAt":"2017-07-13 11:18:16"
-		},
-		{  
-		   "id":9,
-		   "userId":53,
-		   "initialCredit":"985519.0000",
-		   "sumOfBet":"0.0000",
-		   "sumOfWinCredit":"0.0000",
-		   "finalCredit":"985519.0000",
-		   "ip":"192.168.11.1",
-		   "loginAt":"2017-07-13 11:21:33",
-		   "logoutAt":"2017-07-13 11:23:36"
-		}
-	   ]
-	}
+       "status":"success",
+       "data":[  
+    	{  
+    	   "id":8,
+    	   "userId":53,
+    	   "initialCredit":"985519.0000",
+    	   "sumOfBet":"0.0000",
+    	   "sumOfWinCredit":"0.0000",
+    	   "finalCredit":"985519.0000",
+    	   "ip":"192.168.11.1",
+    	   "loginAt":"2017-07-13 11:16:13",
+    	   "logoutAt":"2017-07-13 11:18:16"
+    	},
+    	{  
+    	   "id":9,
+    	   "userId":53,
+    	   "initialCredit":"985519.0000",
+    	   "sumOfBet":"0.0000",
+    	   "sumOfWinCredit":"0.0000",
+    	   "finalCredit":"985519.0000",
+    	   "ip":"192.168.11.1",
+    	   "loginAt":"2017-07-13 11:21:33",
+    	   "logoutAt":"2017-07-13 11:23:36"
+    	}
+       ]
+    }
     ```
     失敗
 
@@ -691,17 +691,17 @@
     }
     ```
     回傳參數說明
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
     | initialCredit |decimal(19, 4)|初始金額|
     | sumOfBet |decimal(19, 4)|下注金額|
     | sumOfWinCredit |decimal(19, 4)|贏取金額，損益為 sumOfWinCredit - sumOfBet|
-    | finalCredit |decimal(19, 4)|最後籌碼|    
-    
+    | finalCredit |decimal(19, 4)|最後籌碼|
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
@@ -711,8 +711,7 @@
     | 6  | query time range out of limit  |
     | 7  | internal server error |
     | 11 | {parameter} is invalid   |
-    
-        	
+
 7. ### 玩家額度轉出入
 
     ```
@@ -807,32 +806,32 @@
     
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string|玩家帳號|  
-    |originalCredit|decimal(19, 4)|原始籌碼|    
+    |account|string|玩家帳號|
+    |originalCredit|decimal(19, 4)|原始籌碼|
     |addedCredit|decimal(19, 4)|新增籌碼|
     |finalCredit|decimal(19, 4)|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
-    |status|int|狀態 0:success|  
-    |currency|string| 玩家設定貨幣 |    
+    |status|int|狀態 0:success|
+    |currency|string| 玩家設定貨幣 |
     
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4  | player not found 			|    
+    | 4  | player not found 			|
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
     | 17 |transfer in error|
-    | 18 |transfer out error|    
+    | 18 |transfer out error|
     |19 | player credit is not enough|
     | 26 | transfer id:（平台方TransferID）has been used |
-    | 	33 | the credit type is invalid | 
+    | 	33 | the credit type is invalid |
 
 
 7. ### 玩家轉帳狀態查詢
@@ -843,48 +842,48 @@
         transferId =<transferId>&
         hash=<hash>
     ```
-	
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X GET -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=eb5adf3a54d19488c9d1b641cd582333 \
- 		-G http://poker.app/api/v2/slot/player/credit/transfer-status
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit/transfer-status';
-	$data = [
-		'transfer_id'=>'GC0001'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-	$response = curl_exec($ch);
-	echo $response;
-	```
+
+    ##### Request 範例
+
+    bash
+
+    ```bash
+    CURL -X GET -d transfer_id=GC0001 -d key=57d0bc61dffff -d hash=eb5adf3a54d19488c9d1b641cd582333 \
+     		-G http://poker.app/api/v2/slot/player/credit/transfer-status
+    ```
+
+    php
+
+    ```php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/credit/transfer-status';
+    $data = [
+    	'transfer_id'=>'GC0001'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
 
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-    |  transferId   | 交易編號 |  string(30)  |     必填    | Y |   
+    |  transferId   | 交易編號 |  string(30)  |     必填    | Y |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + transferId + secret)**
@@ -893,47 +892,47 @@
     成功
 
     ```javascript
-	{  
-	   "status":"success",
-	   "data":{  
-	      "addedCredit":"9999.0000",
-	      "originalCredit":"1010810.0000",
-	      "finalCredit":"1020809.0000",
-	      "account":"57b_wei",
-	      "orderId":11,
-	      "transferId":"PDNN",
-	      "status":0,
-	      "currency":"TWD"
-	   }
-	}
+    {  
+       "status":"success",
+       "data":{  
+          "addedCredit":"9999.0000",
+          "originalCredit":"1010810.0000",
+          "finalCredit":"1020809.0000",
+          "account":"57b_wei",
+          "orderId":11,
+          "transferId":"PDNN",
+          "status":0,
+          "currency":"TWD"
+       }
+    }
     ```
     失敗
 
     ```javascript
     {  
-	   "status":"error",
-	   "error":{  
-	      "code":4,
-	      "message":"player not found"
-	   }
-	}
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
     ```
     回傳參數說明
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
-    |account|string(20)|玩家帳號|  
+    |account|string(20)|玩家帳號|
     |originalCredit|decimal(19, 4)|原始籌碼|
     |addedCredit|decimal(19, 4)|新增籌碼|
     |finalCredit|decimal(19, 4)|最後籌碼|
     |transferId|string(30)|平台交易編號，unique|
     |orderId|int|遊戲方交易編號, unique|
     |status|int|狀態 0:success|
-    |currency|string| 玩家設定貨幣 |        
-    
+    |currency|string| 玩家設定貨幣 |
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
@@ -941,15 +940,14 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 24 | {transferId} is not exist |
-	| 28 | transfer pending | 
-	| 	33 | the credit type is invalid | 
-    
+    | 24 | {transferId} is not exist |
+    | 28 | transfer pending |
+    | 	33 | the credit type is invalid |
 
 8. ### 踢玩家
 
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
-    
+
     ```
     DELETE player/kick?
         key=<key>&
@@ -957,42 +955,42 @@
         reason=<reason>&
         hash=<hash>
     ```
-    
+
     ##### Request 範例
-    
+
     bash
-    
+
     ```bash
     CURL -X DELETE -d account=test -d reason=test -d key=57d0bc61dffff -d hash=ca0ac30b539a6a55ecb5bc7c95b95c48 \
- 		-G http://poker.app/api/v2/slot/player/kick
+     		-G http://poker.app/api/v2/slot/player/kick
     ```
-    
+
     php
-    
+
     ```php
     $key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/kick';
-	$data = [
-		'account'=>'test',
-		'reason'=>'test'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
-	$response = curl_exec($ch);
-	echo $response;
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/kick';
+    $data = [
+    	'account'=>'test',
+    	'reason'=>'test'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+    $response = curl_exec($ch);
+    echo $response;
     ```
 
     ##### 參數說明
@@ -1019,7 +1017,7 @@
           }
        ]
     }
-
+    
     ```
     失敗
 
@@ -1027,26 +1025,25 @@
     {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
     回傳參數說明
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
     |status|int| 狀態0:kick success, 1:player is not online |
-    
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
     | 4 | player not found |
     | 5  | {method} is not allowed   |
-    |  7  | internal server error | 
-	| 10 | service not available |
+    |  7  | internal server error |
+    | 10 | service not available |
     | 11 | {parameter} is invalid   |
 
-        
 8. ### 踢多玩家
     呼叫之後會在10秒之後將在線的玩家踢出遊戲
     
@@ -1064,7 +1061,7 @@
 	
 	```bash
 	CURL -X DELETE -d accounts=test,test01 -d reason=test -d key=57d0bc61dffff -d hash=22f0d24fa07d3e73c0c23c2626fe052e \
- 		-G http://poker.app/api/v2/slot/player/kick-multiple
+	 		-G http://poker.app/api/v2/slot/player/kick-multiple
 	```
 	
 	php
@@ -1147,13 +1144,13 @@
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
     | 5  | {method} is not allowed   |
-    |  7  | internal server error | 
+    |  7  | internal server error |
 	| 10 | service not available |
     | 11 | {parameter} is invalid   |
 
@@ -1175,7 +1172,7 @@
 	
 	```bash
 	CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
- 		-G http://poker.app/api/v2/slot/player/limit/lose
+	 		-G http://poker.app/api/v2/slot/player/limit/lose
 	```
 	
 	php
@@ -1247,7 +1244,7 @@
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
@@ -1276,11 +1273,11 @@
     
     ```bash
     CURL -X PUT -d account=test -d limit=10000 -d key=57d0bc61dffff -d hash=26dd56166f6933f6699c7118231dcb73 \
- 		-G http://poker.app/api/v2/slot/player/limit/win
-	 ```
-	 
+	 		-G http://poker.app/api/v2/slot/player/limit/win
+	```
+	
 	 php
-	 
+	
 	 ```php
 	 $key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
@@ -1305,7 +1302,7 @@
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
 	$response = curl_exec($ch);
 	echo $response;
-	```
+	 ```
 
     ##### 參數說明
 
@@ -1350,21 +1347,21 @@
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     |limitLose|decimal(19, 4)|限輸金額|
-    |limitWin|decimal(19, 4)|限贏金額| 
-    | winCredit | decimal(19, 4) | 當前損益 |    
+    |limitWin|decimal(19, 4)|限贏金額|
+    | winCredit | decimal(19, 4) | 當前損益 |
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |    
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
- 
+
 
 11. ### 限注回復
 
@@ -1376,41 +1373,41 @@
         account=<account>&
         hash=<hash>
     ```
-    
+
     ##### Request 範例
-    
+
     bash
-    
+
     ```bash
     CURL -X PUT -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- 		-G http://poker.app/api/v2/slot/player/limit/recover
+     		-G http://poker.app/api/v2/slot/player/limit/recover
     ```
-    
+
     php
-    
+
     ```php
     $key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/limit/recover';
-	$data = [
-		'account'=>'test'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
-	$response = curl_exec($ch);
-	echo $response;
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/limit/recover';
+    $data = [
+    	'account'=>'test'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+    $response = curl_exec($ch);
+    echo $response;
     ```
 
     ##### 參數說明
@@ -1427,40 +1424,39 @@
     成功
 
     ```javascript
-	{  
-	   "status":"success",
-	   "data":{  
-	      "account":"57b_wei",
-	      "winCredit":"0.0000"
-	   }
-	}
+    {  
+       "status":"success",
+       "data":{  
+          "account":"57b_wei",
+          "winCredit":"0.0000"
+       }
+    }
     ```
     失敗
 
     ```javascript
     {"status":"error","error":{"code":4,"message":"player not found"}}
     ```
-    
+
     回傳參數說明
-    
+
     | 參數 | 型態 | 說明 |
     |:---:|:---:|:---:|
     | account |string(20)| 玩家帳號 |
     | winCredit |decimal(19, 4)| 回復後損益 |
-    
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |    
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
 
-    
 12. ### 設定玩家帳號模式
 
     玩家封鎖模式
@@ -1479,7 +1475,7 @@
     
     ```bash  
 	CURL -X PUT -d accounts=test -d mode=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
- 		-G http://poker.app/api/v2/slot/player/mode
+	 		-G http://poker.app/api/v2/slot/player/mode
     ```
     
     php
@@ -1544,7 +1540,7 @@
 
     ##### 回傳結果
     成功
-
+    
     ```javascript
     {
         "status":"success",
@@ -1558,19 +1554,20 @@
         }
     }
     ```
-
+    
     失敗
-	    
-	   ```javascript
-	   {
-	        "status":"error",
-	        "error":{
-	            "code":11,"message":"mode setting is invalid"
-	        }
-	    }
-	   ```
+        
+       ```javascript
+       {
+            "status":"error",
+            "error":{
+                "code":11,"message":"mode setting is invalid"
+            }
+        }
+       ```
 
-	
+
+​	
 	#### 錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
 	    
 	| 錯誤代碼 | 錯誤說明 |     
@@ -1599,7 +1596,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- 		-G http://poker.app/api/v2/slot/player/limit
+	 		-G http://poker.app/api/v2/slot/player/limit
 	```
 	
 	php
@@ -1664,17 +1661,17 @@
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     |limitLose|decimal(19, 4)|限輸金額|
-    |limitWin|decimal(19, 4)|限贏金額|    
-    | winCredit |decimal(19, 4)|損益|     
+    |limitWin|decimal(19, 4)|限贏金額|
+    | winCredit |decimal(19, 4)|損益|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |        
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1697,24 +1694,24 @@
     ```bash
     CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
 	 	-G http://poker.app/api/v2/slot/player/mode
- 	```
- 	
+	```
+
  	php
  	
  	```php
  	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/mode';
-	$data = [
-		'account'=>'test'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
+​	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+​	$url = 'http://poker.app/api/v2/slot/player/mode';
+​	$data = [
+​		'account'=>'test'
+​	];
+​	//產生hash
+​	$hash = '';
+​	foreach ($data as $k => $v) {
+​		$hash .= $v;
+​	}
+​	$hash .= $secret;
+​	
 	$hash = md5($hash);
 	$data['key'] = $key;
 	$data['hash'] = $hash;
@@ -1726,7 +1723,7 @@
 	```
 	
 	##### 參數說明
-
+	
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
@@ -1736,7 +1733,7 @@
    	**hash = md5(account + secret)**
 
   	##### 回傳結果
-    
+
   	成功
 
 	```javascript
@@ -1750,28 +1747,28 @@
 	   ]
 	}
 	```
-    
-    失敗
+	
+	失敗
 	
 	```javascript
 	{"status":"error","error":{"code":4,"message":"player not found"}}
 	```
-    
+	
 	回傳參數說明    
-    
+	
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
 	|account|string(20)|玩家帳號|
 	|mode|int|模式([詳細說明](#玩家模式說明))|    
-    
+	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
+	
 	| 錯誤代碼 | 錯誤說明 |     
 	|:--------:|:--------:|
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
-    | 4 | player not found  |    	
+	| 4 | player not found  |    	
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
@@ -1793,7 +1790,7 @@
     
     ```bash
     CURL -X GET -d account=test -d key=57d0bc61dffff -d hash=e2c7671a5d6334fa358172b4f9144cf1 \
- 		-G http://poker.app/api/v2/slot/player/enable
+	 		-G http://poker.app/api/v2/slot/player/enable
     ```
     
     php
@@ -1857,16 +1854,16 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string|玩家帳號|
-    |enable |int|是否啟動 1:是, 0:否|    
+    |enable |int|是否啟動 1:是, 0:否|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |        
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1889,11 +1886,11 @@
     
     ```bash
     CURL -X PUT -d account=test -d enable=1 -d key=57d0bc61dffff -d hash=4e7efef29cb3127cb97859bdc1826daa \
- 		-G http://poker.app/api/v2/slot/player/enable
+	 		-G http://poker.app/api/v2/slot/player/enable
     ```
     
     php
-	    
+	​    
 	```php
 	$key = '57d0bc61dffff';
 	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
@@ -1957,16 +1954,16 @@
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
-    | enable |int|是否啟動 1:是, 0:否| 
+    | enable |int|是否啟動 1:是, 0:否|
     
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
     
-    | 錯誤代碼 | 錯誤說明 |     
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |        
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
@@ -1983,65 +1980,65 @@
         endAt=<endAt>&
         hash=<hash>
     ```
-	
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- 		-G http://poker.app/api/v2/slot/bet/report/detail
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/bet/report/detail';
-	$data = [
-		'account'=>'test',
-		'startAt'=>'0',
-		'endAt'=>'0'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
+
+    ##### Request 範例
+
+    bash
+
+    ```bash
+    CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
+     		-G http://poker.app/api/v2/slot/bet/report/detail
+    ```
+
+    php
+
+    ```php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/bet/report/detail';
+    $data = [
+    	'account'=>'test',
+    	'startAt'=>'0',
+    	'endAt'=>'0'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
+
     ##### 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
     |:--------:|:--------:|:--------:|:-----------:|:---:|
     |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  account| 玩家帳號 |  string(20)  |     選填 | N |
-    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | N |  
+    |  gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) | N |
     |startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
     |endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
-    |page    | 分頁 |  int  |     預設:1 | N |    
-    |pageSize    | 分頁筆數 |  int  |     預設每頁1000筆 | N |        
+    |page    | 分頁 |  int  |     預設:1 | N |
+    |pageSize    | 分頁筆數 |  int  |     預設每頁1000筆 | N |
     |   hash   | 驗證參數 |  string  |     必填    | Y |
 
     **hash = md5(account + startAt + endAt + secret)**
 
     ##### 回傳結果
-    
+
     成功
-    
+
     ```javascript
-	{  
+    {  
        "status":"success",
        "data":{  
           "total":25890,
@@ -2051,42 +2048,42 @@
           "previousPageUrl":null,
           "nextPageUrl":"http:\/\/poker.app\/api\/v2\/slot\/bet\/report\/detail?account=test-api01&startAt=2017-06-01&endAt=2017-06-30&key=57d0bc61dffff&hash=bf7e365f2731d57951ac6b912692367b&page=2",
           "datas":[  //改單的情況
-				{  
-					"id":2010,
-					"account":"test-api01",
-					"gameType":2,
-					"bet":"1.0000",
-					"betLines":20,
-					"totalBet":"20.0000",
-					"winCredit":"0.0000",
-					"scatter":0,
-					"percent": 0.5,
-					"bonus":"0.0000",
-					"createdAt":"2017-05-15 13:47:57",
-					"updatedAt":"2017-06-06 14:30:12",
-					"billingDate":"2017-05-15",
-					"platformType":"Android",
-					"treasure": "0.0000",
-					"redBagOdd": null
+    			{  
+    				"id":2010,
+    				"account":"test-api01",
+    				"gameType":2,
+    				"bet":"1.0000",
+    				"betLines":20,
+    				"totalBet":"20.0000",
+    				"winCredit":"0.0000",
+    				"scatter":0,
+    				"percent": 0.5,
+    				"bonus":"0.0000",
+    				"createdAt":"2017-05-15 13:47:57",
+    				"updatedAt":"2017-06-06 14:30:12",
+    				"billingDate":"2017-05-15",
+    				"platformType":"Android",
+    				"treasure": "0.0000",
+    				"redBagOdd": null
          		},
-				{   	//未改單的情況
-					"id":3011,
-					"account":"test-api01",
-					"gameType":2,
-					"bet":"1.0000",
-					"betLines":20,
-					"totalBet":"20.0000",
-					"winCredit":"0.0000",
-					"scatter":0,
-					"percent": 0.5,
-					"bonus":"0.0000",
-					"createdAt":"2017-06-06 14:30:12",
-					"updatedAt":"2017-06-06 14:30:12",
-					"billingDate":"2017-06-06",
-					"platformType":"Android",
-					"treasure": "0.0000",
-					"redBagOdd": null
-				},
+    			{   	//未改單的情況
+    				"id":3011,
+    				"account":"test-api01",
+    				"gameType":2,
+    				"bet":"1.0000",
+    				"betLines":20,
+    				"totalBet":"20.0000",
+    				"winCredit":"0.0000",
+    				"scatter":0,
+    				"percent": 0.5,
+    				"bonus":"0.0000",
+    				"createdAt":"2017-06-06 14:30:12",
+    				"updatedAt":"2017-06-06 14:30:12",
+    				"billingDate":"2017-06-06",
+    				"platformType":"Android",
+    				"treasure": "0.0000",
+    				"redBagOdd": null
+    			},
              ...............
           ]
        }
@@ -2094,7 +2091,7 @@
     ```
 
     失敗
-    
+
     ```javascript
     {  
        "status":"error",
@@ -2104,26 +2101,26 @@
        }
     }
     ```
-	
-	 ##### 回傳參數說明
-    
+
+     ##### 回傳參數說明
+
     |參數名稱|參數型態|說明|
-    |:---:|:---:|:---:| 
+    |:---:|:---:|:---:|
     | currentPage | int | 當前頁數 |
-    | lastPage | int | 最後一頁的頁數 |        
-    | total | int | 總筆數 |   
+    | lastPage | int | 最後一頁的頁數 |
+    | total | int | 總筆數 |
     | perPage | int | 一頁的筆數 |
     | previousPageUrl | string | 存取上一頁資料的url，沒有上一頁時為null |
     | nextPageUrl | string | 存取下一頁資料的url，沒有下一頁時為null |
-    | datas | array\<object\> | server回送的資料陣列 |   
-    
+    | datas | array\<object\> | server回送的資料陣列 |
+
     資料說明
 
     |參數名稱|參數型態|說明|
     |:---:|:---:|:---:|
     | id | int | 流水號 |
     | account | String | 玩家帳號 |
-    | gameType | int | 遊戲代稱 |        
+    | gameType | int | 遊戲代稱 |
     | machineNo | int | 機器編號 |
     | bet | decimal(19, 4) | 押注金額 |
     | betLines | int | 下注線數 |
@@ -2133,26 +2130,25 @@
     | percent | float | 玩家注單佔成 |
     | bonus | decimal(19, 4) | bonus 贏得金額 |
     | createdAt | string | 建立時間 |
-    | updatedAt | string | 更新時間 |    
-    | billingDate | string | 結帳日 | 
+    | updatedAt | string | 更新時間 |
+    | billingDate | string | 結帳日 |
     | platformType  | string | 裝置代碼 |
     | treasure | decimal(19, 4) | 聚寶盆獎金 |
     | redBagOdd | decimal(19, 4) | 小紅包賠率 |
-    
-	
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 1  | {parameter} is required   |
     | 2  | key is invalid            |
     | 3  | hash is invalid           |
-    | 4 | player not found  |        
+    | 4 | player not found  |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
-    
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
 
 19. ### 玩家下注簡報查詢
 
@@ -2173,7 +2169,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- 		-G http://poker.app/api/v2/slot/bet/report
+	 		-G http://poker.app/api/v2/slot/bet/report
 	```
 	
 	php
@@ -2213,13 +2209,13 @@
 	|startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
-
+	
 	**hash = md5(account + startAt + endAt + secret)**
-
-    ##### 回傳結果
-
-    成功
-    
+	
+	##### 回傳結果
+	
+	成功
+	
 	```javascript
 	{  
 	   "status":"success",
@@ -2229,21 +2225,21 @@
 	   }
 	}
 	```
-
-    失敗
-    
+	
+	失敗
+	
 	```javascript
 	{  
-       "status":"error",
-       "error":{  
-          "code":4,
-          "message":"player not found"
-       }
-    }
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"player not found"
+	   }
+	}
 	```
-    
+	
 	##### 回傳參數說明
-    
+	
 	|參數名稱|參數型態|說明|
 	|:---:|:---:|:---:|
 	| winCredit | decimal(19, 4) | 贏得的金額 |
@@ -2256,12 +2252,12 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
-    | 4 | player not found  |    	
+	| 4 | player not found  |    	
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |	
-    
+
 19. ### 玩家多人下注簡報區間總額查詢
 
     玩家下注簡報查詢
@@ -2281,27 +2277,27 @@
     
     ```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/bet/report-multiple
- 	```
- 	
+	 		-G http://poker.app/api/v2/slot/bet/report-multiple
+	```
+
  	php
  	
  	```php
  	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/bet/report-multiple';
-	$data = [
-		'gameType'=>'samurai',
-		'startAt'=>'0',
-		'endAt'=>'0'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
+​	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+​	$url = 'http://poker.app/api/v2/slot/bet/report-multiple';
+​	$data = [
+​		'gameType'=>'samurai',
+​		'startAt'=>'0',
+​		'endAt'=>'0'
+​	];
+​	//產生hash
+​	$hash = '';
+​	foreach ($data as $k => $v) {
+​		$hash .= $v;
+​	}
+​	$hash .= $secret;
+​	
 	$hash = md5($hash);
 	$data['key'] = $key;
 	$data['hash'] = $hash;
@@ -2311,9 +2307,9 @@
 	$response = curl_exec($ch);
 	echo $response;
 	```
-
-    ##### 參數說明
-
+	
+	##### 參數說明
+	
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
 	|:--------:|:--------:|:--------:|:-----------:|:---:|
 	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
@@ -2321,13 +2317,13 @@
 	| startAt  | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	| endAt    | 驗證參數 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
-
-    **hash = md5(account + startAt + endAt + secret)**
-
-    ##### 回傳結果
-
-    成功
-    
+	
+	**hash = md5(account + startAt + endAt + secret)**
+	
+	##### 回傳結果
+	
+	成功
+	
 	```javascript
 	{  
 	   "status":"success",
@@ -2341,27 +2337,27 @@
 	   ]
 	}
 	```
-
+	
 	失敗
-    
+	
 	```javascript
 	{  
-       "status":"error",
-       "error":{  
-          "code":4,
-          "message":"player not found"
-       }
-    }
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"player not found"
+	   }
+	}
 	```
-    
-    ##### 回傳參數說明
-    
+	
+	##### 回傳參數說明
+	
 	| 參數名稱 | 參數型態 | 說明 |
 	|:---:|:---:|:---:|
 	| data | array\<object\> | server回送的資料陣列，請看下表 |
-
-    data 內 object 說明
-    
+	
+	data 內 object 說明
+	
 	| 參數名稱 | 參數型態 | 說明 |
 	|:---:|:---:|:---:|
 	| account | string(20) | 玩家帳號 |
@@ -2401,7 +2397,7 @@
 	
 	```bash
 	CURL -X GET -d account=test -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=deabb032a98cf55352f4126221e00117 \
- 		-G http://poker.app/api/v2/slot/jackpot
+	 		-G http://poker.app/api/v2/slot/jackpot
 	```
 	
 	php
@@ -2484,13 +2480,13 @@
 	| paidAt |string|核銷時間|
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	| 錯誤代碼 | 錯誤說明 |     
+	​    
+	| 錯誤代碼 | 錯誤說明 |
 	|:--------:|:--------:|
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
-    | 4 | player not found  |    		
+    | 4 | player not found  |
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
@@ -2513,7 +2509,7 @@
 	
 	```bash
 	CURL -X GET -d gameType=samurai -d startAt=0 -d endAt=0 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/jackpot/multiple
+	 		-G http://poker.app/api/v2/slot/jackpot/multiple
 	```
 	
 	php
@@ -2594,11 +2590,11 @@
 	|:---:|:---:|:---:|
 	| jackpot |int|遊戲jackpot編號|
 	| created_at |string|jackpot時間|
-	| paid_at |string|核銷時間|    
+	| paid_at |string|核銷時間|
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	| 錯誤代碼 | 錯誤說明 |     
+	​    
+	| 錯誤代碼 | 錯誤說明 |
 	|:--------:|:--------:|
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
@@ -2606,7 +2602,7 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
-	| 12 | gameType  not found |	
+	| 12 | gameType  not found |
 
 21. ### JP中獎紀錄
 
@@ -2703,8 +2699,8 @@
 	| paid_at |string|核銷時間|
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	| 錯誤代碼 | 錯誤說明 |     
+	​    
+	| 錯誤代碼 | 錯誤說明 |
 	|:--------:|:--------:|
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
@@ -2712,7 +2708,7 @@
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
-             
+    
 21. ### 玩家JP核銷
 
 	玩家JP核銷
@@ -2732,26 +2728,26 @@
     
     ```bash
     CURL -X PUT -d account=test -d jpId=1 -d verifiedAt=2017-04-10 23:23:23 -d key=57d0bc61dffff -d hash=bcc2ea7bcd3ea6b479c4a493ff041d56 \
- 		-G http://poker.app/api/v2/slot/jackpot/write-off
- 	```
- 	
+	 		-G http://poker.app/api/v2/slot/jackpot/write-off
+	```
+
  	php
  	
  	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/jackpot/write-off';
-	$data = [
-		'account'=>'test',
-		'jpId'=>'1',
-		'verifiedAt'=>'2017-04-10 23:23:23'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
+​	$key = '57d0bc61dffff';
+​	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+​	$url = 'http://poker.app/api/v2/slot/jackpot/write-off';
+​	$data = [
+​		'account'=>'test',
+​		'jpId'=>'1',
+​		'verifiedAt'=>'2017-04-10 23:23:23'
+​	];
+​	//產生hash
+​	$hash = '';
+​	foreach ($data as $k => $v) {
+​		$hash .= $v;
+​	}
+​	$hash .= $secret;
 
 	$hash = md5($hash);
 	$data['key'] = $key;
@@ -2763,7 +2759,7 @@
 	$response = curl_exec($ch);
 	echo $response;
  	```
-	
+​	
    	##### 參數說明
 
 	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
@@ -2774,12 +2770,12 @@
 	| verifiedAt | 核銷日期 |  string  |     固定格式Y-m-d H:i:s或者0 | Y |
 	|   hash   | 驗證參數 |  string  |     必填    | Y |
 	
-       	**hash = md5(account + jpId + verifiedAt + secret)**
+	   	**hash = md5(account + jpId + verifiedAt + secret)**
 
    	##### 回傳結果
 
 	成功
-    
+	
 	```javascript
 	{  
 	   "status":"success",
@@ -2795,19 +2791,19 @@
 	```
 
    	失敗
-    
+​    
 	```javascript
 	{  
-       "status":"error",
-       "error":{  
-          "code":4,
-          "message":"player not found"
-       }
-    }
+	   "status":"error",
+	   "error":{  
+	      "code":4,
+	      "message":"player not found"
+	   }
+	}
 	```
 	
 	回傳參數說明    
-    
+	
 	|參數|型態|說明|
 	|:---:|:---:|:---:|
 	| jackpot |int|遊戲jackpot編號|
@@ -2821,95 +2817,94 @@
 	| 1  | {parameter} is required   |
 	| 2  | key is invalid            |
 	| 3  | hash is invalid           |
-    | 4 | player not found  |    		
+	| 4 | player not found  |    		
 	| 5  | {method} is not allowed   |
 	|  7  | internal server error |
 	| 11 | {parameter} is invalid   |
 	| 101 | jackpot log not found   |
-	
-25. ### 手機API串接
-	#### 大地圖app
-	###### scheme url 
-		
-	```
-	pharaoh-gamecity://launch-game?
-		token=<token>&
-		lang=<lang>&
-		platformURL=<schemaUrl>&
-		gameType=<gameType>
-	```
-	
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	| 	token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
-	| 	lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
-	|	platformURL 	|	設定返回平台的 callback url	| 	string 	|	可以使用schema url 或者 http 網址 |	N |
-	|	gameType	|	可以直接開啟相對應遊戲，未設定進大廳	| 	int	| 	請查看 [gameType](#gametype)	| 	N	|
-	
-	
-20. ### 設定信用玩家額度
 
-	設定信用玩家額度
+25. ### 手機API串接
+    #### 大地圖app
+    ###### scheme url 
+
+    ```
+    pharaoh-gamecity://launch-game?
+    	token=<token>&
+    	lang=<lang>&
+    	platformURL=<schemaUrl>&
+    	gameType=<gameType>
+    ```
+
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    | 	token | 從[取得玩家登入網址](#取得玩家登入網址)api取得的token | String | 用來驗證玩家 | Y |
+    | 	lang | 設定玩家遊戲語系 | String | 使用  ISO 639 ex `zh_TW` 詳細請查看 [支援語系](#支援語系) | N |
+    |	platformURL 	|	設定返回平台的 callback url	| 	string 	|	可以使用schema url 或者 http 網址 |	N |
+    |	gameType	|	可以直接開啟相對應遊戲，未設定進大廳	| 	int	| 	請查看 [gameType](#gametype)	| 	N	|
+
+26. ### 設定信用玩家額度
+
+    設定信用玩家額度
+
+    ```
+    PUT player/credit?
+    	key=<key>&
+    	accounts=<accounts>&
+    	credit=<credit>&
+    	hash=<hash>
+    ```
+    ##### Request 範例
+
+    bash
+
+    ```bash
+    CURL -X PUT -d accounts=test01,test02 -d credit=100000 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+     		-G http://poker.app/api/v2/slot/player/credit
+    ```
+
+    php
+
+    ```php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/credit';
+    $data = [
+    	'accounts'=>'test01,test02',
+    	'credit'=>'100000',
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
     
-	```
-	PUT player/credit?
-		key=<key>&
-		accounts=<accounts>&
-		credit=<credit>&
-		hash=<hash>
-	```
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X PUT -d accounts=test01,test02 -d credit=100000 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit';
-	$data = [
-		'accounts'=>'test01,test02',
-		'credit'=>'100000',
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
+
     ##### 參數說明
 
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
     |  accounts| 玩家帳號 |  string  |     必填，可填多組用`,` 分割   | Y |
-	|credit  | 玩家額度|  decimal(19, 4)  |   要設定的信用額度 | Y |
-	|   hash   | 驗證參數 |  string  |     必填    | Y |
+    |credit  | 玩家額度|  decimal(19, 4)  |   要設定的信用額度 | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(accounts + credit + secret)**
-	
-	
+    **hash = md5(accounts + credit + secret)**
+
+
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-	 | credit | decimal(19, 4) |目前設定的信用額度 |
+    | credit | decimal(19, 4) |目前設定的信用額度 |
     |  result | 多玩家處理狀況 |  string  |
 
     ##### result 多玩家處理狀況
@@ -2926,64 +2921,63 @@
     | -2 | The credit reset action is pending |
     | -3 | internal server error |
     | -4 | Not Enough Credit |
-    	
 
-	##### 回傳結果
+
+    ##### 回傳結果
 
      成功
 
       ```javascript
-	{
-		"status": "success",
-		"data": {
-			"credit": 12222,
-			"result": [
-				{
-					"account": "web_wei",
-					"status": -1
-				},
-				{
-					"account": "testtt12",
-					"status": -2
-				},
-				{
-					"account": "fd0_wei",
-					"status": 0
-				},
-				{
-					"account": "testtt1",
-					"status": 0
-				}
-			]
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"credit": 12222,
+    		"result": [
+    			{
+    				"account": "web_wei",
+    				"status": -1
+    			},
+    			{
+    				"account": "testtt12",
+    				"status": -2
+    			},
+    			{
+    				"account": "fd0_wei",
+    				"status": 0
+    			},
+    			{
+    				"account": "testtt1",
+    				"status": 0
+    			}
+    		]
+    	}
+    }
       ```
 
     失敗
-    
-	```javascript
-	{  
+
+    ```javascript
+    {  
        "status":"error",
        "error":{  
           "code":30,
           "message":"the cash type is invalid"
        }
     }
-	```
+    ```
 
-	
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	| 錯誤代碼 | 錯誤說明 |     
-	|:--------:|:--------:|
-	| 1  | {parameter} is required   |
-	| 2  | key is invalid            |
-	| 3  | hash is invalid           |  	
-	| 5  | {method} is not allowed   |
-	|  7  | internal server error |
-	| 11 | {parameter} is invalid   |
-	| 30 | the cash type is invalid | 
-	
+
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    ​    
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 30 | the cash type is invalid |
 
 20. ### 查詢信用玩家額度
 
@@ -3002,7 +2996,7 @@
 	
 	```bash
 	CURL -X GET -d account=test01 -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit
+	 		-G http://poker.app/api/v2/slot/player/credit
 	```
 	
 	php
@@ -3078,13 +3072,13 @@
 
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	|   錯誤代碼 |   錯誤說明 |     
+	​    
+	|   錯誤代碼 |   錯誤說明 |
 	|:---------:|:--------:|
 	| 	1  | {parameter} is required   |
 	|  	2  | key is invalid            |
 	|  	3  | hash is invalid           |
-	|  	4 | player not found  |    		
+	|  	4 | player not found  |
 	|  	5  | {method} is not allowed   |
 	|  	7 | internal server error |
 	|  	11 | {parameter} is invalid   |
@@ -3093,236 +3087,234 @@
 
 20. ### 重設信用玩家額度
 
-	重設信用玩家額度
+    重設信用玩家額度
+
+    ```
+    PUT player/credit/multi-reset?
+    	key=<key>&
+    	callback=<callback>&
+    	groupId=<groupId>&
+    	hash=<hash>
+    ```
+    ##### Request 範例
+
+    bash
+
+    ```bash
+    CURL -X PUT -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+     		-G http://poker.app/api/v2/slot/player/credit/multi-reset
+    ```
+
+    php
+
+    ```php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/credit/multi-reset';
+    $data = [
+    	'callback'=>'http://callback.url/reset',
+    	'groupId'=>1
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
     
-	```
-	PUT player/credit/multi-reset?
-		key=<key>&
-		callback=<callback>&
-		groupId=<groupId>&
-		hash=<hash>
-	```
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X PUT -d callback=http://callback.url/reset -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit/multi-reset
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit/multi-reset';
-	$data = [
-		'callback'=>'http://callback.url/reset',
-		'groupId'=>1
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
+
     ##### 參數說明
 
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
-	|  groupId| 信用群組編號 | int  |    [信用群組編號](#信用群組編號)    | Y |
-	|   hash   | 驗證參數 |  string  |     必填    | Y |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  callback | 額度回覆完成callback url |  string(100)  |     必填，完成額度回覆後的 callback    | Y |
+    |  groupId| 信用群組編號 | int  |    [信用群組編號](#信用群組編號)    | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(callback + accounts + secret)**
+    **hash = md5(callback + accounts + secret)**
 
-	##### 回傳結果
+    ##### 回傳結果
 
      成功
 
       ```javascript
-	{
-		"status": "success",
-		"data": {
-			"logId": 3
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"logId": 3
+    	}
+    }
       ```
 
     失敗
-    
-	```javascript
-	{  
+
+    ```javascript
+    {  
        "status":"error",
        "error":{  
           "code":30,
           "message":"the cash type is invalid"
        }
     }
-	```
-	
+    ```
+
     回傳參數說明    
-    
-	|  參數 | 型態 | 說明 |
-	|:---:|:---:|:---:|
-	|  logId|  int  | 重設紀錄編號 |
-	
-	
-	##### Callback 回傳請求
-	```
-	POST {callback url}?
-		status=<error>
-		&logId=<logid>
-		&code=<int>
-		&message=<string> 
-	```
-		
+
+    |  參數 | 型態 | 說明 |
+    |:---:|:---:|:---:|
+    |  logId|  int  | 重設紀錄編號 |
+
+
+    ##### Callback 回傳請求
+    ```
+    POST {callback url}?
+    	status=<error>
+    	&logId=<logid>
+    	&code=<int>
+    	&message=<string> 
+    ```
+
     ##### Callback 回傳參數說明    
-    
-	|  參數 | 型態 | 說明 |必填 |
-	|:---:|:---:|:---:|:---:|
-	|  status |  enum(success, error)  | 重設狀態 |Y|
-	|  logId|  int  | 重設紀錄編號 |Y|
-	|  code |  int  | 錯誤編號 |N|
-	|  message |  string  | 錯誤訊息 |N|
-	
-	
 
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	|  錯誤代碼 |  錯誤說明 |     
-	|:--------:|:--------:|
-	| 	1 |  \{parameter\} is required   |
-	| 	2  | key is invalid            |
-	| 	3  | hash is invalid           |	
-	| 	5  | \{method\} is not allowed   |
-	|  	7  | internal server error |
-	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 
-	| 	32 | reset credit error | 
-	| 106 | group 0 can not be reset | 信用群組0為不回覆 |
-		
-		
-20. ### 設定信用額度重設群組
+    |  參數 | 型態 | 說明 |必填 |
+    |:---:|:---:|:---:|:---:|
+    |  status |  enum(success, error)  | 重設狀態 |Y|
+    |  logId|  int  | 重設紀錄編號 |Y|
+    |  code |  int  | 錯誤編號 |N|
+    |  message |  string  | 錯誤訊息 |N|
 
+
+
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    ​    
+    |  錯誤代碼 |  錯誤說明 |
+    |:--------:|:--------:|
+    | 	1 |  \{parameter\} is required   |
+    | 	2  | key is invalid            |
+    | 	3  | hash is invalid           |
+    | 	5  | \{method\} is not allowed   |
+    |  	7  | internal server error |
+    | 	11 | {parameter} is invalid   |
+    | 	30 | the cash type is invalid |
+    | 	32 | reset credit error |
+    | 106 | group 0 can not be reset | 信用群組0為不回覆 |
+
+21. ### 設定信用額度重設群組
+
+
+    ```
+    PUT player/credit/reset-group?
+    	key=<key>&
+    	account=<account>&
+    	groupId=<groupId>&
+    	hash=<hash>
+    ```
+    ##### Request 範例
+
+    bash
+
+    ```bash
+    CURL -X PUT -d callback=http://callback.url/reset-group -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
+     		-G http://poker.app/api/v2/slot/player/credit/reset-group
+    ```
+
+    php
+
+    ```php
+    $key = '57d0bc61dffff';
+    $secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
+    $url = 'http://poker.app/api/v2/slot/player/credit/reset-group';
+    $data = [
+    	'account'=>'5e7_wei',
+    	'groupId'=>1
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
     
-	```
-	PUT player/credit/reset-group?
-		key=<key>&
-		account=<account>&
-		groupId=<groupId>&
-		hash=<hash>
-	```
-	##### Request 範例
-	
-	bash
-	
-	```bash
-	CURL -X PUT -d callback=http://callback.url/reset-group -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit/reset-group
-	```
-	
-	php
-	
-	```php
-	$key = '57d0bc61dffff';
-	$secret = 'bf4b77c4965b3ee0b185f5caa81827e6';
-	$url = 'http://poker.app/api/v2/slot/player/credit/reset-group';
-	$data = [
-		'account'=>'5e7_wei',
-		'groupId'=>1
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url.'?'.http_build_query($data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	$response = curl_exec($ch);
-	echo $response;
-	```
-	
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url.'?'.http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    $response = curl_exec($ch);
+    echo $response;
+    ```
+
 
     ##### 參數說明
 
-	| 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
-	|:--------:|:--------:|:--------:|:-----------:|:---:|
-	|    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
-	|  account| 玩家帳號 |  string  |       | Y |
-	|  groupId| 群組編號 |  int  |    [信用群組編號](#信用群組編號)   | Y |
-	|   hash   | 驗證參數 |  string  |     必填    | Y |
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    | 必填 |
+    |:--------:|:--------:|:--------:|:-----------:|:---:|
+    |    key   | 服務金鑰 |  string(20)  | 由API端提供 | Y |
+    |  account| 玩家帳號 |  string  |       | Y |
+    |  groupId| 群組編號 |  int  |    [信用群組編號](#信用群組編號)   | Y |
+    |   hash   | 驗證參數 |  string  |     必填    | Y |
 
-	**hash = md5(callback + secret)**
+    **hash = md5(callback + secret)**
 
-	##### 回傳結果
+    ##### 回傳結果
 
      成功
 
       ```javascript
-	{
-		"status": "success",
-		"data": {
-			"account": "5e7_wei",
-			"groupId": 1
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"account": "5e7_wei",
+    		"groupId": 1
+    	}
+    }
       ```
 
     失敗
-    
-	```javascript
-	{  
+
+    ```javascript
+    {  
        "status":"error",
        "error":{  
           "code":4,
           "message":"player not found"
        }
     }
-	```
-	
-    回傳參數說明    
-    
-	|  參數 | 型態 | 說明 |
-	|:---:|:---:|:---:|
-	|  account |  string  | 玩家帳號 |
-	|  groupId |  int  | [信用群組編號](#信用群組編號) |
-	
-	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	|  錯誤代碼 |  錯誤說明 |     
-	|:--------:|:--------:|
-	| 	1 |  \{parameter\} is required   |
-	| 	2  | key is invalid            |
-	| 	3  | hash is invalid           |	
-	|  4  | player not found                |
-	| 	5  | \{method\} is not allowed   |
-	|  	7  | internal server error |
-	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 
-	| 	32 | reset credit error | 
-	| 	34 | The credit reset action is pending | 
+    ```
 
-			
+    回傳參數說明    
+
+    |  參數 | 型態 | 說明 |
+    |:---:|:---:|:---:|
+    |  account |  string  | 玩家帳號 |
+    |  groupId |  int  | [信用群組編號](#信用群組編號) |
+
+    錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
+    ​    
+    |  錯誤代碼 |  錯誤說明 |
+    |:--------:|:--------:|
+    | 	1 |  \{parameter\} is required   |
+    | 	2  | key is invalid            |
+    | 	3  | hash is invalid           |
+    |  4  | player not found                |
+    | 	5  | \{method\} is not allowed   |
+    |  	7  | internal server error |
+    | 	11 | {parameter} is invalid   |
+    | 	30 | the cash type is invalid |
+    | 	32 | reset credit error |
+    | 	34 | The credit reset action is pending |
+
 21. ### 查詢信用額度重設群組
 
     
@@ -3338,7 +3330,7 @@
 	
 	```bash
 	CURL -X GET -d callback=http://callback.url/reset-group -d key=57d0bc61dffff -d hash=b04cc896b399f3ec69454c1c48d30a69 \
- 		-G http://poker.app/api/v2/slot/player/credit/reset-group
+	 		-G http://poker.app/api/v2/slot/player/credit/reset-group
 	```
 	
 	php
@@ -3412,35 +3404,35 @@
 	|  groupId |  int  | [信用群組編號](#信用群組編號) |
 	
 	錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-	    
-	|  錯誤代碼 |  錯誤說明 |     
+	​    
+	|  錯誤代碼 |  錯誤說明 |
 	|:--------:|:--------:|
 	| 	1 |  \{parameter\} is required   |
 	| 	2  | key is invalid            |
-	| 	3  | hash is invalid           |	
+	| 	3  | hash is invalid           |
 	|  4  | player not found                |
 	| 	5  | \{method\} is not allowed   |
 	|  	7  | internal server error |
 	| 	11 | {parameter} is invalid   |
-	| 	30 | the cash type is invalid | 
-	| 	32 | reset credit error | 
-		
-				
+	| 	30 | the cash type is invalid |
+	| 	32 | reset credit error |
+	
+	​			
 	
 21. ### APP下載連結
 
 	 下載 app
-	 
+	
 	 ```
 	 GET app-download/
 	 ```
-	 
+	
 	
 	#### 回傳
 	
 		302 redirect to app download link
-		
-10. ### 設定玩家佔成
+	
+24. ### 設定玩家佔成
 
     設定玩家佔成
 
@@ -3451,46 +3443,46 @@
         percent=<percent>&
         hash=<hash>
     ```
-    
+
     ##### Request 範例
-    
+
     bash
-    
+
     ```bash
-	CURL -X PUT -d account=poker \
-	-d percent=0.5 \
-	-d key=5a16601d7f7fb \
-	-d hash=6571ba1dad29d8964a6182a849922574 \
-	-G http://localhost/api/v2/slot/player/profit-percent
-	```
-	 
-	 php
-	 
-	 ```php
-	$key = '5a16601d7f7fb';
-	$secret = 'a8e00e8d699c91fc6056dfb2e438149b';
-	$url = 'http://localhost/api/v2/slot/player/profit-percent';
-	$data = [
-		'account'=>'poker',
-		'percent'=>'0.5'
-	];
-	//產生hash
-	$hash = '';
-	foreach ($data as $k => $v) {
-		$hash .= $v;
-	}
-	$hash .= $secret;
-	
-	$hash = md5($hash);
-	$data['key'] = $key;
-	$data['hash'] = $hash;
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
-	$response = curl_exec($ch);
-	echo $response;	
-	```
+    CURL -X PUT -d account=poker \
+    -d percent=0.5 \
+    -d key=5a16601d7f7fb \
+    -d hash=6571ba1dad29d8964a6182a849922574 \
+    -G http://localhost/api/v2/slot/player/profit-percent
+    ```
+
+     php
+
+     ```php
+    $key = '5a16601d7f7fb';
+    $secret = 'a8e00e8d699c91fc6056dfb2e438149b';
+    $url = 'http://localhost/api/v2/slot/player/profit-percent';
+    $data = [
+    	'account'=>'poker',
+    	'percent'=>'0.5'
+    ];
+    //產生hash
+    $hash = '';
+    foreach ($data as $k => $v) {
+    	$hash .= $v;
+    }
+    $hash .= $secret;
+    
+    $hash = md5($hash);
+    $data['key'] = $key;
+    $data['hash'] = $hash;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+    $response = curl_exec($ch);
+    echo $response;	
+     ```
 
     ##### 參數說明
 
@@ -3507,47 +3499,46 @@
     成功
 
     ```javascript
-	{
-		"status": "success",
-		"data": {
-			"account": "poker",
-			"percent": 0.5
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"account": "poker",
+    		"percent": 0.5
+    	}
+    }
     ```
     失敗
 
     ```javascript
-	{  
-	   "status":"error",
-	   "error":{  
-	      "code":4,
-	      "message":"player not found"
-	   }
-	}
+    {  
+       "status":"error",
+       "error":{  
+          "code":4,
+          "message":"player not found"
+       }
+    }
     ```
-    
+
     回傳參數說明    
-    
+
     |參數|型態|說明|
     |:---:|:---:|:---:|
     |account|string(20)|玩家帳號|
     | percent |float|佔成|
-    
+
     錯誤列表(詳細說明請查看[錯誤代碼](#錯誤代碼))
-    
-    | 錯誤代碼 | 錯誤說明 |     
+
+    | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
     | 	1  	| {parameter} is required   |
     | 	2  	| key is invalid            |
     | 	3  	| hash is invalid           |
-    | 	4 	| player not found  |    
+    | 	4 	| player not found  |
     | 	5  	| {method} is not allowed   |
     |  	7  	| internal server error |
     | 	11 	| {parameter} is invalid   |
     | 	31 	| {parameter} must between 1 and 0   |
 
-	
 21. ### 查詢玩家下注區間總額
 
 	```
@@ -3600,8 +3591,8 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |    account   | 玩家帳號 |  string  |  選填 |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
-    |gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) |  
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|
+    |gameType | 遊戲代稱 |  int  |     選填 [GameType](#gametype) |
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5( startAt + endAt + secret)`**
@@ -3617,39 +3608,39 @@
 
 
     ---
-
+    
     #### Response 結果
     成功
     
     **`查詢單一玩家結果`**
-
+    
     ```javascript
-	{
-		"status": "success",
-		"data": {
-			"totalBetCount": 8,
-			"totalBetCheckoutAmount": "10500.0000",
-			"totalBetAmount": "19830.0000",
-			"account": "225_wei2"
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"totalBetCount": 8,
+    		"totalBetCheckoutAmount": "10500.0000",
+    		"totalBetAmount": "19830.0000",
+    		"account": "225_wei2"
+    	}
+    }
     ```
     **`查詢多位玩家結果`**
     
     ```javascript
-	{
-		"status": "success",
-		"data": {
-			"totalBetCount": 8,
-			"totalBetCheckoutAmount": "105300.0000",
-			"totalBetAmount": "193830.0000",
-		}
-	}
+    {
+    	"status": "success",
+    	"data": {
+    		"totalBetCount": 8,
+    		"totalBetCheckoutAmount": "105300.0000",
+    		"totalBetAmount": "193830.0000",
+    	}
+    }
     ```
-    
+
 
     失敗
-
+    
     ```javascript
     {
         "status":"error",
@@ -3659,7 +3650,7 @@
         }
     }
     ```
-
+    
     #### 會出現的錯誤項目
     | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
@@ -3670,7 +3661,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
 
 
 21. ### 新增維護
@@ -3726,7 +3717,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5( startAt + endAt + secret)`**
@@ -3741,12 +3732,12 @@
 
 
     ---
-
+    
     #### Response 結果
     成功
-
+    
     ```javascript
-	{
+    {
         "status": "success",
         "datas": [
             {
@@ -3762,9 +3753,9 @@
         ]
     }
     ```
-
+    
     失敗
-
+    
     ```javascript
     {
         "status":"error",
@@ -3774,7 +3765,7 @@
         }
     }
     ```
-
+    
     #### 會出現的錯誤項目
     | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
@@ -3784,7 +3775,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
 
 
 
@@ -3842,7 +3833,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |    id   | 維護編號 |  string  | 選填 |
     |  startAt   | 起始時間 |  string  |     選填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     選填，格式 2017-01-01 13:00:10|    
+    |  endAt   | 結束時間 |  string  |     選填，格式 2017-01-01 13:00:10|
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5( secret)`**
@@ -3857,12 +3848,12 @@
 
 
     ---
-
+    
     #### Response 結果
     成功
-
+    
     ```javascript
-	{
+    {
         "status": "success",
         "datas": [
             {
@@ -3878,9 +3869,9 @@
         ]
     }
     ```
-
+    
     失敗
-
+    
     ```javascript
     {
         "status":"error",
@@ -3890,7 +3881,7 @@
         }
     }
     ```
-
+    
     #### 會出現的錯誤項目
     | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
@@ -3900,7 +3891,7 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
 
 
 21. ### 修改維護
@@ -3959,7 +3950,7 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |    id   | 維護編號 |  string  | 必填 |
     |  startAt   | 起始時間 |  string  |     必填，格式 2017-01-01 12:00:10    |
-    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|    
+    |  endAt   | 結束時間 |  string  |     必填，格式 2017-01-01 13:00:10|
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5( id + startAt + endAt + secret)`**
@@ -3974,33 +3965,33 @@
 
 
     ---
-
+    
     #### Response 結果
     成功
-
+    
     ```javascript
-	{
-		"status": "success",
-		"data": {
-			"id": 31,
-			"startAt": "20170101",
-			"endAt": "20180909",
-		}
+    {
+    	"status": "success",
+    	"data": {
+    		"id": 31,
+    		"startAt": "20170101",
+    		"endAt": "20180909",
+    	}
     }
     ```
-
+    
     失敗
-
+    
     ```javascript
     {
         "status":"error",
         "error":{
-			"code": 107,
-			"message": "Record is not exist",
+    		"code": 107,
+    		"message": "Record is not exist",
         }
     }
     ```
-
+    
     #### 會出現的錯誤項目
     | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
@@ -4010,8 +4001,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
-	| 107 | Record is not exist | 
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    | 107 | Record is not exist | 
 
 
 21. ### 刪除維護
@@ -4079,33 +4070,33 @@
 
 
     ---
-
+    
     #### Response 結果
     成功
-
+    
     ```javascript
-	{
-		"status": "success",
-		"data": {
-			"id": 31,
-			"startAt": "20170101",
-			"endAt": "20180909",
-		}
+    {
+    	"status": "success",
+    	"data": {
+    		"id": 31,
+    		"startAt": "20170101",
+    		"endAt": "20180909",
+    	}
     }
     ```
-
+    
     失敗
-
+    
     ```javascript
     {
         "status":"error",
         "error":{
-			"code": 107,
-			"message": "Record is not exist",
+    		"code": 107,
+    		"message": "Record is not exist",
         }
     }
     ```
-
+    
     #### 會出現的錯誤項目
     | 錯誤代碼 | 錯誤說明 |
     |:--------:|:--------:|
@@ -4115,8 +4106,8 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |
-	| 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
-	| 107 | Record is not exist | 
+    | 23 |[start_at or end_at] value must be datetime Example：2016-01-01 00:00:00 |
+    | 107 | Record is not exist | 
 
 
 

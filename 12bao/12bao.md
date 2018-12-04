@@ -366,11 +366,8 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    | agent 	| 平台		|  string  | 
-    | interest_rate | 生效平台利率(格式為：0.18) | double  | 
-    | platform_interest_rate | 平台利率 | double|
-    | next_interest_rate | 明日生效平台利率 | double |
-    | event_interest_rate | 平台活動利率 | double |
+    |  agent 	| 平台		|  string  | 
+    |  interest_rate | 平台利率(格式為：0.18) | double  | 
     
     ---
 
@@ -383,10 +380,7 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.99,
-        	"platform_interest_rate": 1.11,
-        	"next_interest_rate": 5.55,
-        	"event_interest_rate": 0.99
+           	"interest_rate": 0.18
         }
     }
     ```
@@ -422,9 +416,6 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台 |  string  | 由API端提供 |
     |  interest_rate | 欲修改利率(格式為：0.18) | double  | 必填 |
-    | platform_interest_rate | 平台利率 | double|
-    | next_interest_rate | 明日生效平台利率 | double |
-    | event_interest_rate | 平台活動利率 | double |
     
     ---
     
@@ -446,10 +437,7 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.99,
-        	"platform_interest_rate": 1.11,
-        	"next_interest_rate": 5.55,
-        	"event_interest_rate": 0.99
+           	"interest_rate": 0.18
         }
     }
     ```

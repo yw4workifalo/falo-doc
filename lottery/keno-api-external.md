@@ -2689,7 +2689,7 @@
 | 6 | function not found  | API不存在 |
 | 7 | internal server error  | 服務器內部錯誤 |
 | 15 | data format error  | 資料格式有誤 |
-| 73 | Maintain is not exist  | 沒有該維護時間 |
+| 34 | the start_date is the end_time  | 開始日期大於結束時間 |
 
   ### 範例
   + 調用方法

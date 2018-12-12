@@ -91,7 +91,7 @@
     |:--------:	|:--------:|
     | wallet |本金 | 
     | income |本日產生利息 | 
-    | interest |本日利率 | 
+    | interest |年利率 | 
     | created_timestamp |建立時間 |
     | timestamp |更新時間 | 
     | last_compute |最後交易時間 | 
@@ -107,7 +107,7 @@
     | account 	| 玩家帳號 	| string |
     | wallet   	| 本金 	|  decimal(20,8)  |
     | income  | 本日產生利息 | decimal(20,8) |
-    | interest | 本日利率 | double |
+    | interest | 年利率| double |
     | yesterday_income | 昨日產生利息 | double |
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |
@@ -181,7 +181,7 @@
     |:--------:	|:--------:|
     | wallet |本金 | 
     | income |本日產生利息 | 
-    | interest |本日利率 | 
+    | interest | 年利率 | 
     | created_timestamp |建立時間 |
     | timestamp |更新時間 | 
     | *last_compute |最後交易時間 | 
@@ -196,7 +196,7 @@
     | account 	| 玩家帳號 	| string |
     | wallet   	| 本金 	|  decimal(20,8)  |
     | income  | 本日產生利息 | decimal(20,8) |
-    | interest | 本日利率 | double |
+    | interest | 年利率 | double |
     | yesterday_income | 昨日產生利息 | double |
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |

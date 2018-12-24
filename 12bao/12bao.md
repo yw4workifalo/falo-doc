@@ -79,10 +79,7 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  *agent   | 平台ID |  string  | 由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
-   
-    
-    
-    
+  
     ---
     
     ### Response 舊版參數說明
@@ -91,7 +88,7 @@
     |:--------:	|:--------:|
     | wallet |本金 | 
     | income |本日產生利息 | 
-    | interest |年利率 | 
+    | interest |本日利率 | 
     | created_timestamp |建立時間 |
     | timestamp |更新時間 | 
     | last_compute |最後交易時間 | 
@@ -107,7 +104,7 @@
     | account 	| 玩家帳號 	| string |
     | wallet   	| 本金 	|  decimal(20,8)  |
     | income  | 本日產生利息 | decimal(20,8) |
-    | interest | 年利率| double |
+    | interest | 本日利率 | double |
     | yesterday_income | 昨日產生利息 | double |
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |
@@ -181,7 +178,7 @@
     |:--------:	|:--------:|
     | wallet |本金 | 
     | income |本日產生利息 | 
-    | interest | 年利率 | 
+    | interest |本日利率 | 
     | created_timestamp |建立時間 |
     | timestamp |更新時間 | 
     | *last_compute |最後交易時間 | 
@@ -196,7 +193,7 @@
     | account 	| 玩家帳號 	| string |
     | wallet   	| 本金 	|  decimal(20,8)  |
     | income  | 本日產生利息 | decimal(20,8) |
-    | interest | 年利率 | double |
+    | interest | 本日利率 | double |
     | yesterday_income | 昨日產生利息 | double |
     | created_timestamp | 建立時間 | date |
     | timestamp | 更新時間 | date |
@@ -366,8 +363,11 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    |  agent 	| 平台		|  string  | 
-    |  interest_rate | 平台利率(格式為：0.18) | double  | 
+    | agent 	| 平台		|  string  | 
+    | interest_rate | 生效平台利率(格式為：0.18) | double  | 
+    | platform_interest_rate | 平台利率 | double|
+    | next_interest_rate | 明日生效平台利率 | double |
+    | event_interest_rate | 平台活動利率 | double |
     
     ---
 
@@ -380,7 +380,10 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.18
+           	"interest_rate": 0.99,
+        	"platform_interest_rate": 1.11,
+        	"next_interest_rate": 5.55,
+        	"event_interest_rate": 0.99
         }
     }
     ```
@@ -416,6 +419,9 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |  agent   | 平台 |  string  | 由API端提供 |
     |  interest_rate | 欲修改利率(格式為：0.18) | double  | 必填 |
+    | platform_interest_rate | 平台利率 | double|
+    | next_interest_rate | 明日生效平台利率 | double |
+    | event_interest_rate | 平台活動利率 | double |
     
     ---
     
@@ -437,7 +443,10 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.18
+           	"interest_rate": 0.99,
+        	"platform_interest_rate": 1.11,
+        	"next_interest_rate": 5.55,
+        	"event_interest_rate": 0.99
         }
     }
     ```
@@ -647,6 +656,8 @@
     | starting_at | 計息開始時間(格式:2018-10-30 10:00:00) | string |
     | closing_at | 計息結束時間(格式:2018-10-30 10:00:00) | string |
     | billing_date | 歸帳日(格式:2018-10-30) | string |
+    |transfer_type | 轉帳類型(一般轉帳Normal/系統轉出System) | string |
+    |after_value| 本金餘額 | string |
     
     ---
 
@@ -668,7 +679,8 @@
                     "starting_at": "2018-10-29 00:00:00",
                     "closing_at": "2018-10-29 00:00:00",
                     "billing_date": "2018-10-28",
-                    "transfer_type": "System"
+                    "transfer_type": "System",
+                    "after_value": "20000.0034532"
                 }
             ],
             "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
@@ -684,7 +696,6 @@
         }        }
     }
     ```
-
     失敗
 
    ```javascript
@@ -722,20 +733,36 @@
     
     ---
     
+    
     ### Response 參數說明
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
+    | id | 交易編號 | string |
     | account | 玩家帳號 | string |
     | type | 轉帳類型 | string |
     | value | 轉出入金額 | string |
     | before_value | 轉出入前本金金額| string |
     | after_value | 轉入後本金金額 | string |
     | created_timestamp | 計息開始時間(格式timestamp:1524007559) | string |
-    | current_page | 目前頁數 | string |
-    | per_page | 每頁筆數 | string |
-    | total | 總筆數 | string |
-    | last_page | 最後一頁頁數 | string |
+    | get_income | 利息餘額 | string |
+    | income_time | 計時時間 | string |
+    | &emsp;&emsp;income_data |         |       |
+    | &emsp;&emsp;&emsp;income_id | 利息編號 | string |
+    | &emsp;&emsp;&emsp;type | 類型1:利息 2:提款 | string |
+    | &emsp;&emsp;&emsp;value| 異動金額| string |
+    | &emsp;&emsp;&emsp;before_value| 異動前金額 |string|
+    | &emsp;&emsp;&emsp;after_value| 異動後金額 |string|
+    | &emsp;&emsp;&emsp;created_timestamp| 明細建立時間 unix-time|string|
+    | &emsp;&emsp;&emsp;last_compute| 上一次算利息時間 unix-time|string|
+    
+    |舊版參數名稱| 分頁參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|:--------:|
+    |error|是否成功| 0:success| string|
+    |page| current_page | 目前頁數 | string |
+    |count| per_page | 每頁筆數 | string |
+    |total | total | 總筆數 | string |
+    |total_page| last_page | 總頁數 | string |
     
     ---
     
@@ -749,7 +776,7 @@
 
     ### Response 結果
     
-    成功
+     成功
 
     ```javascript
     {
@@ -759,20 +786,58 @@
             "current_page": 1,
             "data": [
                 {
-                    "account": "testAcc3",
-                    "type": 1,
-                    "value": "50000.00000000",
+                    "id": 943,
+                    "account": "test02",
+                    "after_value": 10000,
+                    "type": "1",
+                    "value": "10000.00000000",
                     "before_value": "0.00000000",
-                    "after_value": 50000,
-                    "created_timestamp": "2018-10-25 00:30:00"
+                    "created_timestamp": "2018-12-20 16:22:11",
+                    "get_income": "0.00000000",
+                    "income_time": 0,
+                    "income": 0,
+                    "income_data": [
+                        {
+                            "income_id": 943,
+                            "type": "1",
+                            "value": 0,
+                            "before_value": "0.00000000",
+                            "after_value": 0,
+                            "created_timestamp": "2018-12-20 16:22:11",
+                            "last_compute": {
+                                "date": "2018-12-24 10:09:24.027915",
+                                "timezone_type": 3,
+                                "timezone": "Asia/Taipei"
+                            }
+                        }
+                    ]
                 },
                 {
-                    "account": "testAcc3",
-                    "type": 1,
-                    "value": "-500.00000000",
-                    "before_value": "50000.00000000",
-                    "after_value": 49500,
-                    "created_timestamp": "2018-10-25 01:30:00"
+                    "id": 943,
+                    "account": "test02",
+                    "after_value": 20000.0034532,
+                    "type": "1",
+                    "value": "10000.00000000",
+                    "before_value": "10000.00000000",
+                    "created_timestamp": "2018-12-20 16:22:11",
+                    "get_income": "0.00345320",
+                    "income_time": 11,
+                    "income": 0.0034532,
+                    "income_data": [
+                        {
+                            "income_id": 943,
+                            "type": "1",
+                            "value": 0,
+                            "before_value": "0.00000000",
+                            "after_value": 0.0034532,
+                            "created_timestamp": "2018-12-20 16:22:11",
+                            "last_compute": {
+                                "date": "2018-12-24 10:09:24.034560",
+                                "timezone_type": 3,
+                                "timezone": "Asia/Taipei"
+                            }
+                        }
+                    ]
                 }
             ],
             "first_page_url": "http://127.0.0.1:8000/api/v1/user/transfer-report?page=1",
@@ -812,6 +877,7 @@
         }
     ]
 }
+
 
     ```
 

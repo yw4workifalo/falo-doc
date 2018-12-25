@@ -738,32 +738,32 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    | id | 交易編號 | string |
+    | id | 交易編號 | int |
     | account | 玩家帳號 | string |
     | type | 轉帳類型:  1. 存款 2.取款 3.改利率(棄用) 4.每日結算 5.系統轉出 | string |
-    | value | 轉出入金額 | string |
-    | before_value | 轉出入前本金金額| string |
-    | after_value | 轉入後本金金額 | string |
-    | created_timestamp | 計息開始時間(格式timestamp:1524007559) | string |
-    | get_income | 結算的利息金額 | string |
-    | income_time | 計時時間 | string |
-    | income | 利息餘額 | string |
+    | value | 轉出入金額 | double |
+    | before_value | 轉出入前本金金額| double |
+    | after_value | 轉入後本金金額 | double |
+    | created_timestamp | 計息開始時間(格式timestamp:1524007559) | double |
+    | get_income | 結算的利息金額 | double |
+    | income_time | 計時時間 | int |
+    | income | 利息餘額 | double |
     | &emsp;&emsp;income_data |         |       |
-    | &emsp;&emsp;&emsp;income_id | 利息編號 | string |
+    | &emsp;&emsp;&emsp;income_id | 利息編號 | doulbe |
     | &emsp;&emsp;&emsp;type | 類型1:利息 2:提款 | string |
-    | &emsp;&emsp;&emsp;value| 異動金額| string |
-    | &emsp;&emsp;&emsp;before_value| 異動前金額 |string|
-    | &emsp;&emsp;&emsp;after_value| 異動後金額 |string|
-    | &emsp;&emsp;&emsp;created_timestamp| 明細建立時間 unix-time|string|
-    | &emsp;&emsp;&emsp;last_compute| 上一次算利息時間 unix-time|string|
+    | &emsp;&emsp;&emsp;value| 異動金額| double |
+    | &emsp;&emsp;&emsp;before_value| 異動前金額 |double|
+    | &emsp;&emsp;&emsp;after_value| 異動後金額 |double|
+    | &emsp;&emsp;&emsp;created_timestamp| 明細建立時間 unix-time|int|
+    | &emsp;&emsp;&emsp;last_compute| 上一次算利息時間 unix-time|int|
     
     |舊版參數名稱| 分頁參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|:--------:|
     |error|是否成功| 0:success| string|
-    |page| current_page | 目前頁數 | string |
+    |page| current_page | 目前頁數 | int |
     |count| per_page | 每頁筆數 | string |
-    |total | total | 總筆數 | string |
-    |total_page| last_page | 總頁數 | string |
+    |total | total | 總筆數 | int |
+    |total_page| last_page | 總頁數 | int |
    
     
     ---

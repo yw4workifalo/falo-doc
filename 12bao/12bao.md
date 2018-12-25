@@ -740,13 +740,14 @@
     |:--------:|:--------:|:--------:|
     | id | 交易編號 | string |
     | account | 玩家帳號 | string |
-    | type | 轉帳類型 | string |
+    | type | 轉帳類型:  1. 存款 2.取款 3.改利率(棄用) 4.每日結算 5.系統轉出 | string |
     | value | 轉出入金額 | string |
     | before_value | 轉出入前本金金額| string |
     | after_value | 轉入後本金金額 | string |
     | created_timestamp | 計息開始時間(格式timestamp:1524007559) | string |
-    | get_income | 利息餘額 | string |
+    | get_income | 結算的利息金額 | string |
     | income_time | 計時時間 | string |
+    | income | 利息餘額 | string |
     | &emsp;&emsp;income_data |         |       |
     | &emsp;&emsp;&emsp;income_id | 利息編號 | string |
     | &emsp;&emsp;&emsp;type | 類型1:利息 2:提款 | string |
@@ -763,14 +764,7 @@
     |count| per_page | 每頁筆數 | string |
     |total | total | 總筆數 | string |
     |total_page| last_page | 總頁數 | string |
-    
-    ---
-    
-    ### <span id="enable">交易類型</span>
-    | 代碼  | 類型                  | 
-    |----------|-------------------------  |
-    | 0        | Normal 一般玩家轉出入   | 
-    | 1        | System 系統轉帳   | 
+   
     
     ---
 

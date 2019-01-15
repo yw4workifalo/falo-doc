@@ -38,6 +38,8 @@
 ● [查詢平台是否有維護](#查詢平台是否有維護)<br>
 ● [設定平台維護](#設定平台維護)<br>
 ● [手機串接](#手機串接)<br>
+● [設定開放彩種](#設定開放彩種)<br>
+● [查詢開放彩種](#查詢開放彩種)<br>
 
 ------
 ## <span>註冊玩家帳號</span>
@@ -2253,6 +2255,7 @@
 ## <span>查詢退水值</span>
   **API Name : refund**</br>
   **Method : GET**
+
   ### 輸入參數
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 | -- | ---- | ----------- | ----------- | -- |
@@ -2750,6 +2753,157 @@
     ```
 <div align="right"><a href="#top">Top</a></div>
 
+------
+
+## <span>設定開放彩種</span>
+  **API Name : metypes**</br>
+  **Method : PUT**
+
+  ## 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| data/account | 玩家帳號 | string | Y | 多個玩家用","隔開 |
+| data/lotteryType | [彩種編號](#彩種編號) | string | Y | |
+| data/open | 開關 | string | Y | 0 :關 1:開 |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(data+privateKey)`**
+
+  ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| data/account | 玩家帳號 | string ||
+| data/lotteryType | [彩種編號](#彩種編號) | string | |
+| data/close | 退水值 | string | 0 :關 1:開 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+      PUT /keno-api/player/metypes?data= [{ "account":"ifalo001","lotteryType":"20001","open":"0"},{"account":"ifalo002","lotteryType":"20002","open":"1"}]&
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":[
+          {
+            "account":"ifalo001",
+            "lotteryType":"20001",
+            "close":"1"
+          },
+          {
+            "account":"ifalo002",
+            "lotteryType":"20001",
+            "close":"1"
+          }
+        ],
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+            "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+<div align="right"><a href="#top">Top</a></div>
+
+------
+## <span>查詢開放彩種</span>
+  **API Name : metypes**</br>
+  **Method : GET**
+
+  ### 輸入參數
+| 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
+| -- | ---- | ----------- | ----------- | -- |
+| account | 玩家帳號 | string | Y |  |
+| key | 公鑰 | string | Y | 各代理商公鑰(註冊代理商產生) |
+| hash | 驗證參數 | string | Y | md5 |
+
+  #### **`hash = md5(account+lotteryType+privateKey)`**
+
+  ### 輸出參數
+| 參數名稱 | 參數說明 | 參數型態 | 說明 |
+| -- | ---- | ----------- | -- |
+| data/account | 玩家帳號 | string ||
+| data/lotteryType | [彩種編號](#彩種編號) | string | |
+| data/open | 開關 | string | 0 :關 1:開 |
+| uuquid | 交易序號 | string | 用於追蹤查詢紀錄 |
+
+  ### 錯誤碼
+| 錯誤碼 | 錯誤訊息 | 錯誤說明 |
+| -- | ---- | ----------- |
+| 1 | {parameter} is required  | 缺少參數欄位 |
+| 2 | invalid key  | 金鑰無效 |
+| 4 | player not found | 玩家未找到 |
+| 5 | method is not allowed  | 使用之Http方法不允許 |
+| 6 | function not found  | API不存在 |
+| 7 | internal server error  | 服務器內部錯誤 |
+| 15 | data format error  | 資料格式有誤 |
+
+  ### 範例
+  + 調用方法
+    ```
+      PUT /keno-api/player/metypes?
+          account=ifalo001&
+          key=3de5b29aac97c072f5824dc99c5637d6&
+          hash=26f6b1074e1c9e80e9b613bf79a923a6
+    ```
+
+  + 成功
+    ```javascript
+    {
+        "status":"success",
+        "data":[
+          {
+            "account":"ifalo001",
+            "lotteryType":"20001",
+            "open":"1"
+          },
+          {
+            "account":"ifalo002",
+            "lotteryType":"20001",
+            "open":"0"
+          }
+        ],
+        "uuquid":"01212c3b9e1eac371776a8e932289906"
+    }
+    ```
+
+  + 失敗
+    ```javascript
+    {
+        "status":"error",
+        "error": {
+           "code":7,
+            "message":"internal server error"
+        },
+        "uuquid":"e6f3414056fcbd57c24d5289acee1b8f"
+    }
+    ```
+<div align="right"><a href="#top">Top</a></div>
+
 
 ## <span>附表</span>
 ### <span>盤口設定</span>
@@ -2777,6 +2931,7 @@
 | 20001 | 賓果賓果 |
 | 20002 | 北京快樂8 |
 | 88889 | 極速賽車  |
+| 20005 | 福彩3D  |
 
 ### <span>交易狀態</span>
 | 錯誤碼 | 錯誤訊息 |

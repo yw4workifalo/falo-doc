@@ -1,5 +1,14 @@
 # 12bao API Document
   
+  
+## 歷程紀錄
+
+| 日期     | 版本       | 人員               | 備註   |
+| ------- | ---------- | ----------------- | ----- |
+| 2019/02/20 | 0.1.0  | Kevin | 初版                    | 
+| 2019/02/20 | 0.1.1  | Kevin | 新增 API 7. [轉帳](#轉帳) request參數：type |
+
+  
 ## API列表
 1. [創建帳號](#創建帳號)
 2. [查詢帳戶明細](#查詢帳戶明細)
@@ -65,44 +74,21 @@
         account=<account>
     ```
     
-    ### Request 舊版參數說明
-
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |  *bchGuid   | 平台guid |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    |  *interest   | 利率 |  string  |   必填    |
-    
     ### Request 參數說明
 
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  *agent   | 平台ID |  string  | 由API端提供 |
+    |  agent   | 平台 |  string  | 必填：由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
   
     ---
-    
-    ### Response 舊版參數說明
-     
-    | 參數名稱 		| 參數說明 	|    
-    |:--------:	|:--------:|
-    | wallet |本金 | 
-    | income |本日產生利息 | 
-    | interest |本日利率 | 
-    | created_timestamp |建立時間 |
-    | timestamp |更新時間 | 
-    | last_compute |最後交易時間 | 
-    | income_second |每秒產生利息 | 
-    | income_time |計息時間 | 
-    | yesterday_income |昨日產生利息 | 
-
-    
+        
     ### Response 參數說明
     
     | 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
     | account 	| 玩家帳號 	| string |
-    | wallet   	| 本金 	|  decimal(20,8)  |
+    | wallet   	| 本金 	|  decimal(20,8) |
     | income  | 本日產生利息 | decimal(20,8) |
     | interest | 本日利率 | double |
     | yesterday_income | 昨日產生利息 | double |
@@ -156,48 +142,27 @@
         account=<account>
     ```
     
-    ### Request 舊版參數說明
-    
-    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
-    |:--------:|:--------:|:--------:|:-----------:|
-    |  *bchGuid   | 平台GUID |  string  | 由API端提供 |
-    |  account | 玩家帳號 |  string  |     必填    |
-    
     ### Request 參數說明
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  *agent   | 平台ID |  string  | 由API端提供 |
+    |  agent   | 平台ID |  string  | 必填：由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     
     ---
     
-    ### Response 舊版參數說明
-     
-    | 參數名稱 		| 參數說明 	|    
-    |:--------:	|:--------:|
-    | wallet |本金 | 
-    | income |本日產生利息 | 
-    | interest |本日利率 | 
-    | created_timestamp |建立時間 |
-    | timestamp |更新時間 | 
-    | *last_compute |最後交易時間 | 
-    | *income_second |每秒產生利息 | 
-    | *income_time |計息時間 | 
-    | *yesterday_income |昨日產生利息 |
-    
     ### Response 參數說明
     
-  	| 參數名稱 		| 參數說明 	| 參數型態 |     
+  	 | 參數名稱 		| 參數說明 	| 參數型態 |     
     |:--------:	|:--------:|:--------:|
     | account 	| 玩家帳號 	| string |
     | wallet   	| 本金 	|  decimal(20,8)  |
     | income  | 本日產生利息 | decimal(20,8) |
     | interest | 本日利率 | double |
     | yesterday_income | 昨日產生利息 | double |
-    | created_timestamp | 建立時間 | date |
-    | timestamp | 更新時間 | date |
-    | last_compute |最後一筆交易時間 | date |
+    | created_timestamp | 建立時間 | timestamp |
+    | timestamp | 更新時間 | timestamp |
+    | last_compute |最後一筆交易時間 | timestamp |
     | income_second |目前本金每秒可產生利息 | double |
     | income_time |計息時間(秒) | double |
 
@@ -213,15 +178,15 @@
         "status":"success",
         "data":{
           	"account":"aa1234",
-           "wallet": "30000.00000000",
-	        "income": "0.00072298",
+           "wallet": 30000.00000000,
+	        "income": 0.00072298,
 	        "interest": 18,
 	        "yesterday_income": 15.15517503,
 	        "created_timestamp": 1542086854,
 	        "timestamp": 1542086854,
 	        "last_compute": 1542086893,
-	        "income_second": "0.00036149",
-	        "income_time": "2"
+	        "income_second": 0.00036149,
+	        "income_time": 2
         }
     }
     ```
@@ -249,27 +214,17 @@
         count=<count>&
         page=<page>
     ```
-    ### Response 舊版參數說明
-    
-    | 參數名稱 | 參數說明 | 
-    |:--------:|:--------:|
-    |  bch_id   | 平台ID | 
-    |  account | 玩家帳號 | 
-    |  start | 開始時間 | 
-    |  end | 結束時間 |
-    |  perpage | 筆數 | 
-    |  page | 頁數 |
     
     ### Request 參數說明
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台ID |  string  | 由API端提供 |
-    |  accounts | 玩家帳號 |  string  | 必填:多帳號用逗號隔開，空白為搜尋該平台全部帳號  |
+    |  agent   | 平台ID |  string  | 必填：由API端提供 |
+    |  accounts | 玩家帳號 |  string  | 必填：多帳號用逗號隔開，空白為搜尋該平台全部帳號  |
     |  starting_at | 開始時間(2018-10-01 00:00:00) |  string  | 必填    |
     |  closing_at | 結束時間(2018-11-30 00:00:00) |  string  | 必填    |
-    |  count | 筆數 |  string  | 選填，筆數，預設20筆 |
-    |  page | 頁數 |  string  | 選填，頁數：預設第1頁   |
+    |  count | 筆數 |  string  | 選填：筆數，預設20筆 |
+    |  page | 頁數 |  string  | 選填：頁數，預設第1頁   |
     
     ---
     
@@ -278,11 +233,11 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | account 	| 玩家帳號 | string |
-    | recharge_in 	| 轉入本金 | string |
-    | recharge_out	| 轉出本金 | integer  |
+    | recharge_in 	| 轉入本金 | double |
+    | recharge_out	| 轉出本金 | double  |
     | get_income_total | 利息收入 | double |
     | created_at | 建立時間 | string |
-    | income | 前一日餘額 | string |
+    | income | 前一日餘額 | double |
     
     ---
 
@@ -297,20 +252,20 @@
         "current_page": 1,
         "data": [
             {
-                "account": "kevinfalo994",
-                "recharge_in": "7222221.99574390",
-                "recharge_out": 7224504,
-                "get_income_total": "2283.99574388",
-                "created_at": "2018-11-14 00:00:00",
-                "income": "0.99574390"
+                "account": "test01",
+                "recharge_in": 1000000,
+                "recharge_out": -1000979,
+                "get_income_total": 979.9543379,
+                "created_at": "2019-02-13 23:59:59",
+                "income": 0.9543379
             },
             {
-                "account": "kevinfalo333",
-                "recharge_in": "1666665.60712820",
-                "recharge_out": 1666969,
-                "get_income_total": "304.60712816",
-                "created_at": "2018-11-14 00:00:00",
-                "income": "0.60712820"
+                "account": "test02",
+                "recharge_in": 1000000,
+                "recharge_out": -1001000,
+                "get_income_total": 1000.14440639,
+                "created_at": "2019-02-13 23:59:59",
+                "income": 0.1444064
             }
         ],
         "first_page_url": "http://127.0.0.1:8000/api/v1/user/settlement?page=1",
@@ -355,7 +310,7 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台 |  string  | 由API端提供 |
+    |  agent   | 平台 |  string  | 必填：由API端提供 |
     
     ---
     
@@ -364,7 +319,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
     | agent 	| 平台		|  string  | 
-    | interest_rate | 生效平台利率(格式為：0.18) | double  | 
+    | interest_rate | 生效平台利率(格式為：18)(18%) | double  | 
     | platform_interest_rate | 平台利率 | double|
     | next_interest_rate | 明日生效平台利率 | double |
     | event_interest_rate | 平台活動利率 | double |
@@ -380,10 +335,10 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.99,
-        	"platform_interest_rate": 1.11,
-        	"next_interest_rate": 5.55,
-        	"event_interest_rate": 0.99
+           	"interest_rate": 99,
+        	"platform_interest_rate": 99,
+        	"next_interest_rate": 18,
+        	"event_interest_rate": 99
         }
     }
     ```
@@ -417,11 +372,8 @@
     
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台 |  string  | 由API端提供 |
+    |  agent   | 平台 |  string  | 必填：由API端提供 |
     |  interest_rate | 欲修改利率(格式為：0.18) | double  | 必填 |
-    | platform_interest_rate | 平台利率 | double|
-    | next_interest_rate | 明日生效平台利率 | double |
-    | event_interest_rate | 平台活動利率 | double |
     
     ---
     
@@ -431,6 +383,9 @@
     |:--------:|:--------:|:--------:|
     |  agent 	| 平台		|  string  | 
     |  interest_rate | 已修改平台利率(格式為：0.18) | double  | 
+    |  platform_interest_rate | 平台利率 | double|
+    |  next_interest_rate | 明日生效平台利率 | double |
+    |  event_interest_rate | 平台活動利率 | double |
     
     ---
 
@@ -443,10 +398,10 @@
         "status":"success",
         "data":{
           	"agent": "jfa_platform",
-           	"interest_rate": 0.99,
-        	"platform_interest_rate": 1.11,
-        	"next_interest_rate": 5.55,
-        	"event_interest_rate": 0.99
+           	"interest_rate": 99,
+        	"platform_interest_rate": 99,
+        	"next_interest_rate": 18,
+        	"event_interest_rate": 0
         }
     }
     ```
@@ -489,9 +444,9 @@
     |:--------:|:--------:|:--------:|
     | account | 玩家帳號 | string |
     | billing_date | 歸帳日 | string |
-    | income | 利息收入總和 | string |
-    | wallet | 錢包本金 | string |
-    | total  | 本金+利息 | string |
+    | income | 利息收入總和 | double |
+    | wallet | 錢包本金 | double |
+    | total  | 本金+利息 | double |
     
     ---
 
@@ -508,16 +463,16 @@
 	            {
 	                "account": "kevinfalo993",
 	                "billing_date": "2018-11-13",
-	                "income": "11.01598063",
-	                "wallet": "19999998.00000000",
-	                "total": "20000009.01598063"
+	                "income": 11.01598063,
+	                "wallet": 19999998.00000000,
+	                "total": 20000009.01598063
 	            },
 	            {
 	                "account": "kevinfalo994",
 	                "billing_date": "2018-11-13",
-	                "income": "0.00000000",
-	                "wallet": "9999999.00000000",
-	                "total": "9999999.00000000"
+	                "income": 0.00000000,
+	                "wallet": 9999999.00000000,
+	                "total": 9999999.00000000
 	            }
 	        ],
         "first_page_url": "http://127.0.0.1:8000/api/v1/user/interest/amount?page=1",
@@ -553,16 +508,17 @@
         agent=<agent>&
         account=<account>&
         value=<value>&
+        type=<type>
     ```
     
     ### Request 參數說明
    
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
-    |  agent   | 平台ID |  string  | 由API端提供 |
+    |  agent   | 平台ID |  string  | 必填：由API端提供 |
     |  account | 玩家帳號 |  string  |     必填    |
     |  value | 轉出入金額 |  string  |     必填    |
-    
+    |  type  | 類型      | string   |   必填：1.轉入 2.轉出 3.系統轉出  |
     
     ---
     
@@ -573,10 +529,10 @@
     | id   | 交易ID | number |
     | type | 轉帳類型：1轉入、2轉出 | string |
     | account | 玩家帳號 | string |
-    | value | 轉出入金額 | string |
-    | before_value | 轉出入前本金金額| string |
-    | after_value | 轉出入後本金金額| string |
-    | created_timestamp | 交易時間 | string | 
+    | value | 轉出入金額 | double |
+    | before_value | 轉出入前本金金額| double |
+    | after_value | 轉出入後本金金額| double |
+    | created_timestamp | 交易時間 | timestamp | 
     
     ---
     
@@ -585,6 +541,7 @@
     |----------|-------------------------  |
     | 1        | 轉入、存款   | 
     | 2        | 轉出、提款   | 
+    | 3        | 系統轉出     |
     
     ---
 
@@ -596,13 +553,13 @@
     {
         "status":"success",
         "data":{
-          	"id": 28,
-	        "type": 2,
-	        "account": "kevinfalo994",
-	        "value": "-5555555",
-	        "before_value": "12222221.00000000",
-	        "after_value": "6666666.00000000",
-	        "created_timestamp": 1542087778
+        	  "id": 37,
+	        "type": 1,
+	        "account": "test01",
+	        "value": 100000,
+	        "before_value": 0,
+	        "after_value": 100000,
+	        "created_timestamp": 1550459599
         }
     }
     ```
@@ -732,7 +689,6 @@
     |  page | 頁數 |  string  | 選填，頁數：預設第1頁   |
     
     ---
-    
     
     ### Response 參數說明
     

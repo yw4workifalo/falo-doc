@@ -55,7 +55,6 @@
 8. [體驗帳號(url和Token)](#體驗帳號及url)
 
 
-
 ## *登入流程*
 -------
 1. 玩家透過平台登入
@@ -139,6 +138,10 @@
 | 百家樂 C 桌        | 3   |
 | 百家樂 D 桌         | 4   |
 | 百家樂 E 桌        | 5  |
+| 百家樂 F 桌    | 6 |
+| 百家樂 X 桌 | 24 |
+| 百家樂 Y 桌 | 25 |
+| 百家樂 Z 桌 | 26 |
 
 ### *錯誤代碼*
 -------
@@ -3394,9 +3397,8 @@
 	
 	|code |description |
 	|----|----|
-	|-2 |查詢失敗|
-	|0 |Server運行中 | 
-	|2 |POST is not allowed|	
+	|0 |Server Up(伺服器運行中)| 
+	|-4 |Server Down(伺服器維護中)|
 
 6. #### <span id="app-login">登入(取得server需要的登入token)</span>
 	取得 dToken 及 登入 game server 所需的token

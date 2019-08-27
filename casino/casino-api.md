@@ -3559,7 +3559,38 @@
 	
 	例:成功
 	{
-		
+	    "status": "success",
+    "data": [
+        {
+            "BetListId": 28956,
+            "TableId": null,
+            "SpotId": 11001,
+            "Round": null,
+            "Run": null,
+            "GameMethods": "Standard",
+            "PlayerId": 15,
+            "Amount": 2000,
+            "Credit": "9090908.0000",
+            "UsedCredit": "6100.0000",
+            "RealCredit": "9084808.0000",
+            "PlayerIp": "",
+            "Refund": "0.0000",
+            "IsRevoke": 0,
+            "BetTime": "2019-08-27 14:56:43",
+            "CheckoutDate": "2019-08-27",
+            "HistoryId": null,
+            "WinSpot": null,
+            "Card1": null,
+            "Card2": null,
+            "Card3": null,
+            "Card4": null,
+            "Card5": null,
+            "Card6": null,
+            "ModifiedStatus": null,
+            "ModifiedTime": null,
+            "CreateTime": null
+        }
+    ]
 	}
 	
 	例:失敗
@@ -3586,7 +3617,34 @@
 	
 	例:成功
 	{
-		
+		    "status": "success",
+    "data": [
+        {
+            "BetFormId": 7574,
+            "GameTypes": "Baccarat",
+            "GameMethods": "Standard",
+            "TableTypes": 1,
+            "HistoryId": 2561451,
+            "CompanyId": 2,
+            "PlayerId": 15,
+            "UsePlatform": "Web",
+            "CheckoutList": "[{\"spot\":11001,\"amt\":2000.0,\"ewa\":1900.00,\"lwa\":1900.00}]",
+            "Amount": 2000,
+            "ValidAmount": 2000,
+            "NoRefundCheckoutAmount": "1900.0000",
+            "CheckoutAmount": "1900.0000",
+            "Percent": "0.00",
+            "ActualsAmount": "1900.0000",
+            "PlayerIP": "3.0.110.185",
+            "RefundSetting": "0.0000",
+            "Refund": "0.0000",
+            "ModifiedStatus": "Normal",
+            "BetTime": "2019-08-27 14:56:43",
+            "CheckoutDate": "2019-08-28 00:00:00",
+            "JpContribute": "0.000",
+            "BetFormTypes": 0
+        }
+    ]
 	}
 	
 	例:失敗
@@ -3603,3 +3661,5 @@
 | 2019/04/17 | 1.0.1  | Kevin | 新增公告播放地點代碼，新增F,X,Y,Z桌  |
 | 2019/05/06 | 1.0.14  | Kevin | 1.修改API [查詢玩家下注區間總額](#查詢玩家下注區間總額)，統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間) 2.新增公告播放地點代碼，新增G,H桌 |
 | 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
+
+

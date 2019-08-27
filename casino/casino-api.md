@@ -3649,7 +3649,10 @@
             "BetTime": "2019-08-27 14:56:43",
             "CheckoutDate": "2019-08-28 00:00:00",
             "JpContribute": "0.000",
-            "BetFormTypes": 0
+            "BetFormTypes": 0,
+            "TableId": "A",
+            "Round": 1566895939,
+            "Run": 38
         }
     ]
 	}

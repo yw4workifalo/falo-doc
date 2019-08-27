@@ -3584,18 +3584,7 @@
             "Refund": "0.0000",
             "IsRevoke": 0,
             "BetTime": "2019-08-27 14:56:43",
-            "CheckoutDate": "2019-08-27",
-            "HistoryId": null,
-            "WinSpot": null,
-            "Card1": null,
-            "Card2": null,
-            "Card3": null,
-            "Card4": null,
-            "Card5": null,
-            "Card6": null,
-            "ModifiedStatus": null,
-            "ModifiedTime": null,
-            "CreateTime": null
+            "CheckoutDate": "2019-08-27"            
         }
     ]
 	}

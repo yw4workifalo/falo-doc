@@ -3549,12 +3549,18 @@
 	GET /monitor/betForm/nonCheckout
 	```
 	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|tableId |桌號 |
+	
 	### 回傳值
 	
 	````
 	參數說明
 	{
-	    "TableId": 桌號
+	    "BetListId": 注單編號
 	}
 	
 	例:成功
@@ -3599,20 +3605,30 @@
 	}
 	````
 10. #### <span id="單桌注單">單桌注單</span>
-	取得單桌最近X筆注單
+	取得單桌最近X局的注單
 	## 使用說明
 	### api: 
 	```
 	GET /monitor/betForm/table
 	```
 	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|tableId |桌號 |
+	|number |局數 |
+	
+	
 	### 回傳值
 	
 	````
 	參數說明
 	{
-	    "TableId": 桌號,
-	    "number" : 注單數量
+	    "BetFormId": 注單編號,
+	    "GameTypes" : 遊戲類型(目前只有百家樂),
+	    "GameMethods" : Standard(標準)、Western(西洋)、NoRefund(免水),
+	    "TableTypes"：1：Single(單桌), 2：Multiple(多桌)
 	}
 	
 	例:成功

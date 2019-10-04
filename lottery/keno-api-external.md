@@ -1,5 +1,4 @@
 <div id="top"></div>
-
 # 彩票系統介接API範本
 ● [註冊玩家帳號](#註冊玩家帳號)<br>
 ● [取得登入網址](#取得登入網址)<br> <!--
@@ -119,7 +118,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>取得登入網址</span>
@@ -185,7 +183,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 <!--
 ## <span>取得測試帳號登入網址</span>
@@ -316,7 +313,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢玩家</span>
@@ -392,7 +388,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢玩家下注紀錄</span>
@@ -523,7 +518,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢玩家下注簡報總額</span>
@@ -613,7 +607,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>額度轉出入</span>
@@ -690,7 +683,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>額度轉出入狀態</span>
@@ -768,7 +760,6 @@
       }
       ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家踢線</span>
@@ -840,7 +831,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>設定玩家限輸</span>
@@ -908,7 +898,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>設定玩家限贏</span>
@@ -977,7 +966,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家限注回復</span>
@@ -1049,7 +1037,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家限注查詢</span>
@@ -1126,7 +1113,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家信用額度回復</span>
@@ -1200,7 +1186,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家信用額度設定</span>
@@ -1284,7 +1269,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>玩家信用額度查詢</span>
@@ -1357,7 +1341,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>群組信用額度回復</span>
@@ -1421,7 +1404,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>    
-
 ------
 
 ## <span>群組信用額度設定</span>
@@ -1489,7 +1471,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>群組信用額度查詢</span>
@@ -1555,7 +1536,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>設定玩家帳號模式</span>
@@ -1624,7 +1604,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢玩家帳號模式</span>
@@ -1696,7 +1675,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>設定玩家佔成</span>
@@ -1765,7 +1743,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 ## <span>查詢玩家佔成</span>
   **API Name : profit-percent**</br>
@@ -1833,7 +1810,6 @@
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢注區範本</span>
@@ -1914,7 +1890,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 <!--
 ## <span>設定平台注區範本</span>
@@ -2104,7 +2079,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>注區範本</span>
@@ -2175,7 +2149,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>修改退水值</span>
@@ -2250,7 +2223,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 ## <span>查詢退水值</span>
   **API Name : refund**</br>
@@ -2327,7 +2299,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 <!--
 ------
 ## <span>設定代理商賠率</span>
@@ -2391,7 +2362,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 ## <span>查詢代理商賠率</span>
   **API Name : odds**</br>
@@ -2520,7 +2490,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 -----
 ## <span>查詢平台盤口與各盤口退水及限注規範</span>
   **API Name : classList**</br>
@@ -2589,7 +2558,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>查詢平台是否有維護</span>
@@ -2728,7 +2696,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 ## <span>手機串接</span>
   **API Name :**</br>
@@ -2752,7 +2719,6 @@
          loginURL=https://keno.com/keno-game/player/login?account=ifalo001&key=K0hvSzZvbzlPbHoybDl2QnRDaGl5K1JLZ1ZtUXdU&platformURL=http://pha888.com.tw
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 
 ## <span>設定開放彩種</span>
@@ -2828,7 +2794,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ------
 ## <span>查詢開放彩種</span>
   **API Name : metypes**</br>
@@ -2904,7 +2869,6 @@
     ```
 <div align="right"><a href="#top">Top</a></div>
 
-
 ## <span>附表</span>
 ### <span>盤口設定</span>
 | 代碼 | 說明 |
@@ -2943,6 +2907,7 @@
 | 40010 | 廣西快3   |
 | 40012 | 吉林快3   |
 | 40017 | 河南快3   |
+| 10006 | 澳洲幸運5 |
 
 ### <span>交易狀態</span>
 | 錯誤碼 | 錯誤訊息 |

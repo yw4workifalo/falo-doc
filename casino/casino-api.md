@@ -3594,6 +3594,7 @@
 	    
 	}
 	````
+	
 10. #### <span id="單桌注單">單桌注單</span>
 	取得單桌最近X局的注單
 	## 使用說明
@@ -3662,6 +3663,226 @@
 	    
 	}
 	````
+	
+11. #### <span id="修改玩家佔成">修改玩家佔成</span>
+	修改玩家佔成
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	PUT /monitor/player-percent/{id}
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|percent |佔成         |
+	
+	
+	### 回傳值
+	
+	````
+	
+	例:成功
+	{
+	  "status": "success",
+	  "data": {
+  		 "PlayerId": "224",
+      "CompanyId": 1,
+      "Account": "michael2",
+      "Percent": "0.5",
+      "update_at": "2019-12-02 03:17:31",
+      "created_at": "2019-12-02 03:17:34"
+	  }
+	}
+	
+	例:失敗
+	{
+    "status": "error",
+    "error": {
+        "code": "10",
+        "message": "service not available"
+    }
+   }
+	````
+
+12. #### <span id="取得所有玩家">取得所有玩家</span>
+	取得所有玩家/取得有設定佔成的玩家
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	GET /monitor/players
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|setPercent |1:有設定佔成 0:所有玩家  |
+	
+	
+	### 回傳值
+	
+	````
+	
+	例:成功
+	{
+	  {
+    "status": "success",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "PlayerId": 3700,
+                "CompanyId": 432,
+                "Account": "Mohamed",
+                "Nickname": "LightPink",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "7297.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "120.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "7.171.115.10",
+                "RowVersion": 28
+            },
+            {
+                "PlayerId": 3701,
+                "CompanyId": 432,
+                "Account": "Kaya",
+                "Nickname": "PaleVioletRed",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "2707.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "628.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "207.217.100.36",
+                "RowVersion": 207
+            },
+            {
+                "PlayerId": 3702,
+                "CompanyId": 432,
+                "Account": "Angelita",
+                "Nickname": "Gray",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "1217.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "836.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "188.216.22.255",
+                "RowVersion": 271
+            }
+        ],
+        "from": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "path": "http://localhost/realtime/monitor/players",
+        "per_page": 15,
+        "prev_page_url": null,
+        "to": 10,
+        "total": 10
+    }
+}
+	
+	
+	例:失敗
+	{
+    "status": "error",
+    "error": {
+        "code": "10",
+        "message": "service not available"
+    }
+   }
+	````
+
+13. #### <span id="Monitor使用者登入取得Token">Monitor使用者登入取得Token</span>
+	Monitor使用者登入取得Token
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	POST /monitor/user/login
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|account |companyAdmin管理帳號  |
+	|password|密碼 |
+	
+	
+	### 回傳值
+	
+	````
+	
+	例:成功
+	{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsiYWNjb3VudCI6InFhc3RhZ2UyIiwicGFzc3dvcmQiOiIxMjM0NTYifSwiZXhwIjoxNTc1MzQ1Mzk4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0L3JlYWx0aW1lL21vbml0b3IvdXNlci9sb2dpbiIsImlhdCI6MTU3NTI1ODk5OCwibmJmIjoxNTc1MjU4OTk4LCJqdGkiOiJVZWM0OGVaMHlYOXlXc0RxIn0.9KEZmtVrs_Fz2zLNwwSC6shseYOuaeMkUTyVb161sLk"
+   }
+	
+	
+	例:失敗
+	{
+    'account' => '帳號或密碼不正確，請注意大小寫是否有誤',
+   }
+	````
+
 
 ## 歷程紀錄
 

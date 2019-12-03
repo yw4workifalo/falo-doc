@@ -3572,6 +3572,7 @@
     "data": [
         {
             "Account": "michael2",
+            "CompanyId": "1",
             "BetListId": 28956,
             "TableId": null,
             "SpotId": 11001,
@@ -3735,6 +3736,10 @@
 	### 回傳值
 	
 	````
+	參數說明：
+	"Percent" : 遊戲佔成
+	"MonitorPercent" 即時注單佔成
+	
 	
 	例:成功
 	{
@@ -3769,7 +3774,8 @@
                 "LoginLocation": null,
                 "LastLoginTime": "2019-12-02 03:44:38",
                 "LoginIp": "7.171.115.10",
-                "RowVersion": 28
+                "RowVersion": 28,
+                "MonitorPercent": "0.99"
             },
             {
                 "PlayerId": 3701,
@@ -3797,7 +3803,8 @@
                 "LoginLocation": null,
                 "LastLoginTime": "2019-12-02 03:44:38",
                 "LoginIp": "207.217.100.36",
-                "RowVersion": 207
+                "RowVersion": 207,
+                "MonitorPercent": "0.99"
             },
             {
                 "PlayerId": 3702,
@@ -3825,7 +3832,8 @@
                 "LoginLocation": null,
                 "LastLoginTime": "2019-12-02 03:44:38",
                 "LoginIp": "188.216.22.255",
-                "RowVersion": 271
+                "RowVersion": 271,
+                "MonitorPercent": "0.99"
             }
         ],
         "from": 1,
@@ -3895,5 +3903,5 @@
 | 2019/04/17 | 1.0.1  | Kevin | 新增公告播放地點代碼，新增F,X,Y,Z桌  |
 | 2019/05/06 | 1.0.14  | Kevin | 1.修改API [查詢玩家下注區間總額](#查詢玩家下注區間總額)，統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間) 2.新增公告播放地點代碼，新增G,H桌 |
 | 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
-
+| 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [修改玩家佔成](#修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
 

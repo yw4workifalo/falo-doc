@@ -3549,7 +3549,7 @@
 	## 使用說明
 	### api: 
 	```
-	GET /monitor/betForm/nonCheckout
+	GET /realtime/monitor/betForm/nonCheckout
 	```
 	
 	### 參數:
@@ -3604,7 +3604,7 @@
 	## 使用說明
 	### api: 
 	```
-	GET /monitor/betForm/table
+	GET /realtime/monitor/betForm/table
 	```
 	
 	### 參數:
@@ -3677,7 +3677,7 @@
 	
 	### api: 
 	```
-	PUT /monitor/player-percent/{id}
+	PUT /realtime/monitor/player-percent/{id}
 	```
 	
 	### 參數:
@@ -3723,7 +3723,7 @@
 	
 	### api: 
 	```
-	GET /monitor/players
+	GET /realtime/monitor/players
 	```
 	
 	### 參數:
@@ -3867,7 +3867,7 @@
 	
 	### api: 
 	```
-	POST /monitor/user/login
+	POST /realtime/monitor/user/login
 	```
 	
 	### 參數:

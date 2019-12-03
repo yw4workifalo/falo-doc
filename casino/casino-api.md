@@ -3881,10 +3881,14 @@
 	### 回傳值
 	
 	````
+	參數說明：
+	token: JWT token
+	exp: JWT token 過期時間
 	
 	例:成功
 	{
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsiYWNjb3VudCI6InFhc3RhZ2UyIiwicGFzc3dvcmQiOiIxMjM0NTYifSwiZXhwIjoxNTc1MzQ1Mzk4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0L3JlYWx0aW1lL21vbml0b3IvdXNlci9sb2dpbiIsImlhdCI6MTU3NTI1ODk5OCwibmJmIjoxNTc1MjU4OTk4LCJqdGkiOiJVZWM0OGVaMHlYOXlXc0RxIn0.9KEZmtVrs_Fz2zLNwwSC6shseYOuaeMkUTyVb161sLk"
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsiYWNjb3VudCI6InFhc3RhZ2UyIiwicGFzc3dvcmQiOiIxMjM0NTYifSwiZXhwIjoxNTc1MzQ1Mzk4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0L3JlYWx0aW1lL21vbml0b3IvdXNlci9sb2dpbiIsImlhdCI6MTU3NTI1ODk5OCwibmJmIjoxNTc1MjU4OTk4LCJqdGkiOiJVZWM0OGVaMHlYOXlXc0RxIn0.9KEZmtVrs_Fz2zLNwwSC6shseYOuaeMkUTyVb161sLk",
+    "exp": 1575429071
    }
 	
 	

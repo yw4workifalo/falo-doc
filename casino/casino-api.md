@@ -3687,7 +3687,7 @@
 	|------|--------------|
 	|account | 必填，帳號   |
 	|companyId | 必填，平台ID |
-	|percent | 必填，佔成 Ex.0.5 |
+	|percent | PUT必填，佔成 Ex.0.5 |
 	
 	
 	### 回傳值

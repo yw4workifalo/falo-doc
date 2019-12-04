@@ -3668,8 +3668,8 @@
 	}
 	````
 	
-11. #### <span id="修改玩家佔成">修改玩家佔成</span>
-	修改玩家佔成
+11. #### <span id="修改玩家佔成">修改/取得玩家佔成</span>
+	修改/取得玩家佔成
 	
 	## 使用說明
 	### Token
@@ -3677,14 +3677,17 @@
 	
 	### api: 
 	```
-	PUT /realtime/monitor/player-percent/{id}
+	PUT /realtime/monitor/player-percent
+	GET /realtime/monitor/player-percent
 	```
 	
 	### 參數:
 	
 	|name  |  description |
 	|------|--------------|
-	|percent |佔成         |
+	|account | 必填，帳號   |
+	|companyId | 必填，平台ID |
+	|percent | 必填，佔成 Ex.0.5 |
 	
 	
 	### 回傳值
@@ -3730,7 +3733,8 @@
 	
 	|name  |  description |
 	|------|--------------|
-	|setPercent |1:有設定佔成 0:所有玩家  |
+	|setPercent |必填，1:有設定佔成 0:所有玩家  |
+	|setTime    |選填，指定時間點後設定佔成的玩家 |
 	
 	
 	### 回傳值

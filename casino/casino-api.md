@@ -2328,7 +2328,7 @@
     |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
     |platformURL| 返回平台 schemal url |  string  | 遊戲app返回平台APP使用  |Y|
 
-7. ## <span id="playper-percent">設定玩家佔成</span>
+7. ## <span id="playper-percent">修改玩家佔成</span>
 
     ```
     PUT /casino-api/player/profit-percent?
@@ -3913,5 +3913,5 @@
 | 2019/04/17 | 1.0.1  | Kevin | 新增公告播放地點代碼，新增F,X,Y,Z桌  |
 | 2019/05/06 | 1.0.14  | Kevin | 1.修改API [查詢玩家下注區間總額](#查詢玩家下注區間總額)，統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間) 2.新增公告播放地點代碼，新增G,H桌 |
 | 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
-| 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [修改玩家佔成](#修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
+| 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [即時注單修改玩家佔成](#即時注單修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
 

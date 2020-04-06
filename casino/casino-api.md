@@ -53,6 +53,11 @@
 6. [登入 (取得server需要的登入token)](#登入(取得server需要的登入token))
 7. [app直接登入 (dToken交換)](#app直接登入)
 8. [體驗帳號(url和Token)](#體驗帳號及url)
+9. [單桌未結算注單](#單桌未結算注單)
+10. [單桌注單](#單桌注單)
+11. [即時注單頁面修改玩家佔成](#即時注單頁面修改玩家佔成)
+12. [取得所有玩家](#取得所有玩家)
+13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token)
 
 
 ## *登入流程*
@@ -139,6 +144,8 @@
 | 百家樂 D 桌         | 4   |
 | 百家樂 E 桌        | 5  |
 | 百家樂 F 桌    | 6 |
+| 百家樂 G 桌    | 7 |
+| 百家樂 H 桌    | 8 |
 | 百家樂 X 桌 | 24 |
 | 百家樂 Y 桌 | 25 |
 | 百家樂 Z 桌 | 26 |
@@ -2321,7 +2328,7 @@
     |  lang | [支援語系](#支援語系) |  string  |     遊戲內使用語系    |Y|
     |platformURL| 返回平台 schemal url |  string  | 遊戲app返回平台APP使用  |Y|
 
-7. ## <span id="playper-percent">設定玩家佔成</span>
+7. ## <span id="playper-percent">修改玩家佔成</span>
 
     ```
     PUT /casino-api/player/profit-percent?
@@ -2918,6 +2925,11 @@
         endAt=<endAt>&
         hash=<hash>
     ```
+
+    #### Describe API說明
+	 
+	 統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間)
+
 
     #### Request 參數說明
 
@@ -3529,5 +3541,377 @@
 	    "ReturnMessage": "查詢失敗"
 	}
 	````
+	
+	
+	
+9. #### <span id="單桌未結算注單">單桌未結算注單</span>
+	取得單桌目前未結算注單
+	## 使用說明
+	### api: 
+	```
+	GET /realtime/monitor/betForm/nonCheckout
+	```
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|tableId |桌號 |
+	
+	### 回傳值
+	
+	````
+	參數說明
+	{
+	    "BetListId": 注單編號
+	}
+	
+	例:成功
+	{
+	    "status": "success",
+    "data": [
+        {
+            "Account": "michael2",
+            "CompanyId": "1",
+            "BetListId": 28956,
+            "TableId": null,
+            "SpotId": 11001,
+            "Round": null,
+            "Run": null,
+            "GameMethods": "Standard",
+            "PlayerId": 15,
+            "Amount": 2000,
+            "Credit": "9090908.0000",
+            "UsedCredit": "6100.0000",
+            "RealCredit": "9084808.0000",
+            "PlayerIp": "",
+            "Refund": "0.0000",
+            "IsRevoke": 0,
+            "BetTime": "2019-08-27 14:56:43",
+            "CheckoutDate": "2019-08-27"            
+        }
+    ]
+	}
+	
+	例:失敗
+	{
+	    
+	}
+	````
+	
+10. #### <span id="單桌注單">單桌注單</span>
+	取得單桌最近X局的注單
+	## 使用說明
+	### api: 
+	```
+	GET /realtime/monitor/betForm/table
+	```
+	
+	### 參數:
+	
+	|name |description |
+	|----|----|
+	|tableId |桌號 |
+	|number |局數 |
+	
+	
+	### 回傳值
+	
+	````
+	參數說明
+	{
+	    "BetFormId": 注單編號,
+	    "GameTypes" : 遊戲類型(目前只有百家樂),
+	    "GameMethods" : Standard(標準)、Western(西洋)、NoRefund(免水),
+	    "TableTypes"：1：Single(單桌), 2：Multiple(多桌)
+	}
+	
+	例:成功
+	{
+		    "status": "success",
+    "data": [
+        {
+        		 "Account": "michael2",
+            "BetFormId": 7574,
+            "GameTypes": "Baccarat",
+            "GameMethods": "Standard",
+            "TableTypes": 1,
+            "HistoryId": 2561451,
+            "CompanyId": 2,
+            "PlayerId": 15,
+            "UsePlatform": "Web",
+            "CheckoutList": "[{\"spot\":11001,\"amt\":2000.0,\"ewa\":1900.00,\"lwa\":1900.00}]",
+            "Amount": 2000,
+            "ValidAmount": 2000,
+            "NoRefundCheckoutAmount": "1900.0000",
+            "CheckoutAmount": "1900.0000",
+            "Percent": "0.00",
+            "ActualsAmount": "1900.0000",
+            "PlayerIP": "3.0.110.185",
+            "RefundSetting": "0.0000",
+            "Refund": "0.0000",
+            "ModifiedStatus": "Normal",
+            "BetTime": "2019-08-27 14:56:43",
+            "CheckoutDate": "2019-08-28 00:00:00",
+            "JpContribute": "0.000",
+            "BetFormTypes": 0,
+            "TableId": "A",
+            "Round": 1566895939,
+            "Run": 38
+        }
+    ]
+	}
+	
+	例:失敗
+	{
+	    
+	}
+	````
+	
+11. #### <span id="即時注單頁面修改玩家佔成">即時注單頁面 修改/取得玩家佔成</span>
+	修改/取得玩家佔成
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	PUT /realtime/monitor/player-percent
+	GET /realtime/monitor/player-percent
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|account | 必填，帳號   |
+	|companyId | 必填，平台ID |
+	|percent | PUT必填，佔成 Ex.0.5 |
+	
+	
+	### 回傳值
+	
+	````
+	
+	例:成功
+	{
+	  "status": "success",
+	  "data": {
+  		 "PlayerId": "224",
+      "CompanyId": 1,
+      "Account": "michael2",
+      "Percent": "0.5",
+      "update_at": "2019-12-02 03:17:31",
+      "created_at": "2019-12-02 03:17:34"
+	  }
+	}
+	
+	例:失敗
+	{
+    "status": "error",
+    "error": {
+        "code": "10",
+        "message": "service not available"
+    }
+   }
+	````
 
+12. #### <span id="取得所有玩家">取得所有玩家</span>
+	取得所有玩家/取得有設定佔成的玩家
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	GET /realtime/monitor/players
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|setPercent |必填，1:有設定佔成 0:所有玩家  |
+	|setTime    |選填，指定時間點後設定佔成的玩家 |
+	|perPage  |選填，分頁數量 |
+	|filter  |選填，null或空字串無條件回傳玩家，傳入字串的話會做搜尋Account欄位 |
+	
+	
+	### 回傳值
+	
+	````
+	參數說明：
+	"Percent" : 遊戲佔成
+	"MonitorPercent" 即時注單佔成
+	
+	
+	例:成功
+	{
+	  {
+    "status": "success",
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "PlayerId": 3700,
+                "CompanyId": 432,
+                "Account": "Mohamed",
+                "Nickname": "LightPink",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "7297.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "120.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "7.171.115.10",
+                "RowVersion": 28,
+                "MonitorPercent": "0.99"
+            },
+            {
+                "PlayerId": 3701,
+                "CompanyId": 432,
+                "Account": "Kaya",
+                "Nickname": "PaleVioletRed",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "2707.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "628.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "207.217.100.36",
+                "RowVersion": 207,
+                "MonitorPercent": "0.99"
+            },
+            {
+                "PlayerId": 3702,
+                "CompanyId": 432,
+                "Account": "Angelita",
+                "Nickname": "Gray",
+                "Currency": 1,
+                "ResetGroupId": 0,
+                "Token": null,
+                "AppToken": null,
+                "Password": null,
+                "Enable": 1,
+                "Mode": 1,
+                "IsOnline": 0,
+                "LoginCheckoutDate": "2019-12-02",
+                "Credit": "1217.0000",
+                "UsedCredit": "0.0000",
+                "RealCredit": "836.0000",
+                "CurrentLoseWinCredit": "0.0000",
+                "LimitWin": "0.0000",
+                "LimitLose": "0.0000",
+                "Percent": "0.00",
+                "StatusId": 0,
+                "Attention": 0,
+                "LoginLocation": null,
+                "LastLoginTime": "2019-12-02 03:44:38",
+                "LoginIp": "188.216.22.255",
+                "RowVersion": 271,
+                "MonitorPercent": "0.99"
+            }
+        ],
+        "from": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "path": "http://localhost/realtime/monitor/players",
+        "per_page": 15,
+        "prev_page_url": null,
+        "to": 10,
+        "total": 10
+    }
+}
+	
+	
+	例:失敗
+	{
+    "status": "error",
+    "error": {
+        "code": "10",
+        "message": "service not available"
+    }
+   }
+	````
+
+13. #### <span id="Monitor使用者登入取得Token">Monitor使用者登入取得Token</span>
+	Monitor使用者登入取得Token
+	
+	## 使用說明
+	### Token
+	header Token: 'Authorization' => 'Bearer $token'
+	
+	### api: 
+	```
+	POST /realtime/monitor/user/login
+	```
+	
+	### 參數:
+	
+	|name  |  description |
+	|------|--------------|
+	|account |companyAdmin管理帳號  |
+	|password|密碼 |
+	
+	
+	### 回傳值
+	
+	````
+	參數說明：
+	token: JWT token
+	exp: JWT token 過期時間
+	
+	例:成功
+	{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsiYWNjb3VudCI6InFhc3RhZ2UyIiwicGFzc3dvcmQiOiIxMjM0NTYifSwiZXhwIjoxNTc1MzQ1Mzk4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0L3JlYWx0aW1lL21vbml0b3IvdXNlci9sb2dpbiIsImlhdCI6MTU3NTI1ODk5OCwibmJmIjoxNTc1MjU4OTk4LCJqdGkiOiJVZWM0OGVaMHlYOXlXc0RxIn0.9KEZmtVrs_Fz2zLNwwSC6shseYOuaeMkUTyVb161sLk",
+    "exp": 1575429071
+   }
+	
+	
+	例:失敗
+	{
+    'account' => '帳號或密碼不正確，請注意大小寫是否有誤',
+   }
+	````
+
+
+## 歷程紀錄
+
+| 日期     | 版本       | 人員               | 備註   |
+| ------- | ---------- | ----------------- | ----- |
+| 2019/04/17 | 1.0.0  | Kevin | 初版                    | 
+| 2019/04/17 | 1.0.1  | Kevin | 新增公告播放地點代碼，新增F,X,Y,Z桌  |
+| 2019/05/06 | 1.0.14  | Kevin | 1.修改API [查詢玩家下注區間總額](#查詢玩家下注區間總額)，統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間) 2.新增公告播放地點代碼，新增G,H桌 |
+| 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
+| 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [即時注單修改玩家佔成](#即時注單修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
 

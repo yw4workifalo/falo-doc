@@ -80,8 +80,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
-------
+
 ## <span>取得餘額</span>
    **API Name : quota**</br>
    **Method : GET**
@@ -134,7 +135,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>判斷帳號是否存在</span>
    **API Name : accountExist**</br>
    **Method : GET**
@@ -184,7 +187,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>取得帳號資訊</span>
    **API Name : accountDetails</br>
    **Method : GET**
@@ -244,7 +249,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定限贏限輸</span>
    **API Name : winLose**</br>
    **Method : PUT**
@@ -302,7 +309,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定信用額度</span>
    **API Name : credit**</br>
    **Method : PUT**
@@ -357,7 +366,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定會員狀態</span>
    **API Name : playerBanned**</br>
    **Method : PUT**
@@ -412,7 +423,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>取得登入網址</span>
    **API Name : gameUrl**</br>
    **Method : GET**
@@ -466,7 +479,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>取得玩家信用額度</span>
    **API Name : credit**</br>
    **Method : GET**
@@ -520,7 +535,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定遊戲範本</span>
    **API Name : template**</br>
    **Method : PUT**
@@ -576,7 +593,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>登出</span>
    **API Name : logout**</br>
    **Method : DELETE**
@@ -628,7 +647,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>重設限輸限贏</span>
    **API Name : recoverWinLose**</br>
    **Method : PUT**
@@ -680,7 +701,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定暱稱</span>
    **API Name : name**</br>
    **Method : PUT**
@@ -735,7 +758,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定信用額度回復類型</span>
    **API Name : creditReset**</br>
    **Method : PUT**
@@ -790,6 +815,7 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ## <span>重設信用玩家額度</span>
@@ -843,7 +869,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>設定退水</span>
    **API Name : commission**</br>
    **Method : PUT**
@@ -898,7 +926,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>一次踢多個玩家</span>
    **API Name : kickPlayers**</br>
    **Method : DELETE**
@@ -950,7 +980,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>抓取會員下注注單</span>
    **API Name : reportDetail</br>
    **Method : GET**
@@ -1030,7 +1062,9 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
+
 ## <span>額度轉出入</span>
    **API Name : transfer**</br>
    **Method : PUT**
@@ -1088,6 +1122,7 @@ Header
      }
      ```
 <div align="right"><a href="#top">Top</a></div>
+
 ------
 
 ### 遊戲代號

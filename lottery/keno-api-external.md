@@ -660,12 +660,12 @@
      {
         "status":"success",
         "data":{
-          "transactionNo":"5943a950a3227",
-          "time":"2017/06/12 15:50:00",
-	      "orginalCredit":"+1000.0005",
-          "transferCredit":"+500.0005",
-          "finalCredit":"+1500.0005",
-          "message":"交易成功"
+          "transactionNo":"e23f509491927b41b1986b08bb756af1",
+         "time":"2019-12-11 17:29:44",
+	    "orginalCredit":"0.0000",
+         "finalCredit":"0.0000",
+         "currency":"TWD",
+         "status":0   //0是成功1是失敗 參見 #交易狀態
         },
         "uuquid":"01212c3b9e1eac371776a8e932289906"
      }
@@ -688,6 +688,7 @@
 ## <span>額度轉出入狀態</span>
    **API Name : transfer-status**</br>
    **Method : GET**
+
    ### 輸入參數
 | 參數名稱 | 參數說明 | 參數型態 | 必填 | 說明 |
 | -- | ---- | ----------- | ----------- | -- |
@@ -2868,7 +2869,6 @@
     }
     ```
 <div align="right"><a href="#top">Top</a></div>
-
 ## <span>附表</span>
 ### <span>盤口設定</span>
 | 代碼 | 說明 |

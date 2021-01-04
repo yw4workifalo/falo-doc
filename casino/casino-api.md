@@ -1,6 +1,6 @@
 # Casino API Document
   
-## CASINO API數量：**40**
+## CASINO API數量：**49**
 -------
 1. [註冊帳號](#註冊帳號)(*1)
 2. [取得玩家登入網址](#取得玩家登入網址)(*2)
@@ -42,6 +42,15 @@
 38. [查詢維護](#查詢維護)
 39. [修改維護](#修改維護)
 40. [刪除維護](#刪除維護)
+41. [轉帳記錄](#轉帳記錄)
+42. [修改所有會員注區範本](#修改所有會員注區範本)
+43. [桌台開關設定查詢](#桌台開關設定查詢)
+44. [修改桌台開關設定](#修改桌台開關設定)
+45. [阻擋地區查詢](#阻擋地區查詢)
+46. [設定阻擋地區](#設定阻擋地區)
+47. [刪除阻擋地區](#刪除阻擋地區)
+48. [代理額度查詢](#代理額度查詢)
+49. [修改代理額度](#修改代理額度)
 
 ## API For Web 數量：**8**
 -------
@@ -79,6 +88,9 @@
 | 遊戲名稱  | gameType                 | 
 |---------- |-------------------------  |
 | 百家樂         | 1   | 
+| 骰寶 | 2 |
+| 輪盤 | 3 |
+| 龍虎 | 4 |
 | Jackpot Bonus         | 98   |
 | Jackpot BigWin         | 99   |
 
@@ -100,12 +112,30 @@
 |---------- |-------------------------  |
 | TWD        | 台幣   | 
 | CNY       | 人民幣   | 
+| USD       | 美金   |
+| THB       | 泰銖   |
+| IDR       | 印尼盾   |
+| MYR       | 馬幣   |
+| VND       | 越南盾   |
+| KRW       | 韓幣   |
+| SGD       | 新加坡幣   |
+| NZD       | 紐西蘭幣   |
+| AUD       | 澳元   |
+| JPY       | 日圓   |
+| INR       | 印度盧比   |
 
 ### <span id="language">支援語系</span>
 | 代碼  | 說明                  | 
 |---------- |-------------------------  |
 | zh_TW     | 繁體中文   | 
 | zh_CN     | 簡體中文   | 
+| en     | 英文   |
+| vn     | 越南文   |
+| th     | 泰文   |
+| id     | 印尼文   |    
+| ms     | 馬來文   |
+| ko     | 韓文   |
+| ja     | 日文   |   
 
 ### <span id="platformType">支援裝置</span>
 
@@ -120,12 +150,21 @@
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
 | 百家樂         | 1   |
+| 骰寶         | 2   |
+| 輪盤         | 3   |
+| 多桌         | 4   |
+| 龍虎         | 5   |
+
 
 ### <span id="TableType">退水遊戲類別</span>
 
 | 遊戲名稱  | gameType                 |
 |---------- |-------------------------  |
 | 百家樂         | 1   |
+| 骰寶         | 2   |
+| 輪盤         | 3   |
+| 多桌         | 4   |
+| 龍虎         | 5   |
 
 ### <span id="resetGroup">重設群組類型</span>
 | 類型  | groupId                 |
@@ -146,6 +185,21 @@
 | 百家樂 F 桌    | 6 |
 | 百家樂 G 桌    | 7 |
 | 百家樂 H 桌    | 8 |
+| 百家樂 I 桌    | 9 |
+| 百家樂 J 桌    | 10 |
+| 百家樂 K 桌    | 11 |
+| 百家樂 L 桌    | 12 |
+| 百家樂 M 桌    | 13 |
+| 百家樂 N 桌    | 14 |
+| 百家樂 O 桌    | 15 |
+| 百家樂 P 桌    | 16 |
+| 百家樂 Q 桌    | 17 |
+| 百家樂 R 桌    | 18 |
+| 百家樂 S 桌    | 19 |
+| 百家樂 T 桌    | 20 |
+| 百家樂 U 桌    | 21 |
+| 百家樂 V 桌    | 22 |
+| 百家樂 W 桌    | 23 |
 | 百家樂 X 桌 | 24 |
 | 百家樂 Y 桌 | 25 |
 | 百家樂 Z 桌 | 26 |
@@ -154,6 +208,7 @@
 -------
 | 錯誤代碼  | 錯誤訊息                  | 錯誤說明              |
 |---------- |-------------------------  |---------------------- |
+| 0 | db failed | 資料庫錯誤 |
 | 1  | {parameter} is required   | 缺少必填參數            |
 | 2  | key is invalid            | 提供的金鑰是不合法的    |
 | 3  | hash is invalid           | 驗證碼是錯誤的           |
@@ -207,6 +262,19 @@
 | 51 | recordId:{recordId} is not exist|維護紀錄Id不存在|
 | 52 | maintain time range is invalid startAt:{startAt} ~ endAt:{endAt} is invalid, At least half an hour|維護時間區間有問題，不允許過往時間且維護時間需至少半小時|
 | 53 | get maintain record is need recordId or startAt and endAt|查詢維護紀錄，recordId 或 時間區間需擇一輸入|
+| 54 | user not found or account/password incorrect|使用者帳號密碼錯誤|
+| 55 | JWT token expired|JWT token 過期|
+| 56 | JWT token invalid|錯誤的 JWT token|
+| 57 | JWT token absent|JWT token 不存在|
+| 58 | The given data failed to pass validation|資料驗證失敗|
+| 59 | {param}must be a float less than two decimal places|參數必須是浮點數|
+| 60 | {param} must be a json format string|參數必須是json格式|
+| 61 | game server update failed|遊戲伺服器更新失敗|
+| 62 | maintain failed please checkout request condition|維護失敗請檢查條件|
+| 63 | must be entirely alpha-numeric and underscore characters|必須是字母數字或底線字元|
+| 64 | this country code is invalid|此國家代碼不適用|
+| 65 | please checkout countryCode is exist or not|請檢查國家代碼是否存在|
+| 66 | company quota is not enough to transfer|代理額度不足|
 | 102|The currency:{currency} is not supported|您所設定的貨幣類型不支援|
 | 103 | The language is not supported| 您所設定的語系類型不支援 |
 
@@ -3292,8 +3360,607 @@
     | 11 | {parameter} is invalid   |
     | 51 | record id:{recordI} is not exist|
 
-----
+13. #### <span id="player-transfers">轉帳記錄</span>
 
+    ```
+    GET /casino-api/player/credit/transfers?
+        key=<key>&
+        startAt=<startAt>&
+        endAt=<endAt>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  startAt   | 起始時間 |  string  | 必填，格式 2017-01-01 12:00:10 |
+    |  endAt   | 結束時間 |  string  | 必填，格式 2017-01-01 13:00:10 |
+    | page | 分頁 | int | 選填，預設：1 |
+    | pageSize | 分頁筆數 | int | 選填，預設：1000，若有輸入錯誤，會自動填入1000 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(startAt + endAt + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | total | 總筆數| int |
+    | perPage | 各分頁含有筆數| int |
+    | currentPage | 目前所在頁數| int |
+    | lastPage | 下一頁頁數| int |
+    | previousPageUrl | 上一頁 (null 表示為第一頁)| string or null |
+    | nextPageUrl | 下一頁 (null 表示無下一頁)| string or null |
+    | transfers | [轉帳紀錄](#transfers 說明)| array |
+    ---
+    #### <span id="transfers">transfers 說明</span>
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | transactionId | 交易編號| string |
+    | amount | 交易金額| int |
+    | original | 原始金額| int |
+    | changed | 變更金額| int |
+    | transferType | 交易類型| int |
+    | status | 交易裝態| int |
+    | transferAt | 交易時間| string |
+    | currency | 幣別| string |            
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+                "total":1,
+                "perPage":1000,
+                "currentPage":1,
+                "lastPage":1,
+                "previousPageUrl":null,
+                "nextPageUrl":null,
+                "transfers":[{
+                    "transactionId":I5f7a871326f5f,
+                    "amount":1000,
+                    "original":0,
+                    "changed":0,
+                    "transferType":"1",
+                    "status":0,
+                    "transferAt":2020-09-28 15:14:17,
+                    "currency":"TWD",
+                }]
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":23,
+            "message":"[startAt or endAt] value must be datetime Example：2017-01-01 00:00:00"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 23 | [startAt or EndAt] value must be datetime Example：2017-01-01 00:00:00|    
+    
+13. #### <span id="all-player-stake-limit">修改所有會員注區範本</span>
+
+    ```
+    PUT /casino-api/all-player/stake-limit?
+        key=<key>&
+        tableType=<tableType>&
+        stakeLimitValue=<stakeLimitValue>&
+        currency=<currency>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |  tableType   | 遊戲類型 |  int  | 必填 |
+    |  stakeLimitValue   | 注區 |  string  | 必填 |
+    |  currency   | 幣別 |  string  | 必填 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(tableType + stakeLimitValue + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | tableType | 遊戲類型| int |
+    | stakeLimitValue | 注區| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+           "tableType":"1",
+            "stakeLimitValue":"3,4,5,6"
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":34,
+            "message":"tableType:1 not found"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |
+    | 34 | tableType:{tableType} not found|
+    | 36 | player stake limit setting value {stakeLimitValue} is invalid |
+              
+13. #### <span id="get-company-table">桌台開關設定查詢</span>
+
+    ```
+    GET /casino-api/company-table?
+        key=<key>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | SettingId | 設定編號| int |
+    | CompanyName | 代理名稱| string |
+    | CompanyId | 代理編號| int |
+    | TableId | 桌台編號| string |
+    | Enable | 開關| int |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "SettingId":"1",
+            "CompanyName":"測試",
+            "CompanyId":"1",
+            "TableId":"A",
+            "Enable":"1",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    
+13. #### <span id="put-company-table">修改桌台開關設定</span>
+
+    ```
+    PUT /casino-api/company-table?
+        key=<key>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    tableId   | 桌台編號 |  string  | 必填 |
+    |    enable   | 開關 |  int  | 1:開 0:關 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(tableId + enable + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | CompanyId | 代理編號| int |
+    | TableId | 桌台編號| string |
+    | Enable | 開關| int |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "CompanyId":"1",
+            "TableId":"A",
+            "Enable":"1",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":61,
+            "message":"game server update failed"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 0 | db failed|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 61 | game server update failed |    
+    
+13. #### <span id="get-block-ip-location">阻擋地區查詢</span>
+
+    ```
+    GET /casino-api/block-ip-location?
+        key=<key>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | blockId | 設定編號| int |
+    | companyName | 代理名稱| string |
+    | countryCode | 國家編號| string |
+    | countryName | 國家名稱| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "blockId":"1",
+            "companyName":"測試",
+            "countryCode":"US",
+            "countryName":"美國",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    
+13. #### <span id="put-block-ip-location">設定阻擋地區</span>
+
+    ```
+    POST /casino-api/block-ip-location?
+        key=<key>&
+        countryCode=<countryCode>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(countryCode + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | companyId | 代理編號| int |
+    | countryCode | 國家編號| string |
+    | countryName | 國家名稱| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "companyId":"1",
+            "countryCode":"US",
+            "countryName":"美國",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":64,
+            "message":"this country code is invalid"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 0 | db failed |
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   | 
+    | 64 | this country code is invalid |  
+    
+13. #### <span id="delete-block-ip-location">刪除阻擋地區</span>
+
+    ```
+    DELETE /casino-api/block-ip-location?
+        key=<key>&
+        countryCode=<countryCode>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(countryCode + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | companyId | 代理編號| int |
+    | countryCode | 國家編號| string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "companyId":"1",
+            "countryCode":"US",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":65,
+            "message":"please checkout countryCode is exist or not"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 0 | db failed |
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   | 
+    | 65 | please checkout countryCode is exist or not |      
+    
+13. #### <span id="get-company-quota">代理額度查詢</span>
+
+    ```
+    GET /casino-api/company-quota?
+        key=<key>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | companyQuota | 代理額度| int |
+    | playerTotalCredit | 玩家總餘額| int |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "companyQuota":"10000",
+            "playerTotalCredit":"500",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 0 | db failed |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    
+13. #### <span id="put-company-quota">修改代理額度</span>
+
+    ```
+    PUT /casino-api/company-quota?
+        key=<key>&
+        quota=<quota>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |    quota   | 額度 |  int  | 必填 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(quota + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | companyId | 代理編號| int |
+    | companyName | 代理名稱| string |
+    | quota | 額度| int |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "companyId":"1",
+            "companyName":"測試",
+            "quota":"1000000",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid"
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 0 | db failed |
+    | 1  | {parameter} is required   |
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 11 | {parameter} is invalid   |     
+----
 
 ## API FOR WEB
 
@@ -3325,10 +3992,18 @@
 	|name	|description |
 	|----|----|
 	|cashType |1 = 信用, 2 = 現金|
+	| Lang | 選填[支援語系](#支援語系) |
+	| GameType | 百家: Baccarat |
 	
+	### <span id="GameType">GameType</span>
+    | 代碼  | 說明                  | 
+    |---------- |-------------------------  |
+    | Baccarat     | 百家   | 
+    | DragonTiger     | 龍虎   | 
+    
 	### 例: 
 	````
-	http://casino-api-stage.greatvirtue.com.tw/game/rule?cashType=1
+	http://casino-api-stage.greatvirtue.com.tw/game/rule?cashType=1&Lang=zh_TW&GameType=Baccarat
 	````
 
 3. #### <span id="jackpot">jackpot網頁</span>
@@ -3914,4 +4589,5 @@
 | 2019/05/06 | 1.0.14  | Kevin | 1.修改API [查詢玩家下注區間總額](#查詢玩家下注區間總額)，統計會包含已取消之牌局、查詢條件從"牌局修改時間"(BaccaratHistory.ModifiedTime)改為"注單成立時間"(BetForm.betTime 當局最後一筆下注時間) 2.新增公告播放地點代碼，新增G,H桌 |
 | 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
 | 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [即時注單修改玩家佔成](#即時注單修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
+| 2021/01/04 | 1.1.0 | Darren | 1.新增API 41~49 2.調整語系/幣別/遊戲類型/錯誤代碼 說明 3.修改 game/rule
 

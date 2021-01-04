@@ -1061,6 +1061,7 @@
     |  transferId   | 平台方交易Id(只允許英數) |  string  |
     |  orderId   | 此筆交易單號 |  integer  |
     |  status   | 交易狀態 |  smallint  |
+    | currency | 幣別 | string |
 
     #### <span id="enable">交易狀態</span>
     | 代碼  | status                  | 
@@ -1082,7 +1083,8 @@
             "finalCredit":4701.6,
             "transferId":"AA1099",
             "orderId":28,
-            "status":0
+            "status":0,
+            "currency":"TWD"
         }
     }
     ```
@@ -1149,6 +1151,7 @@
     |  transferId   | 平台方交易Id |  string  |
     |  orderId   | 此筆交易單號 |  integer  |
     |  status   | 交易狀態 |  smallint  |
+    | currency | 幣別 | string |
 
     #### <span id="status">交易狀態</span>
     | 代碼  | status                  | 
@@ -1169,7 +1172,8 @@
             "finalCredit":4701.6,
             "transferId":"AA99",
             "orderId":28,
-            "status":0
+            "status":0,
+            "currency":"TWD"
         }
     }
     ```
@@ -1264,6 +1268,7 @@
     | modifiedStatus | [注單狀態](#注單狀態) | smallint |
     | updatedAt | 更新時間，`gameType` 為 `98` or `99`，此欄位為中獎時間 | string |
     | createdAt | 結帳時間，`gameType` 為 `98` or `99`，此欄位為中獎時間 | string |
+    | currency | 幣別 | string |
     
     ---
     
@@ -1333,7 +1338,8 @@
                 "billingDate":"2017-08-26",
                 "modifiedStatus":0,
                 "updatedAt":"2017-08-25 16:31:24",
-                "createdAt":"2017-08-25 16:31:24"}]
+                "createdAt":"2017-08-25 16:31:24",
+                "currency":"TWD"}]
         },
         {
 	        "betFormId": 1578,
@@ -1358,7 +1364,8 @@
 	        "billingDate": "2017-12-12",
 	        "modifiedStatus": 0,
 	        "updatedAt": "2017-12-11 16:41:00",
-	        "createdAt": "2017-12-11 16:41:00"
+	        "createdAt": "2017-12-11 16:41:00",
+            "currency":"TWD"
 	      },
 	      {
 	        "betFormId": 1584,
@@ -1383,7 +1390,8 @@
 	        "billingDate": "2017-12-12",
 	        "modifiedStatus": 0,
 	        "updatedAt": "2017-12-11 16:44:58",
-	        "createdAt": "2017-12-11 16:44:58"
+	        "createdAt": "2017-12-11 16:44:58",
+            "currency":"TWD"
 	      }
     }  
               

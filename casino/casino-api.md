@@ -90,7 +90,7 @@
 | 百家樂         | 1   | 
 | 骰寶 | 2 |
 | 輪盤 | 3 |
-| 龍虎 | 4 |
+| 龍虎 | 5 |
 | Jackpot Bonus         | 98   |
 | Jackpot BigWin         | 99   |
 

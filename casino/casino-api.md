@@ -3852,6 +3852,7 @@
     ```
     GET /casino-api/company-quota?
         key=<key>&
+        currency=<currency>&
         hash=<hash>
     ```
 
@@ -3859,6 +3860,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
+    | currency | 幣別 |   string  | 選填
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(secret)`**
@@ -3867,10 +3869,24 @@
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
-    | companyQuota | 代理額度| int |
-    | playerTotalCredit | 玩家總餘額| int |
+    | companyQuota | 代理額度| array |
+    | playerTotalCredit | 玩家總餘額| array |
+    
+    #### <span id="companyQuota">companyQuota 說明</span>
+        
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    |  currency| 幣別 | string |
+    |  quota| 額度 | int  |
+        
+    #### <span id="playerTotalCredit">playerTotalCredit 說明</span>
+            
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    |  currency| 幣別 | string |
+    |  totalCredit| 總使用額度 | int  |    
     ---
-
+    
     #### Response 結果
     成功
 
@@ -3878,8 +3894,19 @@
     {
         "status":"success",
         "data":[{
-            "companyQuota":"10000",
-            "playerTotalCredit":"500",
+            "companyQuota":[{"currency":1,"quota":"200.0000"},
+                            {"currency":2,"quota":"100.0000"},
+                            {"currency":3,"quota":"300.0000"},
+                            {"currency":6,"quota":"700.0000"},
+                            {"currency":7,"quota":"200.0000"},
+                            {"currency":8,"quota":"500.0000"},
+                            {"currency":11,"quota":"100.0000"}],
+    
+            "playerTotalCredit":[{"currency":1,"totalCredit":"2156556676.4800"},
+                                {"currency":2,"totalCredit":"137862338.7500"},
+                                {"currency":3,"totalCredit":"422681.5250"},
+                                {"currency":4,"totalCredit":"0.0000"},
+                                {"currency":5,"totalCredit":"0.0000"}]
         }]
     }
     ```
@@ -3911,6 +3938,7 @@
     PUT /casino-api/company-quota?
         key=<key>&
         quota=<quota>&
+        currency=<currency>&
         hash=<hash>
     ```
 
@@ -3919,9 +3947,10 @@
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |    quota   | 額度 |  int  | 必填 |
+    |   currency | 幣別 | string | 必填 |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(quota + secret)`**
+    #### **`hash = md5(quota + currency + secret)`**
 
     ---
     #### Response 參數說明
@@ -3929,7 +3958,8 @@
     |:--------:|:--------:|:--------:|
     | companyId | 代理編號| int |
     | companyName | 代理名稱| string |
-    | quota | 額度| int |
+    | companyQuota | 額度| int |
+    | currency | 幣別 | string |
     ---
 
     #### Response 結果
@@ -3941,7 +3971,8 @@
         "data":[{
             "companyId":"1",
             "companyName":"測試",
-            "quota":"1000000",
+            "companyQuota":"1000000",
+            "currency": "TWD"
         }]
     }
     ```

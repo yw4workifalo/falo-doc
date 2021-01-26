@@ -3894,19 +3894,13 @@
     {
         "status":"success",
         "data":[{
-            "companyQuota":[{"currency":1,"quota":"200.0000"},
-                            {"currency":2,"quota":"100.0000"},
-                            {"currency":3,"quota":"300.0000"},
-                            {"currency":6,"quota":"700.0000"},
-                            {"currency":7,"quota":"200.0000"},
-                            {"currency":8,"quota":"500.0000"},
-                            {"currency":11,"quota":"100.0000"}],
+            "companyQuota":[{"currency":"TWD","quota":"200.0000"},
+                            {"currency":"CNY","quota":"100.0000"},
+                            {"currency":"USD","quota":"300.0000"},],
     
-            "playerTotalCredit":[{"currency":1,"totalCredit":"2156556676.4800"},
-                                {"currency":2,"totalCredit":"137862338.7500"},
-                                {"currency":3,"totalCredit":"422681.5250"},
-                                {"currency":4,"totalCredit":"0.0000"},
-                                {"currency":5,"totalCredit":"0.0000"}]
+            "playerTotalCredit":[{"currency":"TWD","totalCredit":"2156556676.4800"},
+                                {"currency":"CNY","totalCredit":"137862338.7500"},
+                                {"currency":"USD","totalCredit":"422681.5250"},]
         }]
     }
     ```

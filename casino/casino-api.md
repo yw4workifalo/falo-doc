@@ -1,6 +1,6 @@
 # Casino API Document
   
-## CASINO API數量：**49**
+## CASINO API數量：**51**
 -------
 1. [註冊帳號](#註冊帳號)(*1)
 2. [取得玩家登入網址](#取得玩家登入網址)(*2)
@@ -51,6 +51,8 @@
 47. [刪除阻擋地區](#刪除阻擋地區)
 48. [代理額度查詢](#代理額度查詢)
 49. [修改代理額度](#修改代理額度)
+50. [取得單一錢包URL](#取得單一錢包URL)
+51. [設定單一錢包URL](#設定單一錢包URL)
 
 ## API For Web 數量：**8**
 -------
@@ -3993,6 +3995,137 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 11 | {parameter} is invalid   |     
+    
+13. #### <span id="get-seamless-apu-url">取得單一錢包URL</span>
+
+    ```
+    GET /casino-api/seamless-api-url?
+        key=<key>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5(secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | getBalance | 取得玩家額度URL| string |
+    | bet | 玩家下注URL | string |
+    | settle | 結算玩家注單URL | string |
+    | rollback | 取消玩家下注URL | string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "getBalance":"https://api.agent.com/user-balance",
+            "bet":"https://api.agent.com/bet",
+            "settle":"https://api.agent.com/settle",
+            "rollback":"https://api.agent.com/rollback",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+
+13. #### <span id="put-seamless-apu-url">設定單一錢包URL</span>
+
+    ```
+    PUT /casino-api/seamless-api-url?
+        key=<key>&
+        getBalance=<getBalance>&
+        bet=<bet>&
+        settle=<settle>&
+        rollback=<rollback>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    | getBalance | 取得玩家額度URL | string | 必填 |
+    | bet | 玩家下注URL | string | 必填 |
+    | settle | 結算玩家注單URL | string | 必填 |
+    | rollback | 取消玩家下注URL | string | 必填 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( getBalance + bet + settle + rollback + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | GetBalance | 取得玩家額度URL| string |
+    | Bet | 玩家下注URL | string |
+    | Settle | 結算玩家注單URL | string |
+    | Rollback | 取消玩家下注URL | string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "GetBalance":"https://api.agent.com/user-balance",
+            "Bet":"https://api.agent.com/bet",
+            "Settle":"https://api.agent.com/settle",
+            "Rollback":"https://api.agent.com/rollback",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+            
 ----
 
 ## API FOR WEB

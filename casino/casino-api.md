@@ -1,6 +1,6 @@
 # Casino API Document
   
-## CASINO API數量：**51**
+## CASINO API數量：**52**
 -------
 1. [註冊帳號](#註冊帳號)(*1)
 2. [取得玩家登入網址](#取得玩家登入網址)(*2)
@@ -53,6 +53,7 @@
 49. [修改代理額度](#修改代理額度)
 50. [取得單一錢包URL](#取得單一錢包URL)
 51. [設定單一錢包URL](#設定單一錢包URL)
+52. [修改代理單一錢包secret](#修改代理單一錢包secret)
 
 ## API For Web 數量：**8**
 -------
@@ -4126,6 +4127,63 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
             
+13. #### <span id="update-secret">修改代理單一錢包secret</span>
+
+    ```
+    PUT /casino-api/update-secret?
+        key=<key>&
+        secret=<secret>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    | secret | 代理私鑰 | string | 必填 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( secret + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | Secret | 代理私鑰 | string |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":[{
+            "Secret":"secret",
+        }]
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+                
 ----
 
 ## API FOR WEB
@@ -4756,4 +4814,5 @@
 | 2019/08/27 | 1.0.25  | Kevin | 1. 新增API 9. [單桌未結算注單](#單桌未結算注單) 2. 新增API 10. [單桌注單](#單桌注單) |
 | 2019/12/02 | 1.0.26  | Kevin | 1. 新增API 11. [即時注單修改玩家佔成](#即時注單修改玩家佔成) 2. 新增API 12. [取得所有玩家](#取得所有玩家) 3. 新增API 13. [Monitor使用者登入取得Token](#Monitor使用者登入取得Token) |
 | 2021/01/04 | 1.1.0 | Darren | 1.新增API 41~49 2.調整語系/幣別/遊戲類型/錯誤代碼 說明 3.修改 game/rule
+| 2021/02/04 | 1.1.1 | Darren | 1.新增API 50~52 2.修改 代理額度(48,49)
 

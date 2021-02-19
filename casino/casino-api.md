@@ -3620,7 +3620,7 @@
     | gameType | 遊戲類型 | string | 遊戲類型 | 
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(tableId + enable + secret)`**
+    #### **`hash = md5(tableId + enable + gameType + secret)`**
 
     #### gameType 參數說明
     | 參數值 | 參數說明 |

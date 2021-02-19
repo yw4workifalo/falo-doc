@@ -3559,6 +3559,7 @@
     | CompanyName | 代理名稱| string |
     | CompanyId | 代理編號| int |
     | TableId | 桌台編號| string |
+    | GameTypes | 遊戲類型 | string |
     | Enable | 開關| int |
     ---
 
@@ -3573,6 +3574,7 @@
             "CompanyName":"測試",
             "CompanyId":"1",
             "TableId":"A",
+            "GameTypes":"Baccarat",
             "Enable":"1",
         }]
     }
@@ -3603,6 +3605,9 @@
     ```
     PUT /casino-api/company-table?
         key=<key>&
+        tableId=<tableId>&
+        enable=<enable>&
+        gameType=<gameType>&
         hash=<hash>
     ```
 
@@ -3612,16 +3617,24 @@
     |    key   | 服務金鑰 |  string  | 由API端提供 |
     |    tableId   | 桌台編號 |  string  | 必填 |
     |    enable   | 開關 |  int  | 1:開 0:關 |
+    | gameType | 遊戲類型 | string | 遊戲類型 | 
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(tableId + enable + secret)`**
 
+    #### gameType 參數說明
+    | 參數值 | 參數說明 |
+    |:--------:|:--------:|
+    | Baccarat | 百家樂| 
+    | DragonTiger | 龍虎|
+    
     ---
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     | CompanyId | 代理編號| int |
     | TableId | 桌台編號| string |
+    | GameTypes | 遊戲類型 | string |
     | Enable | 開關| int |
     ---
 
@@ -3634,6 +3647,7 @@
         "data":[{
             "CompanyId":"1",
             "TableId":"A",
+            "GameTypes":"Baccarat",
             "Enable":"1",
         }]
     }

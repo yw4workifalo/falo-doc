@@ -3605,9 +3605,7 @@
     ```
     PUT /casino-api/company-table?
         key=<key>&
-        tableId=<tableId>&
-        enable=<enable>&
-        gameType=<gameType>&
+        param=<param>
         hash=<hash>
     ```
 
@@ -3615,27 +3613,35 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |    tableId   | 桌台編號 |  string  | 必填 |
-    |    enable   | 開關 |  int  | 1:開 0:關 |
-    | gameType | 遊戲類型 | string | 遊戲類型 | 
+    | param | 桌台開關資料 | string | json string | 
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(tableId + enable + gameType + secret)`**
+    #### **`hash = md5(param + secret)`**
 
-    #### gameType 參數說明
-    | 參數值 | 參數說明 |
-    |:--------:|:--------:|
-    | Baccarat | 百家樂| 
-    | DragonTiger | 龍虎|
+    #### param 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    gameType   | 遊戲類型 |  string  | ex:Baccarat |
+    | tableId | 桌台編號 | string | ex:A | 
+    |   enable   | 開關 |  int  |     0:關, 1:開    |
+    ```
+    [{
+        "gameType": "Baccarat",
+        "tableId": "A",
+        "endable": 1
+    },
+    {
+        "gameType": "DragonTiger",
+        "tableId": "B",
+        "endable": 0
+    }]
+    ```
     
     ---
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     | CompanyId | 代理編號| int |
-    | TableId | 桌台編號| string |
-    | GameTypes | 遊戲類型 | string |
-    | Enable | 開關| int |
     ---
 
     #### Response 結果
@@ -3646,9 +3652,6 @@
         "status":"success",
         "data":[{
             "CompanyId":"1",
-            "TableId":"A",
-            "GameTypes":"Baccarat",
-            "Enable":"1",
         }]
     }
     ```

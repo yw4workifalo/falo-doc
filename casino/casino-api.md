@@ -4046,12 +4046,12 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "getBalance":"https://api.agent.com/user-balance",
             "bet":"https://api.agent.com/bet",
             "settle":"https://api.agent.com/settle",
             "rollback":"https://api.agent.com/rollback",
-        }]
+        }
     }
     ```
 
@@ -4115,12 +4115,12 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "GetBalance":"https://api.agent.com/user-balance",
             "Bet":"https://api.agent.com/bet",
             "Settle":"https://api.agent.com/settle",
             "Rollback":"https://api.agent.com/rollback",
-        }]
+        }
     }
     ```
 
@@ -4143,6 +4143,7 @@
     | 3  | hash is invalid           |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    | 68 | update seamless api url failed |
             
 13. #### <span id="update-secret">修改代理單一錢包secret</span>
 

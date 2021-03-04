@@ -4143,7 +4143,7 @@
     | 3  | hash is invalid           |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
-    | 68 | update seamless api url failed |
+    | 68 | update failed |
             
 13. #### <span id="update-secret">修改代理單一錢包secret</span>
 
@@ -4176,9 +4176,9 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "Secret":"secret",
-        }]
+        }
     }
     ```
 
@@ -4201,6 +4201,7 @@
     | 3  | hash is invalid           |
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
+    | 68 | update failed |
                 
 ----
 

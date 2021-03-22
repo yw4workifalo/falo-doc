@@ -3753,7 +3753,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) (逗號隔開) |
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(countryCode + secret)`**
@@ -3773,11 +3773,10 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "companyId":"1",
-            "countryCode":"US",
-            "countryName":"美國",
-        }]
+            "countryCode":"US,CN"
+        }
     }
     ```
 
@@ -3961,20 +3960,32 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |    quota   | 額度 |  int  | 必填 |
-    |   currency | 幣別 | string | 必填 |
+    |    param   | 額度資料 |  string  | json string |
     |   hash   | 驗證參數 |  string  |     必填    |
 
-    #### **`hash = md5(quota + currency + secret)`**
+    #### **`hash = md5(param + secret)`**
 
+    #### param 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    quota   | 額度 |  int  | 必填 |
+    | currency | 幣別 | string | 必填 | 
+    ```
+    [{
+        "quota": "1000",
+        "currency": "TWD"
+    },
+    {
+        "quota": "1000",
+        "currency": "CNY"
+    }]
+    ```
     ---
     #### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |
     |:--------:|:--------:|:--------:|
     | companyId | 代理編號| int |
     | companyName | 代理名稱| string |
-    | companyQuota | 額度| int |
-    | currency | 幣別 | string |
     ---
 
     #### Response 結果
@@ -3983,12 +3994,10 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "companyId":"1",
-            "companyName":"測試",
-            "companyQuota":"1000000",
-            "currency": "TWD"
-        }]
+            "companyName":"測試"
+        }
     }
     ```
 

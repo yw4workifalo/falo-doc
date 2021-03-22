@@ -3764,7 +3764,6 @@
     |:--------:|:--------:|:--------:|
     | companyId | 代理編號| int |
     | countryCode | 國家編號| string |
-    | countryName | 國家名稱| string |
     ---
 
     #### Response 結果
@@ -3951,8 +3950,7 @@
     ```
     PUT /casino-api/company-quota?
         key=<key>&
-        quota=<quota>&
-        currency=<currency>&
+        param=<param>&
         hash=<hash>
     ```
 

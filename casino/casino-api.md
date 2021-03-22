@@ -3835,10 +3835,10 @@
     ```javascript
     {
         "status":"success",
-        "data":[{
+        "data":{
             "companyId":"1",
             "countryCode":"US,CN",
-        }]
+        }
     }
     ```
 

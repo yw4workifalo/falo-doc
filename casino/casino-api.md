@@ -3816,7 +3816,7 @@
     | 參數名稱 | 參數說明 | 參數型態 |     說明    |
     |:--------:|:--------:|:--------:|:-----------:|
     |    key   | 服務金鑰 |  string  | 由API端提供 |
-    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+    |    countryCode   | 國家代號 |  string  | (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) (逗號隔開)|
     |   hash   | 驗證參數 |  string  |     必填    |
 
     #### **`hash = md5(countryCode + secret)`**
@@ -3837,7 +3837,7 @@
         "status":"success",
         "data":[{
             "companyId":"1",
-            "countryCode":"US",
+            "countryCode":"US,CN",
         }]
     }
     ```

@@ -3629,12 +3629,12 @@
     [{
         "gameType": "Baccarat",
         "tableId": "A",
-        "endable": 1
+        "enable": 1
     },
     {
         "gameType": "DragonTiger",
         "tableId": "B",
-        "endable": 0
+        "enable": 0
     }]
     ```
     

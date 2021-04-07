@@ -1254,8 +1254,8 @@
     |gameMethod|[遊戲玩法](#遊戲玩法)，`gameType` 為 `98` or `99`，此欄位 0|smallint |
     |tableType|[桌台類型](#桌台類型)，`gameType` 為 `98` or `99`，此欄位 0| smallint |
     | tableId | 遊戲局桌檯Id，`gameType` 為 `98` or `99`，此欄位為空白 | string |
-    | round | 局號，`gameType` 為 `98` or `99`，此欄位 0 | integer |
-    | run | 輪號，`gameType` 為 `98` or `99`，此欄位 0| smallint |
+    | round | 輪號，`gameType` 為 `98` or `99`，此欄位 0 | integer |
+    | run | 局號，`gameType` 為 `98` or `99`，此欄位 0| smallint |
     | gameResult |[開牌結果](#百家樂遊戲開牌代碼說明)，順序：[閒1,莊1,閒2,莊2,閒補,莊補]，若空的表示 無補牌，若 `gameType` 為 `98` or `99` 分別顯示對應的 Jackpot 獎項名稱 | string |
     | playerId | 遊戲方玩家Id | integer |
     | account | 玩家帳號 | string |

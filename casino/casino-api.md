@@ -1,6 +1,6 @@
 # Casino API Document
   
-## CASINO API數量：**52**
+## CASINO API數量：**53**
 -------
 1. [註冊帳號](#註冊帳號)(*1)
 2. [取得玩家登入網址](#取得玩家登入網址)(*2)
@@ -54,6 +54,7 @@
 50. [取得單一錢包URL](#取得單一錢包URL)
 51. [設定單一錢包URL](#設定單一錢包URL)
 52. [修改代理單一錢包secret](#修改代理單一錢包secret)
+53. [修改平台狀態](#修改平台狀態)
 
 ## API For Web 數量：**8**
 -------
@@ -4210,6 +4211,73 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 68 | update failed |
+
+13. #### <span id="company/status">修改平台狀態</span>
+
+    ```
+    PUT /casino-api/company/status?
+        key=<key>&
+        companyKey=<companyKey>&
+        status=<status>&
+        hash=<hash>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    | companyKey | 代理金鑰 | string | 要修改的代理金鑰（用逗號隔開） |
+    | status | 啟用狀態 | boolean | 1:啟用 0:停用 |
+    |   hash   | 驗證參數 |  string  |     必填    |
+
+    #### **`hash = md5( companyKey + status + secret)`**
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    | companyId | 代理編號 | int |
+    | companyIds | 修改的代理編號 | array |
+    | status | 啟用狀態 | boolean |
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "companyId": 1,
+            "companyIds": [
+                2,
+                3
+            ],
+            "status": "1"
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 10 | service not available |
                 
 ----
 

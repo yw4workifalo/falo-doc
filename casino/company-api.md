@@ -166,7 +166,7 @@
 3. ## <span id="company/status">修改平台狀態</span>
 
     ```
-    POST /company-api/company/status
+    PUT /company-api/company/status
     ```
     
     ### Header 參數說明

@@ -189,7 +189,6 @@
     ### Response 參數說明
     | 參數名稱 | 參數說明 | 參數型態 |     
     |:--------:|:--------:|:--------:|
-    | companyId | 代理編號 | int |
     | companyIds | 修改的代理編號 | array |
     | status | 啟用狀態 | boolean | 
 
@@ -202,7 +201,6 @@
     {
         "status":"success",
         "data":{
-            "companyId": 1,
             "companyIds": [
                 2,
                 3

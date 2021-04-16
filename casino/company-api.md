@@ -1,9 +1,10 @@
 # Company API Document
   
-## CAMPANY API數量：**2**
+## CAMPANY API數量：**3**
 -------
-1. [取得代理](#取得代理)(*1)
-2. [新增代理](#新增代理)(*2)
+1. [取得代理](#取得代理)
+2. [新增代理](#新增代理)
+3. [修改平台狀態](#修改平台狀態)
 
 ## *API 使用*
 -------
@@ -162,8 +163,82 @@
     | 5  | {method} is not allowed   |
     | 61 | game server update failed |
    
+3. ## <span id="company/status">修改平台狀態</span>
+
+    ```
+    POST /company-api/company/status
+    ```
+    
+    ### Header 參數說明
+    
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    API-KEY   | 服務金鑰 |  string  | 由API端提供並 |
+    |  API-HASH | 驗證參數 |  string  |     必填    |
+    
+    ### Request Body 參數說明
+        
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    | companyKey | 代理金鑰 | string | 要修改的代理金鑰（用逗號隔開） |
+    | status | 啟用狀態 | boolean | 1:啟用 0:停用 |
+    
+    #### **`hash = md5(json_encode(RequestBody) + secret + floor(time() / (24 * 60 * 60))`**
+        
+    ---
+    ### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    | companyId | 代理編號 | int |
+    | companyIds | 修改的代理編號 | array |
+    | status | 啟用狀態 | boolean | 
+
+    ---
+
+    ### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "companyId": 1,
+            "companyIds": [
+                2,
+                3
+            ],
+            "status": "1"
+        }
+    }
+    ```
+
+    失敗
+
+   ```javascript
+   {
+       "status":"error",
+       "error":{
+           "code":3,
+           "message":"hash is invalid"
+       }
+   }
+   ```
+   
+   ---
+   
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |     
+    |:--------:|:--------:|
+    | 1  | {parameter} is required   |    
+    | 2  | key is invalid            |
+    | 3  | hash is invalid           |
+    | 5  | {method} is not allowed   |
+    |  7  | internal server error |
+    | 10 | service not available |
+       
 ## 歷程紀錄
 
 | 日期     | 版本       | 人員               | 備註   |
 | ------- | ---------- | ----------------- | ----- |
-| 2021/02/04 | 1.0.0  | Darren | 初版                    | 
+| 2021/02/04 | 1.0.0  | Darren | 初版 |
+| 2021/04/16 | 1.1.0 | Darren | 新增修改平台狀態 |

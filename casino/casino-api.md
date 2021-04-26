@@ -1,6 +1,6 @@
 # Casino API Document
   
-## CASINO API數量：**52**
+## CASINO API數量：**53**
 -------
 1. [註冊帳號](#註冊帳號)(*1)
 2. [取得玩家登入網址](#取得玩家登入網址)(*2)
@@ -54,6 +54,7 @@
 50. [取得單一錢包URL](#取得單一錢包URL)
 51. [設定單一錢包URL](#設定單一錢包URL)
 52. [修改代理單一錢包secret](#修改代理單一錢包secret)
+53. [查詢玩家列表](#查詢玩家列表)
 
 ## API For Web 數量：**8**
 -------
@@ -4210,7 +4211,90 @@
     | 5  | {method} is not allowed   |
     |  7  | internal server error |
     | 68 | update failed |
-                
+
+13. #### <span id="player/info-list">查詢玩家列表</span>
+
+    ```
+    GET /casino-api/player/info-list?
+        key=<key>&
+        accounts=<accounts>&
+        perPage=<perPage>
+    ```
+
+    #### Request 參數說明  
+    | 參數名稱 | 參數說明 | 參數型態 |     說明    |
+    |:--------:|:--------:|:--------:|:-----------:|
+    |    key   | 服務金鑰 |  string  | 由API端提供 |
+    | accounts | 帳號 | array | 選填 |
+    |   perPage   | 單頁大小 |  int  |     預設 1000  |
+
+    ---
+    #### Response 參數說明
+    | 參數名稱 | 參數說明 | 參數型態 |
+    |:--------:|:--------:|:--------:|
+    |  total | 總筆數 |  integer  | 
+    |  perPage| 各分頁含有筆數 |integer  |
+    |  currentPage| 目前所在頁數 |integer  |
+    |  lastPage|下一頁頁數 |integer  |
+    |  previousPageUrl|上一頁 (null 表示為第一頁)  | string or null |
+    |  nextPageUrl|下一頁 (null 表示無下一頁) | string or null  |
+    |  infoList| 玩家資料 | array |
+    
+    #### <span id="infoList">infoList 說明</span>
+    
+    | 參數名稱 | 參數說明 | 參數型態 |     
+    |:--------:|:--------:|:--------:|
+    |  Account| 帳號 | string |
+    |  Balance| 餘額 | integer |
+    |  Status| 狀態 | integer 0=正常, 1=鎖單, 2=停用 |
+       
+    ---
+
+    #### Response 結果
+    成功
+
+    ```javascript
+    {
+        "status":"success",
+        "data":{
+            "total":"15",
+            "perPage":15,
+            "currentPage":1,
+            "lastPage":30413,
+            "previousPageUrl":null,
+            "nextPageUrl":"http://localhost/casino-api/player/info-list?page=2",
+            "infoList":[{
+                    "Account":"kWLetD9vRXVisitor2",
+                    "Balance":200000,
+                    "Status":2
+                },
+                {
+                    "Account":"vEIX9JKkmMVisitor3",
+                    "Balance":100000,
+                    "Status":2
+                }]
+        }
+    }
+    ```
+
+    失敗
+
+    ```javascript
+    {
+        "status":"error",
+        "error":{
+            "code":2,
+            "message":"key is invalid "
+        }
+    }
+    ```
+
+    #### 會出現的錯誤項目
+    | 錯誤代碼 | 錯誤說明 |
+    |:--------:|:--------:|
+    | 2  | key is invalid            |
+    | 5  | {method} is not allowed   |
+                 
 ----
 
 ## API FOR WEB

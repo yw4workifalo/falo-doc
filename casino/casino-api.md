@@ -127,6 +127,7 @@
 | AUD       | 澳元   |
 | JPY       | 日圓   |
 | INR       | 印度盧比   |
+| HKD       | 港幣   |
 
 ### <span id="language">支援語系</span>
 | 代碼  | 說明                  | 

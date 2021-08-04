@@ -95,6 +95,7 @@
 | 骰寶 | 2 |
 | 輪盤 | 3 |
 | 龍虎 | 5 |
+| 色碟 | 6 |
 | Jackpot Bonus         | 98   |
 | Jackpot BigWin         | 99   |
 
@@ -128,6 +129,7 @@
 | JPY       | 日圓   |
 | INR       | 印度盧比   |
 | HKD       | 港幣   |
+| PHP       | 披索  |
 
 ### <span id="language">支援語系</span>
 | 代碼  | 說明                  | 
@@ -159,6 +161,7 @@
 | 輪盤         | 3   |
 | 多桌         | 4   |
 | 龍虎         | 5   |
+| 色碟         | 6   |
 
 
 ### <span id="TableType">退水遊戲類別</span>
@@ -170,6 +173,7 @@
 | 輪盤         | 3   |
 | 多桌         | 4   |
 | 龍虎         | 5   |
+| 色碟         | 6   |
 
 ### <span id="resetGroup">重設群組類型</span>
 | 類型  | groupId                 |
